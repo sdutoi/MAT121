@@ -1,0 +1,178 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{Exercise sheet 3}
+
+\section*{2}
+\begin{solution}
+To prove that $a$ is the supremum of the set $S = \{a^{(n)} : n \in \mathbb{N}\}$, we must show two conditions are met:
+\begin{enumerate}
+    \item $a$ is an upper bound for $S$.
+    \item $a$ is the least upper bound for $S$.
+\end{enumerate}
+\end{solution}
+
+\begin{proof}
+\
+\paragraph{1. Show that $a$ is an upper bound.}
+An upper bound is a value greater than or equal to every element in the set. We need to show that $a^{(n)} \le a$ for all $n \in \mathbb{N}$.
+
+The value of the number $a$ can be written as the sum of an infinite series:
+\[ a = a_0 + \sum_{i=1}^{\infty} \frac{a_i}{10^i} \]
+The value of the $n$-th term of the sequence, $a^{(n)}$, is a finite sum:
+\[ a^{(n)} = a_0 + \sum_{i=1}^{n} \frac{a_i}{10^i} \]
+Let's consider the difference between $a$ and $a^{(n)}$:
+\[ a - a^{(n)} = \left(a_0 + \sum_{i=1}^{\infty} \frac{a_i}{10^i}\right) - \left(a_0 + \sum_{i=1}^{n} \frac{a_i}{10^i}\right) = \sum_{i=n+1}^{\infty} \frac{a_i}{10^i} \]
+Since the digits $a_i$ are all non-negative ($0 \le a_i \le 9$), the sum $\sum_{i=n+1}^{\infty} \frac{a_i}{10^i}$ must be greater than or equal to zero.
+\[ a - a^{(n)} \ge 0 \implies a \ge a^{(n)} \]
+This holds for all $n \in \mathbb{N}$, so $a$ is an upper bound for the set $\{a^{(n)}\}$.
+
+\paragraph{2. Show that $a$ is the least upper bound.}
+We will use a proof by contradiction. Assume there exists another upper bound, $b$, such that $b < a$. Our goal is to show that this assumption leads to a contradiction by finding an element in the set, $a^{(N)}$, that is greater than $b$.
+
+If $b < a$, then the difference $a - b$ is a positive real number. Let $\varepsilon = a - b > 0$.
+
+We need to find an $N$ such that $a^{(N)} > b$. This is equivalent to showing $a^{(N)} > a - \varepsilon$.
+This inequality can be rewritten as $\varepsilon > a - a^{(N)}$.
+
+From part 1, we know that $a - a^{(n)} = \sum_{i=n+1}^{\infty} \frac{a_i}{10^i}$. We can find an upper bound for this difference:
+\[ a - a^{(n)} = \sum_{i=n+1}^{\infty} \frac{a_i}{10^i} \le \sum_{i=n+1}^{\infty} \frac{9}{10^i} \]
+This is a geometric series with first term $9/10^{n+1}$ and common ratio $1/10$. The sum is:
+\[ \sum_{i=n+1}^{\infty} \frac{9}{10^i} = \frac{9/10^{n+1}}{1 - 1/10} = \frac{9/10^{n+1}}{9/10} = \frac{1}{10^n} \]
+So, we have the inequality $a - a^{(n)} \le \frac{1}{10^n}$.
+
+Now, we want to find an $N$ such that $\varepsilon > a - a^{(N)}$. If we can find an $N$ such that $\varepsilon > \frac{1}{10^N}$, then we will have:
+\[ \varepsilon > \frac{1}{10^N} \ge a - a^{(N)} \]
+which proves our goal.
+
+By the Archimedean Property of the real numbers, for any $\varepsilon > 0$, we can always find a natural number $N$ large enough such that $10^N > 1/\varepsilon$, which is equivalent to $1/10^N < \varepsilon$.
+
+So, for our $\varepsilon = a - b$, there exists an $N$ such that $1/10^N < a - b$.
+This leads to the chain of inequalities:
+\[ a - a^{(N)} \le \frac{1}{10^N} < a - b \]
+From $a - a^{(N)} < a - b$, we can conclude that $-a^{(N)} < -b$, which means $a^{(N)} > b$.
+
+This contradicts our initial assumption that $b$ is an upper bound for the set $\{a^{(n)}\}$, because we have found an element $a^{(N)}$ in the set that is larger than $b$.
+Therefore, no number smaller than $a$ can be an upper bound.
+
+Since $a$ is an upper bound and is also the least upper bound, it is the supremum of the set.
+\end{proof}
+
+
+
+\section*{3}
+
+\subsection*{(a) Proof that the intersection is non-empty}
+
+\begin{proof}
+Let the sequence of nested intervals be $I_n = [a_n, b_n]$ for $n \in \mathbb{N}$. The condition $I_{n+1} \subset I_n$ means that $[a_{n+1}, b_{n+1}] \subset [a_n, b_n]$ for all $n$. This implies two properties for the sequences of endpoints:
+\begin{itemize}
+    \item The sequence of left endpoints, $\{a_n\}$, is non-decreasing: $a_1 \le a_2 \le \dots \le a_n \le \dots$
+    \item The sequence of right endpoints, $\{b_n\}$, is non-increasing: $b_1 \ge b_2 \ge \dots \ge b_n \ge \dots$
+\end{itemize}
+
+Let's consider the set of all left endpoints, $A = \{a_n : n \in \mathbb{N}\}$.
+The set $A$ is non-empty since the intervals are non-empty. The set $A$ is also bounded above. For any $a_n \in A$, we know that $a_n \le b_n$. Since the sequence $\{b_n\}$ is non-increasing, $b_n \le b_1$ for all $n$. Thus, $a_n \le b_1$ for all $n$, which means $b_1$ is an upper bound for $A$.
+
+By the Completeness Axiom (or Supremum Property) of the real numbers, any non-empty set that is bounded above has a least upper bound (supremum). Let $x = \sup A$.
+
+We will now show that $x$ lies in every interval $I_n$. To do this, we must show that $a_n \le x \le b_n$ for all $n \in \mathbb{N}$.
+
+\begin{enumerate}
+    \item \textbf{Show $a_n \le x$:} By the definition of a supremum, $x$ is an upper bound for the set $A$. Therefore, $a_n \le x$ for all $a_n \in A$. This part is satisfied.
+
+    \item \textbf{Show $x \le b_n$:} We will show that any given $b_n$ is an upper bound for the set $A$. Let's fix an arbitrary $n$. We must show that $a_m \le b_n$ for all $m \in \mathbb{N}$.
+    \begin{itemize}
+        \item \textit{Case 1: $m \le n$.} Since $\{a_k\}$ is non-decreasing, $a_m \le a_n$. We also know $a_n \le b_n$. Thus, $a_m \le b_n$.
+        \item \textit{Case 2: $m > n$.} Since the intervals are nested, $I_m \subset I_n$. This implies $a_n \le a_m \le b_m \le b_n$. Thus, $a_m \le b_n$.
+    \end{itemize}
+    In both cases, $a_m \le b_n$ for all $m$. This means that any $b_n$ is an upper bound for the set $A$. Since $x$ is the \emph{least} upper bound (supremum) of $A$, it must be less than or equal to any other upper bound. Therefore, $x \le b_n$.
+\end{enumerate}
+
+Since we have shown that $a_n \le x \le b_n$ for all $n$, it follows that $x \in [a_n, b_n] = I_n$ for all $n$. This means $x \in \bigcap_{n=1}^{\infty} I_n$, and the intersection is non-empty.
+\end{proof}
+
+\subsection*{(b) Proof that the intersection is a single point}
+
+\begin{proof}
+We are given the additional condition that for any $\varepsilon > 0$, there exists an $N$ such that the length of the interval $I_N$, $b_N - a_N$, is less than $\varepsilon$. This is equivalent to stating that $\lim_{n\to\infty}(b_n - a_n) = 0$.
+
+From part (a), we know there is at least one point $x$ in the intersection. We will now prove by contradiction that there cannot be more than one point.
+
+Assume there are two distinct points, $x_1$ and $x_2$, in the intersection $\bigcap_{n=1}^{\infty} I_n$. Without loss of generality, assume $x_1 < x_2$.
+
+Since both points are in every interval, it must be that for all $n \in \mathbb{N}$:
+\[ a_n \le x_1 < x_2 \le b_n \]
+From this, we can deduce that the distance between $x_1$ and $x_2$ is less than or equal to the length of any interval:
+\[ x_2 - x_1 \le b_n - a_n \quad \text{for all } n. \]
+Let $\varepsilon = x_2 - x_1$. Since $x_1 \neq x_2$, we have $\varepsilon > 0$.
+
+According to the given condition, for this value of $\varepsilon$, there must exist some interval $I_N$ such that its length is less than $\varepsilon$. That is, there exists an $N$ such that:
+\[ b_N - a_N < \varepsilon = x_2 - x_1 \]
+We now have two conflicting statements:
+\begin{enumerate}
+    \item $x_2 - x_1 \le b_N - a_N$ (from our assumption that both points are in $I_N$)
+    \item $b_N - a_N < x_2 - x_1$ (from the problem's given condition)
+\end{enumerate}
+This is a contradiction. Therefore, our initial assumption that there are two distinct points in the intersection must be false.
+
+Since the intersection contains at least one point (from part a) and at most one point, it must contain exactly one point.
+\end{proof}
+
+
+\section*{4}
+\subsection*{(a)}
+\begin{align*}
+& (x - y) \left( \sum_{i=0}^{n-1} x^{n-1-i}y^i \right) \\
+&= x \left( \sum_{i=0}^{n-1} x^{n-1-i}y^i \right) - y \left( \sum_{i=0}^{n-1} x^{n-1-i}y^i \right) \\
+&= x(x^{n-1} + x^{n-2}y + \dots + y^{n-1}) - y(x^{n-1} + x^{n-2}y + \dots + y^{n-1}) \\
+&= (x^n + x^{n-1}y + x^{n-2}y^2 + \dots + xy^{n-1}) - (x^{n-1}y + x^{n-2}y^2 + \dots + y^n) \\
+&= x^n + (x^{n-1}y - x^{n-1}y) + (x^{n-2}y^2 - x^{n-2}y^2) + \dots + (xy^{n-1} - xy^{n-1}) - y^n \\
+&= x^n - y^n \quad \blacksquare
+\end{align*}
+
+\subsection*{(b)}
+
+
+\end{document}
