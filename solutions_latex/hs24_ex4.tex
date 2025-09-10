@@ -1,0 +1,345 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 4}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\subsection*{(a)}
+\textbf{Proof that the set $\mathbb{Q}$ of rational numbers is countable.}
+
+First, we show that the set of positive rational numbers, $\mathbb{Q}^+$, is countable. Every positive rational number can be written as a fraction $p/q$, where $p, q \in \mathbb{N}$. We can arrange these fractions in an infinite grid:
+
+\[
+\begin{array}{c|ccccc}
+  & q=1 & q=2 & q=3 & q=4 & \dots \\
+\hline
+p=1 & 1/1 & 1/2 & 1/3 & 1/4 & \dots \\
+p=2 & 2/1 & 2/2 & 2/3 & 2/4 & \dots \\
+p=3 & 3/1 & 3/2 & 3/3 & 3/4 & \dots \\
+p=4 & 4/1 & 4/2 & 4/3 & 4/4 & \dots \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \ddots
+\end{array}
+\]
+
+We can now systematically list all elements of this grid by following the diagonals (Cantor's diagonal argument):
+\[
+\frac{1}{1}, \frac{1}{2}, \frac{2}{1}, \frac{1}{3}, \frac{2}{2}, \frac{3}{1}, \frac{1}{4}, \frac{2}{3}, \frac{3}{2}, \frac{4}{1}, \dots
+\]
+This list contains every positive rational number. To create a list without duplicates (e.g., $\frac{1}{1} = \frac{2}{2}$), we simply skip any fraction whose value is already in the list. Since we can create such an ordered, infinite list, $\mathbb{Q}^+$ is countable.
+
+The set of all rational numbers is $\mathbb{Q} = \mathbb{Q}^+ \cup \mathbb{Q}^- \cup \{0\}$.
+Since $\mathbb{Q}^+$ is countable, $\mathbb{Q}^-$ (the set of negative rational numbers) is also countable. The set $\{0\}$ is finite and thus countable.
+The union of a finite number of countable sets is itself countable. Therefore, $\mathbb{Q}$, as the union of three countable sets, is itself countable. \qed
+
+\subsection*{(b)}
+\textbf{Proof that A and A $\cup$ B have the same cardinality.}
+
+Two sets have the same cardinality if a bijection exists between them. Let $A$ be an infinite set and $B$ be a countable set.
+
+\textbf{Case 1: $A$ is countably infinite.}
+If $A$ is countable and $B$ is countable, then their union $A \cup B$ is also countable. Since $A$ is infinite, $A \cup B$ is also infinite. Any two countably infinite sets have the same cardinality ($\aleph_0$). Thus, $A$ and $A \cup B$ have the same cardinality.
+
+\textbf{Case 2: $A$ is uncountable.}
+Since $A$ is an infinite set, it contains a countably infinite subset. Let's call this subset $A'$. So, $A' \subset A$ and $|A'| = \aleph_0$.
+We can write $A$ as the disjoint union of $A'$ and the remainder $A \setminus A'$:
+\[ A = A' \cup (A \setminus A') \]
+Now we consider the set $A \cup B$:
+\[ A \cup B = (A' \cup (A \setminus A')) \cup B = (A' \cup B) \cup (A \setminus A') \]
+The part $(A \setminus A')$ is identical in both representations. The difference lies between $A'$ and $(A' \cup B)$.
+Since $A'$ is countably infinite and $B$ is countable, their union $(A' \cup B)$ is also a countably infinite set.
+Thus, $A'$ and $(A' \cup B)$ have the same cardinality, and a bijection $g: A' \to (A' \cup B)$ exists.
+
+We can now construct a bijection $f: A \to A \cup B$ as follows:
+\[
+f(x) =
+\begin{cases}
+g(x) & \text{if } x \in A' \\
+x & \text{if } x \in A \setminus A'
+\end{cases}
+\]
+This function $f$ is a bijection because it maps the part $A \setminus A'$ identically onto itself and maps the part $A'$ bijectively onto $A' \cup B$.
+Since a bijection exists between $A$ and $A \cup B$, the two sets have the same cardinality. \qed
+
+\subsection*{(c)}
+\textbf{Proof that a set of disjoint non-empty open intervals in $\mathbb{R}$ is countable.}
+
+Let $A$ be a set of non-empty, mutually disjoint open intervals in $\mathbb{R}$. For any two distinct intervals $I_1, I_2 \in A$, we have $I_1 \cap I_2 = \emptyset$.
+
+The core of the proof relies on the fact that the set of rational numbers, $\mathbb{Q}$, is dense in the set of real numbers, $\mathbb{R}$. This density property guarantees that for any non-empty open interval $(a, b)$, there exists at least one rational number $q$ such that $a < q < b$.
+
+For each interval $I \in A$, we can choose one rational number from within that interval. Let's define a function $f: A \to \mathbb{Q}$ that maps each interval $I$ to a chosen rational number $q_I \in I$.
+\[ f(I) = q_I, \quad \text{where } q_I \in I \]
+
+To prove that $A$ is countable, we will show that this function $f$ is injective (one-to-one). An injective function ensures that no two distinct elements in the domain map to the same element in the codomain.
+
+Let's take any two distinct intervals $I_1, I_2 \in A$, with $I_1 \neq I_2$.
+By the problem's definition, since the intervals are distinct, they are disjoint: $I_1 \cap I_2 = \emptyset$.
+
+Now, let's consider their images under $f$:
+\begin{itemize}
+    \item $f(I_1) = q_1$, where $q_1 \in I_1$.
+    \item $f(I_2) = q_2$, where $q_2 \in I_2$.
+\end{itemize}
+
+We must show that $q_1 \neq q_2$. Let's assume for the sake of contradiction that $f$ is not injective, meaning that for $I_1 \neq I_2$, we have $f(I_1) = f(I_2)$. This implies $q_1 = q_2$.
+
+If $q_1 = q_2$, then this single rational number must belong to both intervals. That is, $q_1 \in I_1$ and $q_1 \in I_2$. This would mean that $q_1$ is an element of their intersection, $q_1 \in I_1 \cap I_2$.
+This implies that the intersection $I_1 \cap I_2$ is not empty.
+
+However, this is a direct contradiction to the given condition that all intervals in $A$ are mutually disjoint. Therefore, our assumption that $f$ is not injective must be false.
+
+The function $f$ is injective. This establishes a one-to-one correspondence between the set of intervals $A$ and a subset of the rational numbers $\mathbb{Q}$. Since $\mathbb{Q}$ is a countable set (as stated in the hint and proven in part (a)), any subset of it is also countable.
+A set that can be put into a one-to-one correspondence with a countable set must itself be countable.
+
+Therefore, the set of intervals $A$ is countable. \qed
+
+
+\subsection*{(d)}
+\textbf{Proof that non-algebraic (transcendental) real numbers exist.}
+
+The proof strategy is to show that the set of all algebraic numbers is countable. Since the set of all real numbers $\mathbb{R}$ is uncountable, there must be real numbers that are not algebraic.
+
+\textbf{Step 1: The set of all polynomials with rational coefficients is countable.}
+A polynomial with rational coefficients is defined by its degree $n \in \mathbb{N}_0$ and its $n+1$ rational coefficients $(a_0, a_1, \dots, a_n)$.
+Let $P_n$ be the set of all polynomials of degree $n$. Each polynomial in $P_n$ corresponds to a unique tuple $(a_0, a_1, \dots, a_n) \in \mathbb{Q}^{n+1}$.
+We know from part (a) that $\mathbb{Q}$ is countable. The finite Cartesian product of countable sets is also countable, so $\mathbb{Q}^{n+1}$ is countable for any fixed $n$. This implies that each set $P_n$ is countable.
+
+The set of all polynomials with rational coefficients, let's call it $P$, is the union of all sets $P_n$ for every possible degree $n$:
+\[ P = \bigcup_{n=0}^{\infty} P_n = P_0 \cup P_1 \cup P_2 \cup \dots \]
+This is a countable union of countable sets. A fundamental theorem of set theory states that a countable union of countable sets is itself countable. Therefore, the set $P$ of all polynomials with rational coefficients is countable.
+
+\textbf{Step 2: The set of all algebraic numbers is countable.}
+Let $\mathbb{A}$ be the set of all algebraic numbers. By definition, a number is algebraic if it is a root of some polynomial in $P$.
+From the hint, we know that a polynomial of degree $n$ has at most $n$ roots. This means that for every polynomial $p \in P$, the set of its roots is finite.
+
+The set of all algebraic numbers $\mathbb{A}$ can be expressed as the union of the sets of roots for every polynomial in $P$:
+\[ \mathbb{A} = \bigcup_{p \in P} \{u \in \mathbb{R} \mid p(u) = 0\} \]
+Since the set of all polynomials $P$ is countable (as shown in Step 1), this is a countable union of finite sets. A countable union of finite sets is countable.
+Therefore, the set of all algebraic numbers $\mathbb{A}$ is countable.
+
+\textbf{Step 3: Conclusion.}
+We have established two key facts:
+\begin{enumerate}
+    \item The set of all algebraic numbers, $\mathbb{A}$, is countable.
+    \item The set of all real numbers, $\mathbb{R}$, is uncountable (given as a hint).
+\end{enumerate}
+If the set of real numbers were equal to the set of algebraic numbers ($\mathbb{R} = \mathbb{A}$), then $\mathbb{R}$ would have to be countable. This is a contradiction.
+Therefore, $\mathbb{A}$ must be a proper subset of $\mathbb{R}$, which means the set $\mathbb{R} \setminus \mathbb{A}$ is non-empty. The elements of this set are the real numbers that are not algebraic.
+
+Thus, non-algebraic (transcendental) real numbers exist. \qed
+
+
+\section*{2}
+
+\subsection*{(a)}
+
+To calculate $\frac{2+3i}{1-i}$, we multiply both numerator and denominator by the complex conjugate of the denominator.
+
+The complex conjugate of $(1-i)$ is $(1+i)$.
+
+\begin{align}
+\frac{2+3i}{1-i} &= \frac{2+3i}{1-i} \cdot \frac{1+i}{1+i}\\
+&= \frac{(2+3i)(1+i)}{(1-i)(1+i)}
+\end{align}
+
+Calculate the numerator:
+\begin{align}
+(2+3i)(1+i) &= 2 \cdot 1 + 2 \cdot i + 3i \cdot 1 + 3i \cdot i\\
+&= 2 + 2i + 3i + 3i^2\\
+&= 2 + 5i + 3(-1)\\
+&= 2 + 5i - 3\\
+&= -1 + 5i
+\end{align}
+
+Calculate the denominator:
+\begin{align}
+(1-i)(1+i) &= 1^2 - (i)^2\\
+&= 1 - i^2\\
+&= 1 - (-1)\\
+&= 2
+\end{align}
+
+Therefore:
+$$\frac{2+3i}{1-i} = \frac{-1 + 5i}{2} = -\frac{1}{2} + \frac{5}{2}i$$
+
+
+%%%%%%%
+
+
+\subsection*{(b)}
+
+We need to calculate $\sum_{k=0}^{n-1} \cos(k\varphi)$.
+
+Following the hint, we consider $(\cos(\varphi) + i \sin(\varphi))^k$.
+
+By Euler's formula, we know that $e^{i\varphi} = \cos(\varphi) + i\sin(\varphi)$, so:
+$$(\cos(\varphi) + i \sin(\varphi))^k = e^{ik\varphi} = \cos(k\varphi) + i\sin(k\varphi)$$
+
+Therefore:
+$$\sum_{k=0}^{n-1} \cos(k\varphi) = \text{Re}\left(\sum_{k=0}^{n-1} e^{ik\varphi}\right)$$
+
+The sum $\sum_{k=0}^{n-1} e^{ik\varphi}$ is a geometric series with first term $a = 1$ and common ratio $r = e^{i\varphi}$.
+
+For $e^{i\varphi} \neq 1$ (i.e., $\varphi \neq 2\pi m$ for integer $m$), the geometric series formula gives:
+$$\sum_{k=0}^{n-1} e^{ik\varphi} = \frac{1 - e^{in\varphi}}{1 - e^{i\varphi}}$$
+
+Therefore:
+$$\sum_{k=0}^{n-1} \cos(k\varphi) = \text{Re}\left(\frac{1 - e^{in\varphi}}{1 - e^{i\varphi}}\right)$$
+
+Expanding using Euler's formula:
+$$= \text{Re}\left(\frac{1 - (\cos(n\varphi) + i\sin(n\varphi))}{1 - (\cos(\varphi) + i\sin(\varphi))}\right)$$
+
+$$= \text{Re}\left(\frac{1 - \cos(n\varphi) - i\sin(n\varphi)}{1 - \cos(\varphi) - i\sin(\varphi)}\right)$$
+
+To find the real part, we multiply numerator and denominator by the complex conjugate of the denominator:
+$$\sum_{k=0}^{n-1} \cos(k\varphi) = \frac{(1 - \cos(n\varphi))(1 - \cos(\varphi)) + \sin(n\varphi)\sin(\varphi)}{(1 - \cos(\varphi))^2 + \sin^2(\varphi)}$$
+
+Simplifying the denominator:
+$$(1 - \cos(\varphi))^2 + \sin^2(\varphi) = 1 - 2\cos(\varphi) + \cos^2(\varphi) + \sin^2(\varphi) = 2 - 2\cos(\varphi) = 2(1 - \cos(\varphi))$$
+
+Therefore:
+$$\sum_{k=0}^{n-1} \cos(k\varphi) = \frac{(1 - \cos(n\varphi))(1 - \cos(\varphi)) + \sin(n\varphi)\sin(\varphi)}{2(1 - \cos(\varphi))}$$
+
+For the special case $\varphi = 2\pi m$ (where $m$ is an integer), we have $\cos(k\varphi) = 1$ for all $k$, so:
+$$\sum_{k=0}^{n-1} \cos(k\varphi) = n$$
+
+
+%%%
+
+\section*{3}
+
+
+\textbf{Given:} Let $a_n$ be a bounded sequence and $b_n$ be a sequence such that $b_n \to 0$.
+
+\textbf{To prove:} $a_n \cdot b_n \to 0$.
+
+\textbf{Proof:}
+
+Since $a_n$ is bounded, there exists a positive constant $M$ such that
+$$|a_n| \leq M \quad \text{for all } n \in \mathbb{N}$$
+
+Since $b_n \to 0$, for any $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that
+$$|b_n| < \frac{\varepsilon}{M} \quad \text{for all } n \geq N$$
+
+Now, for $n \geq N$, we have:
+\begin{align}
+|a_n \cdot b_n| &= |a_n| \cdot |b_n|\\
+&\leq M \cdot |b_n|\\
+&< M \cdot \frac{\varepsilon}{M}\\
+&= \varepsilon
+\end{align}
+
+Therefore, for any $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that $|a_n \cdot b_n| < \varepsilon$ for all $n \geq N$.
+
+This proves that $a_n \cdot b_n \to 0$. \qed
+
+%%%%%%%%
+
+\section*{4}
+\subsection*{(a)}
+
+\textbf{Given:} Let $a_n$ and $b_n$ be sequences with $a_n \to +\infty$ and $b_n \to b$.
+If $b > 0$, prove that $a_n b_n \to +\infty$.
+
+\textbf{Proof:}
+
+Since $b > 0$, we have $\frac{b}{2} > 0$.
+
+Since $b_n \to b$, there exists $N_1 \in \mathbb{N}$ such that for all $n \geq N_1$:
+$$|b_n - b| < \frac{b}{2}$$
+
+This implies:
+$$-\frac{b}{2} < b_n - b < \frac{b}{2}$$
+
+Adding $b$ to all parts:
+$$b - \frac{b}{2} < b_n < b + \frac{b}{2}$$
+
+Therefore:
+$$\frac{b}{2} < b_n \quad \text{for all } n \geq N_1$$
+
+Since $a_n \to +\infty$, for any $M > 0$, there exists $N_2 \in \mathbb{N}$ such that:
+$$a_n > M \quad \text{for all } n \geq N_2$$
+
+Let $N = \max(N_1, N_2)$. Then for all $n \geq N$:
+$$a_n b_n > M \cdot \frac{b}{2} = \frac{Mb}{2}$$
+
+To show $a_n b_n \to +\infty$, let $K > 0$ be arbitrary. Choose $M = \frac{2K}{b}$. Then:
+$$a_n b_n > \frac{Mb}{2} = \frac{1}{2} \cdot \frac{2K}{b} \cdot b = K$$
+
+Therefore, for any $K > 0$, there exists $N$ such that $a_n b_n > K$ for all $n \geq N$.
+
+This proves that $a_n b_n \to +\infty$. \qed
+
+\subsection*{(b)}
+
+\textbf{Given:} Let $a_n$ and $b_n$ be sequences with $a_n \to +\infty$ and $b_n \to b = 0$.
+Give an example of a sequence $b_n$ such that $\lim_{n \to \infty} a_n b_n$ does not exist.
+
+\textbf{Solution:}
+
+We will construct an example where the product $a_n b_n$ oscillates and has no limit.
+
+Let $a_n = n$ (clearly $a_n \to +\infty$).
+
+Let $b_n = \frac{(-1)^n}{n}$ (clearly $b_n \to 0$ since $|b_n| = \frac{1}{n} \to 0$).
+
+Then:
+$$a_n b_n = n \cdot \frac{(-1)^n}{n} = (-1)^n$$
+
+The sequence $\{(-1)^n\}$ alternates between $-1$ and $+1$:
+$$-1, +1, -1, +1, -1, +1, \ldots$$
+
+Since the sequence oscillates between two distinct values and never converges to a single limit, we have that $\lim_{n \to \infty} a_n b_n$ does not exist.
+
+\textbf{Verification:}
+\begin{itemize}
+\item $a_n = n \to +\infty$ \checkmark
+\item $b_n = \frac{(-1)^n}{n} \to 0$ \checkmark
+\item $a_n b_n = (-1)^n$ has no limit since it oscillates between $-1$ and $+1$ \checkmark
+\end{itemize}
+
+This demonstrates that the indeterminate form "$\infty \cdot 0$" can lead to a sequence with no limit. \qed
+
+
+\end{document}

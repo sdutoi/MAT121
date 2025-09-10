@@ -1,0 +1,247 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{ANALYSIS 1}
+\chead{series proofs}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\subsection*{(a)}
+\textbf{Prove the Alternating Series Test by showing that $(s_n)$ is a Cauchy sequence.}
+
+\paragraph{Alternating Series Test Conditions:}
+An alternating series of the form $\sum (-1)^{n+1}a_n$ converges if two conditions are met:
+\begin{enumerate}
+    \item The sequence of the magnitudes of the terms is non-increasing, i.e., $a_n \ge a_{n+1}$ for all $n$.
+    \item The limit of the terms' magnitudes is zero, i.e., $\lim_{n\to\infty} a_n = 0$.
+\end{enumerate}
+
+\paragraph{Proof using Cauchy Sequence:}
+To prove the series converges, we show that its sequence of partial sums, $s_n = a_1 - a_2 + a_3 - \dots + (-1)^{n+1}a_n$, is a Cauchy sequence. A sequence $(s_n)$ is Cauchy if for every $\epsilon > 0$, there exists an integer $N$ such that for all $n > m \ge N$, the distance $|s_n - s_m| < \epsilon$.
+
+\begin{enumerate}
+    \item \textbf{Express the difference $|s_n - s_m|$:}
+    For $n > m$, the difference between two partial sums is:
+    \[ s_n - s_m = (-1)^{m+2}a_{m+1} + (-1)^{m+3}a_{m+2} + \dots + (-1)^{n+1}a_n \]
+    Taking the absolute value:
+    \[ |s_n - s_m| = |a_{m+1} - a_{m+2} + a_{m+3} - \dots + (-1)^{n-m-1}a_n| \]
+
+    \item \textbf{Bound the difference:}
+    Since the sequence $(a_n)$ is non-increasing ($a_k \ge a_{k+1}$), we can group the terms in two ways:
+    \[ |s_n - s_m| = (a_{m+1} - a_{m+2}) + (a_{m+3} - a_{m+4}) + \dots \ge 0 \]
+    And also:
+    \[ |s_n - s_m| = a_{m+1} - (a_{m+2} - a_{m+3}) - (a_{m+4} - a_{m+5}) - \dots \le a_{m+1} \]
+    Combining these observations, we get the bound:
+    \[ |s_n - s_m| \le a_{m+1} \]
+
+    \item \textbf{Apply the limit condition:}
+    We know that $\lim_{n\to\infty} a_n = 0$. This means that for any $\epsilon > 0$, we can find an integer $N$ such that for any $k \ge N$, $a_k < \epsilon$.
+
+    Let's choose such an $N$ for our given $\epsilon$. If we take any $m \ge N$, then $m+1 > N$. This implies that $a_{m+1} < \epsilon$.
+
+    \item \textbf{Conclusion:}
+    For any $n > m \ge N$, we have shown that $|s_n - s_m| \le a_{m+1}$. Since $m \ge N$, we know $a_{m+1} < \epsilon$.
+    Thus, for any $\epsilon > 0$, there exists an $N$ such that for all $n > m \ge N$, $|s_n - s_m| < \epsilon$.
+
+    This satisfies the definition of a Cauchy sequence. In a complete metric space like the real numbers, every Cauchy sequence converges. Therefore, the sequence of partial sums $(s_n)$ converges.
+\end{enumerate}
+
+\subsection*{(b)}
+\textbf{Supply another proof for this result using the Nested Interval Property.}
+
+\paragraph{Nested Interval Property (Theorem 1.4.1):}
+If $I_n = [x_n, y_n]$ is a sequence of closed, bounded, non-empty intervals such that $I_1 \supset I_2 \supset I_3 \supset \dots$, then the intersection $\bigcap_{n=1}^{\infty} I_n$ is non-empty. If, in addition, the lengths of the intervals, $|I_n| = y_n - x_n$, converge to 0, then the intersection contains exactly one point.
+
+\paragraph{Proof using Nested Intervals:}
+\begin{enumerate}
+    \item \textbf{Define the intervals:}
+    Consider the subsequences of even and odd partial sums.
+    \begin{itemize}
+        \item Even sums: $s_{2n} = (a_1 - a_2) + (a_3 - a_4) + \dots + (a_{2n-1} - a_{2n})$. Since $a_k \ge a_{k+1}$, each term in parentheses is non-negative. Thus, the sequence $(s_{2n})$ is non-decreasing.
+        \item Odd sums: $s_{2n+1} = a_1 - (a_2 - a_3) - (a_4 - a_5) - \dots - (a_{2n} - a_{2n+1})$. Similarly, each term in parentheses is non-negative. Thus, the sequence $(s_{2n+1})$ is non-increasing.
+    \end{itemize}
+    Also, for any $n$, $s_{2n+1} = s_{2n} + a_{2n+1} \ge s_{2n}$.
+    Let's define a sequence of closed intervals:
+    \[ I_n = [s_{2n}, s_{2n+1}] \]
+
+    \item \textbf{Show the intervals are nested:}
+    We need to show that $I_{n+1} \subset I_n$.
+    \begin{itemize}
+        \item The lower bound of $I_{n+1}$ is $s_{2(n+1)} = s_{2n+2}$. Since $(s_{2n})$ is non-decreasing, $s_{2n+2} \ge s_{2n}$.
+        \item The upper bound of $I_{n+1}$ is $s_{2(n+1)+1} = s_{2n+3}$. Since $(s_{2n+1})$ is non-increasing, $s_{2n+3} \le s_{2n+1}$.
+    \end{itemize}
+    So, we have $s_{2n} \le s_{2n+2}$ and $s_{2n+3} \le s_{2n+1}$. This means the interval $[s_{2n+2}, s_{2n+3}]$ is contained within $[s_{2n}, s_{2n+1}]$. Thus, $I_n \supset I_{n+1}$, and we have a sequence of nested intervals.
+
+    \item \textbf{Show the interval lengths go to zero:}
+    The length of the interval $I_n$ is:
+    \[ \text{Length}(I_n) = s_{2n+1} - s_{2n} = a_{2n+1} \]
+    From the conditions of the Alternating Series Test, we know that $\lim_{k\to\infty} a_k = 0$.
+    This implies that the limit of the lengths of our intervals is also zero:
+    \[ \lim_{n\to\infty} \text{Length}(I_n) = \lim_{n\to\infty} a_{2n+1} = 0 \]
+
+    \item \textbf{Conclusion:}
+    We have a sequence of nested closed intervals $I_n = [s_{2n}, s_{2n+1}]$ whose lengths converge to zero. By the Nested Interval Property, the intersection $\bigcap_{n=1}^{\infty} I_n$ contains exactly one point. Let's call this point $S$.
+
+    Since $S$ is in every interval $I_n$, we have $s_{2n} \le S \le s_{2n+1}$ for all $n$.
+    \begin{itemize}
+        \item The sequence $(s_{2n})$ is non-decreasing and bounded above by $S$, so it must converge. Since $s_{2n} \le S$ and $(s_{2n+1} - s_{2n}) \to 0$, it must be that $\lim_{n\to\infty} s_{2n} = S$.
+        \item The sequence $(s_{2n+1})$ is non-increasing and bounded below by $S$, so it must also converge. Since $S \le s_{2n+1}$ and $(s_{2n+1} - s_{2n}) \to 0$, it must be that $\lim_{n\to\infty} s_{2n+1} = S$.
+    \end{itemize}
+    Since both the even and odd subsequences of the partial sums $(s_n)$ converge to the same limit $S$, the entire sequence of partial sums $(s_n)$ converges to $S$.
+\end{enumerate}
+
+%%%%%%
+
+
+
+\subsection*{Exercise 2.7.2}
+Decide whether each of the following series converges or diverges:
+
+\vspace{1em} % Adds a bit of vertical space
+
+\paragraph{(a) $\displaystyle\sum_{n=1}^{\infty} \frac{1}{2^n+n}$}
+\textbf{Solution:} The series \textbf{converges}.
+
+\textbf{Explanation:}
+We use the \textbf{Direct Comparison Test}.
+For all $n \ge 1$, we know that $2^n + n > 2^n$.
+Taking the reciprocal of both sides reverses the inequality:
+\[ 0 < \frac{1}{2^n+n} < \frac{1}{2^n} \]
+The series $\displaystyle\sum_{n=1}^{\infty} \frac{1}{2^n}$ is a geometric series with a common ratio $r = \frac{1}{2}$. Since $|r| < 1$, the geometric series converges.
+Because the terms of our series are smaller than the terms of a known convergent series, the series $\displaystyle\sum_{n=1}^{\infty} \frac{1}{2^n+n}$ must also converge by the Direct Comparison Test.
+
+\vspace{1em}
+
+\paragraph{(b) $\displaystyle\sum_{n=1}^{\infty} \frac{\sin(n)}{n^2}$}
+\textbf{Solution:} The series \textbf{converges}.
+
+\textbf{Explanation:}
+We test for \textbf{absolute convergence}. A series that converges absolutely is guaranteed to converge.
+Consider the series of the absolute values of the terms:
+\[ \sum_{n=1}^{\infty} \left| \frac{\sin(n)}{n^2} \right| = \sum_{n=1}^{\infty} \frac{|\sin(n)|}{n^2} \]
+We know that the sine function is bounded such that $|\sin(n)| \le 1$ for all $n$.
+Therefore, we can establish the following inequality:
+\[ \frac{|\sin(n)|}{n^2} \le \frac{1}{n^2} \]
+The series $\displaystyle\sum_{n=1}^{\infty} \frac{1}{n^2}$ is a \textbf{p-series} with $p=2$. Since $p > 1$, the p-series converges.
+By the Direct Comparison Test, since the terms of $\sum \frac{|\sin(n)|}{n^2}$ are smaller than the terms of a convergent series, $\sum \frac{|\sin(n)|}{n^2}$ also converges.
+Because the series of absolute values converges, the original series $\displaystyle\sum_{n=1}^{\infty} \frac{\sin(n)}{n^2}$ is absolutely convergent, and therefore it converges.
+
+
+\paragraph{(c) $\displaystyle 1 - \frac{3}{4} + \frac{4}{6} - \frac{5}{8} + \frac{6}{10} - \frac{7}{12} + \dots$}
+\textbf{Solution:} The series \textbf{diverges}.
+
+\textbf{Explanation:}
+First, we determine the general term, $a_n$, for the series.
+The series is alternating, so it contains a factor of $(-1)^{n+1}$.
+The absolute values of the terms are $1, \frac{3}{4}, \frac{4}{6}, \frac{5}{8}, \dots$. We can see that the $n$-th term in this sequence is given by $\frac{n+1}{2n}$.
+Therefore, the series can be written as:
+\[ \sum_{n=1}^{\infty} (-1)^{n+1} \frac{n+1}{2n} \]
+We now apply the \textbf{Test for Divergence}, which states that if the limit of the terms of a series is not zero, the series must diverge.
+Let's evaluate the limit of the absolute value of the terms as $n \to \infty$:
+\[ \lim_{n\to\infty} |a_n| = \lim_{n\to\infty} \left| (-1)^{n+1} \frac{n+1}{2n} \right| = \lim_{n\to\infty} \frac{n+1}{2n} \]
+To evaluate this limit, we divide the numerator and denominator by the highest power of $n$, which is $n$:
+\[ \lim_{n\to\infty} \frac{1 + \frac{1}{n}}{2} = \frac{1+0}{2} = \frac{1}{2} \]
+Since $\lim_{n\to\infty} |a_n| = \frac{1}{2}$, the limit of the terms themselves, $\lim_{n\to\infty} a_n$, does not exist (it oscillates between values approaching $-\frac{1}{2}$ and $\frac{1}{2}$).
+Because the limit of the terms is not zero, the series \textbf{diverges} by the Test for Divergence.
+
+%%%%%
+
+\subsection*{(d)}
+\paragraph{$\displaystyle 1 + \frac{1}{2} - \frac{1}{3} + \frac{1}{4} + \frac{1}{5} - \frac{1}{6} + \dots$}
+\textbf{Solution:} The series \textbf{diverges}.
+
+\textbf{Explanation:}
+This is not a standard alternating series, so we cannot apply the Alternating Series Test directly. Instead, we will analyze the sequence of partial sums, $s_n$, by grouping the terms. The pattern of signs is $(+,+,-,+,+,-, \dots)$. We will group the terms in blocks of three.
+
+Let's examine the subsequence of partial sums $s_{3k}$:
+\[ s_{3k} = \sum_{j=1}^{k} \left( \frac{1}{3j-2} + \frac{1}{3j-1} - \frac{1}{3j} \right) \]
+For example:
+\begin{itemize}
+    \item $s_3 = \left(1 + \frac{1}{2} - \frac{1}{3}\right)$
+    \item $s_6 = \left(1 + \frac{1}{2} - \frac{1}{3}\right) + \left(\frac{1}{4} + \frac{1}{5} - \frac{1}{6}\right)$
+\end{itemize}
+Now, let's find a lower bound for a generic group for $j \ge 1$:
+\[ \frac{1}{3j-2} + \frac{1}{3j-1} - \frac{1}{3j} \]
+We can establish the following inequalities:
+\[ \frac{1}{3j-2} > \frac{1}{3j} \quad \text{and} \quad \frac{1}{3j-1} > \frac{1}{3j} \]
+Substituting these into the expression for the group gives:
+\[ \frac{1}{3j-2} + \frac{1}{3j-1} - \frac{1}{3j} > \frac{1}{3j} + \frac{1}{3j} - \frac{1}{3j} = \frac{1}{3j} \]
+This shows that each group of three terms adds a value greater than $\frac{1}{3j}$.
+Now we can establish a lower bound for the partial sum $s_{3k}$:
+\[ s_{3k} = \sum_{j=1}^{k} \left( \frac{1}{3j-2} + \frac{1}{3j-1} - \frac{1}{3j} \right) > \sum_{j=1}^{k} \frac{1}{3j} \]
+Let's analyze the series on the right-hand side:
+\[ \sum_{j=1}^{\infty} \frac{1}{3j} = \frac{1}{3} \sum_{j=1}^{\infty} \frac{1}{j} \]
+The series $\sum \frac{1}{j}$ is the harmonic series, which is known to diverge. Therefore, the series $\frac{1}{3} \sum \frac{1}{j}$ also diverges.
+
+By the Comparison Test, since the subsequence of partial sums $s_{3k}$ is greater than the partial sums of a divergent series that goes to infinity, the subsequence $s_{3k}$ must also diverge to infinity.
+If a subsequence of the partial sums of a series diverges, the series itself must diverge.
+
+%%%
+
+\subsection*{(e)}
+\paragraph{$\displaystyle 1 - \frac{1}{2^2} + \frac{1}{3} - \frac{1}{4^2} + \frac{1}{5} - \frac{1}{6^2} + \dots$}
+\textbf{Solution:} The series \textbf{diverges}.
+
+\textbf{Explanation:}
+We can analyze this series by splitting it into a sum of two separate series: one containing the positive terms ($P$) and one containing the negative terms ($N$). The original series converges only if both $P$ and $N$ converge.
+
+The series of positive terms is:
+\[ P = 1 + \frac{1}{3} + \frac{1}{5} + \frac{1}{7} + \dots = \sum_{k=1}^{\infty} \frac{1}{2k-1} \]
+The series of negative terms is:
+\[ N = -\frac{1}{2^2} - \frac{1}{4^2} - \frac{1}{6^2} - \dots = \sum_{k=1}^{\infty} \frac{-1}{(2k)^2} \]
+
+\textbf{Analysis of the Positive Series (P):}
+We use the \textbf{Limit Comparison Test} to compare $P$ with the divergent harmonic series, $\sum_{k=1}^{\infty} \frac{1}{k}$.
+Let $a_k = \frac{1}{2k-1}$ and $b_k = \frac{1}{k}$. We compute the limit of the ratio $\frac{a_k}{b_k}$:
+\[ \lim_{k\to\infty} \frac{\frac{1}{2k-1}}{\frac{1}{k}} = \lim_{k\to\infty} \frac{k}{2k-1} = \lim_{k\to\infty} \frac{\frac{k}{k}}{\frac{2k}{k}-\frac{1}{k}} = \lim_{k\to\infty} \frac{1}{2 - \frac{1}{k}} = \frac{1}{2} \]
+Since the limit is a finite, positive number ($1/2$), and the harmonic series $\sum \frac{1}{k}$ diverges, the series $P$ must also \textbf{diverge}.
+
+\textbf{Analysis of the Negative Series (N):}
+\[ N = \sum_{k=1}^{\infty} \frac{-1}{(2k)^2} = \sum_{k=1}^{\infty} \frac{-1}{4k^2} = -\frac{1}{4} \sum_{k=1}^{\infty} \frac{1}{k^2} \]
+The series $\sum \frac{1}{k^2}$ is a \textbf{p-series} with $p=2$. Since $p > 1$, this series converges. A constant multiple of a convergent series also converges, so the series $N$ \textbf{converges}.
+
+\textbf{Conclusion:}
+The original series can be seen as the sum of series $P$ and series $N$.
+\[ \text{Original Series} = P + N = (\text{Divergent Series}) + (\text{Convergent Series}) \]
+The sum of a divergent series (which tends to infinity) and a convergent series (which sums to a finite number) is always divergent. Therefore, the original series \textbf{diverges}.
+
+\end{document}
