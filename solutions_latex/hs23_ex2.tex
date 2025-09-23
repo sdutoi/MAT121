@@ -1,0 +1,428 @@
+\documentclass[12pt,a4paper]{article}
+
+% -- Packages --
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% -- Page Setup --
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% -- Header/Footer --
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 1}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% -- Theorem Environments --
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% -- Custom Environments --
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\subsection*{(b)}
+
+
+Given
+\begin{itemize}
+    \item initial value: $a_0=1$,
+    \item recurrence (for all $n\ge 0$):
+    $$a_{n+1}=a_n+a_{n-1}+\cdots+a_1+a_0+1=\sum_{k=0}^{n} a_k + 1,$$
+\end{itemize}
+find a closed formula for $a_n$.
+
+This is a ``cumulative'' recurrence: the next term equals the sum of all previous terms plus a constant.
+
+\begin{solution}
+\textbf{How to see the trick:}
+
+Define partial sums
+$$S_n:=\sum_{k=0}^n a_k.$$
+Then the recurrence is simply
+$$a_{n+1}=S_n+1.$$
+But also
+$$a_n=S_{n-1}+1.$$
+If you subtract these two equations, the constants cancel and you expose the last added term:
+$$a_{n+1}-a_n=(S_n+1)-(S_{n-1}+1)=S_n-S_{n-1}=a_n.$$
+This is the key ``difference of consecutive cumulative sums = last term'' idea.
+
+So you get a first-order linear recurrence with constant coefficient:
+$$a_{n+1}=2a_n \quad (n\ge 0).$$
+
+With $a_0=1$, the solution is immediate:
+$$a_n=2^n.$$
+
+\textbf{Why this works (intuition):}
+\begin{itemize}
+    \item $a_{n+1}$ is ``all the previous stuff'' plus $1$.
+    \item $a_n$ is ``all the stuff before that'' plus $1$.
+    \item Their difference is exactly the most recent piece, which is $a_n$ itself.
+    \item So each step doubles the sequence value.
+\end{itemize}
+
+\textbf{Verification (first terms):}
+\begin{align}
+a_0 &= 1,\\
+a_1 &= a_0+1=2,\\
+a_2 &= a_1+a_0+1=2+1+1=4,\\
+a_3 &= 4+2+1+1=8,
+\end{align}
+matching $2^n$.
+
+\textbf{Alternative route via partial sums:}
+
+From $a_{n+1}=S_n+1$,
+$$S_{n+1}=S_n+a_{n+1}=2S_n+1,\qquad S_0=a_0=1.$$
+Solve $S_{n+1}=2S_n+1$:
+\begin{itemize}
+    \item homogeneous part $C\cdot 2^n$, particular solution $-1$,
+    \item $S_n=2^{n+1}-1$ (from $S_0=1$),
+\end{itemize}
+so $a_{n+1}=S_n+1=2^{n+1}$ and hence $a_n=2^n$.
+
+\textbf{Generalization and consistency check:}
+
+If the problem were $a_{n+1}=\sum_{k=0}^n a_k + c$ with $a_0=\alpha$, the same subtraction gives $a_{n+1}=2a_n$ (the constant cancels), so $a_n=2^n\alpha$. For this to be consistent with $a_1=a_0+c$, you must have $c=\alpha$ (as in our problem: $c=1$, $\alpha=1$).
+
+\textbf{Takeaway pattern:}
+\begin{itemize}
+    \item For recurrences of the form ``next = sum of previous + constant,'' try subtracting consecutive equations; you'll often reduce to a simple first-order linear recurrence.
+    \item Once you have $a_{n+1}=r a_n$ and an initial value, the solution is $a_n=a_0\, r^n$. Here, $r=2$ and $a_0=1$, so $a_n=2^n$.
+\end{itemize}
+\end{solution}
+
+
+
+\section*{3}
+\subsection*{(a)i}
+\textbf{Claim.} In an ordered field $K$, if $x<y$ and $a>0$, then $ax<ay$.
+
+\textbf{Key order axioms used (standard for an ordered field):}
+\begin{enumerate}
+    \item Trichotomy / transitivity (not needed explicitly here).
+    \item Translation invariance: $x<y \implies x+z < y+z$ for all $z$.
+    \item Positivity is closed under multiplication: if $0<b$ and $0<c$, then $0<bc$.
+\end{enumerate}
+
+\begin{proof}
+Given $x<y$. Subtract $x$ from both sides (translation invariance with $z=-x$):
+$$x<y \;\Longrightarrow\; 0< y - x.$$
+
+Given also $a>0$. Using closure of the positive set under multiplication:
+$$0 < a \quad\text{and}\quad 0< y-x \;\Longrightarrow\; 0 < a(y-x).$$
+
+Expand:
+$$0 < a(y-x) = ay - ax.$$
+
+Thus $ay - ax > 0$, which by definition of the order means $ax < ay$.
+
+$$\boxed{ax < ay}$$
+
+That's all. (The essential move is turning $x<y$ into a positive difference and then using that multiplying by a positive element preserves ``greater than zero.'') Let me know when you want part (a) ii).
+\end{proof}
+
+\subsection*{(a)ii}
+
+\textbf{Claim.} In an ordered field \(K\), if  
+\[
+0 \le x < y, \qquad 0 < x' < y',
+\]
+then
+\[
+0 \le x x' \le y y'.
+\]
+
+\begin{proof}
+\textbf{Step 1: Non‑negativity of the product.}  
+We have \(0 \le x\) and \(0 < x'\). The product of two non‑negative elements is non‑negative, so
+\[
+0 \le x x'.
+\]
+
+\textbf{Step 2: First comparison \(x x' < y x'\).}  
+From \(x<y\) and \(x'>0\), part (i) (order preserved by multiplying with a positive element) gives
+\[
+x x' < y x'.
+\]
+
+\textbf{Step 3: Second comparison \(y x' < y y'\).}  
+From \(x'<y'\) and \(y>0\) (since \(0 \le x < y\) implies \(y>0\)), again by part (i),
+\[
+y x' < y y'.
+\]
+
+\textbf{Step 4: Chain the inequalities.}  
+Combining:
+\[
+0 \le x x' < y x' < y y'.
+\]
+Thus in particular \(0 \le x x' \le y y'\).
+
+(Strict inequalities appear internally; the statement uses \(\le\) on the right just to allow for the general pattern—here equality on the right cannot occur because \(x'<y'\).)
+
+\[
+\boxed{0 \le x x' \le y y'}
+\]
+\end{proof}
+
+\subsection*{(b)}
+
+\textbf{Goal.} Show: If \(K\) is an ordered field, then there exists a polynomial with coefficients in \(K\) that has no root in \(K\). Hence \(K\) is not algebraically closed.
+
+\textbf{Key property of ordered fields.} In any ordered field \(K\):
+
+\begin{enumerate}
+    \item \(1 > 0\).
+    \item If \(x \neq 0\), then \(x^2 > 0\). (Because \(x > 0 \implies x \cdot x > 0\); if \(x < 0\), then \(-x > 0\) and \((-x)^2 = x^2 > 0\).)
+    \item If \(x^2 \ge 0\) for all \(x\), then \(x^2 + 1 > 0\) for all \(x\) (since \(1 > 0\)).
+\end{enumerate}
+
+Thus no square is negative, and in particular \(-1\) cannot be a square.
+
+\textbf{The obstructing polynomial.} Consider
+\[
+p(t) = t^2 + 1 \in K[t].
+\]
+
+Suppose for contradiction \(p\) has a root \(a \in K\). Then
+\[
+a^2 + 1 = 0 \quad\Longrightarrow\quad a^2 = -1.
+\]
+But from the order properties above, \(a^2 \ge 0\) for all \(a\), while \(-1 < 0\). Impossible.
+
+Therefore \(t^2 + 1\) has no root in \(K\). So \(K\) fails the definition of being algebraically closed (“every nonconstant polynomial has a root”).
+
+\textbf{Conclusion.} Every ordered field admits a polynomial (already degree \(2\)) without a root, namely \(t^2 + 1\). Hence no ordered field is algebraically closed.
+
+\[
+\boxed{\text{If } K \text{ is ordered, then } K \text{ is not algebraically closed.}}
+\]
+
+(For orientation: \(\mathbb{R}\) is ordered but not algebraically closed; its algebraic closure is \(\mathbb{C}\), which cannot be ordered consistently with the field operations because \(i^2 + 1 = 0\) would force \(i^2 = -1 < 0\), contradicting the “squares are nonnegative” property.)
+
+%%%%%%%%%%%%%
+
+\section*{3}
+\subsection*{(a)}
+
+\textbf{Goal.} Show: If \(A,B\subseteq \mathbb{R}\) with \(A\subseteq B\) and both \(\sup A,\sup B\) exist (i.e. \(A\) is nonempty \& bounded above; \(B\) bounded above), then
+\[
+\sup A \;\le\; \sup B.
+\]
+
+
+
+\subsection*{Definitions recalled}
+
+- An \emph{upper bound} of a set \(S\subseteq \mathbb{R}\) is a number \(U\) with \(s\le U\) for all \(s\in S\).
+- The \emph{supremum} \(\sup S\) is the least upper bound: (i) it is an upper bound, and (ii) any smaller number fails to be an upper bound.
+
+
+
+\subsection*{Intuitive picture}
+
+Because \(A\) sits inside \(B\), anything that bounds \(B\) from above also bounds \(A\). The \emph{least} upper bound of \(A\) cannot exceed the least upper bound of the larger set \(B\).
+
+
+
+\subsection*{Formal proof}
+
+\begin{enumerate}
+    \item Since \(B\) is bounded above, let \(M=\sup B\). By definition \(b\le M\) for all \(b\in B\).  
+       Because \(A\subseteq B\), every \(a\in A\) also satisfies \(a\le M\). Thus \(M\) is an upper bound of \(A\).
+
+    \item Let \(m=\sup A\). Because \(m\) is the \emph{least} upper bound of \(A\) and \(M\) is an upper bound of \(A\), we must have \(m\le M\); i.e.
+       \[
+       \sup A \le \sup B.
+       \]
+\end{enumerate}
+
+That is the entire argument.
+
+
+
+\subsection*{(Optional) Contradiction style (epsilon form)}
+
+Assume for contradiction \(\sup A > \sup B\). Set \(\varepsilon = \frac{\sup A - \sup B}{2} >0\). Then \(\sup B + \varepsilon < \sup A\). By property of supremum of \(A\), there exists \(a\in A\) with
+\[
+a > \sup A - \varepsilon = \sup B + (\sup A - \sup B) - \varepsilon = \sup B + \varepsilon.
+\]
+Hence \(a > \sup B\). But \(a\in A\subseteq B\), so \(a\in B\) contradicts that \(\sup B\) is an upper bound of \(B\). Therefore \(\sup A \le \sup B\).
+
+
+
+\subsection*{Edge cases / remarks}
+
+\begin{itemize}
+    \item If \(A=\varnothing\): standard real analysis usually \emph{does not} define \(\sup\varnothing\). Some contexts set \(\sup\varnothing=-\infty\); then the inequality is trivially true.
+    \item If \(B\) is not bounded above, \(\sup B\) does not exist (or is \(+\infty\) in extended reals). In the extended reals, you’d write \(\sup B=+\infty\) and the inequality still holds.
+    \item The result generalizes: in any partially ordered set where suprema exist, inclusion implies monotonicity of the supremum operator.
+\end{itemize}
+
+
+
+\[
+\boxed{\ A\subseteq B \text{ and } \sup A,\sup B \text{ exist } \Longrightarrow \sup A \le \sup B.\ }
+\]
+
+\subsection*{(b)}
+
+\textbf{Claim.} For a nonempty \(A\subseteq \mathbb{R}\),
+\[
+\inf(-A) = -\sup(A), \qquad \sup(-A)= -\inf(A),
+\]
+where \(-A=\{-a: a\in A\}\). In particular the answer to (b) is
+\[
+\boxed{\inf(-A)= -\sup(A)}.
+\]
+
+\begin{proof}
+Let \(M=\sup(A)\). Then \(a\le M\) for all \(a\in A\). Multiplying both sides by \(-1\) reverses the inequality: \(-a \ge -M\) for all \(a\in A\). Thus, \(-M\) is a lower bound of \(-A\), so \(\inf(-A)\le -M\).
+
+To show the reverse inequality, let \(\varepsilon>0\). Since \(M=\sup(A)\), there exists \(a_\varepsilon\in A\) with \(M-\varepsilon < a_\varepsilon \le M\). Negating gives
+\[
+-M < -a_\varepsilon < -M + \varepsilon.
+\]
+So for any \(\varepsilon>0\), there is an element of \(-A\) greater than \(-M\) but less than \(-M+\varepsilon\). Thus, no number strictly less than \(-M\) can be a lower bound of \(-A\), so \(-M\) is the greatest lower bound:
+\[
+\inf(-A) = -M = -\sup(A).
+\]
+\end{proof}
+
+\textbf{Remarks.}
+\begin{itemize}
+    \item If \(A\) is unbounded above, then \(\sup(A)=+\infty\) (in the extended reals), so \(\inf(-A) = -\infty\), which matches the fact that \(-A\) is unbounded below.
+    \item The dual identity \(\sup(-A) = -\inf(A)\) follows similarly.
+\end{itemize}
+
+
+\section*{5}
+\subsection*{(a)}
+\textbf{Set:}
+\[
+X = [0,1) = \{x\in\mathbb{R}\mid 0\le x < 1\}.
+\]
+
+\textbf{1. Boundedness}
+
+\begin{itemize}
+    \item \emph{Lower bound:} $0$ (and in fact any $L\le 0$ also works). For every $x\in X$, $x\ge 0$, so $X$ is bounded below.
+    \item \emph{Upper bound:} $1$ (and any $U\ge 1$ also works). For every $x\in X$, $x<1$, so $X$ is bounded above.
+\end{itemize}
+Thus $X$ is bounded both below and above.
+
+\textbf{2. Infimum}
+
+\emph{Claim:} $\inf X = 0$.
+
+\begin{itemize}
+    \item (\emph{Lower bound}) As noted, $0\le x$ for all $x\in X$, so $0$ is a lower bound.
+    \item (\emph{Greatest such}) Let $\varepsilon>0$. Then $\varepsilon/2 >0$ and $\varepsilon/2 < 1$, hence $\varepsilon/2\in X$ and $\varepsilon/2 < \varepsilon$. This shows no positive number can be a lower bound. Therefore no number larger than $0$ is a lower bound, so $0$ is the greatest lower bound.
+\end{itemize}
+Because $0\in X$, the infimum is attained; hence
+\[
+\min X = 0.
+\]
+
+\textbf{3. Supremum}
+
+\emph{Claim:} $\sup X = 1$.
+
+\begin{itemize}
+    \item (\emph{Upper bound}) For all $x\in X$, $x<1$, so $1$ is an upper bound.
+    \item (\emph{Least such}) Let $M<1$. Set $x=\dfrac{1+M}{2}$. Then
+    \[
+    M < \frac{1+M}{2} < 1,
+    \]
+    so $x\in X$ and $x>M$. Thus $M$ cannot be an upper bound. Hence no number smaller than $1$ is an upper bound, making $1$ the least upper bound.
+\end{itemize}
+Since $1\notin X$, the supremum is \emph{not} attained; there is no maximum:
+\[
+\max X \text{ does not exist.}
+\]
+
+\textbf{4. Summary}
+
+\[
+\inf X = 0 = \min X,\qquad \sup X = 1,\qquad \text{no maximum.}
+\]
+
+So $X$ is bounded below and above; minimum exists ($0$), maximum does not (because the endpoint $1$ is excluded).
+
+\subsection*{(b)}
+
+\textbf{Set:}
+\[
+X = \left\{ \frac{1}{n} \;\middle|\; n \in \mathbb{N},\; n > 0 \right\} = \left\{ 1,\, \tfrac{1}{2},\, \tfrac{1}{3},\, \tfrac{1}{4},\, \dots \right\}.
+\]
+
+\textbf{1. Boundedness}
+
+\begin{itemize}
+    \item \emph{Upper bound:} $1$. Clearly $\frac{1}{n} \le 1$ for all $n \ge 1$. So $X$ is bounded above (and any $U \ge 1$ is an upper bound).
+    \item \emph{Lower bound:} $0$. All terms are positive, so $0 \le \frac{1}{n}$. Thus $X$ is bounded below (and any $L \le 0$ is also a lower bound).
+\end{itemize}
+
+\textbf{2. Supremum}
+
+\emph{Claim:} $\sup X = 1$.
+
+\begin{itemize}
+    \item $1$ is an upper bound (as above).
+    \item If $M < 1$, pick $n = 1$. Then $1 \in X$ and $1 > M$, so $M$ cannot be an upper bound.
+\end{itemize}
+Hence no number smaller than $1$ is an upper bound.
+
+Because $1 \in X$, the supremum is attained:
+\[
+\max X = 1.
+\]
+
+\textbf{3. Infimum}
+
+\emph{Claim:} $\inf X = 0$.
+
+\begin{itemize}
+    \item $0$ is a lower bound: $\frac{1}{n} > 0$ for all $n$.
+    \item \emph{Minimality:} Let $p > 0$. Choose $n > \frac{1}{p}$ (possible since $\mathbb{N}$ is unbounded). Then $\frac{1}{n} < p$ and $\frac{1}{n} \in X$. So $p$ fails to be a lower bound. Because this works for every positive $p$, no positive number is a lower bound; thus $0$ is the greatest lower bound.
+\end{itemize}
+
+Alternatively, for any $\varepsilon > 0$, choose $n > \frac{1}{\varepsilon}$ so $0 < \frac{1}{n} < \varepsilon$. This shows elements of $X$ get arbitrarily close to $0$ from above.
+
+Since $0 \notin X$, the infimum is not attained:
+\[
+\text{no minimum (no } \min X\text{).}
+\]
+
+\textbf{4. Summary}
+
+\[
+\inf X = 0 \quad (\text{not attained}),\qquad \sup X = 1 = \max X,\qquad \text{no minimum.}
+\]
+
+\emph{Key pattern:} A decreasing sequence $1/n$ converging to $0$ has supremum equal to its first term (if included) and infimum equal to the limit (if the limit is not included, no minimum).
+\end{document}

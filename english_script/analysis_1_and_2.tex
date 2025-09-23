@@ -1,0 +1,470 @@
+% ============================================================================
+% Analysis I & II (English Translation Workspace)
+% ----------------------------------------------------------------------------
+% This file is a structured, bilingual skeleton prepared for gradually
+% translating the original two-semester German Analysis script.
+%
+% HOW TO USE:
+%  1. Keep each section/subsection heading (English with German in parentheses)
+%     so it's easy to cross-reference the source.
+%  2. Replace the \todo{...} markers with translated content incrementally.
+%  3. If you keep some German text temporarily, wrap it in \textit{...} or a
+%     quote environment and tag with a \todo{translate} so you can grep later.
+%  4. Add mathematical macros below instead of inlining symbols repeatedly.
+%  5. For larger proofs, consider adding a commented block at top of the
+%     subsection with the original wording for fidelity, then translate.
+%
+% NOTE: No original copyrighted body text has been inserted—only an outline
+%       inferred from the public table of contents you provided.
+%
+% WORKFLOW SUGGESTION:
+%  (a) Copy the German paragraph as a commented block starting with % DE: ...
+%  (b) Write the English translation below it.
+%  (c) Remove the German once confident, or keep in comments for traceability.
+%  (d) Use consistent terminology: "sequence" vs. "series", "limit superior",
+%      "least upper bound (supremum)", etc. Maintain a glossary section later.
+%  (e) Add labels (\label{sec:...}) as you begin referencing results.
+%
+% Build recommendation: lualatex or pdflatex twice (for TOC) when needed.
+% ============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% -------------------- Packages --------------------
+\usepackage[utf8]{inputenc} % (Redundant in modern engines, harmless)
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel} % Main working language (German source in comments)
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\geometry{margin=2.5cm}
+
+% -------------------- Metadata --------------------
+\title{Analysis I \& II \newline\small (English Translation Draft)}
+\author{Based on original German script (private use)}
+\date{\today}
+
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+% Some earlier notes used \odo by mistake; keep it compiling by aliasing:
+\newcommand{\odo}[1]{\todo{#1}}
+
+% -------------------- Manual Numbering Helpers --------------------
+% Use these when you want to preserve the original numbering from the German
+% script. They deliberately avoid coupling to LaTeX's counters.
+% Pattern:
+%   \NumberedDefinition{<chapter.section.item>}{<Title>}{<Body>}
+% If you later want cross-references, add an explicit \label inside #3 and
+% reference it normally with \ref. The visual number won't auto-sync if you
+% renumber—update the macro argument manually.
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+	\paragraph{Definition #1 ( #2 ).} #3\par
+}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+	\paragraph{Theorem #1 ( #2 ).} #3\par
+}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+	\paragraph{Example #1 ( #2 ).} #3\par
+}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+  \paragraph{Remark #1 ( #2 ).} #3\par
+}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+	\paragraph{Proposition #1 ( #2 ).} #3\par
+}
+
+% Theorem styles (adjust as needed)
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% Hyperref setup
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=teal,
+	citecolor=purple,
+	pdfauthor={Translation Draft},
+	pdftitle={Analysis I & II (English Translation Draft)}
+}
+
+\begin{document}
+\maketitle
+	tableofcontents
+\newpage
+
+% ============================================================================
+% 1 Basic Concepts (Grundbegriffe)  -- Original start p.7
+% ============================================================================
+\section{Basic Concepts (Grundbegriffe)}
+
+\subsection{Logic (Logik)}
+	odo{Add translation: propositional logic, quantifiers, basic inference rules}
+
+\subsection{Sets (Mengen)}
+	odo{Add translation: set operations, subsets, power set, Cartesian product}
+
+\subsection{Functions (Funktionen)}
+	odo{Add translation: definition, domain/codomain, injective/surjective/bijective}
+
+\subsection{Relations (Relationen)}\label{subsec:relations}
+
+% ---------------------------------------------------------------------------
+% Fixed-number translations (maintain original numbering 1.4.5--1.4.8)
+% ---------------------------------------------------------------------------
+\NumberedDefinition{1.4.5}{Equivalence Relation}{Let $R$ be a relation on a set $M$. For $m\in M$ the equivalence class of $m$ is
+\[
+	[m] := \{x\in M : x\sim_R m\}.
+\]
+An element of $[m]$ is called a representative of $[m]$. The quotient set of $M$ with respect to $R$ is the set of all equivalence classes:
+\[
+	M/\!\sim_R := \{[m]: m\in M\}.
+\]
+}
+
+% (Original numbering) Theorem 1.4.6
+\NumberedTheorem{1.4.6}{Intersection of Equivalence Classes}{Let $R$ be an equivalence relation on a set $M$. Then
+\[
+	[x] \cap [y] \neq \emptyset \;\Longrightarrow\; [x]=[y].
+\]
+\emph{Idea of proof.} If $z\in [x]\cap [y]$ then $z\sim_R x$ and $z\sim_R y$. Hence $x\sim_R y$, and any element equivalent to one is equivalent to the other.
+}
+
+It follows that
+\[
+	M = \bigcup_{[m]\in M/\!\sim_R} [m]
+\]
+is a disjoint partition of $M$.
+
+\medskip
+\textbf{Note:} fundamental theorem in set theory about equivalence relations and partitions:
+
+If $M$ is the set being partitioned by an equivalence relation, then:
+\[
+	M = \bigcup_{[m] \in M/\sim} [m]
+\]
+where:
+\begin{itemize}[leftmargin=*]
+	\item $M/\sim$ denotes the \emph{quotient set} (the set of all equivalence classes),
+	\item $[m]$ represents an equivalence class,
+	\item the union is taken over all distinct equivalence classes.
+\end{itemize}
+
+\textbf{Key Properties:}
+\begin{enumerate}[leftmargin=*]
+	\item \emph{Completeness:} Every element $x \in M$ belongs to exactly one equivalence class $[x]$.
+	\item \emph{Disjointness:} For any two equivalence classes $[a]$ and $[b]$:
+		\begin{itemize}
+			\item Either $[a] = [b]$ (they are the same class), or
+			\item $[a] \cap [b] = \emptyset$ (they are disjoint).
+		\end{itemize}
+\end{enumerate}
+
+\textbf{Mathematical Formulation:}
+
+More precisely, if $\sim$ is an equivalence relation on $M$, then the collection of equivalence classes
+\[
+	\{[m] : m \in M\}
+\]
+forms a partition of $M$, meaning:
+\begin{enumerate}[leftmargin=*]
+	\item $\bigcup_{m \in M} [m] = M$ (every element is covered),
+	\item For distinct representatives $a, b$: if $[a] \neq [b]$, then $[a] \cap [b] = \emptyset$ (disjoint),
+	\item Each $[m] \neq \emptyset$ (non-empty classes).
+\end{enumerate}
+
+\textbf{Example:}
+
+Consider $M = \{1, 2, 3, 4, 5, 6\}$ with the equivalence relation ``same remainder when divided by 3'':
+\begin{align*}
+	[1] &= \{1, 4\} \quad \text{(remainder 1)} \\
+	[2] &= \{2, 5\} \quad \text{(remainder 2)} \\
+	[0] &= \{3, 6\} \quad \text{(remainder 0)}
+\end{align*}
+Then $M = [1] \cup [2] \cup [0] = \{1, 4\} \cup \{2, 5\} \cup \{3, 6\}$.
+
+The equivalence classes are pairwise disjoint and their union reconstructs the original set $M$.
+
+\medskip
+\NumberedDefinition{1.4.7}{Order Relation}{A relation $R$ on $M$ is called an order relation (partial order) if for all $x,y,z\in M$:
+\begin{enumerate}[label=\roman*)]
+	\item $x\preceq x$ (reflexive),
+	\item $x\preceq y$ and $y\preceq z \Rightarrow x\preceq z$ (transitive),
+	\item $x\preceq y$ and $y\preceq x \Rightarrow x=y$ (antisymmetric).
+\end{enumerate}
+If $R$ is an order relation we write $x\preceq y$. A set with an order relation is an ordered set. The order is \emph{total} if for all $x,y\in M$ either $x\preceq y$ or $y\preceq x$ holds.
+}
+
+\NumberedExample{1.4.8}{Totally ordered example}{\(\big(\R,\le\big)\) is a totally ordered set. For an arbitrary set \(M\), \(\big(\mathcal P(M),\subseteq\big)\) is an ordered, but in general not a totally ordered, set.}
+% ...existing code...
+\NumberedDefinition{1.4.9}{Maximal and minimal elements}{Let \((M,\preceq)\) be an ordered set and \(A\subset M\) with \(A\neq\emptyset\). An element \(m\in A\) is called maximal in \(A\) if
+\[
+\bigl(x\in A \ \wedge\ m\preceq x\bigr)\ \Longrightarrow\ x = m.
+\]
+(That is, no element of \(A\) lies strictly above \(m\).)
+An element \(m\in A\) is called minimal in \(A\) if
+\[
+\bigl(x\in A \ \wedge\ x\preceq m\bigr)\ \Longrightarrow\ x = m.
+\]
+(That is, no element of \(A\) lies strictly below \(m\).)
+\label{def:1.4.9}}
+
+An element \(m\in A\) is a \emph{maximum} (largest element) of \(A\) if it is an upper bound of \(A\) and \(m\in A\); we then write \(m=\max A\). Dually, \(m\in A\) is a \emph{minimum} (smallest element) if it is a lower bound of \(A\) and belongs to \(A\); then \(m=\min A\).
+
+Observe the distinction:
+\begin{itemize}[leftmargin=*]
+	\item A set may possess several distinct maximal elements (and several minimal elements) in a partial order.
+	\item If a maximum exists it is the \emph{only} maximal element (and similarly a minimum, if it exists, is the only minimal element).
+	\item In a total order, if a maximal element exists then it is automatically the maximum; likewise for minimal/minimum.
+\end{itemize}
+
+\NumberedDefinition{1.4.10}{Upper/lower bounds, supremum and infimum}{Let \((M,\preceq)\) be an ordered set and let \(A\subset M\) with \(A\neq\emptyset\).
+\begin{itemize}[leftmargin=*]
+	\item An element \(u\in M\) is called an \emph{upper bound} of \(A\) if \(a\preceq u\) for all \(a\in A\). We say that \(A\) is \emph{bounded above} if it has an upper bound.
+	\item An element \(l\in M\) is a \emph{lower bound} of \(A\) if \(l\preceq a\) for all \(a\in A\). We say that \(A\) is \emph{bounded below} if it has a lower bound.
+	\item An element \(s\in M\) is the \emph{supremum} (least upper bound) of \(A\) if it is an upper bound of \(A\) and for every upper bound \(u\) of \(A\) we have \(s\preceq u\). We then write \(s=\sup A\).
+	\item An element \(i\in M\) is the \emph{infimum} (greatest lower bound) of \(A\) if it is a lower bound of \(A\) and for every lower bound \(l\) of \(A\) we have \(l\preceq i\). We then write \(i=\inf A\).
+\end{itemize}
+If it exists and belongs to the set, the supremum is the maximum; if the infimum exists and belongs to the set, it is the minimum.
+}
+
+\paragraph{Remarks.}
+\begin{itemize}[leftmargin=*]
+	\item Supremum and infimum, when they exist, are unique.
+	\item A set can be bounded above without possessing a maximum; e.g. the open interval \((0,1)\subset \R\) has \(1\) as least upper bound but no maximum.
+	\item In \(\R\) (and more generally any order-complete set) every nonempty set that is bounded above has a supremum, and every nonempty set bounded below has an infimum.
+	\item The dual notions are exchanged by replacing the order \(\preceq\) with its opposite.
+\end{itemize}
+
+\paragraph{Equivalent characterization of supremum.} For a nonempty subset \(A\subset \R\) that is bounded above and a number \(s\in\R\), the following are equivalent:
+\begin{enumerate}[label=\alph*) ,leftmargin=*]
+	\item \(s=\sup A\).
+	\item (i) \(a\le s\) for all \(a\in A\); and (ii) for every \(\eps>0\) there exists \(a\in A\) with \(s-\eps < a\).
+\end{enumerate}
+This is the content already stated in Proposition~2.3.7 for the real numbers.
+
+\paragraph{Notation.} When helpful we also write \(\sup_{a\in A} a\) for \(\sup A\), and similarly for the infimum.
+
+% ============================================================================
+% 2 Numbers (Zahlen) -- Original start p.15
+% ============================================================================
+\section{Numbers (Zahlen)}
+
+\subsection{The Natural Numbers (Die natürlichen Zahlen)}
+	odo{Add translation: Peano axioms (if present), induction principle}
+
+\subsection{The Rational Numbers (Die rationalen Zahlen)}
+	odo{Add translation: construction via fractions, field properties}
+
+\subsection{The Real Numbers (Die reellen Zahlen)}
+	odo{Add translation: completeness axiom, least upper bound property}
+\label{subsec:reals}
+	odo{Add translation: construction and basic field/order axioms (placeholder).}
+
+% ---------------------------------------------------------------------------
+% Fixed-number translations: 2.3.2–2.3.4 (Order completeness of R)
+% ---------------------------------------------------------------------------
+\NumberedDefinition{2.3.2}{Order completeness}{A totally ordered set $(M,\preceq)$ is called \emph{order complete} if the following holds: whenever $A,B\subset M$ are nonempty with $a\preceq b$ for all $a\in A$ and $b\in B$, there exists $c\in M$ with $a\preceq c$ for all $a\in A$ and $c\preceq b$ for all $b\in B$.}
+
+\NumberedRemark{2.3.3}{\(\Q\) is not order complete}{Let $A=\{x\in\Q: x>0\text{ and }x^2<2\}$ and $B=\{x\in\Q: x>0\text{ and }x^2>2\}$. There is no $c\in\Q$ with $a\le c\le b$ for all $a\in A$ and $b\in B$. If such a $c$ existed, then $c=\sqrt{2}$.}
+
+\NumberedTheorem{2.3.4}{Existence and uniqueness of the reals}{There exists an order-complete ordered field, and this object is unique up to isomorphism; we denote it by $\R$.}
+
+\NumberedProposition{2.3.7}{Characterization of the supremum}{Let $A\subset \R$ be nonempty and bounded above. Then $s=\sup(A)$ if and only if $a\le s$ for all $a\in A$ and for every $\eps>0$ there exists $a\in A$ with $s-\eps < a \le s$.}
+
+\NumberedProposition{2.3.14}{Existence of $\sqrt{2}$}{There exists $c\in\R$, $c>0$, with $c^2=2$.}
+
+\paragraph{Proof.}
+Let
+\[
+	A:=\{ x\in\R : x\ge 0 \text{ and } x^2\le 2\}.
+\]
+The set $A$ is clearly bounded above. Let $c:=\sup(A)$. We claim that $c^2=2$.
+
+Suppose first that $c^2<2$. Choose $0<\eps<1$ with $\eps<\dfrac{2-c^2}{2c+1}$. Then
+\[
+	(c+\eps)^2 = c^2 + 2c\eps + \eps^2 \le c^2 + (2c+1)\eps \le 2,
+\]
+so $c+\eps\in A$, contradicting that $c$ is an upper bound of $A$.
+
+Now suppose that $c^2>2$. For $0<\eps<\dfrac{c^2-2}{2c}$ we have
+\[
+	(c-\eps)^2 = c^2 - 2c\eps + \eps^2 > c^2 - 2c\eps > 2,
+\]
+which implies $c-\eps$ is an upper bound for $A$, contradicting that $c$ is the least upper bound. Hence $c^2=2$. \qed
+
+\NumberedRemark{2.3.15}{(see exercises)}{Let $a\in\R$ with $a>0$ and $p\in\N\setminus\{0\}$. Then there exists a unique real $x>0$ with $x^p=a$.}
+
+\subsection{Countable and Uncountable Sets (Abzählbare und überabzählbare Mengen)}
+	odo{Add translation: injections/surjections, Cantor's diagonal, examples}
+	odo{Add translation: injections/surjections, Cantor's diagonal, examples}
+
+\subsection{The Complex Numbers (Die komplexen Zahlen)}\label{subsec:complex-numbers}
+
+We now introduce the complex numbers. Since for every $x\in \R$ we have $x^2\ge 0$, the equation
+\[
+	x^2=-1
+\]
+has no real solution. We want to construct a smallest possible superset of $\R$ in which this equation becomes solvable. We proceed as follows: we introduce \emph{formally} the imaginary unit via
+\[
+	i^2=-1,
+\]
+and define the set of \emph{complex numbers} by
+\[
+	\C := \{\, x+iy : x,y\in \R \,\}.
+\]
+
+We agree that $0\cdot i:=0$, so that $\R$ is contained in $\C$. Addition and multiplication on $\C$ are defined by
+\begin{align*}
+	(x+iy)+(u+iv) &:= (x+u) + i\,(y+v),\\
+	(x+iy)(u+iv) &:= (xu - yv) + i\,(xv + uy).
+\end{align*}
+From this one obtains, for $x+iy\ne 0$, the division rule
+\[
+	\frac{u+iv}{x+iy}
+	 = \frac{xu+yv}{x^2+y^2} 
+		 + i\,\frac{xv-yu}{x^2+y^2},
+\]
+which follows from $(x+iy)^{-1}=\dfrac{x-iy}{x^2+y^2}$.
+
+\NumberedRemark{2.5.1}{\(\C\) cannot be ordered}{There is no order $\le$ on $\C$ making it an ordered field. Otherwise one would have $z^2\ge 0$ for every $z\in\C$, which contradicts $i^2=-1$.}
+
+\paragraph{Modulus and $|z|^2$.}
+For $z=x+iy\in\C$ the \emph{modulus} is $|z|:=\sqrt{x^2+y^2}$. Writing the \emph{conjugate} as $\overline{z}=x-iy$, one has the fundamental identity
+\[
+  |z|^2 = z\,\overline{z} = x^2+y^2. 
+\]
+Consequences used frequently:
+\begin{itemize}[leftmargin=*]
+  \item $|zw|=|z|\,|w|$ and $\overline{zw}=\overline{z}\,\overline{w}$.
+  \item $z\neq0 \iff |z|>0$ and $z^{-1}=\overline{z}/|z|^2$.
+  \item $|z+w|^2 = |z|^2 + |w|^2 + 2\,\Re( z\overline{w} )$ (parallelogram law), hence $|z+w|\le |z|+|w|$.
+  \item $|\Re z|\le |z|$ and $|\Im z|\le |z|$.
+\end{itemize}
+
+% ---------------------------------------------------------------------------
+% Fixed-number translation: Definition 2.5.2
+% ---------------------------------------------------------------------------
+\NumberedDefinition{2.5.2}{Basic notions and rules for complex numbers}{
+Let $z=x+iy$ with $x,y\in\R$ be a complex number. Then we define
+\begin{itemize}[leftmargin=*]
+	\item $\Re z := x$ the real part of $z$,
+	\item $\Im z := y$ the imaginary part of $z$,
+	\item $|z| := \sqrt{x^2+y^2}$ the modulus of $z$,
+	\item $\overline{z} := x - iy$ the conjugate of $z$.
+\end{itemize}
+The following calculation rules hold for
+$z=x+iy$, $w=u+iv$ with $x,y,u,v\in\R$:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\Re z = \tfrac12(z+\overline{z}),\quad \Im z = \tfrac{1}{2i}(z-\overline{z})$.
+	\item $z\in\R \iff z=\overline{z}$.
+	\item $\overline{\overline{z}}=z$.
+	\item $\overline{z+w}=\overline{z}+\overline{w},\quad \overline{z\,w}=\overline{z}\,\overline{w}$.
+	\item $|z|^2 = z\,\overline{z}$.
+	\item $|z|\ge 0,\quad |z|=0 \iff z=0$.
+	\item For real numbers $z$ (viewed in $\C$): $|z|_{\C}=|z|_{\R}$.
+	\item Triangle inequality: $|z+w|\le |z|+|w|$.
+	\item Multiplicativity: $|z\,w|=|z|\,|w|$.
+	\item Reverse triangle inequality: $\big||z|-|w|\big| \le |z-w|$.
+	\item $|\Re z|\le |z|$ and $|\Im z|\le |z|$.
+	\item For all $z\in\C\setminus\{0\}$: $\displaystyle \frac{1}{z}=\frac{\overline{z}}{|z|^2}$.
+\end{enumerate}
+\emph{Proof.} Exercise.
+}
+
+\NumberedDefinition{2.5.3}{Notation $\K$}{In what follows, we use $\K$ to denote either $\R$ or $\C$.}
+\subsection{The Vector Spaces $\R^m$ (Die Vektorräume $\R^m$)}
+	odo{Add translation: vectors, norms (preview), linear structure}
+
+% ============================================================================
+% 3 Sequences and Series (Folgen und Reihen) -- Original start p.31
+% ============================================================================
+\section{Sequences and Series (Folgen und Reihen)}
+
+\subsection{Convergence of Sequences (Konvergenz von Folgen)}
+	odo{Add translation: definition of limit, examples, algebra of limits}
+
+\subsection{Completeness (Vollständigkeit)}
+	odo{Add translation: Cauchy sequences, completeness of $\R$}
+
+\subsection{Improper Convergence (Uneigentliche Konvergenz)}
+	odo{Clarify intended meaning in source (extended reals vs. divergent types)}
+
+\subsection{Series (Reihen)}
+	odo{Add translation: definition, partial sums, convergence criteria}
+
+\subsection{Absolute Convergence (Absolute Konvergenz)}
+	odo{Add translation: comparison to conditional convergence}
+
+\subsection{Power Series (Potenzreihen)}
+	odo{Add translation: radius of convergence, termwise operations}
+
+% ============================================================================
+% 4 Continuous Functions (Stetige Funktionen) -- Original start p.57
+% ============================================================================
+\section{Continuous Functions (Stetige Funktionen)}
+
+\subsection{Normed Vector Spaces (Normierte Vektorräume)}
+	odo{Add translation: norms, metric induced by a norm}
+
+\subsection{Basic Topological Concepts (Topologische Grundbegriffe)}
+	odo{Add translation: open/closed sets, interior, closure, accumulation points}
+
+\subsection{Continuity (Stetigkeit)}
+	odo{Add translation: epsilon-delta, sequential continuity, properties}
+
+\subsection{Functions on $\R$ (Funktionen in $\R$)}
+	odo{Add translation: intermediate value, extreme value theorems}
+
+\subsection{The Exponential Function (Die Exponentialfunktion)}
+	odo{Add translation: definition via series, properties, logarithm}
+
+% ============================================================================
+% 5 Differential Calculus in One Variable (Differentialrechnung einer Veränderlichen) -- p.95
+% ============================================================================
+\section{Differential Calculus in One Variable (Differentialrechnung einer Veränderlichen)}
+
+\subsection{Differentiability (Differenzierbarkeit)}
+	odo{Add translation: definition, basic derivative rules}
+
+\subsection{Mean Value Theorems (Mittelwertsätze)}
+	odo{Add translation: Rolle, Lagrange, Cauchy mean value theorems}
+
+\subsection{Taylor's Formula (Taylorsche Formel)}
+	odo{Add translation: Taylor polynomials, remainder estimates}
+
+% ============================================================================
+% 6 Sequences of Functions (Funktionenfolgen) -- Original start p.119
+% ============================================================================
+\section{Sequences of Functions (Funktionenfolgen)}
+
+\subsection{Uniform Convergence (Gleichmässige Konvergenz)}
+	odo{Add translation: definition, implications for continuity/integration}
+
+\subsection{Interchanging Limits (Vertauschen von Grenzwerten)}
+	odo{Add translation: criteria for swapping limit operations}
+
+% ============================================================================
+% End matter / future parts (e.g., multivariable calculus) can be appended here.
+% ============================================================================
+
+\end{document}

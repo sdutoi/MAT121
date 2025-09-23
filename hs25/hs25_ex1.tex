@@ -1,0 +1,338 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 1}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\subsection*{(a) $(A\cup B)^c = A^c \cap B^c$}
+
+\textbf{Goal:} Prove equality by double inclusion. Complements are taken relative to the universal set $X$.
+
+\textbf{($\subseteq$)} Let $x \in (A\cup B)^c$. Then $x \notin A\cup B$, so $x\notin A$ and $x\notin B$. Hence $x\in A^c$ and $x\in B^c$, thus $x\in A^c\cap B^c$.
+
+\textbf{($\supseteq$)} Let $x \in A^c\cap B^c$. Then $x\notin A$ and $x\notin B$, so $x\notin A\cup B$, i.e.\ $x\in (A\cup B)^c$.
+
+Therefore $(A\cup B)^c = A^c\cap B^c$.
+
+\subsection*{(b) $(A\cap B)^c = A^c \cup B^c$}
+
+\textbf{($\subseteq$)} Let $x\in (A\cap B)^c$. Then $x \notin A\cap B$, so $x\notin A$ or $x\notin B$. Thus $x\in A^c$ or $x\in B^c$, hence $x\in A^c \cup B^c$.
+
+\textbf{($\supseteq$)} Let $x\in A^c \cup B^c$. Then $x\notin A$ or $x\notin B$, so $x\notin A\cap B$, i.e.\ $x\in (A\cap B)^c$.
+
+Thus $(A\cap B)^c = A^c \cup B^c$.
+
+\subsection*{(c) $A \setminus (A \setminus B) = A \cap B$}
+
+Let $x \in A \setminus (A \setminus B)$. Then $x\in A$ and $x \notin A\setminus B$. The condition $x\notin A\setminus B$ means it is not true that ($x\in A$ and $x\notin B$). Since $x\in A$ already, we must have $x\in B$. Hence $x\in A\cap B$; so $A \setminus (A \setminus B) \subseteq A\cap B$.
+
+Conversely, if $x\in A\cap B$, then $x\in A$ and $x\in B$. Thus $x\notin A\setminus B$ (because $A\setminus B$ requires $x\notin B$). Therefore $x\in A\setminus (A\setminus B)$. Hence $A\cap B \subseteq A\setminus (A\setminus B)$.
+
+So $A \setminus (A \setminus B) = A\cap B$.
+
+%%%%%%%
+
+\section*{2}
+
+\subsection*{(a)}
+Let \(f: M \to N\) and \(A,B \subseteq N\). We prove
+\[
+f^{-1}(A\cap B)=f^{-1}(A)\cap f^{-1}(B),
+\qquad
+f^{-1}(A\cup B)=f^{-1}(A)\cup f^{-1}(B).
+\]
+
+\textbf{Intersection.}
+\[
+\begin{aligned}
+x \in f^{-1}(A\cap B)
+&\;\Longleftrightarrow\; f(x)\in A\cap B \\
+&\;\Longleftrightarrow\; f(x)\in A \text{ and } f(x)\in B \\
+&\;\Longleftrightarrow\; x\in f^{-1}(A) \text{ and } x\in f^{-1}(B) \\
+&\;\Longleftrightarrow\; x\in f^{-1}(A)\cap f^{-1}(B).
+\end{aligned}
+\]
+Thus the sets are equal.
+
+\textbf{Union.}
+\[
+\begin{aligned}
+x \in f^{-1}(A\cup B)
+&\;\Longleftrightarrow\; f(x)\in A\cup B \\
+&\;\Longleftrightarrow\; f(x)\in A \text{ or } f(x)\in B \\
+&\;\Longleftrightarrow\; x\in f^{-1}(A) \text{ or } x\in f^{-1}(B) \\
+&\;\Longleftrightarrow\; x\in f^{-1}(A)\cup f^{-1}(B).
+\end{aligned}
+\]
+Thus the sets are equal.
+
+\textbf{Conclusion.} Preimages distribute over finite intersections and unions without any further condition on \(f\).
+
+\subsection*{(b)}
+
+Let $f : M \to N$ and $A,B \subseteq M$. 
+
+\textbf{($\subseteq$):} Let $y \in f(A \cap B)$. Then there exists $x \in A \cap B$ with $f(x)=y$. Hence $y \in f(A)$ and $y \in f(B)$, so $y \in f(A) \cap f(B)$. Therefore $f(A \cap B) \subseteq f(A) \cap f(B)$.
+
+\textbf{Equality does not always hold:} For example: $M=\{1,2\}$, $f(1)=f(2)=a$, $A=\{1\}$, $B=\{2\}$. Then $f(A \cap B)=\varnothing$, but $f(A)\cap f(B)=\{a\}$.
+
+\textbf{For the union:} $f(A\cup B)=f(A)\cup f(B)$.
+
+\textbf{($\subseteq$)} If $y\in f(A\cup B)$ then there is $x\in A\cup B$ with $f(x)=y$. So $x\in A$ or $x\in B$, hence $y\in f(A)$ or $y\in f(B)$. Thus $y\in f(A)\cup f(B)$.
+
+\textbf{($\supseteq$)} If $y\in f(A)\cup f(B)$ then $y\in f(A)$ or $y\in f(B)$. In the first case $\exists x\in A$ with $f(x)=y$; but then $x\in A\subseteq A\cup B$, so $y\in f(A\cup B)$. The second case is analogous. So $f(A)\cup f(B)\subseteq f(A\cup B)$.
+
+Combining both directions gives equality.
+
+\subsection*{(c)}
+
+\textbf{($\Rightarrow$):} Suppose $f$ is injective. We always have $f(A \cap B) \subseteq f(A) \cap f(B)$. Let $y \in f(A) \cap f(B)$. Then there exist $x_1 \in A$, $x_2 \in B$ with $f(x_1)=f(x_2)=y$. Since $f$ is injective, $x_1 = x_2 \in A \cap B$, so $y \in f(A \cap B)$. Thus $f(A) \cap f(B) \subseteq f(A \cap B)$.
+
+\textbf{($\Leftarrow$):} Suppose $f$ is not injective. Then there exist $x_1 \neq x_2$ with $f(x_1)=f(x_2)$. Let $A=\{x_1\}$, $B=\{x_2\}$. Then $f(A \cap B)=\varnothing$, but $f(A)\cap f(B)=\{f(x_1)\} \neq \varnothing$. So equality fails.
+
+Therefore, $f$ is injective if and only if for all $A,B \subseteq M$ we have
+\[
+f(A \cap B) = f(A) \cap f(B).
+\]
+
+
+
+%%%
+\section*{3}
+
+\subsection*{(a)}
+
+\textbf{Relation:} For $A,B \subseteq \mathbb{N}$,
+\[
+A \sim_1 B \;\Longleftrightarrow\; A \setminus B \text{ is finite}.
+\]
+
+\textbf{Reflexive:} For every $A$, $A \setminus A = \varnothing$, and $\varnothing$ is finite. Hence $A \sim_1 A$.
+
+\textbf{Not symmetric:} Take $A = \{1\}$, $B = \mathbb{N}$. Then
+\[
+A \setminus B = \varnothing \text{ (finite)} \quad\Rightarrow\quad A \sim_1 B,
+\]
+but
+\[
+B \setminus A = \mathbb{N} \setminus \{1\} \text{ is infinite} \quad\Rightarrow\quad B \not\sim_1 A.
+\]
+So symmetry fails.
+
+\textbf{Transitive:} Suppose $A \sim_1 B$ and $B \sim_1 C$; i.e.\ $A \setminus B$ and $B \setminus C$ are finite. If $x \in A \setminus C$, then either $x \in B$ (so $x \in B \setminus C$) or $x \notin B$ (so $x \in A \setminus B$). Thus
+\[
+A \setminus C \subseteq (A \setminus B) \cup (B \setminus C).
+\]
+A subset of a finite union of finite sets is finite. Therefore $A\setminus C$ is finite, i.e.\ $A \sim_1 C$. 
+
+\textbf{Conclusion:} $\sim_1$ is reflexive and transitive, but not symmetric; it is therefore a preorder (and not an equivalence relation).
+
+\subsection*{(b)}
+
+\textbf{Relation:} For $A,B \subseteq \mathbb{N}$,
+\[
+A \sim_2 B \;\Longleftrightarrow\; \mathbb{N}\setminus(A\cap B) \text{ is finite}.
+\]
+
+\textbf{Not reflexive:} Take $A = \{\text{even naturals}\}$. Then $\mathbb{N}\setminus(A\cap A) = \mathbb{N}\setminus A$ is infinite, so $A \not\sim_2 A$.
+
+\textbf{Symmetric:} Since $A\cap B = B\cap A$, we have $\mathbb{N}\setminus(A\cap B)$ is finite if and only if $\mathbb{N}\setminus(B\cap A)$ is finite.
+
+\textbf{Transitive:} Suppose $A \sim_2 B$ and $B \sim_2 C$; i.e.\ $A\cap B$ and $B\cap C$ are cofinite. Their intersection
+\[
+(A\cap B)\cap(B\cap C) = B\cap A\cap C
+\]
+is cofinite (intersection of cofinite sets is cofinite). Since $B\cap A\cap C \subseteq A\cap C$, the set $A\cap C$ contains a cofinite subset, so $\mathbb{N}\setminus(A\cap C)$ is finite. Thus $A \sim_2 C$.
+
+\textbf{Conclusion:} $\sim_2$ is symmetric and transitive, but not reflexive.
+
+\subsection*{(c)}
+
+\textbf{Relation:} For $A,B \subseteq \mathbb{N}$,
+\[
+A \sim_3 B \;\Longleftrightarrow\; \mathbb{N}\setminus(A\cup B) \text{ is finite}.
+\]
+
+\textbf{Not reflexive:} Take $A = \{\text{even naturals}\}$. Then $\mathbb{N}\setminus(A\cup A) = \mathbb{N}\setminus A$ is infinite, so $A \not\sim_3 A$.
+
+\textbf{Symmetric:} Since $A\cup B = B\cup A$, we have $\mathbb{N}\setminus(A\cup B)$ is finite if and only if $\mathbb{N}\setminus(B\cup A)$ is finite.
+
+\textbf{Not transitive:} Take $A = \{1\}$, $B = \mathbb{N}\setminus\{1\}$, $C = \{2\}$. Then $A\cup B = \mathbb{N}$ and $B\cup C = B$ are cofinite, so $A \sim_3 B$ and $B \sim_3 C$. But $A\cup C = \{1,2\}$ is not cofinite, hence $A \not\sim_3 C$. So transitivity fails.
+
+\textbf{Conclusion:} $\sim_3$ is symmetric but neither reflexive nor transitive.
+
+%%%
+\section*{4}
+
+Let $M = \{1/n : n \in \mathbb{N} \land n \geq 1\} = \{1, 1/2, 1/3, 1/4, \ldots\}$.
+
+\textbf{Finding the greatest lower bound $s$ and least upper bound $t$ of $M$.}
+
+\textbf{Claim:} $s = 0$ and $t = 1$.
+
+\textbf{Proof that $t = 1$ is the least upper bound:}
+
+(i) $1$ is an upper bound: For any $m \in M$, we have $m = 1/n$ for some $n \geq 1$. Since $n \geq 1$, we get $1/n \leq 1$, so $m \leq 1$.
+
+(ii) $1$ is the least upper bound: Suppose $u$ is any upper bound of $M$. Since $1 \in M$ and $u$ is an upper bound, we have $1 \leq u$. Therefore $1$ is the smallest upper bound.
+
+\textbf{Proof that $s = 0$ is the greatest lower bound:}
+
+(i) $0$ is a lower bound: For any $m \in M$, we have $m = 1/n$ for some $n \geq 1$. Since $n \geq 1 > 0$, we get $1/n > 0$, so $m > 0 \geq 0$.
+
+(ii) $0$ is the greatest lower bound: Let $\ell$ be any lower bound of $M$. We show $\ell \leq 0$. 
+
+Suppose for contradiction that $\ell > 0$. Since $1/n \to 0$ as $n \to \infty$, there exists $N \in \mathbb{N}$ such that $1/N < \ell$. But $1/N \in M$ and $\ell$ is a lower bound of $M$, so we must have $\ell \leq 1/N$. This contradicts $1/N < \ell$.
+
+Therefore $\ell \leq 0$, proving that $0$ is the greatest lower bound.
+
+\textbf{Are $s, t \in M$?}
+
+\textbf{For $t = 1$:} Since $1 = 1/1$ and $1 \in \mathbb{N}$ with $1 \geq 1$, we have $t = 1 \in M$.
+
+\textbf{For $s = 0$:} We need to check if $0 \in M$. For $0$ to be in $M$, there would need to exist some $n \in \mathbb{N}$ with $n \geq 1$ such that $0 = 1/n$. But $1/n > 0$ for all $n \geq 1$, so there is no such $n$. Therefore $s = 0 \notin M$.
+
+\textbf{Answer:} $t \in M$ but $s \notin M$.
+
+%%%%
+
+
+\section*{5}
+
+\subsection*{(a)}
+
+\textbf{Claim.} For every \(n \in \mathbb{N}\), the integer \(n^{7}-n\) is divisible by \(7\); equivalently \(n^{7} \equiv n \pmod 7\).
+
+\textbf{Proof (by induction on \(n\)).}
+
+\emph{Base case.}  
+for \(n=1\), \(1^{7}-1=0\), divisible by \(7\).  
+
+\emph{Induction hypothesis.}  
+Assume for some \(n \in \mathbb{N}\) that \(7 \mid (n^{7}-n)\); i.e.\ there exists an integer \(q\) with \(n^{7}-n = 7q\).
+
+\emph{Induction step.}  
+We must show \(7 \mid ((n+1)^{7} - (n+1))\).
+
+Expand \((n+1)^{7}\) using the binomial theorem:
+\[
+(n+1)^{7} = n^{7} + 7n^{6} + 21n^{5} + 35n^{4} + 35n^{3} + 21n^{2} + 7n + 1.
+\]
+Subtract \((n+1)\):
+\[
+(n+1)^{7} - (n+1)
+= n^{7} + 7n^{6} + 21n^{5} + 35n^{4} + 35n^{3} + 21n^{2} + 7n + 1 - n - 1 \]
+\[
+= n^{7} + 7n^{6} + 21n^{5} + 35n^{4} + 35n^{3} + 21n^{2} + 6n.
+\]
+Now subtract \((n^{7}-n)\) (the part we know is a multiple of 7):
+\[
+\bigl((n+1)^{7} - (n+1)\bigr) - (n^{7}-n)
+= 7n^{6} + 21n^{5} + 35n^{4} + 35n^{3} + 21n^{2} + 7n
+= 7\bigl(n^{6} + 3n^{5} + 5n^{4} + 5n^{3} + 3n^{2} + n\bigr),
+\]
+which is clearly divisible by \(7\).
+
+\emph{Conclusion.} By induction, \(7 \mid (n^{7}-n)\) for all \(n \in \mathbb{N}\).
+
+
+%%%%%
+
+\subsection*{(b)}
+\begin{proof}
+Define \(S_n = \sum_{k=1}^n (-1)^{k-1} k^{2}\). We prove
+\[
+S_n = (-1)^{n-1}\frac{n(n+1)}{2}\qquad (n\ge 1)
+\]
+by induction.
+
+\emph{Base case \(n=1\).} \(S_1 = (-1)^0 1^2 = 1 = (-1)^0 \cdot \frac{1\cdot 2}{2}\).
+
+\emph{Induction step.} Assume \(S_n = (-1)^{n-1} \frac{n(n+1)}{2}\). Then
+\[
+S_{n+1} = S_n + (-1)^n (n+1)^2
+= (-1)^{n-1} \frac{n(n+1)}{2} + (-1)^n (n+1)^2
+= (-1)^n\Bigl[-\frac{n(n+1)}{2} + (n+1)^2\Bigr].
+\]
+Factor \((n+1)\):
+\[
+S_{n+1} = (-1)^n (n+1)\Bigl(-\frac{n}{2} + n + 1\Bigr)
+= (-1)^n (n+1)\frac{n+2}{2}
+= (-1)^{(n+1)-1} \frac{(n+1)(n+2)}{2}.
+\]
+Thus the formula holds for \(n+1\), completing the induction.
+\end{proof}
+
+%%%%%%
+
+
+
+
+\subsection*{(c)}
+\begin{proof}
+Let \(T_n = \sum_{k=1}^{2n} \frac{1}{k}\). We prove \(T_n \le n+1\) for all \(n\ge 1\) by induction.
+
+\emph{Base case \(n=1\).} \(T_1 = 1 + \tfrac12 = \tfrac32 \le 2 = 1+1\).
+
+\emph{Induction step.} Assume \(T_n \le n+1\). Then
+\[
+T_{n+1}
+= \sum_{k=1}^{2n+2} \frac{1}{k}
+= T_n + \frac{1}{2n+1} + \frac{1}{2n+2}
+\le (n+1) + \frac{1}{2n+1} + \frac{1}{2n+2}.
+\]
+Since \(2n+1 \ge n+1\) and \(2n+2 \ge n+1\) for \(n\ge 1\),
+\[
+\frac{1}{2n+1} + \frac{1}{2n+2}
+\le \frac{1}{n+1} + \frac{1}{n+1}
+= \frac{2}{n+1} \le 1.
+\]
+Thus \(T_{n+1} \le (n+1) + 1 = n+2\). This completes the induction.
+
+Therefore \(\displaystyle \sum_{k=1}^{2n} \frac{1}{k} \le n+1\) for all \(n\ge 1\).
+\end{proof}
+
+
+
+\end{document}
