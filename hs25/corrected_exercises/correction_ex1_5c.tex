@@ -1,0 +1,71 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 1}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+\section*{5}
+\subsection*{(c)}
+\begin{proof}
+Let \(S_n = \sum_{k=1}^{2^{n}} \frac{1}{k}\). We prove by induction on \(n \ge 1\) that
+\[
+S_n \le n+1.
+\]
+
+\emph{Base case \(n=1\).} Then \(S_1 = 1 + \tfrac12 = \tfrac32 \le 2 = 1+1\).
+
+\emph{Induction step.} Assume \(S_n \le n+1\) for some \(n \ge 1\). Then
+\[
+S_{n+1}
+= \sum_{k=1}^{2^{n+1}} \frac{1}{k}
+= \sum_{k=1}^{2^{n}} \frac{1}{k} \;+\; \sum_{k=2^{n}+1}^{2^{n+1}} \frac{1}{k}
+\le (n+1) \;+\; \sum_{k=2^{n}+1}^{2^{n+1}} \frac{1}{k}.
+\]
+For every \(k\) with \(2^{n}+1 \le k \le 2^{n+1}\), we have \(k \ge 2^{n}\), hence \(\frac{1}{k} \le \frac{1}{2^{n}}\).
+There are exactly \(2^{n}\) terms in the last sum, so
+\[
+\sum_{k=2^{n}+1}^{2^{n+1}} \frac{1}{k} \le 2^{n} \cdot \frac{1}{2^{n}} = 1.
+\]
+Therefore \(S_{n+1} \le (n+1) + 1 = n+2\). This completes the induction.
+
+Hence \(\displaystyle \sum_{k=1}^{2^{n}} \frac{1}{k} \le n+1\) for all \(n \ge 1\).
+\end{proof}
+\end{document}

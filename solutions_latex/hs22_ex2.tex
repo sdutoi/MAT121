@@ -1,0 +1,152 @@
+\documentclass[12pt,a4paper]{article}
+
+% -- Packages --
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% -- Page Setup --
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% -- Header/Footer --
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 1}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% -- Theorem Environments --
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% -- Custom Environments --
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+
+
+\section*{2}
+
+Throughout this section we regard $\mathbb{Q}$ as an ordered field. Thus, for a set $A\subseteq\mathbb{Q}$, the statement "$\sup_{\mathbb{Q}}(A)$ exists" means: there is some $s\in\mathbb{Q}$ that is an upper bound of $A$ (in the usual order) and for every rational upper bound $u\in\mathbb{Q}$ we have $s\le u$.
+
+\subsection*{(a)}
+\[A 
+	= \left\{\dfrac{n}{n+1} : n\in\mathbb{N}\right\}.\]
+We claim that case (ii) holds: $\sup(A)$ exists in $\mathbb{Q}$ but $\sup(A)\notin A$, and in fact $\sup(A)=1$.
+
+\emph{Upper bound.} For every $n\in\mathbb{N}$, $\dfrac{n}{n+1}<1$, hence $1$ is a rational upper bound of $A$.
+
+\emph{Least among rational upper bounds.} Let $q\in\mathbb{Q}$ with $q<1$. Then $\dfrac{q}{1-q}$ is a real number, so by the Archimedean property there exists $n\in\mathbb{N}$ with $n>\dfrac{q}{1-q}$. Multiplying by $1-q>0$ gives $(1-q)n>q$, i.e. $n>q(n+1)$. Dividing by $n+1>0$ yields
+\[
+	\frac{n}{n+1} > q.
+\]
+Hence $q$ is \emph{not} an upper bound of $A$. Therefore no rational number $<1$ can be an upper bound, so $1$ is the least rational upper bound: $\sup(A)=1$. Clearly $1\notin A$. Thus (ii) is true for (a).
+
+\subsection*{(b)}
+\[A 
+	= \{\, t\in\mathbb{Q} : t^3-2t-1<0\,\}.\]
+Factor the cubic:
+\[
+ t^3-2t-1 = (t+1)\bigl(t^2-t-1\bigr),
+\]
+whose real zeros are $t=-1$ and $t=\dfrac{1\pm\sqrt{5}}{2}$. Thus
+\[
+ \{ t\in\mathbb{R} : t^3-2t-1<0 \} = (-\infty,-1) \;\cup\; \Bigl(\tfrac{1-\sqrt{5}}{2}, \tfrac{1+\sqrt{5}}{2}\Bigr).
+\]
+Intersecting with $\mathbb{Q}$ gives $A$. In $\mathbb{R}$ the least upper bound of $A$ is
+\[\varphi = \frac{1+\sqrt{5}}{2},\]
+which is irrational. Since we are taking suprema in the ordered field $\mathbb{Q}$, there is no smallest \emph{rational} upper bound of $A$: for any $u\in\mathbb{Q}$ with $u<\varphi$ there are rationals $t\in A$ with $u<t<\varphi$ (density of $\mathbb{Q}$), so $u$ fails to be an upper bound; and if $u\in\mathbb{Q}$ with $u>\varphi$, then $u$ is an upper bound but not the least among rational upper bounds. Consequently, $\sup(A)$ does \emph{not} exist in $\mathbb{Q}$. Hence case (i) holds for (b).
+
+\subsection*{(c)}
+\[A 
+	= \bigl\{\, \alpha\in\mathbb{Q} : x^2-x+\alpha \text{ has a rational root }\bigr\}.\]
+The quadratic $x^2-x+\alpha$ has a rational (indeed real) root iff its discriminant is a rational square with $\,1-4\alpha\ge 0\,$, i.e.,
+\[
+ 1-4\alpha = r^2 \quad \text{for some } r\in\mathbb{Q}_{\ge 0}.
+\]
+Equivalently,
+\[
+ \alpha = \frac{1-r^2}{4}, \qquad r\in\mathbb{Q}_{\ge 0}.
+\]
+Thus $A = \bigl\{\tfrac{1-r^2}{4} : r\in\mathbb{Q}_{\ge 0}\bigr\} \subset (-\infty,\tfrac14]$ and, since squares of rationals are dense in $[0,\infty)$, the set $A$ is dense from below up to $\tfrac14$. In particular $\tfrac14\in A$ (discriminant $0$, double root $x=\tfrac12\in\mathbb{Q}$), and it is an upper bound of $A$.
+
+Moreover, if $u<\tfrac14$ then $1-4u>0$; choosing $r\in\mathbb{Q}$ with $0<r^2<1-4u$ yields $\alpha=(1-r^2)/4\in A$ with $u<\alpha\le \tfrac14$. Hence no rational $<\tfrac14$ can be an upper bound. Therefore
+\[
+ \sup(A) = \tfrac14\in A,
+\]
+so case (iii) holds for (c).
+
+%%%%%%%
+
+\section*{3}
+Determine $\sup(A)$ for the given set $A\subset\mathbb{R}$.
+
+\subsection*{(a)}
+Let
+\[
+A=\{x\in\mathbb{R} : x^3-2x-1<0\}.
+\]
+Set $f(x)=x^3-2x-1$. Then
+\[
+f(x)=(x+1)\bigl(x^2-x-1\bigr),
+\]
+and the real zeros are
+\[
+x=-1,\qquad x=\frac{1\pm\sqrt{5}}{2}=: \varphi_{-}\ (<-1<\varphi_{-})\ ,\ \varphi_{+}\ (>0).
+\]
+Since $f$ is continuous and changes sign at each simple root, a sign chart shows
+\[
+\{x\in\mathbb{R}: f(x)<0\}=(-\infty,-1)\ \cup\ (\varphi_{-},\,\varphi_{+}).
+\]
+In particular, $\varphi_{+}$ is an upper bound of $A$, and for every $u<\varphi_{+}$ the interval 
+$(\max\{u,\varphi_{-}\},\,\varphi_{+})\subset A$, so $u$ is not an upper bound. Therefore
+\[
+\sup(A)=\varphi_{+}=\frac{1+\sqrt{5}}{2}.
+\]
+
+\subsection*{(b)}
+Let
+\[
+A=\bigl\{\,x\in\mathbb{R}:\ x\ \text{has a decimal expansion}\ 0.d_1d_2d_3\ldots\ \text{with}\ d_i\in\{0,1,2,3\}\ \text{for all }i\,\bigr\}.
+\]
+Every $x\in A$ uses only digits $\le 3$, hence
+\[
+x\le 0.3333\ldots=\frac{1}{3}.
+\]
+Thus $\tfrac{1}{3}$ is an upper bound of $A$, and in fact $\tfrac{1}{3}\in A$ via the expansion $0.\overline{3}$ (all digits equal to $3$).
+
+Moreover, the truncations
+\[
+x_n:=0.\underbrace{33\ldots 3}_{n\ \text{digits}}
+=\sum_{k=1}^n \frac{3}{10^k}
+=\frac{1-10^{-n}}{3}
+\nearrow \frac{1}{3}
+\]
+lie in $A$ and approach $\tfrac{1}{3}$ from below. Hence every $u<\tfrac{1}{3}$ fails to be an upper bound. Therefore
+\[
+\sup(A)=\frac{1}{3}\in A.
+\]
+
+\end{document}

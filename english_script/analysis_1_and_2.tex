@@ -32,13 +32,18 @@
 % -------------------- Packages --------------------
 \usepackage[utf8]{inputenc} % (Redundant in modern engines, harmless)
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel} % Main working language (German source in comments)
+\usepackage[english]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
 \usepackage{geometry}
 \usepackage{enumitem}
 \usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage[unicode]{hyperref}
+\hypersetup{unicode=true,hypertexnames=false}
+% Avoid enumitem negative labelwidth warnings by setting a safe leftmargin
+\setlist[enumerate]{leftmargin=*,labelsep=0.5em}
+% Soften line-breaking to avoid overfull hboxes in long headings/paragraphs
+\emergencystretch=2em
 \usepackage{microtype}
 
 \geometry{margin=2.5cm}
@@ -70,21 +75,21 @@
 % reference it normally with \ref. The visual number won't auto-sync if you
 % renumber—update the macro argument manually.
 \newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
-	\paragraph{Definition #1 ( #2 ).} #3\par
-}
+\paragraph*{Definition #1 ( #2 ).} #3\par}
 \newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
-	\paragraph{Theorem #1 ( #2 ).} #3\par
-}
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
 \newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
-	\paragraph{Example #1 ( #2 ).} #3\par
-}
+\paragraph*{Example #1 ( #2 ).} #3\par}
 \newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
-  \paragraph{Remark #1 ( #2 ).} #3\par
-}
+\paragraph*{Remark #1 ( #2 ).} #3\par}
 \newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
-	\paragraph{Proposition #1 ( #2 ).} #3\par
-}
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
 
+% Theorem styles (adjust as needed)
 % Theorem styles (adjust as needed)
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -109,112 +114,11 @@
 
 \begin{document}
 \maketitle
-	tableofcontents
+% Table of Contents (clickable via hyperref)
+% Table of Contents (clickable via hyperref)
+\hypersetup{linktoc=all} % make both section numbers and titles clickable
+\tableofcontents
 \newpage
-
-% ============================================================================
-% 1 Basic Concepts (Grundbegriffe)  -- Original start p.7
-% ============================================================================
-\section{Basic Concepts (Grundbegriffe)}
-
-\subsection{Logic (Logik)}
-	odo{Add translation: propositional logic, quantifiers, basic inference rules}
-
-\subsection{Sets (Mengen)}
-	odo{Add translation: set operations, subsets, power set, Cartesian product}
-
-\subsection{Functions (Funktionen)}
-	odo{Add translation: definition, domain/codomain, injective/surjective/bijective}
-
-\subsection{Relations (Relationen)}\label{subsec:relations}
-
-% ---------------------------------------------------------------------------
-% Fixed-number translations (maintain original numbering 1.4.5--1.4.8)
-% ---------------------------------------------------------------------------
-\NumberedDefinition{1.4.5}{Equivalence Relation}{Let $R$ be a relation on a set $M$. For $m\in M$ the equivalence class of $m$ is
-\[
-	[m] := \{x\in M : x\sim_R m\}.
-\]
-An element of $[m]$ is called a representative of $[m]$. The quotient set of $M$ with respect to $R$ is the set of all equivalence classes:
-\[
-	M/\!\sim_R := \{[m]: m\in M\}.
-\]
-}
-
-% (Original numbering) Theorem 1.4.6
-\NumberedTheorem{1.4.6}{Intersection of Equivalence Classes}{Let $R$ be an equivalence relation on a set $M$. Then
-\[
-	[x] \cap [y] \neq \emptyset \;\Longrightarrow\; [x]=[y].
-\]
-\emph{Idea of proof.} If $z\in [x]\cap [y]$ then $z\sim_R x$ and $z\sim_R y$. Hence $x\sim_R y$, and any element equivalent to one is equivalent to the other.
-}
-
-It follows that
-\[
-	M = \bigcup_{[m]\in M/\!\sim_R} [m]
-\]
-is a disjoint partition of $M$.
-
-\medskip
-\textbf{Note:} fundamental theorem in set theory about equivalence relations and partitions:
-
-If $M$ is the set being partitioned by an equivalence relation, then:
-\[
-	M = \bigcup_{[m] \in M/\sim} [m]
-\]
-where:
-\begin{itemize}[leftmargin=*]
-	\item $M/\sim$ denotes the \emph{quotient set} (the set of all equivalence classes),
-	\item $[m]$ represents an equivalence class,
-	\item the union is taken over all distinct equivalence classes.
-\end{itemize}
-
-\textbf{Key Properties:}
-\begin{enumerate}[leftmargin=*]
-	\item \emph{Completeness:} Every element $x \in M$ belongs to exactly one equivalence class $[x]$.
-	\item \emph{Disjointness:} For any two equivalence classes $[a]$ and $[b]$:
-		\begin{itemize}
-			\item Either $[a] = [b]$ (they are the same class), or
-			\item $[a] \cap [b] = \emptyset$ (they are disjoint).
-		\end{itemize}
-\end{enumerate}
-
-\textbf{Mathematical Formulation:}
-
-More precisely, if $\sim$ is an equivalence relation on $M$, then the collection of equivalence classes
-\[
-	\{[m] : m \in M\}
-\]
-forms a partition of $M$, meaning:
-\begin{enumerate}[leftmargin=*]
-	\item $\bigcup_{m \in M} [m] = M$ (every element is covered),
-	\item For distinct representatives $a, b$: if $[a] \neq [b]$, then $[a] \cap [b] = \emptyset$ (disjoint),
-	\item Each $[m] \neq \emptyset$ (non-empty classes).
-\end{enumerate}
-
-\textbf{Example:}
-
-Consider $M = \{1, 2, 3, 4, 5, 6\}$ with the equivalence relation ``same remainder when divided by 3'':
-\begin{align*}
-	[1] &= \{1, 4\} \quad \text{(remainder 1)} \\
-	[2] &= \{2, 5\} \quad \text{(remainder 2)} \\
-	[0] &= \{3, 6\} \quad \text{(remainder 0)}
-\end{align*}
-Then $M = [1] \cup [2] \cup [0] = \{1, 4\} \cup \{2, 5\} \cup \{3, 6\}$.
-
-The equivalence classes are pairwise disjoint and their union reconstructs the original set $M$.
-
-\medskip
-\NumberedDefinition{1.4.7}{Order Relation}{A relation $R$ on $M$ is called an order relation (partial order) if for all $x,y,z\in M$:
-\begin{enumerate}[label=\roman*)]
-	\item $x\preceq x$ (reflexive),
-	\item $x\preceq y$ and $y\preceq z \Rightarrow x\preceq z$ (transitive),
-	\item $x\preceq y$ and $y\preceq x \Rightarrow x=y$ (antisymmetric).
-\end{enumerate}
-If $R$ is an order relation we write $x\preceq y$. A set with an order relation is an ordered set. The order is \emph{total} if for all $x,y\in M$ either $x\preceq y$ or $y\preceq x$ holds.
-}
-
-\NumberedExample{1.4.8}{Totally ordered example}{\(\big(\R,\le\big)\) is a totally ordered set. For an arbitrary set \(M\), \(\big(\mathcal P(M),\subseteq\big)\) is an ordered, but in general not a totally ordered, set.}
 % ...existing code...
 \NumberedDefinition{1.4.9}{Maximal and minimal elements}{Let \((M,\preceq)\) be an ordered set and \(A\subset M\) with \(A\neq\emptyset\). An element \(m\in A\) is called maximal in \(A\) if
 \[
@@ -270,10 +174,218 @@ This is the content already stated in Proposition~2.3.7 for the real numbers.
 \section{Numbers (Zahlen)}
 
 \subsection{The Natural Numbers (Die natürlichen Zahlen)}
-	odo{Add translation: Peano axioms (if present), induction principle}
+We know the natural numbers from counting. All structural properties of the natural numbers can be derived from the 
+successor map $\nu(n)=n+1$. This is the idea behind the Peano axioms, which formalize the introduction of the natural numbers.
+
+\NumberedDefinition{2.1.1}{Peano axioms}{The natural numbers form a set $\N$ with a distinguished element $0$ and a map $\nu: \N\to\N$ with the following properties:
+\begin{description}[leftmargin=*]
+	\item[P1)] $\nu$ is injective and $0\notin \mathrm{Range}(\nu)$.
+	\item[P2)] (Principle of complete induction.) If $A\subset \N$ satisfies $0\in A$ and
+	\[
+		n\in A \ \Longrightarrow\ \nu(n)\in A,
+	\]
+	then $A=\N$.
+\end{description}
+The numbers $\nu(0),\,\nu\big(\nu(0)\big),\,\dots$ are called $1,2,\dots$ respectively.}
+
+All properties of $\N$ may be derived from the Peano axioms. For example, we can define an order on $\N$ as follows: say
+\emph{$k\le m$} if either $k=m$, or if $m$ can be reached from $k$ by repeated application of $\nu$, i.e., there exists $r\in\N$ such that $\nu^{r}(k)=m$.
+It is easy to check that this is a (total) order relation. From the axioms one also obtains $0\le n$ for every $n\in\N$. The sum on $\N$ can be defined via repeated application of $\nu$ (recursively by $k+0:=k$ and $k+\nu(m):=\nu(k+m)$). We write $m<n$ if $m\le n$ and $m\ne n$.
+
+\NumberedTheorem{2.1.2}{Well-ordering principle}{Every nonempty subset $M\subset \N$ has a minimum.}
+
+\paragraph{Proof.} Consider the set of lower bounds of $M$ in $\N$,
+\[
+	A := \{ k\in \N : k\le m \text{ for all } m\in M\}.
+\]
+We know $0\in A$ because $0\le m$ for all $m\in\N$. Since $M\ne\emptyset$, not every number is a lower bound of $M$, hence $A\ne \N$. By the induction principle (P2) contrapositively, from $A\ne \N$ and $0\in A$ it follows that there exists some $n\in A$ with $\nu(n)\notin A$.
+
+The condition $n\in A$ means $n\le m$ for all $m\in M$. The condition $\nu(n)\notin A$ means there exists some $m\in M$ with $m<\nu(n)$. Combining these we obtain
+\[
+	n\le m < n+1=\nu(n) \quad\Longrightarrow\quad m=n.
+\]
+Thus $n\in M$ and $n$ is the smallest element of $M$. \qed
+
+Since $0\in A$, we obtain
+\[
+	\neg(n\in A) \ \Longrightarrow\ (n+1)\in A
+	\qquad\Longleftrightarrow\qquad
+	\exists n_0\in A : (n_0+1)\notin A.
+\]
+
+We claim that this $n_0$ is the desired minimum of $M$. To see this, note that
+\[
+	(n_0+1)\notin A \ \Longleftrightarrow\ \exists p\in M : p < n_0+1
+	\ \Longleftrightarrow\ \exists p\in M : p\le n_0.
+\]
+Since $n_0\in A$, we also have $n_0\le p$. Hence $n_0=p\in M$. This implies $k\le n_0$ for all $k\in A$. Thus $n_0$ is a maximal element of $A$, i.e. $n_0=\inf(M)$. Because $n_0\in M$, it follows that $n_0=\min M$. \qed
+
+The Peano axioms provide a useful method for proving the truth of statement forms over $\N$.
+
+\NumberedProposition{2.1.3}{Inductive proof}{Let $A(n)$ be a statement about $\N$. If $A(0)$ holds and if
+\[
+	A(n) \ \Longrightarrow\ A(n+1), \qquad \text{for all } n\in\N,
+\]
+then $A(n)$ holds for all $n\in\N$.}
+
+\paragraph{Proof.} Let $B:=\{ n\in\N : A(n) \text{ holds}\}$. By Def. 2.1.1(P2) it follows from
+\[
+	(0\in B) \ \wedge\ (n\in B \ \Longrightarrow\ (n+1)\in B)
+\]
+that $B=\N$. \qed
+
+The proof of $A(0)$ is called the induction anchor or base case. The proof of the implication
+\[
+	A(n) \ \Longrightarrow\ A(n+1)
+\]
+is the induction step (inductive step).
+
+Generalizations: Inductive proofs can also begin with $n=n_0>0$. That is, one has:
+\[
+	A(n_0)\ \wedge\ (A(n)\ \Longrightarrow\ A(n+1),\ \ \forall n\ge n_0)\ \Longrightarrow\ A(n),\ \ \forall n\ge n_0.
+\]
+
+For the induction step one may also assume the validity of all statements $A(k)$ for $k\le n$. That is,
+\[
+	A(0)\ \wedge\ (A(0)\wedge\cdots\wedge A(n)\ \Longrightarrow\ A(n+1),\ \ \forall n\in\N)\ \Longrightarrow\ A(n),\ \ \forall n\in\N.
+\]
+
+\NumberedExample{2.1.4}{}{\begin{itemize}[leftmargin=*]
+	\item For $n\ge 1$ let $A(n)$ be the statement
+	\[
+		1+3+5+\cdots+(2n-1) = n^2.
+	\]
+	To show $A(n)$ for all $n\in\N$, it suffices to note that $A(1)$ holds and that $A(n)\ \Longrightarrow\ A(n+1)$ holds for all $n\in\N$. The base case is clear. To prove the induction step, assume $A(n)$ holds, and show $A(n+1)$. Observe that
+	\[
+		1+3+\cdots+(2(n+1)-1)
+			= 1+3+\cdots+(2n-1)+(2n+1)
+			= n^2 + (2n+1)
+			= (n+1)^2,
+	\]
+	where we used the assumption $A(n)$ in the second equality.
+
+	\item We claim that every $n\in\N\setminus\{0\}$ can be written as a product of prime numbers.\footnote{In the literature one often does \emph{not} count $1$ as a prime number, but rather defines $2$ as the smallest prime. In this statement we use the set of primes that contains $1$ as its smallest element.} To prove this claim, for $n\in\N\setminus\{0\}$ let $A(n)$ be the statement that $n$ can be written as a product of primes. Clearly $A(1)$ holds (since $1$ is a prime). Now assume $A(1)\land\cdots\land A(n)$ holds (that is, $A(k)$ holds for all $k\le n$), and show that $A(n+1)$ holds. We distinguish two cases. If $(n+1)$ is a prime, we are done. If $(n+1)$ is not a prime, then there exist $p,q\in\N$ with $n+1=pq$. Since $p,q\le n$, the induction hypothesis implies that $p$ and $q$ can be factored as products of primes. From $n+1=pq$ we can therefore also write $(n+1)$ as a product of primes.
+\end{itemize}}
+
+The principle of complete induction can also be used to formulate (or define) objects inductively (or recursively). For example, $n!$, called $n$ factorial, is defined as the product of all integers between $1$ and $n$, i.e.
+\[
+	n! = 1\cdot 2\cdot 3\cdots n,
+\]
+with the convention $0!:=1$. The same quantity can be defined recursively by the rule: set $0!:=1$ and, for $n\in\N\\\{0\}$,
+\[
+	n! := n\,(n-1)!.
+\]
+The fact that in this way $n!$ is indeed defined for every $n\in\N$ is a consequence of the principle of complete induction.
+
+If $(a_n)_{n\in\N}$ is a sequence with values in some set in which an addition is defined, we define the sum $\sum_{j=0}^{n} a_j$ for all $n\in\N$ by the recursive definition
+\[
+	\sum_{j=0}^{0} a_j := a_0
+	\quad\text{and}\quad
+	\sum_{j=0}^{n+1} a_j := \Big(\sum_{j=0}^{n} a_j\Big) + a_{n+1}.
+\]
+Similarly, if $(a_j)_{j\in\N}$ takes values in a set in which a multiplication is defined, we define the product $\prod_{j=0}^{n} a_j$ recursively by
+\[
+	\prod_{j=0}^{0} a_j := a_0
+	\quad\text{and}\quad
+	\prod_{j=0}^{n+1} a_j := \Big(\prod_{j=0}^{n} a_j\Big) a_{n+1}.
+\]
 
 \subsection{The Rational Numbers (Die rationalen Zahlen)}
-	odo{Add translation: construction via fractions, field properties}
+\paragraph{Motivation.} In $\N$ neither addition nor multiplication is invertible in general: given $n,m\in\N$ there need not exist $x\in\N$ with $n+x=m$ nor $x\in\N$ with $n\,x=m$. Passing to integers $\Z$ fixes additivity (every $m\in\Z$ has an additive inverse $-m$), but multiplicative inverses still fail to exist except for $\pm1$. We therefore enlarge $\Z$ to a number system where every nonzero element has a multiplicative inverse—the \emph{rational numbers} $\Q$.
+
+\paragraph{Construction of $\Q$ as fractions of $\Z$.} Consider $\Z\times(\Z\setminus\{0\})$ and define an equivalence relation $\sim$ by
+\[
+		(p_1,q_1) \sim (p_2,q_2) \quad:\iff\quad p_1 q_2 = p_2 q_1.
+\]
+Let $[(p,q)]$ denote the equivalence class of $(p,q)$; we write $\dfrac{p}{q}$ for $[(p,q)]$ and call it a \emph{fraction}. The set of rational numbers is
+\[
+		\Q := \big(\Z\times(\Z\setminus\{0\})\big)/\sim = \{\,[(p,q)] : p\in\Z,\ q\in\Z\setminus\{0\}\,\}.
+\]
+Two pairs represent the same rational number precisely when they are proportional: $(p_1,q_1)\sim(p_2,q_2)$ iff $p_1 q_2 = p_2 q_1$.
+
+\paragraph{Operations.} On representatives define
+\[
+	[(p,q)] + [(r,s)] := [(ps+rq,\ qs)],\qquad [(p,q)]\cdot[(r,s)] := [(pr,\ qs)].
+\]
+Negation and (when $p\ne0$) reciprocals are given by
+\[
+	-[(p,q)] := [(-p,q)],\qquad \big([(p,q)]\big)^{-1} := [(q,p)].
+\]
+These operations are \emph{well-defined} on equivalence classes (independent of the chosen representatives) and satisfy the usual field axioms.
+
+\paragraph{Field structure and embedding of $\Z$.}
+\begin{itemize}[leftmargin=*]
+	\item With the above operations, $\Q$ is a field. The additive identity is $0=[(0,1)]$ and the multiplicative identity is $1=[(1,1)]$. Every nonzero element $[(p,q)]\ne0$ (i.e. $p\ne0$) has inverse $[(q,p)]$.
+	\item The map $\iota: \Z\to\Q$, $\iota(p)=[(p,1)]$, is an injective ring homomorphism; we thus identify $\Z$ with a subring of $\Q$.
+	\item Two fractions are equal iff they cross-multiply: $\dfrac{p}{q}=\dfrac{r}{s}$ in $\Q$ $\iff$ $ps=rq$ in $\Z$.
+\end{itemize}
+\emph{Proof.} Routine verification; the key point is well-definedness under the relation $\sim$. \qed
+
+\paragraph{Order on $\Q$.} Each rational number admits a representative with positive denominator. Using such representatives define
+\[
+	\frac{p}{q} < \frac{r}{s} \quad:\iff\quad p s < r q \qquad (q>0,\ s>0).
+\]
+This yields a total order compatible with the field operations; in particular $\Q$ becomes an \emph{ordered field}. The sign is determined by the product of numerator and denominator: $\dfrac{p}{q}>0$ iff $pq>0$.
+
+% (Removed earlier duplicate Remark 2.2.3 to align with the original numbering.)
+
+\paragraph{Non-uniqueness and reduced form.} A rational number has many representatives: $\dfrac{p}{q}=\dfrac{kp}{kq}$ for any $k\in\Z\setminus\{0\}$. One may choose a unique \emph{reduced} representative by requiring $q>0$ and $\gcd(p,q)=1$.
+
+\NumberedTheorem{2.2.1}{$\Q$ is an ordered field}{With the operations and the order introduced above, $\Q$ is an ordered field. We do not supply a proof here; the intended meaning is that $\Q$ satisfies the field axioms and the order is total and compatible with the arithmetic in the sense that
+\begin{itemize}[leftmargin=*]
+	\item if $a\le b$ then $a+c\le b+c$ for all $c\in\Q$;
+	\item if $0\le a$ and $0\le b$ then $0\le a\,b$.
+\end{itemize}}
+
+\NumberedDefinition{2.2.2}{Field (Körper)}{A set $K$ equipped with an addition $+ : K\times K\to K$ and a multiplication $\cdot : K\times K\to K$ is called a \emph{field} if the following hold:
+\begin{enumerate}[label={A\arabic*)}, leftmargin=*]
+	\item $x+y=y+x$ for all $x,y\in K$ (commutativity of addition).
+	\item $x+(y+z)=(x+y)+z$ for all $x,y,z\in K$ (associativity of addition).
+	\item There exists $0\in K$ (additive identity) with $x+0=x$ for all $x\in K$.
+	\item For every $x\in K$ there exists $y\in K$ with $x+y=0$ (additive inverse).
+\end{enumerate}
+\begin{enumerate}[label={M\arabic*)}, leftmargin=*]
+	\item $x\cdot y = y\cdot x$ for all $x,y\in K$ (commutativity of multiplication).
+	\item $x\cdot(y\cdot z)=(x\cdot y)\cdot z$ for all $x,y,z\in K$ (associativity of multiplication).
+	\item There exists $1\in K$ with $1\ne 0$ (multiplicative identity) such that $x\cdot 1=x$ for all $x\in K$.
+	\item For every $x\in K\setminus\{0\}$ there exists $y\in K$ with $x\cdot y=1$ (multiplicative inverse).
+	\item $x\cdot(y+z)=x\cdot y + x\cdot z$ for all $x,y,z\in K$ (distributivity).
+\end{enumerate}}
+
+\NumberedRemark{2.2.3}{Uniqueness and basic consequences}{
+The neutral elements are unique. If $0,0'\in K$ satisfy $a+0=a$ and $a+0'=a$ for all $a\in K$, then $0=0'$; similarly for $1$. For any $x\in K$ the additive inverse is unique: if $x+y_1=0$ and $x+y_2=0$, then $y_1=y_2$; we denote it by $-x$ and define subtraction by $a-b:=a+(-b)$. Likewise, the multiplicative inverse is unique for each $x\in K\setminus\{0\}$; we denote it by $1/x$ and define division $a/b:=a\cdot(1/b)$ for $b\ne0$.
+
+Useful rules (all consequences of the axioms): $-(-a)=a$; if $a\ne0$ then $1/(1/a)=a$; $0\cdot a=0$; $(-1)\cdot a=-a$; $(-1)\cdot(-1)=1$; $a\cdot(b-c)=ab-ac$; and $ab=0\Rightarrow a=0$ or $b=0$.
+}
+
+\NumberedDefinition{2.2.4}{Ordered field}{An \emph{ordered field} is a field $K$ endowed with a total order $\le$ such that the following congruence properties hold for all $a,b,c\in K$:
+\begin{description}[leftmargin=*]
+	\item[O1)] $a\le b \ \Longrightarrow\ a+c \le b+c$.
+	\item[O2)] $\big( a\le b \ \wedge\ 0\le c\big) \ \Longrightarrow\ ac \le bc$.
+\end{description}}
+
+The notation $a\ge b$ means $b\le a$; $a<b$ means "$a\le b$ and $a\ne b$"; $a>b$ means $b<a$.
+
+The following familiar calculation rules for inequalities follow from the axioms of ordered fields (proof as an exercise). Let $a,b,c\in K$. Then
+\begin{itemize}[leftmargin=*]
+	\item $a\le b \iff a+c\le b+c$.
+	\item $a<b \iff a+c<b+c$.
+	\item $a<b \iff 0<b-a$. In particular $a<0 \iff 0<-a$.
+	\item $a>0 \wedge b>0 \ \Rightarrow\ ab>0$.
+	\item $a\ne0 \ \Rightarrow\ a^2>0$.
+	\item $1>0$.
+	\item $a>0 \ \Rightarrow\ 1+a>0$.
+\end{itemize}
+
+On an ordered field one defines the absolute value by
+\[
+	|a| := \begin{cases}
+		a,& \text{if } a\ge 0,\\
+		-a,& \text{if } a<0.
+	\end{cases}
+\]
+From the calculation rules it follows that $|a|\ge 0$ for all $a\in K$.
+By Theorem~2.2.1, all of the above rules apply to $\Q$.
 
 \subsection{The Real Numbers (Die reellen Zahlen)}
 	odo{Add translation: completeness axiom, least upper bound property}
@@ -290,6 +402,17 @@ This is the content already stated in Proposition~2.3.7 for the real numbers.
 \NumberedTheorem{2.3.4}{Existence and uniqueness of the reals}{There exists an order-complete ordered field, and this object is unique up to isomorphism; we denote it by $\R$.}
 
 \NumberedProposition{2.3.7}{Characterization of the supremum}{Let $A\subset \R$ be nonempty and bounded above. Then $s=\sup(A)$ if and only if $a\le s$ for all $a\in A$ and for every $\eps>0$ there exists $a\in A$ with $s-\eps < a \le s$.}
+
+% ---------------------------------------------------------------------------
+% Newly added: Theorem 2.3.8 and Corollary 2.3.9 (Archimedean property)
+% ---------------------------------------------------------------------------
+\NumberedTheorem{2.3.8}{Archimedean Principle}{The set of natural numbers $\N$ is not bounded above in $\R$.}
+
+\paragraph{Proof.} Suppose for contradiction that $\N$ is bounded above in $\R$. Let $s=\sup \N$. By Proposition~2.3.7 (characterization of the supremum), for every $\eps>0$ there exists $n\in\N$ with $s-\eps < n \le s$. Choosing $\eps=1$ we obtain $s-1 < n \le s$, hence $s < n+1$. But $n+1\in\N$ and $n+1>s$, contradicting that $s$ is an upper bound of $\N$. Therefore $\N$ is unbounded above. \qed
+
+\NumberedCorollary{2.3.9}{Reciprocals become arbitrarily small}{For every $\eps>0$ there exists $n\in\N\setminus\{0\}$ with $0<1/n<\eps$.}
+
+\paragraph{Proof.} Let $\eps>0$. By the Archimedean Principle (Theorem~2.3.8) there exists $n\in\N$ with $n>1/\eps$. Then $0<1/n<\eps$. \qed
 
 \NumberedProposition{2.3.14}{Existence of $\sqrt{2}$}{There exists $c\in\R$, $c>0$, with $c^2=2$.}
 
@@ -315,8 +438,116 @@ which implies $c-\eps$ is an upper bound for $A$, contradicting that $c$ is the 
 \NumberedRemark{2.3.15}{(see exercises)}{Let $a\in\R$ with $a>0$ and $p\in\N\setminus\{0\}$. Then there exists a unique real $x>0$ with $x^p=a$.}
 
 \subsection{Countable and Uncountable Sets (Abzählbare und überabzählbare Mengen)}
-	odo{Add translation: injections/surjections, Cantor's diagonal, examples}
-	odo{Add translation: injections/surjections, Cantor's diagonal, examples}
+
+\paragraph{Guiding question.} How can we compare the \emph{cardinality} (size) of infinite sets?\footnote{For a finite nonempty set $A$, its cardinality is the unique $n\in\N$ admitting a bijection $A\to\{1,2,\dots,n\}$.}
+
+\NumberedDefinition{2.4.1}{Same cardinality (equipotent sets)}{Two sets $A$ and $B$ have the same cardinality (are \emph{equipotent}) if there exists a bijection $\varphi: A\to B$.}
+
+If $A$ is a nonempty finite set, then there exists some $n\in\N$ and a bijection $\varphi: A\to\{1,2,\dots,n\}$. (Conversely, this property can be taken as the \emph{definition} of finiteness.) The number $n$ is uniquely determined and is called the \emph{cardinality} of $A$.
+
+\NumberedDefinition{2.4.2}{(Countably) infinite and countable sets}{A set $A$ is called \emph{countably infinite} if it is equipotent with $\N$. We call $A$ \emph{countable} if it is finite or countably infinite.}
+
+A bijection $\N\to A$ can be viewed as an \emph{enumeration} of the elements of $A$. Thus a countable set is one whose elements can be organized into a (potentially infinite) ordered list (sequence).
+
+\NumberedExample{2.4.3}{Squares and integers are countable}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item The map $\varphi: \N\to \{ n^2 : n\in\N\}$ given by $\varphi(n)=n^2$ is a bijection. Hence the set of perfect squares has the same cardinality as $\N$.
+	\item The set $\Z$ is countable. An explicit enumeration is $0,1,-1,2,-2,3,-3,\dots$. Equivalently, the function $f: \N\to\Z$ defined by $f(2n)=n$ and $f(2n-1)=-n$ (for $n\ge1$) is a bijection.
+\end{enumerate}}
+
+We now discuss some important arithmetic rules for countability.
+
+\NumberedProposition{2.4.4}{Every subset of $\N$ is countable}{Let $A\subset \N$.}
+
+\paragraph{Proof.} If $A$ is bounded above, then $A$ is finite (its maximum exists), so certainly countable. Suppose instead that $A$ is unbounded above. Define a function $\varphi: \N\to A$ recursively by
+\[
+	\varphi(0) := \min A, \qquad \varphi(n+1) := \min\{ a\in A : a> \varphi(n)\}.
+\]
+This is well-defined because every nonempty subset of $\N$ has a minimum. (The set $\{a\in A : a>\varphi(n)\}$ is nonempty since $A$ is unbounded.) The map is injective since $\varphi(n+1)>\varphi(n)$ for all $n$. To prove surjectivity, let $a\in A$ and set
+\[
+	B := \{ n\in\N : \varphi(n) \ge a\}.
+\]
+The set $B$ is nonempty (because $A$ is unbounded and $\varphi$ increases without bound), so let $m=\min B$. If $m=0$ then $\varphi(0)=\min A \ge a$, which forces $a=\min A$ and hence $a=\varphi(0)$. Assume $m>0$. Then $m-1\notin B$, so $\varphi(m-1) < a$. By definition of $\varphi(m)$ we have
+\[
+	\varphi(m)= \min\{ b\in A : b>\varphi(m-1)\} \le a.
+\]
+But also $a\in A$ and $a>\varphi(m-1)$, so the minimum equals $a$, hence $\varphi(m)=a$. Thus $\varphi$ is surjective and therefore a bijection $\N\to A$; in particular $A$ is countable. \qed
+
+\emph{Generalization.} Every subset of a countable set is countable (apply the above to the image of the subset under a bijection with $\N$).
+
+\NumberedProposition{2.4.5}{Surjective image of a countable set}{Let $B$ be countable and let $\psi: B\to A$ be surjective. Then $A$ is countable.}
+
+\paragraph{Proof.} Without loss of generality we may assume $B\subset \N$ (since $B$ is countable, identify it with a subset of $\N$ via a bijection). For $a\in A$ define
+\[
+	\varphi(a) := \min\{ b\in B : \psi(b)=a \}.
+\]
+This is well-defined because the fiber $\{b\in B: \psi(b)=a\}$ is nonempty by surjectivity. The map $\varphi: A\to B$ is injective (if $\varphi(a_1)=\varphi(a_2)=b$, then $b$ is the unique minimal element of each fiber, hence $a_1=a_2$). Therefore $A$ is in bijection with the subset $\varphi(A)\subset B\subset \N$ and thus countable. \qed
+
+\NumberedTheorem{2.4.6}{The product $\N\times\N$ is countable}{The Cartesian product $\N\times \N$ is countable.}
+
+\paragraph{Proof.} Organize the elements of $\N\times\N$ in a list by grouping them in ``diagonals.'' For $\ell\in\N$ define the $\ell$th diagonal
+\[
+	\N^{2}_{\ell} := \{ (n,m)\in \N\times\N : n+m = \ell \}.
+\]
+Each $\N^{2}_{\ell}$ is finite and can be enumerated, for example: $(\ell,0), (\ell-1,1), (\ell-2,2), \dots, (0,\ell)$. Listing these diagonals in increasing order of $\ell=0,1,2,\dots$ yields an enumeration of all of $\N\times\N$. Hence $\N\times\N$ is countable. \qed
+
+\emph{Generalization.} If $A_1, A_2, \dots, A_n$ are countable sets, then the finite product $A_1\times A_2 \times \cdots \times A_n$ is countable.
+
+\paragraph{Proof (sketch).} By induction on $n$. The case $n=2$ follows from the theorem with suitable bijections $\N\to A_i$. If $A_1\times\cdots\times A_n$ is countable, then $(A_1\times\cdots\times A_n)\times A_{n+1}$ is a product of two countable sets and hence countable.
+
+\NumberedTheorem{2.4.7}{$\Q$ is countable}{The set $\Q$ of rational numbers is countable.}
+
+\paragraph{Proof.} The sets $\Z$ and $\N\setminus\{0\}$ are countable. Hence $\Z\times (\N\setminus\{0\})$ is countable. The map $\phi: \Z\times (\N\setminus\{0\}) \to \Q$, $\phi(p,q)=p/q$, is surjective (put a fraction in lowest terms and absorb the sign into the numerator). By Proposition~2.4.5 the surjective image of a countable set is countable, so $\Q$ is countable. \qed
+
+Another important observation is that countable unions of countable sets are again countable.
+
+\NumberedTheorem{2.4.8}{Countable union of countable sets}{Let $(A_n)_{n\ge 1}$ be a sequence of countable sets. Then $\displaystyle\bigcup_{n=1}^{\infty} A_n$ is countable.}
+
+\paragraph{Proof.} For each $n\in\N$ pick an injection (bijectively identify) $B_n\subset \N$ with $A_n$; that is, choose a bijection $\phi_n: B_n\to A_n$ with $B_n\subset \N$. Now set
+\[
+	B := \{ (n,m)\in \N\times\N : m\in B_n\}.
+\]
+Then $B\subset \N\times\N$, so $B$ is countable. Define $\phi: B\to \bigcup_{n\ge1} A_n$ by $\phi(n,m)=\phi_n(m)$. The map $\phi$ is surjective, hence the union is countable by Proposition~2.4.5. \qed
+
+\emph{Application.} Let
+\[
+	S_0 := \{ (a_i)_{i\in\N} : a_i\in\Z \text{ and } (\exists n\in\N)\ (a_i=0 \ \forall i>n)\}
+\]
+be the set of integer sequences that are eventually zero (i.e. have only finitely many nonzero terms). We claim that $S_0$ is countable. For $n\ge1$ set
+\[
+	S^{(n)} := \{ (a_i)_{i\in\N} \in S_0 : a_i=0 \ \forall i>n\}.
+\]
+Each $S^{(n)}$ is in bijection with $\Z^n$ (ignore the tail of zeros), hence countable. Since
+\[
+	S_0 = \bigcup_{n=1}^{\infty} S^{(n)},
+\]
+Theorem~2.4.8 implies that $S_0$ is countable.
+
+% ---------------------------------------------------------------------------
+% Uncountability (Cantor)
+% ---------------------------------------------------------------------------
+\NumberedTheorem{2.4.9}{Cantor}{Let $M$ be a set. Then $M$ and its power set $\mathcal{P}(M)$ are not equipotent.}
+
+\paragraph{Proof.} Suppose for contradiction that $\phi: M\to \mathcal{P}(M)$ is a bijection. Consider the set
+\[
+  B := \{ x\in M : x\notin \phi(x)\}.
+\]
+Then for every $y\in M$ we have $\phi(y)\ne B$: if $y\in \phi(y)$ then by definition $y\notin B$, so $\phi(y)\ne B$; if $y\notin \phi(y)$ then $y\in B$, again $\phi(y)\ne B$. Hence $B$ is not in the image of $\phi$, contradicting surjectivity. \qed
+
+\NumberedDefinition{2.4.10}{Uncountable set}{A set that is not countable is called \emph{uncountable}. For example, $\mathcal{P}(\N)$ is uncountable.}
+
+\NumberedProposition{2.4.11}{$\R$ is uncountable}{The set $\R$ is uncountable.}
+
+\paragraph{Proof.} The power set $\mathcal{P}(\N)$ is uncountable. Let $\{0,1\}^{\N}$ denote the set of sequences with entries $0$ or $1$. Define a map $\phi: \mathcal{P}(\N) \to \{0,1\}^{\N}$ by the characteristic sequence: $(\phi(X))_i := 1$ if $i\in X$, and $(\phi(X))_i :=0$ otherwise. This map is a bijection, so $\{0,1\}^{\N}$ is uncountable. Now let $X_0\subset [0,1]$ be the subset of real numbers whose decimal expansion uses only the digits $0$ and $1$. Each $x\in X_0$ corresponds to a sequence $(a_i)_{i\ge1}$ with $a_i\in\{0,1\}$ via $x=\sum_{i\ge1} a_i 10^{-i}$. (Choose the expansion not terminating in repeating $9$'s.) Thus $X_0$ is in bijection with $\{0,1\}^{\N}$, hence uncountable. Since $X_0\subset [0,1]\subset \R$, the set $\R$ is uncountable. \qed
+
+From the above proof it follows that $\R$ and $X_0$ are equipotent.
+
+\paragraph{Question.} Is the cardinality of $\R$ the smallest uncountable cardinality? Equivalently, does there exist a subset of $\R$ that is uncountable but not equipotent with $\R$?
+
+\paragraph{Continuum Hypothesis (Cantor).} Every subset of $\R$ is either countable or equipotent with $\R$.
+
+\paragraph{Independence (P. Cohen, 1960).} It is impossible to prove or disprove the Continuum Hypothesis from the standard Zermelo–Fraenkel axioms with the Axiom of Choice (ZFC); it is independent of these axioms.
+
+	odo{Add further examples (evens, odds, pairs by Cantor pairing).}
 
 \subsection{The Complex Numbers (Die komplexen Zahlen)}\label{subsec:complex-numbers}
 
@@ -391,9 +622,57 @@ $z=x+iy$, $w=u+iv$ with $x,y,u,v\in\R$:
 \emph{Proof.} Exercise.
 }
 
+
 \NumberedDefinition{2.5.3}{Notation $\K$}{In what follows, we use $\K$ to denote either $\R$ or $\C$.}
-\subsection{The Vector Spaces $\R^m$ (Die Vektorräume $\R^m$)}
-	odo{Add translation: vectors, norms (preview), linear structure}
+\subsection{The Vector Spaces \texorpdfstring{$\R^m$}{R^m} (Die Vektorräume \texorpdfstring{$\R^m$}{R^m})}
+
+\paragraph{Remark.} This topic (and linear maps between vector spaces) is treated systematically in a Linear Algebra course. We record here only the basic structure we need.
+
+The space $\R^m = \{ x = (x_1,\dots,x_m) : x_j\in\R \text{ for } 1\le j\le m \}$ consists of all $m$-tuples of real numbers. These spaces play an extremely important role in mathematics and in scientific applications (for example, the position of a particle can be described by a point $x=(x_1,x_2,x_3)\in\R^3$; its state by position and velocity by a point $(x_1,x_2,x_3,v_1,v_2,v_3)\in\R^6$).
+
+On $\R^m$ we define \'addition\'. For $x=(x_1,\dots,x_m)$ and $y=(y_1,\dots,y_m)$ in $\R^m$ we set
+\[
+	x+y := (x_1+y_1,\; x_2+y_2,\; \dots,\; x_m+y_m).
+\]
+
+We also define scalar multiplication on $\R^m$. For $\alpha\in\R$ and $x=(x_1,\dots,x_m)\in\R^m$ set
+\[
+	\alpha x := (\alpha x_1,\alpha x_2,\dots,\alpha x_m) \in \R^m.
+\]
+
+With these two operations $\R^m$ is a real vector space: the eight usual axioms (commutativity and associativity of addition, additive identity and inverses, compatibility and identity for scalar multiplication, and the two distributive laws) are easily verified componentwise. Later we will endow $\R^m$ with norms and inner products to obtain geometric notions (length, angle, etc.).
+
+\NumberedDefinition{2.6.1}{Vector space over $\R$}{A set $V$ together with an addition $+ : V\times V\to V$ and a scalar multiplication $\cdot : \R\times V\to V$ is called a (real) \emph{vector space} if the following hold for all $x,y,z\in V$ and all $\alpha,\beta\in\R$:
+\begin{itemize}[leftmargin=*]
+	\item $x+y = y+x$.
+	\item $(x+y)+z = x+(y+z)$.
+	\item There exists $0\in V$ with $x+0 = x$ (additive identity).
+	\item For every $x\in V$ there exists $-x\in V$ with $x+(-x)=0$ (additive inverse).
+	\item $\alpha(\beta x) = (\alpha\beta)x$.
+	\item $\alpha(x+y) = \alpha x + \alpha y$.
+	\item $(\alpha+\beta)x = \alpha x + \beta x$.
+	\item $1\,x = x$.
+\end{itemize}}
+
+Analogously one defines vector spaces over an arbitrary field $K$. The space $\R^m$ is a vector space over $\R$ for every $m\in\N\setminus\{0\}$ (and similarly $\C^m$ is a vector space over $\C$). Note that for $m\ge2$, $\R^m$ is \emph{not} a field because there is no multiplication of two vectors making the field axioms hold (although $\R^2\cong \C$ \emph{as a real vector space}, it cannot simultaneously be ordered like $\R$). For $m\ge2$ there is no natural total order on $\R^m$ compatible with the vector space structure.
+
+It is very useful to define on $\R^m$ a function that measures the ``length'' of vectors. For $x=(x_1,\dots,x_m)\in\R^m$ we set the (Euclidean) norm
+\begin{equation}\label{eq:euclidean-norm}\tag{2.6.1}
+	\|x\| := \Bigg( \sum_{j=1}^m |x_j|^2 \Bigg)^{1/2}.
+\end{equation}
+This function $\|\cdot\| : \R^m\to \R$ has the properties
+\begin{enumerate}[label=\roman*.), leftmargin=*]
+	\item $\|x\| \ge 0$ for all $x$, with $\|x\|=0$ iff $x=0$.
+	\item $\|\alpha x\| = |\alpha|\,\|x\|$ for all $\alpha\in\R$ and $x\in\R^m$.
+	\item (Triangle inequality) $\|x+y\| \le \|x\| + \|y\|$ for all $x,y\in\R^m$.
+\end{enumerate}
+A function with these three properties is called a \emph{norm}. A vector space equipped with a norm is a \emph{normed space}. Thus $(\R^m,\|\cdot\|)$ with \eqref{eq:euclidean-norm} is a normed space.
+
+\paragraph{Other norms.} The norm on a vector space need not be unique. On $\R^m$ one can also define for $p>1$ (in fact $p\ge 1$) the $p$-norm
+\[
+	\|x\|_p := \Bigg( \sum_{j=1}^m |x_j|^p \Bigg)^{1/p},
+\]
+which is again a norm (the triangle inequality follows from Minkowski's inequality). All these norms are equivalent on finite-dimensional spaces, a fact used later when discussing continuity and convergence.
 
 % ============================================================================
 % 3 Sequences and Series (Folgen und Reihen) -- Original start p.31
@@ -401,70 +680,1609 @@ $z=x+iy$, $w=u+iv$ with $x,y,u,v\in\R$:
 \section{Sequences and Series (Folgen und Reihen)}
 
 \subsection{Convergence of Sequences (Konvergenz von Folgen)}
-	odo{Add translation: definition of limit, examples, algebra of limits}
+
+In this chapter we study sequences and series in the set of real (and complex) numbers—abstractly we will sometimes write $\K\in\{\R,\C\}$. We will frequently need to estimate absolute values of products, sums, and differences and recall the rules from Section 2.5, in particular $|x|=|-x|$ for all $x\in\K$ and the triangle / reverse triangle inequalities
+\[
+	|x+y|\le |x|+|y|,\qquad |x-y|\ge |x|-|y|,\qquad |x-y|\ge |y|-|x|,\qquad \forall x,y\in\K.
+\]
+
+\NumberedDefinition{3.1.1}{Sequence}{A (scalar) \emph{sequence} (in $\K$) is a map $x: \N\to\K$ (``enumeration''). Each natural number $n$ is assigned a value $x_n\in\K$. We write $(x_0,x_1,\dots)$ or more briefly $(x_n)_{n\in\N}$.}
+
+\NumberedRemark{3.1.2}{Set of values vs. sequence}{The sequence $(x_n)_{n\in\N}$ is not the same thing as the set $\{x_n: n\in\N\}$—the order and multiplicities matter for the sequence.}
+
+\NumberedDefinition{3.1.3}{Accumulation point (cluster point)}{Let $(x_n)_{n\in\N}$ be a sequence in $\K$ and $a\in\K$. We call $a$ an \emph{accumulation point} (cluster point) of $(x_n)$ if for every $\eps>0$ there exists an infinite subset $N_\eps\subset \N$ with
+\begin{equation}\label{eq:3.1.1}\tag{3.1.1}
+	|x_n-a| < \eps \qquad \forall n\in N_\eps.
+\end{equation}}
+
+\NumberedTheorem{3.1.4}{Equivalent characterization of cluster points}{For a sequence $(x_n)$ and $a\in\K$ the following are equivalent:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $a$ is a cluster point of $(x_n)_{n\in\N}$.
+	\item For every $\eps>0$ and every $N\in\N$ there exists $m\ge N$ with $|x_m-a|<\eps$.
+\end{enumerate}}
+
+\paragraph{Proof.} (1)$\Rightarrow$(2). Let $a$ be a cluster point and $\eps>0$, $N\in\N$. By definition there is an infinite set $N_\eps$ with \eqref{eq:3.1.1}. Since $N_\eps$ is infinite it contains some $m\ge N$. Then $|x_m-a|<\eps$.
+
+(2)$\Rightarrow$(1). Fix $\eps>0$. Construct inductively an increasing sequence of indices in which the values lie within $\eps$ of $a$. Set $n_0:=0$. Given $n_k$, apply (2) with $N=n_k+1$ to find $n_{k+1}\ge n_k+1$ such that $|x_{n_{k+1}}-a|<\eps$. The set $N_\eps:=\{ n_k : k\in\N\}$ is infinite and satisfies \eqref{eq:3.1.1}. Hence $a$ is a cluster point. \qed
+
+\NumberedExample{3.1.5}{Examples of cluster points}{Let $\K\in\{\R,\C\}$.
+\begin{enumerate}[label={({\arabic*})}, leftmargin=*]
+	\item If $x_n\equiv a$ for all $n\in\N$, then $a$ is a cluster point.
+	\item The sequence $x_n=1/n$ has $0$ as a cluster point.
+	\item $((-1)^n)_{n\in\N}$ has precisely the cluster points $1$ and $-1$.
+	\item $(i^n)_{n\in\N}$ has the cluster points $1,-1,i,-i$.
+	\item The sequence $x_n=n$ has no cluster point.
+	\item The sequence defined by $x_0=x_1=1$ and $x_n=x_{n-1}+x_{n-2}$ for $n\ge2$ (Fibonacci numbers) has no cluster point.
+	\item If $(x_n)$ is an enumeration of $\Q$, then \emph{every} $a\in\R$ is a cluster point of $(x_n)$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item[1.] Trivial.
+	\item[2.] From the Archimedean Principle (Theorem~2.3.8): for any $\eps>0$ choose $n>1/\eps$, then $|x_n-0|=1/n<\eps$; in fact the tail provides infinitely many such indices.
+	\item[3.-5.] Trivial: the values visit finitely many points infinitely often.
+	\item[6.] Exercise: the Fibonacci sequence is strictly increasing and unbounded, hence has no cluster point.
+	\item[7.] Indirect argument. Fix $a\in\R$. For each $k\in\N$ choose $n_k>k$ and set $m_k:=\lfloor n_k a\rfloor$. Then $\big| a - m_k/n_k\big|<1/n_k$ by construction. Thus for any $\eps>0$ and all sufficiently large $k$ we have $\big| m_k/n_k - a\big|<\eps$. The rationals $m_k/n_k$ are pairwise distinct (denominators increase), hence there are infinitely many rationals within any neighborhood of $a$. Since $(x_n)$ lists each rational exactly once, there are infinitely many indices $n$ with $|x_n-a|<\eps$, so $a$ is a cluster point. \qed
+\end{enumerate}
+
+\NumberedDefinition{3.1.6}{Convergent sequence}{A sequence $(x_n)_{n\in\N}$ is said to \emph{converge} if there exists $a\in\K$ such that
+\[
+	\forall\,\eps>0\ \exists\, n_\eps\in\N\ \forall\, n\ge n_\eps:\ |x_n-a|<\eps.
+\]
+The number $a$ is called the \emph{limit} of $(x_n)$. We write $x_n\to a$ as $n\to\infty$ or $a=\lim_{n\to\infty} x_n$. A sequence that has no limit is called \emph{divergent}.}
+
+\paragraph{Continuation of Example~3.1.5.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\lim_{n\to\infty} x_n=a$.
+	\item $\lim_{n\to\infty} x_n=0$.
+	\item--(7) The remaining sequences are divergent.
+\end{enumerate}
+
+\NumberedDefinition{3.1.7}{Bounded sequence}{A sequence $(x_n)_{n\in\N}$ is called \emph{bounded} if there exists a constant $c\in\R_{\ge 0}$ such that
+\[
+	|x_n|\le c \qquad \text{for all } n\in\N.
+\]}
+
+\NumberedTheorem{3.1.8}{Convergent sequences are bounded}{Every convergent sequence is bounded.}
+
+\paragraph{Proof.} Let $a:=\lim_{n\to\infty} x_n$. Then there exists $n_1\in\N$ with $|x_n-a|<1$ for all $n\ge n_1$. Hence for $n\ge n_1$,
+\[
+	|x_n| = |x_n-a+a| \le |x_n-a| + |a| < |a|+1.
+\]
+Set
+\[
+	c := \max\big\{\, |a|+1,\ \max\{ |x_n| : n<n_1\}\big\}.
+\]
+Then $|x_n|\le c$ for all $n\in\N$. \qed
+
+\NumberedRemark{3.1.9}{Converse fails}{Items (3) and (4) of Example~3.1.5 show that the converse of Theorem~3.1.8 is false: a bounded sequence need not converge.}
+
+\NumberedTheorem{3.1.10}{Uniqueness of the limit}{If $\lim_{n\to\infty} x_n = a$, then $a$ is the only cluster point of $(x_n)_{n\in\N}$. In particular, the limit of a convergent sequence is unique.}
+
+\paragraph{Proof.} By Definitions~3.1.3 and 3.1.6 the limit $a$ is a cluster point. Let $b\in\K\setminus\{a\}$ and set $\eps := \tfrac12 |b-a|>0$. Then there exists $n_0\in\N$ with $|x_n-a|<\eps$ for all $n\ge n_0$. For such $n$ we have
+\[
+	|x_n-b| = |b-x_n| = |(b-a)+(a-x_n)| \ge |b-a| - |a-x_n| > |b-a|-\eps = \eps.
+\]
+Thus there are only finitely many indices with $|x_n-b|<\eps$, so $b$ is not a cluster point. Hence $a$ is the unique cluster point and therefore the unique limit. \qed
+
+For the next remark we will need the following definition.
+
+\NumberedDefinition{3.1.11}{Monotone and strictly monotone maps}{Let $(M,\preceq_M)$ and $(N,\preceq_N)$ be totally ordered sets, and let $\phi: M\to N$.
+\begin{itemize}[leftmargin=*]
+	\item $\phi$ is called \emph{monotone increasing} if $\phi(x)\preceq_N \phi(y)$ for all $x,y\in M$ with $x\preceq_M y$.
+	\item $\phi$ is called \emph{strictly} monotone increasing if $\phi(x)\prec_N \phi(y)$ for all $x,y\in M$ with $x\prec_M y$.
+	\item $\phi$ is called \emph{monotone decreasing} if $\phi(y)\preceq_N \phi(x)$ for all $x,y\in M$ with $x\preceq_M y$.
+	\item $\phi$ is called \emph{strictly} monotone decreasing if $\phi(y)\prec_N \phi(x)$ for all $x,y\in M$ with $x\prec_M y$.
+\end{itemize}
+Here $x\prec_M y$ means $x\preceq_M y$ and $x\ne y$ (similarly for $\prec_N$).}
+
+\NumberedRemark{3.1.12}{A nonconvergent bounded example}{The sequence $\{\tfrac12,1,\tfrac13,3,\tfrac14,4,\dots\}$ has exactly one cluster point ($0$) but does not converge.}
+
+\NumberedDefinition{3.1.13}{Subsequence}{Let $(x_n)_{n\in\N}$ be a sequence and let $\phi: \N\to\N$ be a strictly monotone increasing map. Then $(x_{n_k})_{k\in\N}:=(x_{\phi(k)})_{k\in\N}$ is called a \emph{subsequence} of $(x_n)_{n\in\N}$.}
+
+\NumberedExample{3.1.14}{Constant subsequences of $((-1)^n)$}{The sequence $((-1)^n)_{n\in\N}$ has the constant subsequences $((-1)^{2k})_{k\in\N}$ and $((-1)^{2k+1})_{k\in\N}$, i.e. the constant sequences $(1,1,\dots)$ and $(-1,-1,\dots)$.}
+
+\NumberedTheorem{3.1.15}{Convergence via subsequences}{The following are equivalent for a sequence $(x_n)$ and $a\in\K$:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $x_n\to a$ as $n\to\infty$.
+	\item $x_{n_k}\to a$ for every subsequence $(x_{n_k})_{k\in\N}$ of $(x_n)_{n\in\N}$.
+\end{enumerate}}
+
+\paragraph{Proof.} (1)$\Rightarrow$(2). Let $(x_{n_k})$ be any subsequence and let $\eps>0$. Then there exists $n_\eps$ such that $|x_n-a|<\eps$ for all $n\ge n_\eps$. Since the index map $\phi$ of a subsequence is strictly increasing, there exists $k_\eps$ with $\phi(k)\ge n_\eps$ for all $k\ge k_\eps$, hence $|x_{n_k}-a|<\eps$ for all $k\ge k_\eps$.
+
+(2)$\Rightarrow$(1). Take the identity subsequence $\phi(n)=n$. \qed
+
+\NumberedTheorem{3.1.16}{Cluster points and convergent subsequences}{The following are equivalent for a sequence $(x_n)$ and $a\in\K$:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $a$ is a cluster point of $(x_n)_{n\in\N}$.
+	\item There exists a subsequence $(x_{n_k})_{k\in\N}$ of $(x_n)_{n\in\N}$ with $x_{n_k}\to a$ as $k\to\infty$.
+\end{enumerate}}
+
+\paragraph{Proof.} (1)$\Rightarrow$(2). Construct the subsequence recursively. Set $n_0:=0$. Suppose $0<n_1<\dots<n_{k-1}$ have been chosen. Since $a$ is a cluster point, by Theorem~3.1.4(2) there exists $m\ge n_{k-1}+1$ with $|x_m-a|<1/k$. Define
+\[
+	n_k := \min\{ m : m>n_{k-1} \text{ and } |x_m-a|< 1/k\}.
+\]
+Then $k\mapsto n_k$ is strictly increasing. Given $\eps>0$, choose $k_\eps$ with $1/k_\eps<\eps$. By construction, for all $k\ge k_\eps$ we have $|x_{n_k}-a|<1/k\le 1/k_\eps<\eps$, hence $x_{n_k}\to a$.
+
+(2)$\Rightarrow$(1). If a subsequence converges to $a$, then by Theorem~3.1.4(2) (characterization of cluster points) $a$ is a cluster point; this uses Definition~3.1.6 of convergence. \qed
+
+\NumberedDefinition{3.1.17}{Null sequence}{A sequence $(x_n)_{n\in\N}$ is called a \emph{null sequence} if $\lim_{n\to\infty} x_n=0$.}
+
+\NumberedLemma{3.1.18}{Basic facts about null sequences}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $(x_n)$ is a null sequence, then $(|x_n|)$ is also a null sequence.
+	\item If $x_n\to a$, then $(x_n-a)$ is a null sequence.
+	\item Let $(x_n)$ be a sequence in $\K$ and let $(r_n)$ be a null sequence in $\R_{\ge0}$. Suppose there exists $n_0\in\N$ such that $|x_n|\le r_n$ for all $n\ge n_0$. Then $(x_n)$ is a null sequence.
+\end{enumerate}}
+
+\paragraph{Proof.} (1) and (2) are immediate. For (3): let $\eps>0$. Choose $n'_\eps$ such that $r_n<\eps$ for all $n\ge n'_\eps$. Set $n_\eps:=\max\{n_0,n'_\eps\}$. Then for all $n\ge n_\eps$ we have $|x_n-0|=|x_n|\le r_n<\eps$, proving $x_n\to0$. \qed
+
+\NumberedTheorem{3.1.19}{Algebra of limits}{Let $(x_n)$ and $(y_n)$ be sequences and let $\alpha\in\K$ be a scalar. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $x_n\to a$, then $\alpha x_n\to \alpha a$.
+	\item If $x_n\to a$ and $y_n\to b$, then $x_n+y_n\to a+b$.
+	\item If $x_n\to 0$ and $(y_n)$ is bounded, then $x_n y_n\to 0$.
+	\item If $x_n\to a$ and $y_n\to b$, then $x_n\,y_n\to a\,b$.
+	\item If $x_n\to a$ and $a\ne0$, then there exists $n_0$ with $x_n\ne0$ for all $n\ge n_0$ and $\dfrac{1}{x_n}\to \dfrac{1}{a}$.
+	\item If $x_n\to a$, then $|x_n|\to |a|$.
+\end{enumerate}
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $\alpha=0$ the claim is trivial. Assume $\alpha\ne0$ and let $\eps>0$. Choose $n_\eps$ with $|x_n-a|<\eps/|\alpha|$ for all $n\ge n_\eps$. Then
+	\[
+		|\alpha x_n-\alpha a| = |\alpha|\,|x_n-a| < |\alpha|\,\frac{\eps}{|\alpha|} = \eps
+		\qquad (n\ge n_\eps),
+	\]
+	hence $\alpha x_n\to \alpha a$.
+	\item Let $\eps>0$. Choose $n_1$ with $|x_n-a|<\eps/2$ for $n\ge n_1$ and $n_2$ with $|y_n-b|<\eps/2$ for $n\ge n_2$. For $n\ge n_\eps:=\max\{n_1,n_2\}$ we have
+	\[
+		|(x_n+y_n)-(a+b)| \le |x_n-a|+|y_n-b| < \eps/2+\eps/2 = \eps,
+	\]
+	so $x_n+y_n\to a+b$.
+	\item Suppose $|y_n|\le c$ for all $n$ with some $c>0$. Given $\eps>0$, choose $n_\eps$ with $|x_n|<\eps/c$ for all $n\ge n_\eps$. Then for $n\ge n_\eps$,
+	\[
+		|x_n y_n| \le |x_n|\,|y_n| \le (\eps/c)\,c = \eps,
+	\]
+	hence $x_n y_n\to 0$.
+	\item Use the identity
+	\[
+		 x_n y_n - ab = (x_n-a)\,y_n + a\,(y_n-b).
+	\]
+	Since $y_n\to b$, the sequence $(y_n)$ is bounded; by (3) the product $(x_n-a)\,y_n$ is a null sequence. Also $y_n-b\to0$ and (1) with $\alpha=a$ gives $a\,(y_n-b)\to0$. Therefore $x_n y_n - ab\to0$, i.e. $x_n y_n\to ab$.
+	\item Since $x_n\to a$ with $a\ne0$, there exists $n_0$ with $|x_n-a|<|a|/2$ for all $n\ge n_0$, hence $|x_n|\ge |a|-|x_n-a| > |a|/2>0$. For $n\ge n_0$ we obtain
+	\[
+		\Big|\frac{1}{x_n}-\frac{1}{a}\Big| = \frac{|a-x_n|}{|a|\,|x_n|}
+		\le \frac{|x_n-a|}{|a|\,(|a|/2)} = \frac{2}{|a|^2}\,|x_n-a|.
+	\]
+	Since $|x_n-a|\to0$, Lemma~3.1.18(3) implies $\frac{1}{x_n}-\frac{1}{a}\to0$; thus $1/x_n\to 1/a$.
+	\item From the reverse triangle inequality $\big||x_n|-|a|\big|\le |x_n-a|$ and $|x_n-a|\to0$ we conclude $|x_n|\to |a|$; equivalently, apply Lemma~3.1.18(3) with $r_n:=|x_n-a|$.
+\end{enumerate}
+\qed}
+
+\NumberedTheorem{3.1.20}{Order of limits and squeeze principle}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $(x_n)_{n\in\N}$ and $(y_n)_{n\in\N}$ be convergent sequences in $\R$ with
+	\[
+		a := \lim_{n\to\infty} x_n,\qquad b := \lim_{n\to\infty} y_n.
+	\]
+	Suppose that $x_n\le y_n$ holds for infinitely many $n\in\N$. Then $a\le b$.
+
+	\item Let $(x_n)_{n\in\N}$ and $(y_n)_{n\in\N}$ be convergent sequences in $\R$ with
+	\[
+		a := \lim_{n\to\infty} x_n = \lim_{n\to\infty} y_n.
+	\]
+	Let $(z_n)_{n\in\N}$ be a third sequence in $\R$. Assume there exists $n_0\in\N$ such that
+	\[
+		x_n \le z_n \le y_n \qquad \forall n\ge n_0.
+	\]
+	Then $(z_n)$ is convergent and $\lim_{n\to\infty} z_n = a$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $\eps>0$. Since $x_n\to a$ and $y_n\to b$, there exist indices $n_1,n_2\in\N$ such that
+	\[
+		|x_n-a|<\eps \quad (n\ge n_1), \qquad |y_n-b|<\eps \quad (n\ge n_2).
+	\]
+	Hence for all $n\ge n_\ast:=\max\{n_1,n_2\}$ we have
+	\[
+		a-\eps < x_n, \qquad y_n < b+\eps.
+	\]
+	If $x_n\le y_n$ for some $n\ge n_\ast$, then
+	\[
+		a-\eps < x_n \le y_n < b+\eps \quad \Longrightarrow \quad a-b \le 2\eps.
+	\]
+	By hypothesis, there are infinitely many indices with $x_n\le y_n$, hence (in particular) such indices exist beyond $n_\ast$, so the above estimate holds. Since $\eps>0$ is arbitrary, it follows that $a\le b$.
+
+	\item Let $\eps>0$. There exist $n_1,n_2\in\N$ such that
+	\[
+		|x_n-a|<\eps \quad (n\ge n_1),\qquad |y_n-a|<\eps \quad (n\ge n_2).
+	\]
+	For all $n\ge n_\eps:=\max\{n_0,n_1,n_2\}$ we obtain
+	\[
+		a-\eps < x_n \le z_n \le y_n < a+\eps,
+	\]
+	which implies $|z_n-a|<\eps$. Thus $z_n\to a$, proving both convergence and identification of the limit.
+\end{enumerate}
+\qed
+\NumberedTheorem{3.4.3}{Necessary condition for convergence}{If the series $\sum x_n$ is convergent, then $(x_n)_{n\in\N}$ is a null sequence.}
+\paragraph{Proof.}
+$(s_n)_{n\in\N}$ is convergent and hence a Cauchy sequence. Thus, for every $\eps>0$ there exists $n_\eps\in\N$ such that for all $n\ge n_\eps$ one has
+\[
+	|x_n| = |s_n - s_{n-1}| < \eps.
+\]
+\qed
+
+\NumberedRemark{3.4.4}{}{Example~3.4.2(3) shows that the converse of Theorem~3.4.3 is, in general, false.}
+
+\paragraph{Rules for series.}
+
+\NumberedTheorem{3.4.5}{Linearity}{Let $\sum x_n$ and $\sum y_n$ be two convergent series and let $\alpha\in\K$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\sum \alpha x_n$ is convergent with sum $\alpha\sum x_n$.
+	\item $\sum (x_n+y_n)$ is convergent with sum $(\sum x_n) + (\sum y_n)$.
+\end{enumerate}}
+
+\paragraph{Convergence criteria for series.}
+
+\NumberedTheorem{3.4.6}{Cauchy criterion for series}{$\sum x_n$ is convergent if and only if for every $\eps>0$ there exists $n_\eps\in\N$ such that
+\[
+	\Bigg|\sum_{k=m+1}^{n} x_k\Bigg| < \eps \qquad \text{for all } n>m\ge n_\eps.
+\]}
+\paragraph{Proof.}
+Note that $|s_n-s_m| = \big|\sum_{k=m+1}^{n} x_k\big|$. The claim is therefore exactly the Cauchy criterion for the sequence of partial sums $(s_n)$ (Theorems~3.2.7 and~3.2.9). \qed
+
+\NumberedTheorem{3.4.7}{Series with nonnegative terms}{Let $\sum x_n$ be a series in $\R$ with $x_n\ge0$ for all $n\in\N$. Then the series is convergent if and only if the sequence $(s_n)$ of partial sums is bounded.}
+\paragraph{Proof.}
+Since $x_n\ge0$ for all $n\in\N$, the sequence $(s_n)_{n\in\N}$ is monotone increasing. The assertion follows from Theorems~3.1.8 and~3.2.2. \qed
+
+\NumberedTheorem{3.4.8}{Leibniz criterion}{Let $(x_n)_{n\in\N}$ be a monotone decreasing sequence with $x_n\ge0$. Then the series $\sum (-1)^n x_n$ is convergent if and only if $(x_n)_{n\in\N}$ is a null sequence.}
+\paragraph{Proof.}
+From Theorem~3.4.3 we get: if $\sum (-1)^n x_n$ converges, then $((-1)^n x_n)$ is a null sequence, hence $x_n$ is a null sequence.
+
+For the converse direction, assume $(x_n)$ is monotone decreasing with $x_n\ge0$ and $(x_n)$ is a null sequence. Let $(s_n)$ be the partial sums of $\sum (-1)^n x_n$.
+\begin{enumerate}[label=\roman*. , leftmargin=*]
+	\item Show that $(s_{2n})_{n\in\N}$ is monotone decreasing:
+	\[
+		s_{2n+2} - s_{2n} = x_{2n+2} - x_{2n+1} \le 0.
+	\]
+	\item Show that $(s_{2n+1})_{n\in\N}$ is monotone increasing:
+	\[
+		s_{2n+3} - s_{2n+1} = -x_{2n+2} + x_{2n+3} \ge 0.
+	\]
+\end{enumerate}
+	\begin{enumerate}[label=\roman*. , leftmargin=*]
+		\setcounter{enumi}{2}
+		\item We have the chain of inequalities
+		\[
+			s_1 \;\le\; s_{2n+1} \;\le\; s_{2n} \;\le\; s_0.\footnote{An exclamation mark placed over an equality/inequality in the original text indicates that the equality/estimate is still to be shown.}
+		\]
+		Indeed, (ii) shows $(s_{2n+1})$ is increasing, hence $s_1\le s_{2n+1}$, and (i) shows $(s_{2n})$ is decreasing, hence $s_{2n}\le s_0$. Moreover,
+		\[
+			s_{2n+1}-s_{2n} = -x_{2n+1} \le 0,
+		\]
+		so $s_{2n+1}\le s_{2n}$.
+
+		\item Show that the two limits coincide. From Theorem~3.1.19 (algebra of limits for sequences) we get
+		\[
+			s-t = \lim_{n\to\infty} s_{2n} - \lim_{n\to\infty} s_{2n+1}
+					= \lim_{n\to\infty} (s_{2n}-s_{2n+1})
+					= \lim_{n\to\infty} x_{2n+1} = 0.
+		\]
+		Let $\eps>0$. Then there exist $n_1,n_2\in\N$ such that
+		\[
+			|s_{2n}-s|<\eps \quad (n\ge n_1), \qquad |s_{2n+1}-s|<\eps \quad (n\ge n_2).
+		\]
+		With $n_\eps := \max\{2n_1,\,2n_2+1\}$ we obtain $|s_n-s|<\eps$ for all $n\ge n_\eps$. Hence $(s_n)$ converges. \qed
+	\end{enumerate}
+
+	\NumberedExample{3.4.9}{Alternating harmonic series}{
+	\[
+		\sum_{n=1}^{\infty} (-1)^{n+1}\,\frac{1}{n}
+			= 1 - \frac12 + \frac13 - \frac14 + \frac15 - \cdots \quad (=\; \log 2),
+	\]
+	and
+	\[
+		\sum_{n=0}^{\infty} (-1)^n \, \frac{1}{2n+1}
+			= 1 - \frac13 + \frac15 - \frac17 + \cdots \quad\Big(=\; \frac{\pi}{4}\Big).
+	\]}
+
+ 
+
+\NumberedRemark{3.1.21}{Order of limits is not inherited from pointwise inequalities}{The sequences $x_n:=\tfrac{1}{n}$ and $y_n:=-\tfrac{1}{n}$ show that from $x_n>y_n$ for all $n\in\N$ it does \emph{not} follow that
+\[
+	\lim_{n\to\infty} x_n > \lim_{n\to\infty} y_n.
+\]
+Indeed $x_n>y_n$ holds for every $n$, yet $\lim x_n = 0 = \lim y_n$.}
+
+
 
 \subsection{Completeness (Vollständigkeit)}
-	odo{Add translation: Cauchy sequences, completeness of $\R$}
+
+In the proofs of this chapter we will occasionally use the (complete) induction principle to establish statements for natural numbers.
+
+\NumberedDefinition{3.2.1}{Monotone sequences}{A sequence $(x_n)_{n\in\N}$ in $\R$ is called \emph{monotone increasing} (resp. \emph{monotone decreasing}) if for all $n\in\N$ we have
+\[
+	x_{n+1} \ge x_n \quad (\text{resp. } x_{n+1} \le x_n ).
+\]}
+
+\NumberedTheorem{3.2.2}{Monotone bounded sequences converge}{Every monotone increasing (resp. monotone decreasing) bounded sequence $(x_n)_{n\in\N}$ in $\R$ is convergent, and moreover
+\[
+	\lim_{n\to\infty} x_n = \sup\{x_n : n\in\N\} \quad\big(\text{resp. }\ \lim_{n\to\infty} x_n = \inf\{x_n : n\in\N\}\big).
+\]}
+
+\paragraph{Proof.} We prove the claim for monotone increasing sequences; the decreasing case is analogous.
+
+Assume $(x_n)$ is monotone increasing and bounded. Then the set $\{x_n : n\in\N\}$ is bounded above, hence it has a supremum $s:=\sup\{x_n : n\in\N\}$ by the least upper bound property of $\R$. Let $\eps>0$. By the definition of the supremum there exists $n_\eps\in\N$ with
+\[
+	s-\eps < x_{n_\eps} \le s.
+\]
+By monotonicity this inequality holds for all $n\ge n_\eps$, i.e. $|x_n-s|<\eps$ for all $n\ge n_\eps$. Hence $x_n\to s$.
+\qed
+
+In the following we compile some statements about natural numbers that can be proved by complete induction and that often appear as exercises. We need the notation: for $k\in\N$ the factorial is defined recursively by
+\[
+	0! := 1, \qquad k! := k\,(k-1)! \quad (k=1,2,\dots).
+\]
+For natural numbers $n\ge k$ the binomial coefficient is defined by
+\[
+	\binom{n}{k} := \frac{n!}{k!\,(n-k)!}.
+\]
+
+\NumberedLemma{3.2.3}{Basic algebraic and summation facts}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item (Binomial theorem) For all real numbers $x,y$ and all $n\in\N$,
+	\[
+		(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{k} y^{\,n-k}.
+	\]
+
+	\item For all $k\ge 0$ one has $2^{\,k-1} \le k!$.
+
+	\item (Finite geometric sum) For every real $x\ne 1$ and every $n\in\N$,
+	\[
+		\sum_{k=0}^{n} x^k = \frac{1 - x^{n+1}}{1-x}.
+	\]
+	(For $x=1$ the sum equals $n+1$.)
+
+	\item (Bernoulli's inequality) For all $x>-1$ and $n\ge 0$,
+	\[
+		(1+x)^n \ge 1 + n x.
+	\]
+\end{enumerate}}
+
+\NumberedExample{3.2.4}{Standard limit examples}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $a\in\K$. Then $a^n\to 0$ if $|a|<1$; $a^n\to 1$ if $a=1$; and the sequence $(a^n)_{n\in\N}$ diverges if $|a|\ge 1$ and $a\ne 1$.
+
+	\item Let $a\in\K$ with $|a|<1$ and let $r\in\N$. Then $n^{r} a^{n}\to 0$ as $n\to\infty$.
+
+	\item $\displaystyle \lim_{n\to\infty} \sqrt[n]{\,n\,} = 1$.
+
+	\item If $a\in\R_{>0}$ then $\displaystyle \lim_{n\to\infty} \sqrt[n]{\,a\,} = 1$.
+
+	\item The sequence $\bigl(1+\tfrac{1}{n}\bigr)^{\!n}$ is convergent. Its limit is called Euler's number and denoted by $e$. Moreover $2<e<3$.
+
+	\item $\displaystyle \lim_{n\to\infty} \sum_{k=0}^{n} \frac{1}{k!} = e$.
+\end{enumerate}}
+
+	\paragraph{Proof.}
+	\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+		\item Suppose $(a^n)$ is convergent and set $\alpha:=\lim_{n\to\infty} a^n$. Then
+		\[
+			\alpha = \lim a^n = \lim a^{n+1} = \lim (a\,a^n) = a\,\alpha.
+		\]
+		Hence either $\alpha=0$ or $a=1$. In the latter case the sequence is constant and thus $\alpha=1$.
+
+		If $|a|<1$, the sequence $(|a|^n)$ is monotone decreasing and bounded below by $0$, hence convergent by Theorem~3.2.2. Since $a\ne1$, necessarily $\lim a^n=0$.
+
+		If $|a|=1$ and $a\ne1$ and $(a^n)$ were convergent, then $|a|^n\to0$, contradicting $|a|=1$. Thus $(a^n)$ diverges.
+
+		If $|a|>1$, then for any $\eps>0$ there exists $n_\eps$ with $\big(1/|a|\big)^n<\eps$ for all $n\ge n_\eps$, hence $|a|^n>1/\eps$ for all such $n$. Thus $(a^n)$ is unbounded and therefore divergent by Theorem~3.1.8.
+
+		\item Assume $a\ne0$ and set $\alpha:=|a|$ and $x_n:=n^r\alpha^n$. Then
+		\[
+			\frac{x_{n+1}}{x_n} = \alpha\Big(1+\frac{1}{n}\Big)^{\!r} \xrightarrow[n\to\infty]{} \alpha.
+		\]
+		Choose $\beta\in(\alpha,1]$. Then there exists $n_0$ with $x_{n+1}/x_n<\beta$ for all $n\ge n_0$, i.e. $x_{n+1}<\beta x_n$ for all $n\ge n_0$. By induction,
+		\[
+			x_n \le x_{n_0}\,\beta^{\,n-n_0}\qquad (n\ge n_0).
+		\]
+		Since $0<\beta<1$, we obtain $x_n\to0$. Hence $|n^r a^n|=x_n\to0$, and by Lemma~3.1.18(3) it follows that $n^r a^n\to0$.
+
+		\item Let $\eps>0$. Since $0<\tfrac{1}{1+\eps}<1$, part (2) with $r=1$ and $a=\tfrac{1}{1+\eps}$ yields
+		\[
+			\lim_{n\to\infty} n\Big(\tfrac{1}{1+\eps}\Big)^{\!n} = 0.
+		\]
+		Hence there exists $n_0>1$ so that $0<n(1+\eps)^{-n}<1$ for all $n\ge n_0$. This implies
+		\[
+			1 \le \sqrt[n]{n} < 1+\eps \qquad (n\ge n_0),
+		\]
+		and therefore $\lim_{n\to\infty} \sqrt[n]{n} = 1$.
+			\item Let $a>0$. By the Archimedean property there exists $n_0\in\N$ such that $\tfrac{1}{n}<a<n$ for all $n\ge n_0$. Taking $n$th roots gives
+			\[
+				\frac{1}{\sqrt[n]{n}} < \sqrt[n]{a} < \sqrt[n]{n} \qquad (n\ge n_0).
+			\]
+			By (3) we have $\sqrt[n]{n}\to 1$, and by Theorem~3.1.19(5) also $1/\sqrt[n]{n}\to 1$. Hence by the squeeze principle (Theorem~3.1.20(2)) we obtain $\sqrt[n]{a}\to 1$.
+
+			\item Set $e_n := \bigl(1+\tfrac{1}{n}\bigr)^{\!n}$. We show $(e_n)$ is bounded and monotone increasing.
+
+			(Boundedness) Using the binomial theorem and the estimate $\binom{n}{k}\le \dfrac{n^k}{k!}$,
+			\[
+				e_n = \sum_{k=0}^{n} \binom{n}{k}\,\frac{1}{n^k}
+						= 1 + \sum_{k=1}^{n} \frac{n(n-1)\cdots(n-k+1)}{k!}\,\frac{1}{n^k}
+						\le 1 + \sum_{k=1}^{n} \frac{1}{k!}.
+			\]
+			By Lemma~3.2.3(2) we have $\tfrac{1}{k!}\le 2^{-(k-1)}$ for $k\ge1$, and by Lemma~3.2.3(3) the geometric tail is bounded, yielding $e_n\le 3$.
+
+			(Monotonicity) Compute
+			\[
+				\frac{e_n}{e_{n-1}} = \Big(1+\frac{1}{n}\Big)\Big(1-\frac{1}{n^2}\Big)^{n-1}.
+			\]
+			By Bernoulli's inequality (Lemma~3.2.3(4)), $(1-t)^{n-1}\ge 1-(n-1)t$ for $t=1/n^2$, hence $\big(1-\tfrac{1}{n^2}\big)^{n-1}\ge 1-\tfrac{n-1}{n^2}$. Multiplying by $1+\tfrac{1}{n}$ gives $\tfrac{e_n}{e_{n-1}}\ge 1$. Thus $(e_n)$ is increasing. Since $e_1=2$ and $e_n\le 3$, the sequence converges; denote its limit by $e$, whence $2<e<3$.
+
+			\item Let $x_n := \sum_{k=0}^{n} \dfrac{1}{k!}$. Then $(x_n)$ is monotone increasing and $0<x_n\le 3$ by the estimate used above, hence $x_n\to e'$ for some $e'\in\R$.
+
+			First, $e\le e'$: from the binomial expansion we have $e_n\le x_n$ for every $n$, so taking limits and using Theorem~3.1.20(1) yields $e\le e'$.
+
+			Second, $e\ge e'$: fix any $m\in\N$ and define
+			\[
+				y_n := \sum_{k=0}^{m} \binom{n}{k}\,\frac{1}{n^k} < e_n.
+			\]
+			For each fixed $k\le m$,
+			\[
+				\binom{n}{k}\,\frac{1}{n^k} = \frac{1}{k!}\,\frac{n(n-1)\cdots(n-k+1)}{n^k}
+					= \frac{1}{k!}\,\prod_{j=0}^{k-1}\Big(1-\frac{j}{n}\Big)
+					\xrightarrow[n\to\infty]{} \frac{1}{k!}.
+			\]
+			Hence $y_n\to x_m$ as $n\to\infty$. Since $e_n>y_n$ for all $n$, taking limits gives $e\ge x_m$. Because $m$ was arbitrary and $x_m\nearrow e'$, it follows that $e\ge e'$. Combining the two inequalities yields $e=e'$.
+		\end{enumerate}
+
+		\paragraph{Addendum (exercise).}
+		For $n\in\N$ and $0<a<b$ show:
+		\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+			\item $0<a<b \ \Rightarrow\ 0<\sqrt[n]{a}<\sqrt[n]{b}$,
+			\item $0<a\le b \ \Rightarrow\ 0<\sqrt[n]{a}\le \sqrt[n]{b}$.
+		\end{enumerate}
+
+\NumberedTheorem{3.2.5}{Bolzano--Weierstrass}{Every bounded sequence in $\K$ has at least one accumulation point.}
+
+\paragraph{Proof.} First treat $\K=\R$. Let $(x_k)_{k\in\N}$ be a bounded sequence in $\R$. Then there exist $A_0,B_0\in\R$ with $A_0< B_0$ and
+\[
+	A_0 \le x_k \le B_0 \qquad \forall k\in\N.
+\]
+Starting with the closed interval $[A_0,B_0]$ we construct by bisection two sequences of nested intervals $([A_n,B_n])_{n\in\N}$ and midpoints $c_n:=\tfrac12(A_n+B_n)$ recursively as follows.
+
+Consider the three cases regarding how many terms of the sequence lie in each half of $[A_n,B_n]$:
+\begin{description}[leftmargin=*]
+	\item[Case 1.] Infinitely many indices $k$ satisfy $x_k = c_n = \tfrac12(A_n+B_n)$. Then $c:=c_n$ is evidently an accumulation point (indeed, constant subsequence).
+
+	\item[Case 2.] Infinitely many terms of $(x_k)$ lie in the left half $[A_n,\,c_n)$. Set $A_{n+1}:=A_n$ and $B_{n+1}:=c_n$.
+
+	\item[Case 3.] Infinitely many terms of $(x_k)$ lie in the right half $(c_n,\,B_n]$. Set $A_{n+1}:=c_n$ and $B_{n+1}:=B_n$.
+\end{description}
+At least one of these three cases occurs at each step, so the construction proceeds indefinitely. By construction, for all $n$ we have a closed interval $[A_n,B_n]\subset [A_0,B_0]$ that contains infinitely many terms of the sequence and satisfies
+\[
+	A_{n+1},B_{n+1} \in [A_n,B_n], \qquad B_{n+1}-A_{n+1} = \tfrac12\,(B_n-A_n),
+\]
+in particular \(A_n\) is monotone increasing, \(B_n\) is monotone decreasing, and both are bounded with
+\[
+	A_n, B_n \in [A_0,B_0], \qquad B_n-A_n = 2^{-n}(B_0-A_0).
+\]
+Hence $(A_n)$ and $(B_n)$ converge in $\R$ (Theorem~3.2.2). Set
+\[
+	c := \lim_{n\to\infty} A_n = \lim_{n\to\infty} B_n.
+\]
+We claim that $c$ is an accumulation point of $(x_k)$. Let $\eps>0$. Choose $n_1$ with $c-\eps < A_n \le c$ for all $n\ge n_1$, and choose $n_2$ with $c\le B_n < c+\eps$ for all $n\ge n_2$. For $n\ge n_\eps:=\max\{n_1,n_2\}$ we have
+\[
+	c-\eps < A_n \le c \le B_n < c+\eps.
+\]
+By construction, each interval $[A_n,B_n]$ contains infinitely many terms of the sequence. Therefore there exist infinitely many indices $k$ with $x_k\in [A_n,B_n]\subset (c-\eps, c+\eps)$. This proves that for every $\eps>0$ there are infinitely many $k$ with $|x_k-c|<\eps$, i.e. $c$ is an accumulation point in $\R$.
+
+Now let $\K=\C$ and $(x_k)_{k\in\N}$ be bounded in $\C$. Define real sequences
+\[
+	u_k := \Re(x_k), \qquad v_k := \Im(x_k), \qquad k\in\N.
+\]
+Since $|\Re z|\le |z|$ and $|\Im z|\le |z|$, the sequences $(u_k)$ and $(v_k)$ are bounded in $\R$. By the real case there exists a subsequence $(u_{k_\ell})_{\ell\in\N}$ converging to some $a\in\R$. The corresponding subsequence $(v_{k_\ell})_{\ell\in\N}$ is still bounded, hence by the real Bolzano--Weierstrass theorem admits a further subsequence $(v_{k_{\ell_m}})_{m\in\N}$ converging to some $b\in\R$. Then the paired subsequence $(x_{k_{\ell_m}})$ satisfies
+\[
+	\Re(x_{k_{\ell_m}}) \to a, \qquad \Im(x_{k_{\ell_m}}) \to b.
+\]
+Therefore, using $|z|\ge |\Re z|$ and $|z|\ge |\Im z|$ (or the inequality $|x+iy-(a+ib)|\le |\Re(x-(a+ib))| + |\Im(x-(a+ib))|$), we obtain
+\[
+	|x_{k_{\ell_m}} - (a+ib)| \le \big|\Re(x_{k_{\ell_m}}) - a\big| + \big|\Im(x_{k_{\ell_m}}) - b\big| \xrightarrow[m\to\infty]{} 0.
+\]
+Hence $x_{k_{\ell_m}}\to a+ib$ and $a+ib\in\C$ is an accumulation point of $(x_k)$. This concludes the proof. \qed
+
+\NumberedDefinition{3.2.6}{Cauchy sequence}{A sequence $(x_n)_{n\in\N}$ in $\K$ is called a \emph{Cauchy sequence} (abbrev. C.S.) if for every $\eps>0$ there exists $n_0\in\N$ such that
+\[
+	|x_n - x_m| \le \eps \qquad \forall\, n,m\ge n_0.
+\]}
+
+\NumberedTheorem{3.2.7}{Every convergent sequence is Cauchy}{Every convergent sequence in $\K$ is a Cauchy sequence.}
+
+\paragraph{Proof.} Let $\eps>0$ and suppose $x_n\to a$ in $\K$. Then there exists $n_\eps\in\N$ such that $|x_n-a|<\eps/2$ for all $n\ge n_\eps$. For $n,m\ge n_\eps$ we have
+\[
+	|x_n-x_m| = |(x_n-a)-(x_m-a)| \le |x_n-a| + |x_m-a| < \eps/2+\eps/2 = \eps.
+\]
+Thus $(x_n)$ is Cauchy. \qed
+
+\NumberedTheorem{3.2.8}{Every Cauchy sequence is bounded}{Every Cauchy sequence in $\K$ is bounded.}
+
+\paragraph{Proof.} By assumption there exists $n_1\in\N$ such that $|x_n-x_m|<1$ for all $n,m\ge n_1$. Define
+\[
+	C := \max\{ |x_n|+1 : n\le n_1\}.
+\]
+Then for $n\le n_1$ we have $|x_n|\le C$ by definition, and for $n>n_1$ we estimate
+\[
+	|x_n| = |x_n-x_{n_1}+x_{n_1}| \le |x_n-x_{n_1}| + |x_{n_1}| < 1 + |x_{n_1}| \le C.
+\]
+Hence $(x_n)$ is bounded. \qed
+
+\NumberedTheorem{3.2.9}{Cauchy implies convergence in $\K$}{Every Cauchy sequence in $\K$ is convergent.}
+
+\paragraph{Proof.} By Theorem~3.2.8 a Cauchy sequence $(x_n)$ is bounded. Therefore, by Bolzano--Weierstrass (Theorem~3.2.5), $(x_n)$ has an accumulation point $a\in\K$. We claim that $x_n\to a$.
+
+Let $\eps>0$. Since $(x_n)$ is Cauchy, there exists $n_\eps\in\N$ such that $|x_n-x_m|<\eps/2$ for all $n,m\ge n_\eps$. Moreover, because $a$ is an accumulation point, there exists an index $k_\eps\ge n_\eps$ with $|x_{k_\eps}-a|<\eps/2$. Then for all $n\ge n_\eps$ we have
+\[
+	|x_n-a| \le |x_n-x_{k_\eps}| + |x_{k_\eps}-a| < \eps/2 + \eps/2 = \eps.
+\]
+Thus $x_n\to a$, proving convergence. \qed
+
+\paragraph{Note.} In the proof of Theorem~3.2.9, the crucial external input was the Bolzano--Weierstrass theorem. The proof of Bolzano--Weierstrass itself used that in $\K$ (via $\R$) bounded monotone sequences converge to the supremum/infimum of their ranges. Equivalently: $\R$ is order complete; i.e., every nonempty bounded subset has a supremum/infimum.
+
+\NumberedExample{3.2.10}{Cauchy in $\Q$ without $\Q$-limit}{There exist Cauchy sequences in $\Q$ which do not converge in $\Q$. For instance, construct rational numbers that approximate $\sqrt{2}$ by bisection on $[1,2]$:
+\begin{itemize}[leftmargin=*]
+	\item Start with the interval $I_0=[1,2]$. Its midpoint $m_0=3/2$ satisfies $m_0^2=2.25>2$, hence the root of $x^2-2=0$ lies in $[1,3/2]$.
+	\item Inductively, having $I_n=[a_n,b_n]$ with $a_n,b_n\in\Q$ and $a_n^2\le 2\le b_n^2$, let $m_n:=\tfrac{a_n+b_n}{2}$. If $m_n^2\le 2$ set $I_{n+1}=[m_n,b_n]$, else set $I_{n+1}=[a_n,m_n]$.
+\end{itemize}
+Then $a_n,b_n\in\Q$, $I_{n+1}\subset I_n$, and $|I_n|=b_n-a_n=2^{-n}(b_0-a_0)=2^{1-n}$, so $(a_n)$ and $(b_n)$ are Cauchy sequences in $\R$. Any choice of a point $x_n\in I_n\cap\Q$ defines a rational sequence $(x_n)$ with $|x_n-x_m|\le |I_{\min\{n,m\}}|\to 0$; hence $(x_n)$ is Cauchy.
+
+However, in $\Q$ the sequence cannot converge, because its (real) limit must be the unique number $c\in[1,2]$ with $c^2=2$, namely $c=\sqrt{2}\notin\Q$ (cf. Remark~2.3.3). Thus $(x_n)$ is Cauchy in $\Q$ but has no limit in $\Q$; viewed in $\R$ it converges to $\sqrt{2}$.}
+
+\NumberedRemark{3.2.11}{Completion viewpoint}{The real numbers $\R$ can be obtained from $\Q$ by \emph{completion}: one considers the set of Cauchy sequences in $\Q$ and identifies two such sequences if their difference is a null sequence; the resulting equivalence classes form an ordered field that is order complete and isomorphic to $\R$ (Theorem~2.3.4). Under this identification, a rational $q\in\Q$ corresponds to the constant sequence $(q,q,\dots)$, while an irrational such as $\sqrt{2}$ is represented by any rational Cauchy sequence that converges to it in $\R$ (e.g. the bisection sequence above).}
 
 \subsection{Improper Convergence (Uneigentliche Konvergenz)}
-	odo{Clarify intended meaning in source (extended reals vs. divergent types)}
+\NumberedDefinition{3.3.1}{Extended reals and improper limits}{Let $\overline{\R}:=\R\cup\{-\infty,+\infty\}$ be the set of \emph{extended real numbers}, ordered by
+\[
+	-\infty < x < +\infty \quad (\forall x\in\R).
+\]
+For a sequence $(x_n)$ in $\R$ we define:
+\begin{itemize}[leftmargin=*]
+	\item $x_n \to +\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\ge M$ for all $n\ge n_0$.
+	\item $x_n \to -\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\le -M$ for all $n\ge n_0$ (equivalently: $(-x_n)\to +\infty$).
+	\item We say $x_n$ \emph{diverges to infinity} and write $x_n\to \infty$ if either $x_n\to +\infty$ or $x_n\to -\infty$; when the sign matters we specify $+\infty$ or $-\infty$.
+\end{itemize}
+Thus a (properly) convergent sequence in $\R$ is one that converges in the usual sense to a point of $\R$; an \emph{improperly convergent} sequence is one that converges in $\overline{\R}$ to $\pm\infty$.
+}
+
+\paragraph{Remarks and basic facts.}
+\begin{itemize}[leftmargin=*]
+	\item If $(x_n)$ is monotone increasing and unbounded above, then $x_n\to +\infty$. If it is monotone decreasing and unbounded below, then $x_n\to -\infty$.
+	\item If $x_n\to +\infty$ and $a>0$, then $a\,x_n\to +\infty$. If $x_n\to +\infty$ and $y_n\ge c>0$ eventually, then $x_n y_n\to +\infty$.
+	\item If $x_n\to a\in\R$ and $y_n\to +\infty$, then $x_n+y_n\to +\infty$.
+	\item Improper limits obey the same order rule as in Theorem~3.1.20(1): if $x_n\le y_n$ for infinitely many $n$ and $x_n\to +\infty$, then $y_n\to +\infty$.
+\end{itemize}
+
+\NumberedDefinition{3.3.2}{Arithmetic in $\overline{\R}$}{We extend the usual operations on $\R$ to the extended reals $\overline{\R}=\R\cup\{-\infty,+\infty\}$ by the following rules (whenever the expressions make sense): for $x\in\R$,
+\[
+	x + (+\infty) := +\infty \ (\forall x> -\infty),\qquad x + (-\infty) := -\infty \ (\forall x< +\infty),
+\]
+\[
+	x - (+\infty) := -\infty \ (\forall x< +\infty),\qquad x - (-\infty) := +\infty \ (\forall x> -\infty),
+\]
+\[
+	x\cdot (+\infty) := \begin{cases}
+		+\infty,& x>0,\\[-2pt]
+		-\infty,& x<0,
+	\end{cases}
+	\qquad
+	x\cdot (-\infty) := -\,x\cdot(+\infty),
+\]
+\[
+	\frac{x}{+\infty} := 0,\quad \frac{x}{-\infty} := 0 \qquad (\forall x\in\R),
+\]
+\[
+	\frac{+\infty}{x} := \begin{cases}
+		+\infty,& x>0,\\[-2pt]
+		-\infty,& x<0,
+	\end{cases}
+	\qquad
+	\frac{-\infty}{x} := -\,\frac{+\infty}{x},
+\]
+\[
+	\frac{x}{0} := \begin{cases}
+		+\infty,& x>0,\\[-2pt]
+		-\infty,& x<0.
+	\end{cases}
+\]
+Undefined expressions (such as $\infty-\infty$, $0\cdot\infty$, $\tfrac{\infty}{\infty}$, $\tfrac{0}{0}$, etc.) are intentionally left without a value.}
+
+\NumberedRemark{3.3.3}{Suprema/infima in $\overline{\R}$}{Every subset of $\R$ has both an infimum and a supremum \emph{in} $\overline{\R}$. For example, if $A\subset\R$ is unbounded above, then $\sup_{\overline{\R}} A=+\infty$; if $A$ is unbounded below, then $\inf_{\overline{\R}} A=-\infty$.}
+
+\NumberedDefinition{3.3.4}{Limits and cluster points at $\pm\infty$}{Let $(x_n)$ be a sequence in $\R$. We say
+\begin{itemize}[leftmargin=*]
+	\item $x_n\to +\infty$ (resp. $x_n\to -\infty$) if for every $R\in\R_{\ge0}$ there exists $n_R\in\N$ such that $x_n>R$ (resp. $x_n<-R$) for all $n\ge n_R$.
+	\item $a=+\infty$ (resp. $a=-\infty$) is a \emph{cluster point} of $(x_n)$ if for every $R\ge 0$ and every $n\in\N$ there exists $n_R\ge n$ with $x_{n_R}>R$ (resp. $x_{n_R}< -R$).
+\end{itemize}}
+
+\NumberedExample{3.3.5}{Improper limits and cluster points}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \lim_{n\to\infty} n = +\infty$.
+	\item $\displaystyle \lim_{n\to\infty} (-2n) = -\infty$.
+	\item The sequence $x_n:=(-1)^n n$ does not converge in $\overline{\R}$, but it has the two cluster points $+\infty$ and $-\infty$ (even indices $\to +\infty$, odd indices $\to -\infty$).
+\end{enumerate}}
+
+\NumberedTheorem{3.3.6}{Reciprocals and improper limits}{Let $(x_n)$ be a sequence in $\R$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $x_n\to +\infty$ or $x_n\to -\infty$, then $\dfrac{1}{x_n}\to 0$.
+	\item If $x_n\to 0$ and $x_n>0$ for all but finitely many $n$, then $\dfrac{1}{x_n}\to +\infty$. If $x_n\to 0$ and $x_n<0$ for all but finitely many $n$, then $\dfrac{1}{x_n}\to -\infty$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Suppose $x_n\to +\infty$. Let $\eps>0$. Choose $n_\eps$ with $x_n>1/\eps$ for all $n\ge n_\eps$. Then $0<\tfrac{1}{x_n}<\eps$ for all $n\ge n_\eps$, hence $\tfrac{1}{x_n}\to 0$. The case $x_n\to -\infty$ is analogous using $|1/x_n|$.
+	\item Assume $x_n\to 0$ and $x_n>0$ for all but finitely many $n$. Let $R>0$. There exists $n_R$ such that $|x_n|<1/R$ for all $n\ge n_R$. Possibly increasing $n_R$ we may assume $x_n>0$ for all $n\ge n_R$. Then $\tfrac{1}{x_n}>R$ for all $n\ge n_R$, proving $\tfrac{1}{x_n}\to +\infty$. The case with $x_n<0$ eventually is analogous and yields $\tfrac{1}{x_n}\to -\infty$.
+\end{enumerate}\qed
+
+\NumberedRemark{3.3.7}{Undefined forms in $\overline{\R}$ and caution}{Using the symbols $+\infty$ and $-\infty$ is often practical, but $\overline{\R}$ is not a field, so several algebraic rules from $\R$ no longer hold. In particular, the following combinations are \emph{not defined}:
+\[
+	\frac{\infty}{\infty},\ \frac{-\infty}{-\infty},\ \frac{-\infty}{\infty},\ \frac{\infty}{-\infty},\quad
+	-\infty + \infty,\ \infty + (-\infty),\quad 0\cdot(+\infty),\ 0\cdot(-\infty).
+\]
+If such expressions arise during manipulations, one has reached a dead end and should reformulate to avoid them. Moreover, some rules for limits fail in the improper setting. For example, with $a_n=n$ and $b_n=-2n$ we have $a_n\to +\infty$ and $b_n\to -\infty$, but the sum sequence $c_n=a_n+b_n=-n$ converges to $-\infty$, while the `sum of limits' $+\infty+(-\infty)$ is not defined. Similar issues occur for quotients of sequences that tend to $\pm\infty$.}
+
+\NumberedTheorem{3.3.8}{Monotone sequences converge in $\overline{\R}$}{Every monotone increasing (resp. monotone decreasing) sequence $(x_n)_{n\in\N}$ in $\R$ converges in $\overline{\R}$, and
+\[
+	\lim_{n\to\infty} x_n = \sup\{x_n: n\in\N\}\quad \big(\text{resp. }\ \lim_{n\to\infty} x_n = \inf\{x_n: n\in\N\}\big).
+\]
+\paragraph{Proof.} Consider the increasing case; the decreasing case is analogous. If $x_n=-\infty$ for all $n$, then clearly $\lim x_n=-\infty$ and $\sup\{x_n:n\in\N\}=-\infty$. Otherwise, choose $n_0\in\N$ with $x_{n_0}>-\infty$ and examine the tail $(x_n)_{n\ge n_0}$. If it is bounded above in $\R$, then by Theorem~3.2.2 it converges in $\R$ to its supremum. If it is not bounded above, then for every $R>0$ there exists $n_R\ge n_0$ with $x_{n_R}>R$, and monotonicity gives $x_n>R$ for all $n\ge n_R$, hence $x_n\to +\infty$. In either case the limit in $\overline{\R}$ equals the supremum. \qed}
+
+\paragraph{Tail suprema and infima.} Let $(x_n)_{n\in\N}$ be a sequence in $\R$ and define, for $n\in\N$,
+\[
+	y_n := \sup\{ x_k : k\ge n\}, \qquad z_n := \inf\{ x_k : k\ge n\}.
+\]
+Then $(y_n)$ is monotone decreasing in $\overline{\R}$ and $(z_n)$ is monotone increasing in $\overline{\R}$. By Theorem~3.3.8, both $(y_n)$ and $(z_n)$ converge in $\overline{\R}$.
+
+\NumberedDefinition{3.3.9}{Limsup and liminf}{Let $(x_n)_{n\in\N}$ be a sequence in $\R$. Then
+\[
+	\limsup_{n\to\infty} x_n := \lim_{n\to\infty} \sup\{x_k : k\ge n\},
+	\qquad
+	\liminf_{n\to\infty} x_n := \lim_{n\to\infty} \inf\{x_k : k\ge n\}.
+\]}
+
+\NumberedRemark{3.3.10}{}{Because $\sup\{x_k : k\ge n\} \ge \inf\{x_k : k\ge n\}$ holds for every $n$, we always have
+\[
+	\limsup_{n\to\infty} x_n \;\ge\; \liminf_{n\to\infty} x_n.
+\]}
+
+\NumberedTheorem{3.3.11}{Limsup/liminf and cluster points}{Let $(x_n)_{n\in\N}$ be a sequence in $\R$. Then $\limsup_{n\to\infty} x_n$ (resp. $\liminf_{n\to\infty} x_n$) is the greatest (resp. smallest) cluster point in $\overline{\R}$ of $(x_n)$.}
+
+\paragraph{Proof.} Set $x := \limsup_{n\to\infty} x_n$ and define $y_n := \sup\{x_k : k\ge n\}$. Then $(y_n)$ is monotone decreasing and $y_n\to x$.
+
+\emph{Case 1: $x=+\infty$.} Since $y_n\to +\infty$ and $(y_n)$ is decreasing, we have $\forall R>0\ \forall n\in\N\ \exists k>n:\ x_k>R$ (because $+\infty$ is the least upper bound of the tail sets $\{x_k:k\ge n\}$). Thus $+\infty$ is a cluster point of $(x_n)$ in $\overline{\R}$, and evidently there is no larger cluster point.
+
+\emph{Case 2: $x\in\R$.} First we show that no cluster point $z$ of $(x_n)$ is greater than $x$. Let $\eps>0$. Since $y_n\downarrow x$, there exists $n_\eps$ with $x\le y_n < x+\eps$ for all $n\ge n_\eps$. Hence
+\[
+	\#\{k\in\N : x_k \ge x+\eps\} \le n_\eps < \infty.
+\]
+Therefore every cluster point $z$ satisfies $z\le x+\eps$, and since $\eps>0$ is arbitrary, $z\le x$.
+
+Next we show that $x$ is a cluster point of $(x_n)$. Let $\eps>0$ and $n\in\N$. Since $x\le y_n < x+\eps$ and $y_n$ is the least upper bound of $\{x_k:k\ge n\}$, there exists $k\ge n$ with
+\[
+	x \le x_k < x+\eps.
+\]
+Thus $x$ is indeed a cluster point. Hence $x$ is the greatest cluster point.
+
+\emph{Case 3: $x=-\infty$.} Let $R\in\R_{\ge0}$. Then there exists $n_R\in\N$ such that $y_n<-R$ for all $n\ge n_R$. It follows that
+\[
+	\#\{k\in\N : x_k \ge -R\} \le n_R < \infty.
+\]
+Therefore any cluster point $z$ must satisfy $z\le -\infty$, i.e. $z=-\infty$. Moreover, for every $R\in\R_{\ge0}$ and every $n\in\N$ there exists $k\ge n$ with $x_k<-R$, proving that $-\infty$ is a cluster point. This shows that the smallest cluster point equals $-\infty$ in this case.
+
+The proof for $\liminf_{n\to\infty} x_n$ is analogous. \qed
+
+\NumberedExample{3.3.12}{}{Let $x_n := (-1)^n\,\dfrac{n}{n+1}$. Then
+\[
+	\limsup_{n\to\infty} x_n = 1
+	\qquad\text{and}\qquad
+	\liminf_{n\to\infty} x_n = -1.
+\]
+Indeed, with $y_n := \sup\{x_k:k\ge n\}$ and $z_n := \inf\{x_k:k\ge n\}$ we have $y_n=1$ for all $n\in\N$ and $z_n=-1$ for all $n\in\N$.}
 
 \subsection{Series (Reihen)}
-	odo{Add translation: definition, partial sums, convergence criteria}
 
+\NumberedDefinition{3.4.1}{Series and partial sums}{Let $(x_n)_{n\in\N}$ be a sequence in $\K$. We define the $n$th partial sum $s_n$ by
+\[
+	s_n := \sum_{k=0}^{n} x_k.
+\]
+The sequence $(s_n)_{n\in\N}$ is called the \emph{series} associated to $(x_n)$ and is denoted for short by the symbol
+\[
+	\sum_{k} x_k.
+\]
+The series is called \emph{convergent} (resp. \emph{divergent}) if the sequence $(s_n)_{n\in\N}$ is convergent (resp. divergent) in $\K$.\footnote{In this chapter we consider convergent sequences and series in $\K$, not improper convergence.}
+If $s_n \to s\in\K$, we write
+\[
+	s = \sum_{n=0}^{\infty} x_n.
+\]}
+
+\NumberedExample{3.4.2}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \sum_{n\ge 1} \frac{1}{n!}$ is convergent; in fact $e = 1 + 1 + \tfrac12 + \tfrac16 + \tfrac{1}{24} + \tfrac{1}{120} + \tfrac{1}{720} + \cdots$.
+
+	\item $\displaystyle \sum_{n\ge 1} \frac{1}{n^2} = \Big(1 + \tfrac{1}{4} + \tfrac{1}{9} + \tfrac{1}{16} + \tfrac{1}{25} + \cdots\Big)$ is convergent (indeed to $\pi^2/6$).
+
+	\item $\displaystyle \sum_{n\ge 1} \frac{1}{n} = \big(1 + \tfrac{1}{2} + \tfrac{1}{3} + \tfrac{1}{4} + \tfrac{1}{5} + \cdots\big)$ is divergent (the harmonic series).
+
+	\item The geometric series $\sum a^n = (1 + a + a^2 + a^3 + \cdots)$ is convergent exactly when $|a|<1$. In that case
+	\[
+		\sum_{n=0}^{\infty} a^n = \frac{1}{1-a}.
+	\]
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item See Example~3.2.4(6).
+
+	\item Let $(s_n)_{n\in\N}$ with $s_n := \sum_{k=1}^{n} \tfrac{1}{k^2}$. Then $(s_n)$ is monotone increasing. Moreover, for $n\ge2$,
+	\begin{align*}
+		s_n &= 1 + \sum_{k=2}^{n} \frac{1}{k^2}
+			\;\le\; 1 + \sum_{k=2}^{n} \frac{1}{k(k-1)}
+			\;=\; 1 + \sum_{k=2}^{n} \Big( \frac{1}{k-1} - \frac{1}{k} \Big) \\
+			&= 1 + \sum_{k=2}^{n} \frac{1}{k-1} - \sum_{k=2}^{n} \frac{1}{k}
+			\;=\; 1 + \sum_{\ell=1}^{n-1} \frac{1}{\ell} - \sum_{\ell=2}^{n} \frac{1}{\ell}
+			\;=\; 1 + 1 - \frac{1}{n}
+			\;\le\; 2.
+	\end{align*}
+	Thus $(s_n)$ is monotone increasing and bounded, hence convergent.
+
+	\item For $n\in\N$ one has
+	\[
+		s_{2n} - s_n 
+			= \sum_{k=n+1}^{2n} \frac{1}{k}
+			\;\ge\; \sum_{k=n+1}^{2n} \frac{1}{2n}
+			= n\cdot\frac{1}{2n}
+			= \frac{1}{2}.
+	\]
+	Hence $(s_n)_{n\in\N}$ is not a Cauchy sequence and therefore, by Theorem~3.2.7, not convergent.
+
+	\item For $a=1$ we have $s_n = \sum_{k=0}^{n} 1^k = n+1$, which diverges. For $a\ne1$, by Lemma~3.2.3(3),
+	\[
+		s_n = \sum_{k=0}^{n} a^k = \frac{1-a^{n+1}}{1-a}.
+	\]
+	Since for $a\ne1$ the sequence $a^{n+1}$ converges if and only if $|a|<1$ (Example~3.2.4(1)), the claim follows.
+\end{enumerate}
+\qed
 \subsection{Absolute Convergence (Absolute Konvergenz)}
-	odo{Add translation: comparison to conditional convergence}
 
+\NumberedDefinition{3.5.1}{Absolute convergence}{A series $\sum x_n$ is called \emph{absolutely convergent} if the series $\sum |x_n|$ is convergent. A convergent series that is not absolutely convergent is called \emph{conditionally convergent}.}
+
+\NumberedTheorem{3.5.2}{Absolutely convergent implies convergent}{Every absolutely convergent series converges.}
+\paragraph{Proof.}
+Suppose $\sum x_n$ is absolutely convergent and let $\eps>0$. The series $\sum |x_n|$ satisfies the Cauchy criterion: there exists $n_\eps\in\N$ such that for all $n>m\ge n_\eps$,
+\[
+	\sum_{k=m+1}^{n} |x_k| < \eps.
+\]
+By the triangle inequality,
+\[
+	\Bigg|\sum_{k=m+1}^{n} x_k\Bigg| \le \sum_{k=m+1}^{n} |x_k| < \eps.
+\]
+Thus $\sum x_k$ also satisfies the Cauchy criterion and is therefore convergent. \qed
+
+\NumberedRemark{3.5.3}{}{The converse of Theorem~3.5.2 is, in general, false. Example: $x_n := (-1)^{n+1}\,\tfrac{1}{n}$. Then $\sum x_n$ is the alternating harmonic series and convergent, but $\sum |x_n|$ is the harmonic series and divergent.}
+
+\paragraph{Criteria for absolutely convergent series.}
+
+\NumberedTheorem{3.5.4}{Comparison (majorant) test}{Let $(x_n)_{n\in\N}$ be a sequence in $\K$. Suppose there exists a sequence $(\alpha_n)_{n\in\N}$ in $\R_{\ge0}$ with the properties
+\begin{itemize}
+	\item $\sum \alpha_n$ is convergent,
+	\item there exists $n_0\in\N$ such that $|x_n|\le \alpha_n$ for all $n\ge n_0$.
+\end{itemize}
+Then the series $\sum x_n$ is absolutely convergent.}
+\paragraph{Proof.}
+Let $\eps>0$. Then there exists $n_\eps\in\N$ with
+\[
+	\sum_{k=m+1}^{n} \alpha_k < \eps \qquad (\forall\, n>m\ge n_\eps).
+\]
+Set $n'_\eps := \max\{n_\eps, n_0\}$. For $n>m\ge n'_\eps$ we obtain
+\[
+	\sum_{k=m+1}^{n} |x_k| \le \sum_{k=m+1}^{n} \alpha_k < \eps.
+\]
+Hence $\sum |x_k|$ satisfies the Cauchy criterion and is therefore convergent; i.e. $\sum x_n$ is absolutely convergent. \qed
+
+\NumberedExample{3.5.5}{}{Let $k\ge2$. From Example~3.4.2(2) and the comparison test it follows that $\sum_{n\ge1} \dfrac{1}{n^k}$ is absolutely convergent.}
+
+\NumberedTheorem{3.5.6}{Root test}{Let
+\[
+	\alpha := \limsup_{n\to\infty} \sqrt[n]{|x_n|}.
+\]
+If $\alpha<1$, then $\sum x_n$ is absolutely convergent. If $\alpha>1$, then $\sum x_n$ is divergent. If $\alpha=1$, no conclusion is possible in general.}
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Assume $\alpha<1$ and choose $q$ with $\alpha<q<1$. By the definition of $\limsup$ there exists $n_q\in\N$ such that $\sqrt[n]{|x_n|}\le q$ for all $n\ge n_q$. Thus $|x_n|\le q^n$ for $n\ge n_q$, so $\sum |x_n|$ has a convergent geometric majorant $\sum q^n$ and is therefore absolutely convergent.
+	\item Assume $\alpha>1$. Then for some $\delta>0$ there are infinitely many $n$ with $\sqrt[n]{|x_n|}\ge 1+\delta \ge 1$, hence $|x_n|\ge1$ for infinitely many $n$. Therefore $(x_n)$ is not a null sequence and by Theorem~3.4.3 the series $\sum x_n$ diverges.
+\end{enumerate}
+\qed
+
+\NumberedTheorem{3.5.7}{Ratio test}{Assume there exists $k_0\in\N$ such that $x_n\ne0$ for all $n\ge k_0$.
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If
+	\[
+		\limsup_{n\to\infty,\, n\ge k_0} \Bigg|\frac{x_{n+1}}{x_n}\Bigg| < 1,
+	\]
+	then $\sum x_n$ is absolutely convergent.
+	\item If there exists $k_1\ge k_0$ with
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| > 1 \qquad \forall\, n\ge k_1,
+	\]
+	then $\sum x_n$ is divergent.
+\end{enumerate}}
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Since the limsup of $\big|\tfrac{x_{n+1}}{x_n}\big|$ is smaller than $1$, choose $q\in(0,1)$ and $n_q\ge k_0$ with
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| \le q \qquad (n\ge n_q)
+	\]
+	(cf. Theorem~3.3.11 on limsup). Then $|x_{n_q+1}|\le q|x_{n_q}|$, and by induction one shows
+	\[
+		|x_n| \le q^{\,n-n_q}\,|x_{n_q}| = \underbrace{\frac{|x_{n_q}|}{q^{n_q}}}_{=:c}\, q^{\,n} = c\,q^{\,n} \qquad (n\ge n_q).
+	\]
+	Since $\sum c\,q^{\,n}$ converges for $q<1$, we have found a convergent majorant; hence $\sum x_n$ is absolutely convergent.
+	\item If $\big|\tfrac{x_{n+1}}{x_n}\big|>1$ for all $n\ge k_1$, then $|x_n|\ge |x_{k_1}|>0$ for all $n\ge k_1$. Thus $(x_n)$ is not a null sequence and $\sum x_n$ diverges by Theorem~3.4.3.
+\end{enumerate}
+\qed
+
+% ============================================================================
+% 4 Normed Vector Spaces (Normierte Vektorräume)
+% ============================================================================
+\section{Normed Vector Spaces (Normierte Vektorräume)}
+
+\subsection{Basic facts about norms}
+
+% From the scan: Remark 4.1.12, Definition 4.1.13, Theorem 4.1.14
+
+\NumberedRemark{4.1.12}{}{Theorem~4.1.11 does not hold in infinite-dimensional vector spaces in general. For example, the norms $\|\cdot\|_\infty$ and $\|\cdot\|_1$ on $\ell_1$ are not equivalent.}
+\paragraph{Proof.}
+Indirect proof: assume there exists $\bar c>0$ with
+\[
+	\|x\|_{1} \le \bar c\,\|x\|_{\infty} \qquad \forall x\in\ell_{1}.\tag{$*$}
+\]
+Let $m\in\N$ with $m>\bar c$. Choose $x\in\ell_{1}$ by
+\[
+	x_i := \begin{cases} 1,& 0\le i\le m,\\ 0,& \text{otherwise.} \end{cases}
+\]
+Then $\|x\|_{1}=m+1$ and $\|x\|_{\infty}=1$, contradicting $(*)$. \qed
+
+\paragraph{Recall.} In $\K$ the statements
+\begin{itemize}[leftmargin=*]
+	\item $(x_n)$ is convergent,
+	\item $(x_n)$ is a Cauchy sequence
+\end{itemize}
+are equivalent.
+
+\NumberedDefinition{4.1.13}{Complete (Banach) space}{A normed $\K$-vector space $(X,\|\cdot\|)$ is called \emph{complete} or a \emph{Banach space} if every Cauchy sequence in $X$ converges.}
+
+\NumberedTheorem{4.1.14}{The following normed $\K$-vector spaces are complete}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\K$,
+	\item $\K^{n}$ for $n\in\N$,
+	\item $(\ell_{1},\,\|\cdot\|_{1})$,
+	\item $(\ell_{\infty},\,\|\cdot\|_{\infty})$,
+	\item $(\ell_{2},\,\|\cdot\|_{2})$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+@ 1: Theorem 3.2.9.
+
+@ 2: By Theorem 4.1.11 it suffices to prove the claim for the norm $\|\cdot\|_\infty$. Let $(x_k)_{k\in\N}$ be a Cauchy sequence in $(\K^{n},\|\cdot\|_{\infty})$, where $x_k\in\K^n$ and $x_{k,i}\in\K$. Then for each $1\le i\le n$ the sequence of coordinates $(x_{k,i})_{k\in\N}$ is a Cauchy sequence in $\K$, hence convergent (Theorem 3.2.9), say to $x_i^{\ast}\in\K$. Set
+\[
+	x^{\ast} := (x_1^{\ast},x_2^{\ast},\dots,x_n^{\ast}) \in \K^{n},
+\]
+the candidate for the limit of $(x_k)_{k\in\N}$. Let $\eps>0$. Then there exist indices $k_{\eps,i}\in\N$ such that
+\[
+	|x_i^{\ast}-x_{k,i}| < \eps \qquad \forall k\ge k_{\eps,i},\ 1\le i\le n.
+\]
+Set $k_{\eps} := \max_{1\le i\le n} k_{\eps,i}$. Then for all $k\ge k_{\eps}$ we have
+\[
+	\|x^{\ast}-x_k\|_{\infty} 
+	 = \max_{1\le i\le n} |x_i^{\ast}-x_{k,i}| 
+	 < \eps.
+\]
+Thus $x_k\to x^{\ast}$ in $\|\cdot\|_{\infty}$.
+
+@ 3:
+
+i. Construct the limit.
+
+Let $(x_k)_{k\in\N}$ be a Cauchy sequence with respect to $\|\cdot\|_{1}$ in $\ell_{1}$, i.e. $x_k\in\ell_{1}$, $x_{k,i}\in\K$, $i\in\N$, and
+\[
+	\forall\,\eps>0\ \exists\,k_{\eps}\in\N\ \forall\,k,l\ge k_{\eps} :\ \eps > \|x_k-x_l\|_{1} 
+		= \sum_{i=0}^{\infty} |x_{k,i}-x_{l,i}|.
+\]
+In particular, for each fixed $i\in\N$ we obtain
+\[
+	\forall\,\eps>0\ \exists\,k_{\eps}\in\N\ \forall\,k,l\ge k_{\eps} :\ |x_{k,i}-x_{l,i}|<\eps.
+\]
+By Theorem 3.2.9 there exists for each $i$ a limit $x_i^{\ast}\in\K$ with $x_{k,i}\to x_i^{\ast}$ as $k\to\infty$. Set $x^{\ast}:=(x_i^{\ast})_{i\in\N}\in\K^{\N}$.
+
+ii. Show: $x^{\ast}\in \ell_{1}$, i.e. $\sum_{i=0}^{\infty} |x_i^{\ast}| < \infty$.
+
+By Remark 4.1.4 we know that $(\|x_k\|_{1})_{k\in\N}$ is a Cauchy sequence in $\R$. Hence
+\[
+	c := \sup_{k\in\N} \|x_k\|_{1} < \infty.
+\]
+Fix $N\in\N$. For $\eps=\tfrac{1}{N}$ choose indices $k_{\eps,1},\dots,k_{\eps,N}$ with $|x_i^{\ast}-x_{k,i}|<\eps$ for all $k\ge k_{\eps,i}$ and $1\le i\le N$. Let $k_{\eps}:=\max_{1\le i\le N} k_{\eps,i}$. Then
+\[
+	\sum_{i=0}^{N} |x_i^{\ast}|
+		\le \underbrace{\sum_{i=0}^{N} |x_i^{\ast}-x_{k_{\eps},i}|}_{<\,N\cdot(1/N)=1}
+			+ \underbrace{\sum_{i=0}^{N} |x_{k_{\eps},i}|}_{\le\,\|x_{k_{\eps}}\|_{1}\,\le\,c}
+		< 1 + c \quad \text{and hence} \quad < 1 + \frac{1}{N} + c \le 2+c.
+\]
+(* this uses $|x_i^{\ast}| \le |x_i^{\ast}-x_{k_{\eps},i}| + |x_{k_{\eps},i}|$.)
+
+Thus the sequence of partial sums $\big(S_N:=\sum_{i=0}^{N} |x_i^{\ast}|\big)_{N\in\N}$ is monotone increasing and bounded, hence by Theorem~3.4.7 the series $\sum_{i=0}^{\infty} |x_i^{\ast}|$ is convergent. Therefore $x^{\ast}\in\ell_{1}$.
+
+
+\NumberedExample{3.5.8}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \sum \frac{n^2}{2^n} = 0 + \frac12 + \frac14 + \frac{4}{8} + \frac{9}{16} + \frac{16}{16} + \frac{25}{32} + \frac{36}{64} + \cdots$ is absolutely convergent (sum equal to $6$).
+	\item $\displaystyle \sum_{n=0}^{\infty} \Big(\tfrac12\Big)^{n+(-1)^n} = \tfrac12 + 1 + \tfrac18 + \tfrac14 + \tfrac{1}{32} + \tfrac{1}{16} + \cdots$ is absolutely convergent.
+	\item $\displaystyle \sum \frac{z^n}{n!}$ is absolutely convergent for every $z\in\C$. The function $\exp:\C\to\C$ that assigns to each $z\in\C$ the value $\sum \tfrac{z^n}{n!}$ is called the exponential function; in particular $\exp: \R\to\R$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item For $x_n=\tfrac{n^2}{2^n}$,
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| = \frac{(n+1)^2}{2^{n+1}}\,\frac{2^n}{n^2} = \frac12\Big(1+\frac{1}{n}\Big)^2 \longrightarrow \frac12.
+	\]
+	By the ratio test, the series is absolutely convergent.
+	\item For $x_n = 2^{-(n+(-1)^n)}$, the successive ratio equals
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| = 2^{-1 - (-1)^{n+1} + (-1)^n} = 2^{\,2(-1)^n-1} =
+		\begin{cases}
+			2, & n \text{ even},\\[2pt]
+				\frac{1}{8}, & n \text{ odd}.
+		\end{cases}
+	\]
+	Hence the ratio test is inconclusive. However,
+	\[
+		\sqrt[n]{|x_n|} = 2^{-(n+(-1)^n)/n} = 2^{-1 - (-1)^n/n} \longrightarrow \tfrac12,
+	\]
+	so the root test yields absolute convergence.
+	\item For $x_n = \tfrac{z^n}{n!}$ we have
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| = \frac{|z|}{n+1} \longrightarrow 0,
+	\]
+	hence the ratio test shows absolute convergence for all $z\in\C$.
+\end{enumerate}
+
+	\NumberedDefinition{3.5.9}{Rearrangements of a series}{Let $\sigma:\N\to\N$ be a bijection and let $\sum x_n$ be a series. Then the series $\sum x_{\sigma(n)}$ is called a \emph{rearrangement} of $\sum x_n$.}
+
+	\NumberedExample{3.5.10}{}{Let $s := \sum_{n=1}^{\infty} (-1)^{n+1}\,\tfrac{1}{n} = 1 - \tfrac12 + \tfrac13 - \tfrac14 + \tfrac15 - \cdots$. Consider the rearrangement obtained by listing terms in the order $k,\ 2k,\ 2(k+1)$ for $k=1,3,5,\dots$; this produces the series
+	\[
+		1 - \frac12 - \frac14 + \frac13 - \frac16 - \frac18 + \frac15 - \frac1{10} - \frac1{12} + \frac17 - \frac1{14} - \frac1{16} + \cdots
+	\]
+	which can be grouped as
+	\[
+		\frac12 \Big\{ 1 - \frac12 + \frac13 - \frac14 + \frac15 - \frac16 + \frac17 - \frac18 + \cdots \Big\} = \frac{s}{2}.
+	\]
+	Thus addition with infinitely many summands is, in general, not commutative.}
+
+	\NumberedTheorem{3.5.11}{Rearrangements of absolutely convergent series}{If $\sum x_n$ is absolutely convergent, then every rearrangement is also absolutely convergent and, for every bijection $\sigma:\N\to\N$, one has
+	\[
+		\sum_{n=0}^{\infty} x_n = \sum_{n=0}^{\infty} x_{\sigma(n)}.
+	\]}
+	\paragraph{Proof.}
+	Let $\sigma:\N\to\N$ be a bijection and $\eps>0$. Then there exists $n_\eps\in\N$ such that for all $n>m\ge n_\eps$,
+	\[
+		\sum_{k=m+1}^{n} |x_k| < \frac{\eps}{2}.
+	\]
+	Choose $r_\eps$ large enough so that
+	\[
+		\{0,1,2,\dots,n_\eps\} \subset \{ \sigma(1),\sigma(2),\sigma(3),\dots,\sigma(r_\eps) \}.
+	\]
+	For every $r\ge r_\eps$ and every $n\ge n_\eps$, setting $N := \max\{n,\sigma(0),\sigma(1),\dots,\sigma(r)\}$, we get
+	\[
+		\Bigg| \sum_{k=0}^{r} x_{\sigma(k)} - \sum_{k=0}^{n} x_k \Bigg| \le \sum_{k=n_\eps+1}^{N} |x_k| < \frac{\eps}{2}.
+	\]
+	Hence, for all $r\ge r_\eps$,
+	\[
+		\Bigg| \sum_{k=0}^{r} x_{\sigma(k)} - \sum_{k=0}^{\infty} x_k \Bigg| \le \frac{\eps}{2} < \eps.
+	\]
+	Therefore $\sum x_{\sigma(k)}$ converges to $\sum_{k=0}^{\infty} x_k$. Applying the same argument to $\sum |x_{\sigma(k)}|$ and $\sum |x_k|$ shows absolute convergence of the rearranged series as well. \qed
+
+	\NumberedRemark{3.5.12}{Riemann rearrangement theorem}{Let $\sum x_n$ be conditionally convergent in $\R$ and let $z\in\R$ be arbitrary. One can show that there exists a rearrangement of $\sum x_n$ with sum equal to $z$, i.e. there is a bijection $\sigma$ of $\N$ such that $\sum x_{\sigma(n)} = z$.}
+
+	Next we turn to the problem of computing the product of two convergent series. For the partial sums we obtain
+	\[
+		\Bigg( \sum_{k=0}^{n} x_k \Bigg) \Bigg( \sum_{\ell=0}^{n} y_\ell \Bigg)
+			= \sum_{k=0}^{n} \sum_{\ell=0}^{n} (x_k y_\ell)
+			= \sum_{m=0}^{2n} \Bigg( \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} x_k y_\ell \Bigg)
+	\]
+	\[
+			= \sum_{m=0}^{n} \Bigg( \sum_{k=0}^{m} x_k y_{m-k} \Bigg)
+				+ \sum_{m=n+1}^{2n} \Bigg( \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} x_k y_\ell \Bigg) \tag{$\ast$}
+	\]
+	Formally, this suggests
+	\[
+		\Big( \sum x_n \Big) \Big( \sum y_n \Big) = \sum z_n, \qquad
+		z_n := \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = n}} x_k y_\ell = \sum_{k=0}^{n} x_k y_{n-k} = \sum_{k=0}^{n} x_{n-k} y_k.
+	\]
+	The sequence $(z_n)$ is called the \emph{Cauchy product}. The following result makes this formal argument precise.
+
+	\NumberedTheorem{3.5.13}{Cauchy product of absolutely convergent series}{If $\sum x_n$ and $\sum y_n$ are absolutely convergent, then the series $\sum z_n$ with
+	\[
+		z_n := \sum_{k=0}^{n} x_k y_{n-k}
+	\]
+	is also absolutely convergent and
+	\[
+		\Big( \sum_{n=0}^{\infty} x_n \Big) \Big( \sum_{n=0}^{\infty} y_n \Big) = \sum_{n=0}^{\infty} z_n.
+	\]
+}
+\paragraph{Proof.}
+	Applying ($\ast$) to $\sum |x_n|$ and $\sum |y_n|$ we obtain the bound
+	\[
+		\sum_{m=0}^{n} |z_m|
+			\le \sum_{m=0}^{n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} |x_k|\,|y_\ell|
+			\le \sum_{m=0}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} |x_k|\,|y_\ell|
+			= \Big( \sum_{k=0}^{n} |x_k| \Big) \Big( \sum_{\ell=0}^{n} |y_\ell| \Big)
+			\le \Big( \sum_{k=0}^{\infty} |x_k| \Big) \Big( \sum_{\ell=0}^{\infty} |y_\ell| \Big).
+	\]
+	From this and Theorem~3.2.2 it follows that $\sum z_n$ is absolutely convergent. Let $a := \sum_{k=0}^{\infty} |x_k|$ and $b := \sum_{\ell=0}^{\infty} |y_\ell|$ (so $a>0$ and $b>0$). Given $\eps>0$, there exist $n_1,n_2\in\N$ such that
+	\[
+		\sum_{k=m+1}^{n} |x_k| < \frac{\eps}{2b} \quad (\forall\, n>m\ge n_1),
+		\qquad
+		\sum_{\ell=m+1}^{n} |y_\ell| < \frac{\eps}{2a} \quad (\forall\, n>m\ge n_2).
+	\]
+	Set $n_\eps := 2\max\{n_1,n_2\}+2$. Using the auxiliary computation
+	\[
+		\Big(\sum_{k=0}^{n} x_k\Big)\Big(\sum_{k=0}^{n} y_k\Big)
+		\overset{(\ast)}{=} \sum_{k=0}^{n} z_k 
+				+ \sum_{m=n+1}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell=m}} x_k y_\ell,
+	\]
+	we obtain for all $n\ge n_\eps$:
+	\begin{align*}
+		\Bigg| \sum_{k=0}^{n} z_k - \Big(\sum_{k=0}^{n} x_k\Big)\Big(\sum_{k=0}^{n} y_k\Big) \Bigg|
+		 &= \Bigg| \sum_{m=n+1}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell=m}} x_k y_\ell \Bigg|
+			\le \sum_{m=n+1}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell=m}} |x_k|\,|y_\ell| \\
+		 &= \sum_{k=0}^{n} |x_k| \sum_{\ell=n+1-k}^{n} |y_\ell|
+			\le \sum_{k=0}^{n} |x_k| \sum_{\ell=\lceil n/2\rceil}^{n} |y_\ell| 
+			 + \sum_{\ell=0}^{n} |y_\ell| \sum_{k=\lceil n/2\rceil}^{n} |x_k| \\
+		 &\le a\, \sum_{\ell=n_2+1}^{2n} |y_\ell| 
+			 + b\, \sum_{k=n_1+1}^{2n} |x_k| \\
+		 &< a\,\frac{\eps}{2a} + b\,\frac{\eps}{2b}
+			= \eps.
+	\end{align*}
+	Hence $\big(\sum_{k=0}^{n} z_k - (\sum_{k=0}^{n} x_k)(\sum_{k=0}^{n} y_k)\big)_{n\in\N}$ is a null sequence. By Lemma~3.1.18 and Theorem~3.1.19 the claim follows. \qed
+
+	\NumberedRemark{3.5.14}{}{If $\sum x_n$ and $\sum y_n$ are only conditionally convergent, the assertion of Theorem~3.5.13 is in general false.}
+	\paragraph{Proof.}
+	Choose $x_n=y_n:=(-1)^n/\sqrt{n}$, $n\in\N$. By the Leibniz criterion (Theorem~3.4.8), $\sum x_n = \sum y_n$ converges. Since $1/\sqrt{n} \ge 1/n$ for all $n\in\N$ and Example~3.4.2(3) (harmonic series) diverges, $\sum (-1)^n/\sqrt{n}$ is only conditionally convergent. We show that $z_n := \sum_{k=0}^{n} x_k y_{n-k}$ is not a null sequence:
+	\[
+		|z_n| = \Bigg| \sum_{k=1}^{n-1} x_k y_{n-k} \Bigg| = \sum_{k=1}^{n-1} \frac{1}{\sqrt{k}\,\sqrt{n-k}} 
+			\ge \sum_{k=1}^{n-1} \frac{2}{k+(n-k)} = \frac{2}{n}(n-1) = 2\Big(1-\frac{1}{n}\Big) \ge 1 \quad (n\ge2),
+	\]
+	where we used $\sqrt{a\,b} \le (a+b)/2$. Hence $(z_n)$ is not a null sequence and $\sum z_n$ diverges. One can show that Theorem~3.5.13 remains valid if one of the series $\sum x_n$, $\sum y_n$ is absolutely convergent and the other merely conditionally convergent. \qed
+
+	\NumberedExample{3.5.15}{}{For the exponential function of Example~3.5.8(3) and for $z_1,z_2\in\C$ we have
+	\[
+		e^{z_1+z_2} := \exp(z_1+z_2) = (\exp(z_1))\,(\exp(z_2)) = e^{z_1}\,e^{z_2}.
+	\]}
+	\paragraph{Proof.}
+	By Theorem~3.5.13 and the binomial theorem,
+	\begin{align*}
+		e^{z_1}\,e^{z_2}
+			&= \Big( \sum_{n=0}^{\infty} \frac{z_1^{n}}{n!} \Big)
+				 \Big( \sum_{n=0}^{\infty} \frac{z_2^{n}}{n!} \Big)
+			 = \sum_{n=0}^{\infty} \Big( \sum_{k=0}^{n} \frac{z_1^{k}}{k!}\,\frac{z_2^{n-k}}{(n-k)!} \Big) \\
+			&= \sum_{n=0}^{\infty} \frac{1}{n!} \Big( \sum_{k=0}^{n} \binom{n}{k} z_1^{k} z_2^{n-k} \Big)
+			 = \sum_{n=0}^{\infty} \frac{(z_1+z_2)^n}{n!}
+			 = \exp(z_1+z_2) = e^{z_1+z_2}.
+	\end{align*}
+	In particular, for $z\in\C$ we get $1 = e^{0} = e^{z}\,e^{-z}$, hence $e^{z}\ne0$ and therefore $e^{-z} = 1/e^{z}$. \qed
+	
 \subsection{Power Series (Potenzreihen)}
-	odo{Add translation: radius of convergence, termwise operations}
 
+\NumberedDefinition{3.6.1}{Power series}{Let $(a_n)_{n\in\N}$ be a sequence in $\K$ and $z_0\in\K$. The series
+\[
+	\sum a_n\,(z-z_0)^{n}
+\]
+in the variable $z\in\K$ is called a \emph{power series} with coefficients $a_n$ and center $z_0$.}
+
+\NumberedExample{3.6.2}{}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \sum \frac{z^{n}}{n!}$. This power series $(a_n=1/n!,\ z_0=0)$ converges absolutely for all $z\in\C$.
+	\item $\displaystyle \sum z^{n}$. This power series $(a_n=1,\ z_0=0)$ converges absolutely for all $z\in\C$ with $|z|<1$.
+	\item $\displaystyle \sum (n!)\, z^{n}$ with $a_n=n!,\ z_0=0$. Since
+	\[
+		\Bigg|\frac{(n+1)\,z^{n+1}}{n!\,z^{n}}\Bigg| = (n+1)|z| \longrightarrow \infty \quad (n\to\infty) \quad \text{for every } z\ne0,
+	\]
+	the series converges only for $z=0$.
+\end{enumerate}}
+
+\NumberedTheorem{3.6.3}{Radius of convergence}{Let $\sum a_n (z-z_0)^n$ be a power series and set
+\[
+	\rho := \frac{1}{\displaystyle \limsup_{n\to\infty} \sqrt[n]{|a_n|}}\;\in [0,\infty].
+\]
+Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item The power series converges absolutely for all $z\in\K$ with $|z-z_0|<\rho$.
+	\item The power series diverges for all $z\in\K$ with $|z-z_0|>\rho$.
+\end{enumerate}}
+The number $\rho$ is called the \emph{radius of convergence} of the power series, and the set $\{z\in\K:\ |z-z_0|<\rho\}$ is called its (open) disc of convergence.
+
+\paragraph{Proof.}
+Use the root test:
+\[
+	\limsup_{n\to\infty} \sqrt[n]{\,|a_n (z-z_0)^n|\,}
+	 = |z-z_0|\, \limsup_{n\to\infty} \sqrt[n]{|a_n|}
+	 = \frac{|z-z_0|}{\rho}.
+\]
+Hence the series converges for $|z-z_0|<\rho$. The divergence for $|z-z_0|>\rho$ follows similarly. \qed
+
+\NumberedTheorem{3.6.4}{Ratio form for radius}{Let $\sum a_n (z-z_0)^n$ be a power series and assume
+\[
+	\lim_{n\to\infty} \frac{|a_n|}{|a_{n+1}|} =: \alpha \in \overline{\R}.
+\]
+Then the radius of convergence satisfies $\rho = \alpha$.}
+\paragraph{Proof.}
+Apply the ratio test:
+\[
+	\Bigg|\frac{a_{n+1}(z-z_0)^{n+1}}{a_n (z-z_0)^n}\Bigg|
+	 = |z-z_0|\, \Bigg|\frac{a_{n+1}}{a_n}\Bigg| \longrightarrow \frac{|z-z_0|}{\alpha}.
+\]
+Thus the series converges for $|z-z_0|<\alpha$ and does not converge for $|z-z_0|>\alpha$, so $\rho=\alpha$. \qed
+
+\NumberedExample{3.6.5}{}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \sum \frac{z^{n}}{n!}$: Here $\frac{|a_n|}{|a_{n+1}|} = \frac{(n+1)!}{n!} = n+1 \to \infty$, hence $\rho=\infty$.
+	\item $\displaystyle \sum n^{m} z^{n}$ with fixed $m\in\Z$: Then
+	\[
+		\frac{|a_n|}{|a_{n+1}|} = \frac{n^{m}}{(n+1)^{m}} = \Big(\frac{n}{n+1}\Big)^{m} = \Big( \frac{1}{1+\tfrac{1}{n}} \Big)^{m} \longrightarrow 1,
+	\]
+	so $\rho=1$.
+\end{enumerate}}
+
+\NumberedRemark{3.6.6}{}{No general statement can be made about behavior on the boundary of the disc of convergence. For example:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\sum z^{n}$ has $\rho=1$ and diverges for every $z$ with $|z|=1$.
+	\item $\sum \dfrac{z^{n}}{n}$ has $\rho=1$ and converges for $z=-1$ but diverges for $z=1$.
+	\item $\sum \dfrac{z^{n}}{n^{2}}$ has $\rho=1$ and converges for all $|z|=1$ (convergent majorant $\sum \tfrac{1}{n^{2}}$).
+\end{enumerate}}
+
+\paragraph{Rules for power series.}
+
+\NumberedTheorem{3.6.7}{Algebra of power series}{Let $\alpha\in\K$ and let $\sum a_n (z-z_0)^n$, $\sum b_n (z-z_0)^n$ be two power series with the same center $z_0$ and radii of convergence $\rho_1,\rho_2$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \sum_{n=0}^{\infty} \alpha a_n (z-z_0)^n = \alpha \sum_{n=0}^{\infty} a_n (z-z_0)^n$ for all $|z-z_0|<\rho_1$.
+	\item $\displaystyle \sum_{n=0}^{\infty} (a_n+b_n)(z-z_0)^n = \sum_{n=0}^{\infty} a_n (z-z_0)^n + \sum_{n=0}^{\infty} b_n (z-z_0)^n$ for all $|z-z_0|<\min\{\rho_1,\rho_2\}$.
+	\item $\displaystyle \sum_{n=0}^{\infty} \Big( \sum_{k=0}^{n} a_k b_{n-k} \Big) (z-z_0)^n 
+		= \Big( \sum_{n=0}^{\infty} a_n (z-z_0)^n \Big) \Big( \sum_{n=0}^{\infty} b_n (z-z_0)^n \Big)$ for all $|z-z_0|<\min\{\rho_1,\rho_2\}$.
+\end{enumerate}}
+
+\paragraph{Function vs. series representation.}
+Consider $f(z) := \dfrac{1}{1-z}$ for $z\in\C\setminus\{1\}$. For $|z|<1$ the function also has the representation as a power series
+\[
+	g(z) := \sum z^{n}.
+\]
+For $|z|\ge1$ this representation is no longer valid. However, for $|z|>1$, using
+\[
+	f(z) = -\frac{1}{z}\,\frac{1}{1-\tfrac{1}{z}} \qquad\text{and}\qquad \Big|\frac{1}{z}\Big|<1,
+\]
+we obtain the representation
+\[
+	f(z) = -\frac{1}{z}\sum_{i=0}^{\infty} \Big(\frac{1}{z}\Big)^{i} = -\sum_{i=0}^{\infty} z^{-i-1}.
+\]
+	
 % ============================================================================
 % 4 Continuous Functions (Stetige Funktionen) -- Original start p.57
 % ============================================================================
 \section{Continuous Functions (Stetige Funktionen)}
 
 \subsection{Normed Vector Spaces (Normierte Vektorräume)}
-	odo{Add translation: norms, metric induced by a norm}
+
+In this section we assume the notion of a vector space from linear algebra is known and briefly recall the basic definitions and properties.
+
+\NumberedDefinition{4.1.1}{$\K$-vector space}{A set $X$ is called a $\K$-vector space if there are two maps
+\[
+\begin{aligned}
+ &+ : X\times X \to X &&\text{(called addition)},\\
+ &\cdot : \K\times X \to X &&\text{(called scalar multiplication)},
+\end{aligned}
+\]
+with the following properties:
+\begin{description}[leftmargin=*]
+	\item[VR1] $(X,+)$ is an abelian group with neutral element $0$.
+	\item[VR2] For all $\alpha,\beta\in\K$ and all $x,y\in X$ (distributive/associative laws):
+	\[
+		\alpha\cdot(x+y)=\alpha\cdot x+\alpha\cdot y,\qquad
+		(\alpha+\beta)\cdot x = \alpha\cdot x + \beta\cdot x,\qquad
+		\alpha\cdot(\beta\cdot x)=(\alpha\beta)\cdot x.
+	\]
+	\item[VR3] $1\cdot x = x$ for all $x\in X$.
+\end{description}}
+
+\NumberedExample{4.1.2}{}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \K^m := \underbrace{\K\times\K\times\cdots\times\K}_{m\text{-fold}} = \{(x_1,\dots,x_m):\ 1\le i\le m:\ x_i\in\K\}$ is a $\K$-vector space.
+
+	VR: \quad “$+$”:
+	\[
+		(x_1,\dots,x_m) + (y_1,\dots,y_m) = (x_1+y_1,\ x_2+y_2,\ \dots,\ x_m+y_m) \in \K^m,
+	\]
+	“$\cdot$”:
+	\[
+		t\cdot(x_1,\dots,x_m) = (t\,x_1,\ \dots,\ t\,x_m) \in \K^m \qquad (t\in\K).
+	\]
+	Null element: $0=(0,0,\dots,0)$.
+
+	\item $\displaystyle \K^{\N} := \{(a_n)_{n\in\N}:\ \forall n\in\N:\ a_n\in\K\}$ is a $\K$-vector space.
+
+	“$+$”:
+	\[
+		(a_n)_{n\in\N} + (b_n)_{n\in\N} := (a_n+b_n)_{n\in\N} \in \K^{\N},
+	\]
+	“$\cdot$”:
+	\[
+		t\cdot(a_n)_{n\in\N} := (t\cdot a_n)_{n\in\N} \in \K^{\N} \qquad (t\in\K).
+	\]
+	Null element: $0 := (0,0,\dots)$.
+
+	\item $\ell_\infty$ is the space of all bounded sequences in $\K$,
+	\[
+		\ell_\infty := \{ (a_n)_{n\in\N} : \sup_{n\in\N} |a_n| < \infty \},
+	\]
+	and a $\K$-vector space, with “$+$” as in $\K^{\N}$. Let $(a_n)_{n\in\N}, (b_n)_{n\in\N}\in \ell_\infty$. Then there exist $\alpha,\beta\in\R$ with
+	\[
+		|a_n| \le \alpha,\qquad |b_n| \le \beta, \qquad \forall n\in\N.
+	\]
+	Then for $(c_n)_{n\in\N} := (a_n+b_n)_{n\in\N}$ we have
+	\[
+		|c_n| = |a_n+b_n| \le |a_n| + |b_n| \le \alpha + \beta.
+	\]
+
+	\item The space
+	\[
+		\ell_1 := \{ (a_n)_{n\in\N} \subset \K : \sum_{n=0}^{\infty} |a_n| < \infty \}
+	\]
+	is a $\K$-vector space. Let $(a_n)_{n\in\N}, (b_n)_{n\in\N}\in \ell_1$ and $(c_n)_{n\in\N} := (a_n+b_n)_{n\in\N}$. Then
+	\[
+		\sum_{n=0}^{\infty} |c_n| = \sum_{n=0}^{\infty} |a_n+b_n| \le \sum_{n=0}^{\infty} (|a_n|+|b_n|) = \sum_{n=0}^{\infty} |a_n| + \sum_{n=0}^{\infty} |b_n|.
+	\]
+	By the comparison test it follows: $\sum |c_n|$ convergent.
+
+	\item The space $\ell_2$ of all $(x_n)_{n\in\N}\in \K^{\N}$ such that
+	\[
+		\sqrt{\sum_{n=0}^{\infty} |x_n|^2} < \infty
+	\]
+	is a $\K$-vector space. “$+$” and “$\cdot$” as in $\K^{\N}$. For “$+\colon \ell_2\times\ell_2\to\ell_2$”: let $x_n, y_n\in \ell_2$. Then
+	\[
+		\sqrt{\sum_{n=0}^{\infty} |x_n+y_n|^2}
+		\;\overset{(*)}{\le}\;
+		\sqrt{\sum_{n=0}^{\infty} \big(2|x_n|^2 + 2|y_n|^2\big)}
+		= \sqrt{\,2\sum_{n=0}^{\infty} |x_n|^2\, + \,2\sum_{n=0}^{\infty} |y_n|^2\,} 
+		< \infty.
+	\]
+	The estimate $(*)$ follows from
+	\[
+		|x+y|^2 \le (|x|+|y|)^2 = |x|^2 + 2|x|\,|y| + |y|^2,
+	\]
+	\[
+		0 \le (|x|-|y|)^2 = |x|^2 - 2|x|\,|y| + |y|^2.
+	\]
+\end{enumerate}}
+
+
+
+\NumberedDefinition{4.1.3}{Norm}{Let $X$ be a $\K$-vector space. A map $\|\,\cdot\,\| : X\to\R$ is called a norm if the following hold:
+\begin{description}[leftmargin=*]
+	\item[N1] $\|x\|\ge 0$ for all $x\in X$, \quad and \quad $\|x\|=0 \iff x=0$,
+	\item[N2] $\|\alpha x\| = |\alpha|\,\|x\|$ for all $x\in X$, $\alpha\in\K$,
+	\item[N3] $\|x+y\| \le \|x\| + \|y\|$ for all $x,y\in X$ (triangle inequality).
+\end{description}
+The pair $(X,\|\cdot\|)$ is called a normed vector space.}
+
+\NumberedRemark{4.1.4}{}{From the triangle inequality one obtains the reverse triangle inequality
+\[
+	\|x\| - \|y\| \le \|x-y\|,
+\]
+since: $\|x\| = \|y + (x-y)\| \le \|y\| + \|x-y\| \ \Rightarrow\ \|x\| - \|y\| \le \|x-y\|$; analogously $\|y\| - \|x\| \le \|x-y\|$. Hence
+\[
+	\big|\,\|x\| - \|y\|\,\big| = \max\{\,\|x\| - \|y\|,\ \|y\| - \|x\|\,\} \le \|x-y\|.
+\]}
+
+\NumberedExample{4.1.5}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $|\,\cdot\,|$ is a norm on $\R$ and on $\C$.
+
+	\item For $x\in\K^{m}$ the following define three norms:
+	\[
+		\|x\|_{\infty} := \max_{1\le k\le m} |x_k|, \qquad
+		\|x\|_{1} := \sum_{k=1}^{m} |x_k|, \qquad
+		\|x\|_{2} := \sqrt{\sum_{k=1}^{m} |x_k|^{2}}.
+	\]
+	Moreover:
+	\begin{enumerate}[label=\roman*.), leftmargin=2em]
+		\item $\|x\|_{\infty} \le \|x\|_{1} \le m\,\|x\|_{\infty}$,
+		\item $\|x\|_{\infty} \le \|x\|_{2} \le \sqrt{m}\,\|x\|_{\infty}$,
+		\item $\tfrac{1}{\sqrt{m}}\,\|x\|_{1} \le \|x\|_{2} \le \sqrt{m}\,\|x\|_{1}$.
+	\end{enumerate}
+
+	\item $\displaystyle \|x\|_{\infty} := \sup_{n\in\N} |x_n|$ is a norm on $\ell_{\infty}$.
+
+	\item $\displaystyle \|x\|_{1} := \sum_{k=0}^{\infty} |x_k|$ is a norm on $\ell_{1}$.
+
+	\item $\displaystyle \|x\|_{2} := \sqrt{\sum_{k=0}^{\infty} |x_k|^{2}}$ is a norm on $\ell_{2}$.
+\end{enumerate}}
+
+	\paragraph{Proof.}
+	@2: The norm properties for $\|\cdot\|_1$, $\|\cdot\|_\infty$ follow from the norm properties of $|\cdot|$ on $\R$ and $\C$. For $\|\cdot\|_2$, (N1) and (N2) likewise follow from the norm properties of $|\cdot|$ on $\R$ and $\C$. For (N3): let $(x_n),(y_n)\in \ell_2$. Then
+	\[
+		\sum_{n=1}^{m} |x_n+y_n|^2 \le \sum_{n=1}^{m} (|x_n|^2 + |y_n|^2 + 2|x_n|\,|y_n|)
+		\;\overset{(*)}{\le}\; \|x\|_2^2 + \|y\|_2^2 + 2\,\|x\|_2\,\|y\|_2 = (\|x\|_2 + \|y\|_2)^2.
+	\]
+	($*$ follows from the Cauchy--Schwarz inequality: $\sum_{i=1}^{n} a_i b_i \le \sqrt{\sum_{i=1}^{n} a_i^2}\,\sqrt{\sum_{i=1}^{n} b_i^2}$.)
+	It follows that $\|x+y\|_2 \le \|x\|_2 + \|y\|_2$.
+
+	\noindent i. Follows from the definitions of $\|\cdot\|_\infty := \max_{1\le i\le m} |x_i|$ and $\|\cdot\|_1 := \sum_{i=1}^{m} |x_i|$.
+
+	\noindent ii. Follows likewise from the definition of $\|\cdot\|_2 := \sqrt{\sum_{i=1}^{m} |x_i|^2}$.
+
+	\noindent iii. One has
+	\[
+		\Big(\sum_{i=1}^{m} |x_i|\Big)^2 = \Big(\sum_{i=1}^{m} |x_i|\Big)\Big(\sum_{j=1}^{m} |x_j|\Big)
+		\;\le\; \Big(\sum_{i=1}^{m} |x_i|^2\Big)^{1/2}\,\Big(\sum_{i=1}^{m} 1^2\Big)^{1/2}\,\Big(\sum_{j=1}^{m} |x_j|\Big)
+		= \|x\|_2\,\sqrt{m}\,\|x\|_1.
+	\]
+	Hence $\tfrac{1}{\sqrt{m}}\,\|x\|_1 \le \|x\|_2$. Together with ii. (and i.) this yields the stated inequalities.
+
+	@3: The norm properties for $\|\cdot\|_\infty$ follow from the norm properties of $|\cdot|$ on $\K$.
+
+	@4, 5: (N1) and (N2) follow from property (N1), (N2) on $\K$ and the usual rules for series. For (N3) use the definition $\|x\|_2 := \sqrt{\sum_{n=0}^{\infty} |x_n|^2}$. Since $\sum_{k=0}^{n} |x_k|^2$ is a norm on $\K^{n+1}$ (see (2)), it follows (see (2)) that
+	\[
+		\sum_{k=0}^{n} |x_k + y_k|^2 \le \sum_{k=0}^{n} |x_k|^2 + \sum_{k=0}^{n} |y_k|^2.
+	\]
+	The sequences $ (a_n), (b_n)$ with $a_n := \sum_{k=0}^{n} |x_k|^2$ and $b_n := \sum_{k=0}^{n} |x_k|^2 + \sum_{k=0}^{n} |y_k|^2$ are convergent and satisfy $a_n \le b_n$ for all $n\in\N$. Therefore
+	\[
+		\sum_{k=0}^{\infty} |x_k + y_k|^2 \le \sum_{k=0}^{\infty} |x_k|^2 + \sum_{k=0}^{\infty} |y_k|^2.
+	\]
+	\qed
+
+	\NumberedRemark{4.1.6}{Convention}{In the following, $(X,\|\cdot\|)$ will always denote a normed vector space.}
+
+	\NumberedDefinition{4.1.7}{Open ball}{For $x_0\in X$ and $r\in\R$ set
+	\[
+		B(x_0,r) := \{\, x\in X : \|x - x_0\| < r \,\}.
+	\]
+	This is the (open) ball around $x_0$ with radius $r$.\footnote{The scan shows an illustrative figure of unit balls; omitted here.}}
+
+	\NumberedRemark{4.1.8}{}{In a normed vector space one defines the concepts of sequence, convergent sequence, accumulation point, Cauchy sequence, and series analogously by replacing the absolute value $|\cdot|$ everywhere by the norm $\|\cdot\|$.
+
+	Convergence: Let $(x_n)_{n\in\N}\subset X$ be a sequence with elements $x_n\in X$. Then $(x_n)$ converges to $x\in X$ precisely when
+	\[
+		\forall\,\eps>0\ \exists\, n_\eps\in\N\ \forall\, n\ge n_\eps:\ \|x - x_n\| < \eps.
+	\]
+	The sequence $(x_n)$ is a Cauchy sequence precisely when
+	\[
+		\forall\,\eps>0\ \exists\, n_\eps\in\N\ \forall\, n,m\ge n_\eps:\ \|x_n - x_m\| < \eps.
+	\]
+	Example~4.1.5 shows that one can define different norms on a given vector space. We will discuss whether a sequence that converges with respect to one norm also converges with respect to all other possible norms. This is certainly the case if the different norms can be estimated against each other.}
+
+	\NumberedDefinition{4.1.9}{Equivalent norms}{Let $X$ be a $\K$-vector space and let $\|\cdot\|_a,\ \|\cdot\|_b$ be two norms on $X$. They are called \emph{equivalent} if there exist positive constants $c$ and $\bar c$ such that
+	\[
+		c\,\|x\|_a \le \|x\|_b \le \bar c\,\|x\|_a \qquad \forall\, x\in X.
+	\]}
+
+	\NumberedRemark{4.1.10}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+		\item Example~4.1.5(2) shows that the norms $\|\cdot\|_1$, $\|\cdot\|_2$, $\|\cdot\|_\infty$ on $\K^{m}$ are equivalent.
+		\item If $\|\cdot\|_a$ and $\|\cdot\|_b$ are equivalent on a $\K$-vector space $X$, then a sequence $(x_n)_{n\in\N}$ in $X$ converges with respect to $\|\cdot\|_a$ if and only if it converges with respect to $\|\cdot\|_b$.
+		\item The same holds for Cauchy sequences.
+	\end{enumerate}}
+
+	\NumberedTheorem{4.1.11}{On $\K^{n}$ all norms are equivalent}{Let $n\in\N$. On $\K^{n}$ all norms are equivalent.}
+	\paragraph{Proof.}
+	It suffices to show that every norm $\|\cdot\|$ on $\K^{n}$ is equivalent to the $\|\cdot\|_{1}$-norm. For $1\le i\le n$ let
+	\[
+		e_i := (0,\dots,0,\underset{\text{$i$-th component}}{1},0,\dots,0)\in\K^{n}
+	\]
+	be the $i$-th canonical unit vector. Then for $x=(x_1,\dots,x_n)=\sum_{i=1}^{n} x_i e_i$ we have
+	\[
+		\|x\| = \bigg\|\sum_{i=1}^{n} x_i e_i\bigg\| \le \sum_{i=1}^{n} |x_i|\,\|e_i\|.
+	\]
+	Define $\|e_i\| =: C_i$ and let $C := \max_{1\le i\le n} C_i$. Then
+	\[
+		\|x\| \le \sum_{i=1}^{n} |x_i|\,\|e_i\| \le C\, \sum_{i=1}^{n} |x_i| = C\,\|x\|_{1}.
+	\]
+	Thus we may choose the upper constant $\bar c=C$.
+
+	Now set
+	\[
+		M := \{\, \|x\| : x\in\K^{n},\ \|x\|_{1}=1\,\}.
+	\]
+	The set $M$ is nonempty (since $e_i\in M$ for $1\le i\le n$) and bounded below by $0$. Hence
+	\[
+		\rho := \inf M \ge 0.
+	\]
+	We show $\rho\ne0$ by contradiction. Suppose $\rho=0$. Then there exists a sequence $(x_k)_{k\in\N}$, $x_k\in\K^{n}$, with
+	\[
+		\|x_k\| \le \frac{1}{k}, \qquad \|x_k\|_{1} = 1 \quad (\forall k\in\N).
+	\]
+	For the $i$-th component $x_{k,i}$ of $x_k$ we have $|x_{k,i}| \le \|x_k\|_{1} = 1$. Thus $(x_{k,i})_{k\in\N}$ is a bounded sequence in $\K$, and by Bolzano--Weierstrass it has a convergent subsequence. Applying the same argument successively to the remaining coordinates, we obtain (by a diagonal extraction) a subsequence $(x_{k_\ell})_{\ell\in\N}$ such that each coordinate converges:
+	\[
+		x_{k_\ell,i} \to x_i^{*} \in \K, \qquad 1\le i\le n.
+	\]
+	Set $x^{*} := (x_1^{*},\dots,x_n^{*})\in\K^{n}$. Then
+	\[
+		\|x^{*}\| \le \|x_{k_\ell}\| + \|x^{*}-x_{k_\ell}\| \le \frac{1}{k_\ell} + C\,\|x^{*}-x_{k_\ell}\|_{1} \xrightarrow[\ell\to\infty]{} 0,
+	\]
+	hence $\|x^{*}\|=0$ and therefore $x^{*}=0$. On the other hand,
+	\[
+		\|x^{*}\|_{1} = \lim_{\ell\to\infty} \|x_{k_\ell}\|_{1} = 1,
+	\]
+	which is a contradiction. Thus $\rho>0$.
+
+	Finally, for arbitrary $x\in\K^{n}$ with $\|x\|_{1}\ne0$, set $y:=x/\|x\|_{1}$. Then $\|y\|_{1}=1$ and so $\|y\|\ge\rho$, i.e.
+	\[
+		\|x\| \ge \rho\,\|x\|_{1}.
+	\]
+	Together with the estimate $\|x\|\le C\,\|x\|_{1}$ this shows that $\|\cdot\|$ and $\|\cdot\|_{1}$ are equivalent. Since any two norms are both equivalent to $\|\cdot\|_{1}$, all norms on $\K^{n}$ are equivalent. \qed
+
+	\NumberedRemark{4.1.12}{}{Theorem~4.1.11 does not hold in infinite-dimensional vector spaces in general. For example, the norms $\|\cdot\|_\infty$ and $\|\cdot\|_1$ on $\ell_1$ are not equivalent.}
+	\paragraph{Proof.}
+	Indirect proof: assume there exists $\bar c>0$ with
+	\[
+		\|x\|_{1} \le \bar c\,\|x\|_{\infty} \qquad \forall x\in\ell_{1}.\tag{$*$}
+	\]
+	Let $m\in\N$ with $m>\bar c$. Choose $x\in\ell_{1}$ by
+	\[
+		x_i := \begin{cases} 1,& 0\le i\le m,\\ 0,& \text{otherwise.} \end{cases}
+	\]
+	Then $\|x\|_{1}=m+1$ and $\|x\|_{\infty}=1$, contradicting $(*)$. \qed
+
+	\paragraph{Recall.} In $\K$ the statements
+	\begin{itemize}[leftmargin=*]
+		\item $(x_n)$ is convergent,
+		\item $(x_n)$ is a Cauchy sequence
+	\end{itemize}
+	are equivalent.
+
+	\NumberedDefinition{4.1.13}{Complete (Banach) space}{A normed $\K$-vector space $(X,\|\cdot\|)$ is called \emph{complete} or a \emph{Banach space} if every Cauchy sequence in $X$ converges.}
+
+	\NumberedTheorem{4.1.14}{The following normed $\K$-vector spaces are complete}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+		\item $\K$,
+		\item $\K^{n}$ for $n\in\N$,
+		\item $(\ell_{1},\,\|\cdot\|_{1})$,
+		\item $(\ell_{\infty},\,\|\cdot\|_{\infty})$,
+		\item $(\ell_{2},\,\|\cdot\|_{2})$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+@ 1: Theorem 3.2.9.
+
+@ 2: By Theorem 4.1.11 it suffices to prove the claim for the norm $\|\cdot\|_\infty$. Let $(x_k)_{k\in\N}$ be a Cauchy sequence in $(\K^{n},\|\cdot\|_{\infty})$, where $x_k\in\K^n$ and $x_{k,i}\in\K$. Then for each $1\le i\le n$ the sequence of coordinates $(x_{k,i})_{k\in\N}$ is a Cauchy sequence in $\K$, hence convergent (Theorem 3.2.9), say to $x_i^{\ast}\in\K$. Set
+\[
+	\ x^{\ast} := (x_1^{\ast},x_2^{\ast},\dots,x_n^{\ast}) \in \K^{n},
+\]
+the candidate for the limit of $(x_k)_{k\in\N}$. Let $\eps>0$. Then there exist indices $k_{\eps,i}\in\N$ such that
+\[
+	\ |x_i^{\ast}-x_{k,i}| < \eps \qquad \forall k\ge k_{\eps,i},\ 1\le i\le n.
+\]
+Set $k_{\eps} := \max_{1\le i\le n} k_{\eps,i}$. Then for all $k\ge k_{\eps}$ we have
+\[
+	\ \|x^{\ast}-x_k\|_{\infty} 
+		 = \max_{1\le i\le n} |x_i^{\ast}-x_{k,i}| 
+		 < \eps.
+\]
+Thus $x_k\to x^{\ast}$ in $\|\cdot\|_{\infty}$.
+
+@ 3:
+
+i. Construct the limit.
+
+Let $(x_k)_{k\in\N}$ be a Cauchy sequence with respect to $\|\cdot\|_{1}$ in $\ell_{1}$, i.e. $x_k\in\ell_{1}$, $x_{k,i}\in\K$, $i\in\N$, and
+\[
+	\ \forall\,\eps>0\ \exists\,k_{\eps}\in\N\ \forall\,k,l\ge k_{\eps} :\ \eps > \|x_k-x_l\|_{1} 
+		\ = \sum_{i=0}^{\infty} |x_{k,i}-x_{l,i}|.
+\]
+In particular, for each fixed $i\in\N$ we obtain
+\[
+	\ \forall\,\eps>0\ \exists\,k_{\eps}\in\N\ \forall\,k,l\ge k_{\eps} :\ |x_{k,i}-x_{l,i}|<\eps.
+\]
+By Theorem 3.2.9 there exists for each $i$ a limit $x_i^{\ast}\in\K$ with $x_{k,i}\to x_i^{\ast}$ as $k\to\infty$. Set $x^{\ast}:=(x_i^{\ast})_{i\in\N}\in\K^{\N}$.
+
+ii. Show: $x^{\ast}\in \ell_{1}$, i.e. $\sum_{i=0}^{\infty} |x_i^{\ast}| < \infty$.
+
+By Remark 4.1.4 we know that $(\|x_k\|_{1})_{k\in\N}$ is a Cauchy sequence in $\R$. Hence
+\[
+	\ c := \sup_{k\in\N} \|x_k\|_{1} < \infty.
+\]
+Fix $N\in\N$. For $\eps=\tfrac{1}{N}$ choose indices $k_{\eps,1},\dots,k_{\eps,N}$ with $|x_i^{\ast}-x_{k,i}|<\eps$ for all $\,k\ge k_{\eps,i}$ and $1\le i\le N$. Let $k_{\eps}:=\max_{1\le i\le N} k_{\eps,i}$. Then
+\[
+	\ \sum_{i=0}^{N} |x_i^{\ast}|
+		\ \le \underbrace{\sum_{i=0}^{N} |x_i^{\ast}-x_{k_{\eps},i}|}_{<\,N\cdot(1/N)=1}
+		\ \ + \underbrace{\sum_{i=0}^{N} |x_{k_{\eps},i}|}_{\le\,\|x_{k_{\eps}}\|_{1}\,\le\,c}
+		\ < 1 + c.
+\]
+Thus the sequence of partial sums $\big(S_N:=\sum_{i=0}^{N} |x_i^{\ast}|\big)_{N\in\N}$ is monotone increasing and bounded, hence the series $\sum_{i=0}^{\infty} |x_i^{\ast}|$ is convergent. Therefore $x^{\ast}\in\ell_{1}$.
+
+iii. It remains to show: $\|x^{\ast} - x_{k}\|_{1} \to 0$ as $k\to\infty$.
+
+Assume this is not the case. Then there exists $\varepsilon_{0} > 0$ such that for all $k \in \N$ there is an $m \ge k$ with
+\[
+	\ \|x^{\ast} - x_{m}\|_{1} \ge \varepsilon_{0}.\tag{$*$}
+\]
+Since $(x_{k})_{k\in\N}$ is a Cauchy sequence, there exists $k_{0} \in \N$ such that
+\[
+	\ \|x_{k} - x_{l}\|_{1} < \frac{\varepsilon_{0}}{4} \qquad \forall\, k,l \ge k_{0}.
+\]
+For this $k_{0}$ there is, by $(*)$, an $m_{0} \ge k_{0}$ with $\|x^{\ast} - x_{m_{0}}\|_{1} \ge \varepsilon_{0}$. The series $\sum_{i=n_{0}}^{\infty} |x^{\ast}_{i} - x_{m_{0},i}|$ is convergent; hence, by Theorem~3.4.6, there exists $n_{0} \in \N$ with
+\[
+	\ \sum_{i=n_{0}}^{\infty} |x^{\ast}_{i} - x_{m_{0},i}| < \frac{\varepsilon_{0}}{4}.
+\]
+Since $x_{k,i} \to x^{\ast}_{i}$ as $k \to \infty$, there exists $l_{0} \ge k_{0}$ with
+\[
+	\ |x_{l_{0},i} - x^{\ast}_{i}| < \frac{\varepsilon_{0}}{4 n_{0}} \qquad \text{for } 1 \le i \le n_{0}.
+\]
+Therefore
+\[
+\begin{aligned}
+\varepsilon_{0}
+&\le \|x^{\ast} - x_{m_{0}}\|_{1}
+ = \sum_{i=0}^{\infty} |x^{\ast}_{i} - x_{m_{0},i}|
+ \\&\le \sum_{i=0}^{n_{0}-1} |x^{\ast}_{i} - x_{m_{0},i}| + \frac{\varepsilon_{0}}{4}
+ \le \sum_{i=0}^{n_{0}-1} |x^{\ast}_{i} - x_{l_{0},i}| + \sum_{i=0}^{n_{0}-1} |x_{l_{0},i} - x_{m_{0},i}| + \frac{\varepsilon_{0}}{4} \\
+&< n_{0}\,\frac{\varepsilon_{0}}{4 n_{0}} + \|x_{l_{0}} - x_{m_{0}}\|_{1} + \frac{\varepsilon_{0}}{4}
+ < \frac{3}{4}\,\varepsilon_{0},
+\end{aligned}
+\]
+which is a contradiction. Hence $\|x^{\ast}-x_k\|_{1}\to 0$ and $(\ell_1,\|\cdot\|_1)$ is complete.
+
+@ 4 and 5: exercises. \qed
 
 \subsection{Basic Topological Concepts (Topologische Grundbegriffe)}
-	odo{Add translation: open/closed sets, interior, closure, accumulation points}
 
+In the following, $(X,\|\cdot\|)$ is a normed $\K$-vector space.
+
+\NumberedDefinition{4.2.1}{Interior point, open set, neighborhood}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $\emptyset\ne M\subset X$. A point $x\in M$ is called an \emph{interior point} of $M$ if there exists $\eps>0$ with $B(x,\eps)\subset M$.
+	\item A set $M\subset X$ is called \emph{open} if every $x\in M$ is an interior point.
+	\item Let $x\in X$ and let $U\subset X$ be open with $x\in U$. Then $U$ is called a \emph{neighborhood} of $x$. The collection of all neighborhoods is denoted by $\mathcal U(x)$.
+\end{enumerate}}
+
+\NumberedExample{4.2.2}{Open balls are open}{$B(x_0,r)$ with $x_0\in X$ and $r>0$ is open.
+
+\emph{Proof.} Let $x\in B(x_0,r)$. To show: $x$ is an interior point. Set $\eps := \tfrac{1}{2}(r-\|x-x_0\|)$. Let $y\in B(x,\eps)$. We show: $\|y-x_0\|<r$.
+\[
+	\ \|y-x_0\| \le \|y-x\| + \|x-x_0\| \le \tfrac{1}{2}(r-\|x-x_0\|) + \|x-x_0\|
+		 = \tfrac{1}{2}(r+\|x-x_0\|) < \tfrac{1}{2}(2r) = r.
+\]
+\qed}
+	
 \subsection{Continuity (Stetigkeit)}
-	odo{Add translation: epsilon-delta, sequential continuity, properties}
-
-\subsection{Functions on $\R$ (Funktionen in $\R$)}
-	odo{Add translation: intermediate value, extreme value theorems}
-
+	
+\subsection{Functions on \texorpdfstring{$\R$}{R} (Funktionen in \texorpdfstring{$\R$}{R})}
+	
 \subsection{The Exponential Function (Die Exponentialfunktion)}
-	odo{Add translation: definition via series, properties, logarithm}
-
+	
 % ============================================================================
 % 5 Differential Calculus in One Variable (Differentialrechnung einer Veränderlichen) -- p.95
 % ============================================================================
 \section{Differential Calculus in One Variable (Differentialrechnung einer Veränderlichen)}
 
 \subsection{Differentiability (Differenzierbarkeit)}
-	odo{Add translation: definition, basic derivative rules}
-
+	
 \subsection{Mean Value Theorems (Mittelwertsätze)}
-	odo{Add translation: Rolle, Lagrange, Cauchy mean value theorems}
-
+	
 \subsection{Taylor's Formula (Taylorsche Formel)}
-	odo{Add translation: Taylor polynomials, remainder estimates}
-
+	
 % ============================================================================
 % 6 Sequences of Functions (Funktionenfolgen) -- Original start p.119
 % ============================================================================
 \section{Sequences of Functions (Funktionenfolgen)}
 
 \subsection{Uniform Convergence (Gleichmässige Konvergenz)}
-	odo{Add translation: definition, implications for continuity/integration}
-
+	
 \subsection{Interchanging Limits (Vertauschen von Grenzwerten)}
-	odo{Add translation: criteria for swapping limit operations}
-
+	
 % ============================================================================
 % End matter / future parts (e.g., multivariable calculus) can be appended here.
 % ============================================================================
+
 
 \end{document}

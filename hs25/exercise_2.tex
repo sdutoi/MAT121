@@ -1,0 +1,345 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 2}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\subsection*{(a)}
+Let $c \ge 0$. We claim: $|a| \le c \iff -c \le a \le c$.
+
+Proof. By the definition of absolute value, for every $a$ we have
+\[
+-|a| \le a \le |a|.
+\]
+(Indeed, if $a \ge 0$ then $|a|=a$; if $a<0$ then $|a|=-a$.)
+
+($\Rightarrow$) If $|a| \le c$, then
+\[
+-c \le -|a| \le a \le |a| \le c,
+\]
+so $-c \le a \le c$.
+
+($\Leftarrow$) If $-c \le a \le c$, then:
+- If $a \ge 0$, $|a|=a \le c$.
+- If $a \le 0$, then $0 \le -a \le c$, hence $|a|=-a \le c$.
+
+Thus $|a| \le c \iff -c \le a \le c$.
+
+\subsection*{(b) Triangle inequality}
+From (a) with $c=|a|$ and $c=|b|$ we have
+\[
+-|a|\le a\le |a|,\qquad -|b|\le b\le |b|.
+\]
+Adding these inequalities gives
+\[
+-(|a|+|b|)\le a+b\le |a|+|b|.
+\]
+Since $|a|+|b|\ge0$, applying (a) again (with $x=a+b$ and $c=|a|+|b|$) yields
+\[
+|a+b|\le |a|+|b|.
+\]
+
+\subsection*{(c) Reverse triangle inequality}
+Apply (b) to $a=(a-b)+b$:
+\[
+|a|\le |a-b|+|b|\quad\Rightarrow\quad |a|-|b|\le |a-b|.
+\]
+Swapping $a$ and $b$ gives
+\[
+|b|\le |a-b|+|a|\quad\Rightarrow\quad |b|-|a|\le |a-b|.
+\]
+Combining both we get
+\[
+||a|-|b||\le |a-b|.
+\]
+
+\subsection*{(d) Triangle inequality with a midpoint}
+Note that $a-c=(a-b)+(b-c)$. By (b),
+\[
+|a-c|=|(a-b)+(b-c)|\le |a-b|+|b-c|.
+\]
+
+
+
+%%%%%%%%%%%
+
+
+\section*{2}
+Determine the infimum and supremum of the set
+\[
+M := \left\{ \frac{m-n}{m+n} : m,n\in \mathbb{N},\; n\ne 0 \right\}.
+\]
+
+\begin{proof}[Solution]
+Fix $m,n\in\mathbb{N}$ with $n\ge 1$ (so $m+n>0$). Set
+\[
+x := \frac{m-n}{m+n}.
+\]
+Then the following identities give immediate bounds:
+\[
+1 - x \,=\, 1 - \frac{m-n}{m+n} \,=\, \frac{2n}{m+n} \,>\, 0 \quad\Rightarrow\quad x<1,
+\]
+and
+\[
+x + 1 \,=\, \frac{m-n}{m+n} + 1 \,=\, \frac{2m}{m+n} \,\ge\, 0 \quad\Rightarrow\quad x\ge -1,
+\]
+with equality $x=-1$ iff $m=0$. Hence for all admissible $m,n$ we have
+\[
+-1 \;\le\; \frac{m-n}{m+n} \;<\; 1.
+\]
+
+\medskip
+\noindent\textit{Supremum.} For every $x\in M$ we just saw $x<1$, so $1$ is an upper bound. To see it is the least upper bound, fix $\varepsilon>0$ and let $n=1$, $m\in\mathbb{N}$ large. Then
+\[
+\frac{m-1}{m+1} \,=\, 1 - \frac{2}{m+1} \,>\, 1 - \varepsilon
+\]
+whenever $m+1 > 2/\varepsilon$. Thus elements of $M$ come arbitrarily close to $1$ from below, and therefore
+\[
+\sup M = 1.
+\]
+Moreover, no element equals $1$ since $n\ge 1$ forces $1-x=2n/(m+n)>0$.
+
+\medskip
+\noindent\textit{Infimum.} From $x\ge -1$ we have $-1$ is a lower bound. If $0\in\mathbb{N}$ is allowed (as is common in this course and consistent with the condition $n\ne 0$), choose $m=0$ and any $n\ge 1$ to get $x=-1\in M$. Hence
+\[
+\inf M = -1,\quad \text{and }\min M = -1 \text{ is attained (at }m=0\text{)}.
+\]
+If, alternatively, one uses $\mathbb{N}=\{1,2,\dots\}$, then $m\ge 1$ and equality $x=-1$ is not attained. However, taking $m=1$ and $n\to\infty$ gives
+\[
+\frac{1-n}{1+n} \,=\, -1 + \frac{2}{1+n} \searrow -1,
+\]
+so still $\inf M=-1$ but there is no minimum.
+\end{proof}
+
+
+%%%%%%%%%%%%%
+\section*{3}
+Let $A\subset\mathbb{R}$ with $\alpha:=\inf A>0$, and set $A^{-1}:=\{1/a:\ a\in A\}$. We prove $\sup(A^{-1})=1/\alpha$ by the “no smaller upper bound” method.
+
+\textbf{Step 1: $1/\alpha$ is an upper bound of $A^{-1}$.}
+For every $a\in A$ we have $\alpha\le a$ and $\alpha>0$. Since inversion is order-reversing on $(0,\infty)$,
+\[
+\frac{1}{a}\le \frac{1}{\alpha}.
+\]
+Hence $1/\alpha$ is an upper bound of $A^{-1}$.
+
+\textbf{Step 2: No smaller number is an upper bound.}
+Let $u<1/\alpha$. 
+\begin{itemize}
+  \item If $u\le 0$, pick any $a\in A$; then $1/a>0\ge u$, so $u$ is not an upper bound.
+  \item If $u>0$, then $u<1/\alpha$ implies $1/u>\alpha$. Define $\varepsilon:=1/u-\alpha>0$. By the definition of $\inf$, there exists $a\in A$ with
+  \[
+  \alpha\le a<\alpha+\varepsilon=\frac{1}{u}.
+  \]
+  As $a>0$, inversion reverses inequalities:
+  \[
+  \frac{1}{a}>\frac{1}{\alpha+\varepsilon}=u.
+  \]
+  Thus there is an element of $A^{-1}$ exceeding $u$, so $u$ is not an upper bound.
+\end{itemize}
+
+Since $1/\alpha$ is an upper bound and every smaller number fails to be one, $1/\alpha=\sup(A^{-1})$.
+
+%%%%%%%%%%
+
+\section*{4}
+\subsection*{(a)}
+Yes. $\mathbb{N}$ and $\mathbb{Q}$ are equinumerous (both are countably infinite).
+
+Construct an explicit enumeration of $\mathbb{Q}$.
+List $0$ first. For each integer $s=2,3,4,\dots$, traverse the diagonal
+\[
+\{(p,q)\in\mathbb{N}_{\ge1}^2:\; p+q=s\}
+\]
+in increasing $p$, and append to the list the two rationals
+\[
+\frac{p}{q}\quad\text{and}\quad -\frac{p}{q}
+\]
+but only when $\gcd(p,q)=1$ (i.e., the fraction is in lowest terms).
+
+This produces an infinite sequence
+\[
+0,\; 1,-1,\; \tfrac12,-\tfrac12,\; 2,-2,\; \tfrac13,-\tfrac13,\; \tfrac23,-\tfrac23,\; \dots
+\]
+in which:
+- Surjectivity: Every $r\in\mathbb{Q}$ has a unique reduced form $r=\pm\,\frac{m}{n}$ with $m\in\mathbb{N}_{\ge0}$, $n\in\mathbb{N}_{\ge1}$, $\gcd(m,n)=1$. Then $(m,n)$ lies on the diagonal $m+n=s$, so $r$ appears in the list.
+- Injectivity: We only list reduced fractions, and each sign is listed once, so no rational appears twice.
+
+Let $f:\mathbb{N}\to\mathbb{Q}$ map $k$ to the $k$-th term of this sequence. Then $f$ is bijective, proving $\mathbb{N}\sim\mathbb{Q}$.
+
+\subsection*{(b)}
+Let $[a,b],[c,d]\subset\mathbb{R}$.
+
+Case 1: $a<b$ and $c<d$ (non-degenerate intervals). Define the affine map
+\[
+f:[a,b]\to[c,d],\qquad f(x):=c+\frac{d-c}{\,b-a\,}\,(x-a).
+\]
+Then $f(a)=c$ and $f(b)=d$, and $f$ is strictly increasing (hence injective).
+For any $x\in[a,b]$ we can write $x=a+t(b-a)$ with $t\in[0,1]$, so
+\[
+f(x)=c+t(d-c)=(1-t)c+td\in[c,d],
+\]
+showing $f$ is surjective as well. The inverse is the affine map
+\[
+f^{-1}(y)=a+\frac{b-a}{\,d-c\,}\,(y-c),\qquad y\in[c,d].
+\]
+Therefore $f$ is a bijection; the intervals are equinumerous.
+
+Case 2: $a=b$ and $c=d$ (both singletons). The map $f(a)=c$ is a bijection.
+
+Remark (edge case): If exactly one interval is a singleton (e.g., $a=b$ but $c<d$), then the intervals are not equinumerous, since one has cardinality $1$ and the other has the cardinality of the continuum.
+
+%%%%%%%
+
+\subsection*{(c)}
+Yes. $(0,1)$ is equinumerous with $\mathbb{R}$.
+
+Define
+\[
+f:(0,1)\longrightarrow\mathbb{R},\qquad f(x):=\tan\!\big(\pi(x-\tfrac12)\big).
+\]
+Then $f$ is strictly increasing because $f'(x)=\pi\sec^2\!\big(\pi(x-\tfrac12)\big)>0$ on $(0,1)$, hence injective. Moreover,
+\[
+\lim_{x\to 0^+} f(x)=\tan\!\big(-\tfrac{\pi}{2}\big)=-\infty,
+\qquad
+\lim_{x\to 1^-} f(x)=\tan\!\big(\tfrac{\pi}{2}\big)=+\infty,
+\]
+so $f$ is surjective onto $\mathbb{R}$. The inverse map is explicit:
+\[
+f^{-1}(y)=\tfrac12+\frac{1}{\pi}\arctan(y),\qquad y\in\mathbb{R}.
+\]
+Thus $f$ is a bijection and $(0,1)\sim\mathbb{R}$ (both have cardinality of the continuum).
+
+%%%%%%%
+
+\section*{5}
+\subsection*{(a)}
+
+Let $a\in\mathbb{R}$ with $a>0$ and $p\in\mathbb{N}$. Set
+\[
+B:=\{x\in\mathbb{R}:\ x\ge 0,\ x^{p}\le a\}.
+\]
+We show that $B$ is bounded above.
+
+If $a\ge 1$, then for every $x\ge a$ we have $x^p\ge x\ge a$ (since $p\ge1$ and $x\mapsto x^p$ is increasing on $[0,\infty)$), hence $x\notin B$. Therefore $a$ is an upper bound of $B$.
+
+If $0<a<1$, then for every $x\ge 1$ we have $x^p\ge 1>a$, so $x\notin B$. Hence $1$ is an upper bound of $B$.
+
+Thus in all cases $B$ is bounded above, with the explicit bound
+\[
+\sup B\le M,\qquad M:=\max\{1,a\}.
+\]
+%%%%%
+
+
+\subsection*{5(b)}
+Let $B=\{x\in\mathbb{R}:\ x\ge 0,\ x^p\le a\}$ with $a>0$, $p\in\mathbb{N}$, and let $c:=\sup B$. We prove $c^p=a$.
+
+\textbf{Claim (hint).} For every $p\in\mathbb{N}$ and every $\varepsilon$ with $0<\varepsilon<c$ there exists a constant $R=R(p,c)\ge0$ (depending only on $p$ and $c$, not on $\varepsilon$) such that
+\[
+(c+\varepsilon)^p\le c^p+\varepsilon R,\qquad (c-\varepsilon)^p\ge c^p-\varepsilon R.
+\tag{$\star$}
+\]
+\emph{Proof of the claim (by induction on $p$).}
+For $p=1$, take $R=1$, and equalities hold. Suppose $(\star)$ holds for $p$ with some $R_p=R(p,c)$. Then for $p+1$,
+\[
+(c+\varepsilon)^{p+1}=(c+\varepsilon)^p(c+\varepsilon)
+\le (c^p+\varepsilon R_p)(c+\varepsilon)
+= c^{p+1}+\varepsilon(R_pc+c^p)+\varepsilon^2R_p.
+\]
+Since $0<\varepsilon<c$, we have $\varepsilon^2R_p\le \varepsilon\,c\,R_p$. Hence
+\[
+(c+\varepsilon)^{p+1}\le c^{p+1}+\varepsilon\big(R_pc+c^p+cR_p\big)
+= c^{p+1}+\varepsilon R_{p+1},
+\]
+with $R_{p+1}:=c^p+2cR_p$, which depends only on $p+1$ and $c$. Similarly,
+\begin{align}
+(c-\varepsilon)^{p+1}
+&=(c-\varepsilon)^p(c-\varepsilon)\\
+&\ge (c^p-\varepsilon R_p)(c-\varepsilon)\\
+&= c^{p+1}-\varepsilon(R_pc+c^p)+\varepsilon^2R_p\\
+&\ge c^{p+1}-\varepsilon(c^p+cR_p)\\
+&= c^{p+1}-\varepsilon R_{p+1}',
+\end{align}
+where $R_{p+1}':=c^p+cR_p\le c^p+2cR_p=:R_{p+1}$. Enlarging the constant if necessary, the same $R_{p+1}$ works for both inequalities. This completes the induction and proves the claim.
+
+\medskip
+\textbf{Step 1: $c^p\ge a$.}
+By definition of $c=\sup B$, for every $\varepsilon\in(0,c)$ we have $c-\varepsilon\in B$ (otherwise $c-\varepsilon$ would be an upper bound of $B$ smaller than $c$). Hence
+\[
+(c-\varepsilon)^p\le a.
+\]
+Using $(\star)$,
+\[
+c^p-\varepsilon R\le (c-\varepsilon)^p\le a
+\quad\Rightarrow\quad
+c^p\le a+\varepsilon R.
+\]
+Letting $\varepsilon\downarrow0$ yields $c^p\le a$. Wait—this gives the reverse inequality. So we instead argue as follows: since $c$ is an upper bound of $B$, every $x\in B$ satisfies $x\le c$ and hence $x^p\le c^p$, from which $\sup\{x^p:x\in B\}\le c^p$. But $\{x^p:x\in B\}=[0,a]$ by definition of $B$, so $a\le c^p$. Thus $c^p\ge a$.
+
+\textbf{Step 2: $c^p\le a$.}
+For every $\varepsilon>0$, the number $c+\varepsilon$ is not an upper bound of $B$; hence there exists $x_\varepsilon\in B$ with $x_\varepsilon>c-\tfrac{\varepsilon}{2}$. Then
+\[
+c< x_\varepsilon+\tfrac{\varepsilon}{2}\le c+\varepsilon,
+\]
+so by monotonicity on $[0,\infty)$,
+\[
+c^p<(x_\varepsilon+\tfrac{\varepsilon}{2})^p\le (c+\varepsilon)^p.
+\]
+Using $(\star)$,
+\[
+c^p<(c+\varepsilon)^p\le c^p+\varepsilon R,
+\]
+hence $0<(c+\varepsilon)^p-c^p\le \varepsilon R$. Letting $\varepsilon\downarrow0$ gives
+\[
+\lim_{\varepsilon\downarrow0}(c+\varepsilon)^p=c^p.
+\]
+But since $x_\varepsilon\in B$, we have $x_\varepsilon^p\le a$, and from $x_\varepsilon>c-\tfrac{\varepsilon}{2}$ and $(\star)$ (applied with $\varepsilon/2$) we get
+\[
+c^p-\tfrac{\varepsilon}{2}R \le (c-\tfrac{\varepsilon}{2})^p
+\le x_\varepsilon^p\le a.
+\]
+Letting $\varepsilon\downarrow0$ yields $c^p\le a$.
+
+\medskip
+Combining Steps 1 and 2 we conclude $c^p=a$.
+
+\end{document}
