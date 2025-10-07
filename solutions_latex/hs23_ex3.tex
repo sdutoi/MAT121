@@ -78,27 +78,23 @@ Let \(x_n = \dfrac{n}{n+1}\). We prove that \(\displaystyle \lim_{n\to\infty} x_
 \paragraph{Claim.} \(\displaystyle \lim_{n\to\infty} \frac{n}{n+1} = 1.\)
 
 \paragraph{Proof.}
+Let \(\varepsilon>0\) be arbitrary. We must find \(N\in\mathbb{N}\) such that for all \(n\ge N\),
+\[
+\left| x_n - 1 \right| < \varepsilon.
+\]
 Rewrite
 \[
 x_n = \frac{n}{n+1} = 1 - \frac{1}{n+1}.
 \]
-Let \(\varepsilon>0\) be arbitrary. We need \(N\in\mathbb{N}\) such that for all \(n\ge N\),
+Then
 \[
-\left| x_n - 1 \right| < \varepsilon.
+|x_n-1| = \left|1 - \frac{1}{n+1} - 1\right| = \left|-\frac{1}{n+1}\right| = \frac{1}{n+1}.
 \]
-Compute:
-\[
-\left| x_n - 1 \right| = \left| -\frac{1}{n+1} \right| = \frac{1}{n+1}.
-\]
-So we require \(\frac{1}{n+1} < \varepsilon\). By the Archimedean property there exists \(N\in\mathbb{N}\) with
-\[
-N+1 > \frac{1}{\varepsilon} \quad \text{(equivalently, } N > \frac{1}{\varepsilon}-1\text{)}.
-\]
-Then for every \(n\ge N\),
+So we need \(1/(n+1) < \varepsilon\), i.e., \(n+1 > 1/\varepsilon\). By the Archimedean property, there exists \(N\in\mathbb{N}\) with \(N+1 > 1/\varepsilon\). Then for every \(n\ge N\),
 \[
 \left| x_n - 1 \right| = \frac{1}{n+1} \le \frac{1}{N+1} < \varepsilon.
 \]
-Thus the definition of convergence is satisfied, and \(x_n \to 1\).
+Hence the definition of convergence is satisfied, and \(x_n \to 1\).
 
 \paragraph{Explicit choice.} One may take
 \[
@@ -114,27 +110,26 @@ N+1 > \frac{1}{\varepsilon}.
 
 
 \subsection*{(c)}
-Let \(x_n = n(-1)^n\). We show the sequence does not converge (diverges without bound in magnitude).
+Let \(x_n = n^{(-1)^n}\). We show the sequence does not converge.
 
-\paragraph{Observation.}
-Consider the two subsequences:
+\paragraph{Observation (two subsequences).}
+For even and odd indices,
 \[
-x_{2k} = (2k)(-1)^{2k} = 2k \to +\infty,\qquad
-x_{2k+1} = (2k+1)(-1)^{2k+1} = -(2k+1) \to -\infty.
+x_{2k} = (2k)^{(-1)^{2k}} = (2k)^1 = 2k \longrightarrow +\infty,
+\qquad
+x_{2k+1} = (2k+1)^{(-1)^{2k+1}} = (2k+1)^{-1} = \frac{1}{2k+1} \longrightarrow 0.
 \]
-Thus one subsequence tends to \(+\infty\) and another to \(-\infty\).
+Hence one subsequence diverges to $+\infty$ while the other converges to $0$.
 
 \paragraph{Conclusion (no finite limit).}
-If \((x_n)\) had a finite limit \(L\), every subsequence would also converge to \(L\).
-Since \(x_{2k}\to +\infty\) and \(x_{2k+1}\to -\infty\), no common finite limit exists.
+If a sequence converges to a real limit $L$, then every subsequence also converges to $L$. Here the even subsequence does not have a finite limit and the odd subsequence tends to $0$, so there is no common limit. Therefore $(x_n)$ does not converge in $\mathbb{R}$.
 
 \paragraph{Alternative (unboundedness).}
-For any \(M>0\) choose \(n > M\) with \(n\) even; then \(x_n = n > M\).
-So \((x_n)\) is not bounded above. A convergent real sequence must be bounded, hence \((x_n)\) diverges.
+Since $x_{2k}=2k\to +\infty$, the sequence is unbounded above. Every convergent real sequence is bounded, so $(x_n)$ is divergent.
 
 \paragraph{Result.}
 \[
-\boxed{\text{The sequence } x_n = n(-1)^n \text{ diverges (no real limit).}}
+\boxed{\text{The sequence } x_n = n^{(-1)^n} \text{ diverges (no real limit).}}
 \]
 
 \subsection*{(d)}
@@ -200,17 +195,22 @@ Let \((x_n)_{n\in\mathbb{N}}\subset \mathbb{R}\) be a convergent sequence with l
 Both \(x_{n+1}\) and \(x_n\) approach the same limit \(L\); their difference must vanish.
 
 \paragraph{Formal proof.}
-Fix \(\varepsilon>0\). Since \(x_n \to L\), there exists \(N\) such that for all \(n\ge N\),
+Fix \(\varepsilon>0\). Since \(x_n \to L\), there exists \(N\in\mathbb{N}\) such that for all \(m\ge N\),
 \[
-|x_n - L| < \frac{\varepsilon}{2}
-\quad\text{and}\quad
-|x_{n+1} - L| < \frac{\varepsilon}{2}.
+ |x_m - L| < \frac{\varepsilon}{2}.
 \]
-Then for \(n\ge N\),
+Now let \(n\ge N\). Then both indices \(n\) and \(n+1\) satisfy the tail condition (since \(n\ge N\Rightarrow n+1\ge N\)), hence
 \[
-|x_{n+1} - x_n|
-\le |x_{n+1} - L| + |x_n - L|
-< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+ |x_n - L| < \frac{\varepsilon}{2}
+ \quad\text{and}\quad
+ |x_{n+1} - L| < \frac{\varepsilon}{2}.
+\]
+By the triangle inequality,
+\[
+ |x_{n+1} - x_n|
+ = |(x_{n+1}-L) - (x_n - L)|
+ \le |x_{n+1} - L| + |x_n - L|
+ < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
 \]
 
 \paragraph{Conclusion.}

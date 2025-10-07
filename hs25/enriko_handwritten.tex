@@ -1,0 +1,98 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 1}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+% Given: (a_n) real, and b_n := a_{n+1} - a_n \to 0.
+% Claim: a_n / n \to 0.
+
+\begin{lemma}
+Let $(a_n)_{n\in\mathbb{N}}$ be a real sequence and $b_n := a_{n+1}-a_n \to 0$.
+Then
+\[
+\frac{a_n}{n}\xrightarrow[n\to\infty]{} 0.
+\]
+\end{lemma}
+
+\begin{proof}
+By telescoping, for $n\ge 1$,
+\[
+a_n - a_0 = \sum_{j=0}^{n-1} (a_{j+1}-a_j) = \sum_{j=0}^{n-1} b_j.
+\]
+Dividing by $n$ gives
+\[
+\frac{a_n}{n} = \frac{a_0}{n} + \frac{1}{n}\sum_{j=0}^{n-1} b_j.
+\]
+Clearly $\frac{a_0}{n}\to 0$. Set
+\[
+m_n := \frac{1}{n}\sum_{j=0}^{n-1} b_j.
+\]
+We show $m_n\to 0$.
+
+Fix $\varepsilon>0$. Since $b_n\to 0$, there exists $J\in\mathbb{N}$ such that
+\[
+|b_j|<\varepsilon \quad \text{for all } j\ge J.
+\]
+For $n>J$,
+\[
+\left|\frac{1}{n}\sum_{j=0}^{n-1} b_j\right|
+\le \frac{1}{n}\sum_{j=0}^{J-1} |b_j| \;+\; \frac{1}{n}\sum_{j=J}^{n-1} |b_j|
+\le \frac{1}{n}\sum_{j=0}^{J-1} |b_j| \;+\; \frac{n-J}{n}\,\varepsilon.
+\]
+Let $C := \sum_{j=0}^{J-1} |b_j| < \infty$. Choose $N$ so that $\frac{C}{n}<\varepsilon$ for all $n\ge N$.
+Then for all $n\ge \max\{N,J+1\}$,
+\[
+\left|\frac{1}{n}\sum_{j=0}^{n-1} b_j\right|
+\le \frac{C}{n} + \frac{n-J}{n}\,\varepsilon
+< \varepsilon + \varepsilon
+= 2\varepsilon.
+\]
+Since $\varepsilon>0$ was arbitrary, $m_n\to 0$. Together with $\frac{a_0}{n}\to 0$ we conclude
+\[
+\frac{a_n}{n} = \frac{a_0}{n} + m_n \xrightarrow[n\to\infty]{} 0.
+\]
+\end{proof}
+
+
+
+\end{document}

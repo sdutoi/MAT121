@@ -1,0 +1,573 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 3}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\noindent\textbf{(1.1) $\Re z=\dfrac{1}{2}(z+\overline{z})$ and $\Im z=\dfrac{1}{2i}(z-\overline{z})$.}
+\begin{proof}
+Let $z=x+iy$ with $x,y\in\mathbb{R}$. Then $\overline{z}=x-iy$, hence
+\[
+z+\overline{z}=2x \;\Rightarrow\; \frac{1}{2}(z+\overline{z})=x=\Re z,
+\qquad
+z-\overline{z}=2iy \;\Rightarrow\; \frac{1}{2i}(z-\overline{z})=y=\Im z.
+\]
+\end{proof}
+
+\noindent\textbf{(1.2) $z\in\mathbb{R}\iff z=\overline{z}$.}
+\begin{proof}
+($\Rightarrow$) If $z\in\mathbb{R}$, then $z=x+0i=x=\overline{x}= \overline{z}$. 
+($\Leftarrow$) If $z=\overline{z}$ and $z=x+iy$, then $x+iy=x-iy$, whence $y=0$ and $z=x\in\mathbb{R}$.
+\end{proof}
+
+\noindent\textbf{(1.3) $\overline{\overline{z}}=z$.}
+\begin{proof}
+Write $z=x+iy$. Then $\overline{z}=x-iy$ and $\overline{\overline{z}}=\overline{x-iy}=x+iy=z$.
+\end{proof}
+
+\noindent\textbf{(1.4) $\overline{z+w}=\overline{z}+\overline{w}$ and $\overline{zw}=\overline{z}\,\overline{w}$.}
+\begin{proof}
+Let $z=x+iy$, $w=u+iv$. Then
+\[
+\overline{z+w}=\overline{(x+u)+i(y+v)}=(x+u)-i(y+v)=(x-iy)+(u-iv)=\overline{z}+\overline{w}.
+\]
+Also,
+\[
+zw=(x+iy)(u+iv)=(xu-yv)+i(xv+yu),
+\]
+so
+\[
+\overline{zw}=(xu-yv)-i(xv+yu)=(x-iy)(u-iv)=\overline{z}\,\overline{w}.
+\]
+\end{proof}
+
+\noindent\textbf{(1.5) $|z|^2=z\,\overline{z}$.}
+\begin{proof}
+With $z=x+iy$ we have
+\[
+z\,\overline{z}=(x+iy)(x-iy)=x^2+y^2=|z|^2.
+\]
+\end{proof}
+
+\noindent\textbf{(1.6) $|z|\ge 0$ and $|z|=0\iff z=0$.}
+\begin{proof}
+By definition $|z|=\sqrt{x^2+y^2}\ge 0$. Moreover, $|z|=0\iff x^2+y^2=0\iff x=y=0\iff z=0$.
+\end{proof}
+
+\noindent\textbf{(1.7) For real $z$: $|z|_{\mathbb{C}}=|z|_{\mathbb{R}}$.}
+\begin{proof}
+If $z\in\mathbb{R}$, write $z=x+0i$. Then $|z|_{\mathbb{C}}=\sqrt{x^2+0^2}=|x|=|z|_{\mathbb{R}}$.
+\end{proof}
+
+\noindent\textbf{(1.8) Triangle inequality: $|z+w|\le |z|+|w|$.}
+\begin{proof}
+Using (1.4),
+\[
+|z+w|^2=(z+w)\overline{(z+w)}=(z+w)(\overline{z}+\overline{w})
+=|z|^2+|w|^2+z\overline{w}+\overline{z}w
+=|z|^2+|w|^2+2\Re(z\overline{w}).
+\]
+Since $\Re(\alpha)\le |\alpha|$ and $|z\overline{w}|=|z|\,|w|$, we get
+\[
+|z+w|^2 \le |z|^2+|w|^2+2|z|\,|w|=(|z|+|w|)^2.
+\]
+Taking square roots (both sides $\ge 0$) yields $|z+w|\le |z|+|w|$.
+\end{proof}
+
+\noindent\textbf{(1.9) Multiplicativity: $|zw|=|z|\,|w|$.}
+\begin{proof}
+By (1.5) and (1.4),
+\[
+|zw|^2=(zw)\overline{(zw)}=(zw)(\overline{z}\,\overline{w})
+=(z\overline{z})(w\overline{w})=|z|^2\,|w|^2.
+\]
+Both sides are nonnegative, hence $|zw|=|z|\,|w|$.
+\end{proof}
+
+\noindent\textbf{(1.10) Reverse triangle inequality: $\big||z|-|w|\big|\le |z-w|$.}
+\begin{proof}
+From (1.8) with $z=(z-w)+w$,
+\[
+|z|\le |z-w|+|w|\;\Rightarrow\; |z|-|w|\le |z-w|.
+\]
+Swapping $z,w$ gives $|w|-|z|\le |z-w|$. Combining both yields the claim.
+\end{proof}
+
+\noindent\textbf{(1.11) $|\Re z|\le |z|$ and $|\Im z|\le |z|$.}
+\begin{proof}
+Using (1.1) and (1.4),
+\[
+|\Re z|=\left|\frac{z+\overline{z}}{2}\right|
+\le \frac{|z|+|\overline{z}|}{2}=\frac{|z|+|z|}{2}=|z|.
+\]
+Similarly,
+\[
+|\Im z|=\left|\frac{z-\overline{z}}{2i}\right|
+=\frac{|z-\overline{z}|}{2|i|}
+\le \frac{|z|+|\overline{z}|}{2}=|z|.
+\]
+\end{proof}
+
+\noindent\textbf{(1.12) For $z\ne 0$: $\displaystyle \frac{1}{z}=\frac{\overline{z}}{|z|^2}$.}
+\begin{proof}
+By (1.5), 
+\[
+|z|^2=z\overline{z}=(x+iy)(x-iy).
+\]
+Therefore,
+\[
+\frac{\overline{z}}{|z|^2}
+=\frac{x-iy}{(x+iy)(x-iy)}
+=\frac{1}{x+iy}
+=\frac{1}{z}.
+\]
+The cancellation is valid since $x-iy=0$ would imply $x=y=0$, contradicting $z\ne 0$.
+\end{proof}
+%=============================================
+
+\section*{2}
+\subsection*{(a)}
+Let $(x_n)_{n\ge 0}$ be the sequence defined by
+\[
+x_0 = 1,\qquad x_1 = 1,\qquad x_n = x_{n-1} + x_{n-2}\ \ (n\ge 2).
+\]
+Then $x_n\to +\infty$ as $n\to\infty$. In particular, $(x_n)$ has no (finite) accumulation points in $\mathbb{R}$.
+
+\begin{proof}
+\textbf{Step 1: Eventual monotonicity.}
+For $n\ge 0$,
+\[
+F_{n+2}=F_{n+1}+F_n\ge F_{n+1}.
+\]
+Moreover, for $n\ge 2$ we have $F_n>0$, so $F_{n+2}=F_{n+1}+F_n>F_{n+1}$. Hence $(F_n)$ is strictly increasing from $n\ge 2$ onward.
+
+\medskip
+\textbf{Step 2: Exponential lower bound.}
+We claim that for all $n\ge 2$,
+\[
+F_n \;\ge\; \Bigl(\tfrac{3}{2}\Bigr)^{\,n-2}.
+\]
+We prove this by induction.
+
+\emph{Base cases:} $n=2$: $F_2=1=(\tfrac{3}{2})^0$. 
+$n=3$: $F_3=2\ge (\tfrac{3}{2})^1=1.5$.
+
+\emph{Inductive step:} Assume $n\ge 2$ and
+\[
+F_{n}\ge \Bigl(\tfrac{3}{2}\Bigr)^{\,n-2},\qquad
+F_{n+1}\ge \Bigl(\tfrac{3}{2}\Bigr)^{\,n-1}.
+\]
+Since $F_{n+1}=F_n+F_{n-1}\le 2F_n$, we have $F_n\ge \tfrac{1}{2}F_{n+1}$. Thus
+\[
+F_{n+2}=F_{n+1}+F_n \;\ge\; F_{n+1}+\tfrac{1}{2}F_{n+1}
+=\tfrac{3}{2}\,F_{n+1}\;\ge\;\tfrac{3}{2}\Bigl(\tfrac{3}{2}\Bigr)^{\,n-1}
+=\Bigl(\tfrac{3}{2}\Bigr)^{\,n}.
+\]
+This completes the induction.
+
+Therefore $F_n\ge (\tfrac{3}{2})^{\,n-2}\xrightarrow[n\to\infty]{}+\infty$, so $F_n\to +\infty$.
+
+\medskip
+\textbf{Step 3: No accumulation points in $\mathbb{R}$.}
+A real sequence that diverges to $+\infty$ admits no finite accumulation points. Indeed, if $L\in\mathbb{R}$, choose $M>L$. Since $F_n\to+\infty$, there exists $N$ with $F_n>M$ for all $n\ge N$, so no subsequence can converge to $L$. Hence $(F_n)$ has no accumulation points in $\mathbb{R}$. (In the extended reals, the only accumulation point is $+\infty$.)
+\end{proof}
+
+% Optional: One-line alternative via Binet's formula
+% Using Binet's formula $F_n=\frac{\varphi^n-\psi^n}{\sqrt{5}}$ with
+% $\varphi=\frac{1+\sqrt{5}}{2}>1$ and $|\psi|<1$, we get
+% $F_n\sim \varphi^n/\sqrt{5}\to+\infty$.
+
+
+\subsection*{(b)}
+\textbf{Claim: Converse of uniqueness of limit is false}
+Define a sequence $(x_n)_{n\in\mathbb{N}}$ by
+\[
+x_n=\begin{cases}
+n, & \text{if $n$ is prime},\\[4pt]
+0, & \text{if $n$ is composite or }n=1.
+\end{cases}
+\]
+Then $0$ is the only cluster point of $(x_n)$, but $(x_n)$ does not converge.
+
+
+\begin{proof}
+\textbf{(i) $0$ is a cluster point.}
+Let $\varepsilon>0$ and $N\in\mathbb{N}$ be arbitrary. There are infinitely many composite integers $m>N$ (e.g.\ $m=k(N+1)$ for all $k\ge2$), and for each such $m$ we have $x_m=0$. Hence $|x_m-0|=0<\varepsilon$ for infinitely many $m>N$. Therefore, every neighborhood of $0$ contains infinitely many terms of the sequence, so $0$ is a cluster point.
+
+\medskip
+\textbf{(ii) No $a\neq 0$ is a cluster point.}
+Fix $a\in\mathbb{R}$ with $a\neq 0$ and set
+\[
+r:=\min\!\left\{\frac{|a|}{2},\,\frac{1}{2}\right\}.
+\]
+Then the open ball $B(a,r)=(a-r,a+r)$ contains no $0$, so it contains none of the zero terms of the sequence. Moreover, since $2r\le 1$, the interval $B(a,r)$ can contain \emph{at most one} integer. The only possible nonzero values of the sequence inside $B(a,r)$ are integers (each occurring at most once, namely at their prime index). Hence $B(a,r)$ contains at most finitely many terms of $(x_n)$. Therefore $a$ is not a cluster point. We conclude that $0$ is the unique cluster point.
+
+\medskip
+\textbf{(iii) $(x_n)$ does not converge.}
+Suppose $(x_n)\to L\in\mathbb{R}$. If $L\neq 0$, take $\varepsilon=\tfrac{|L|}{2}>0$; for every $N$ there exist composite $n>N$ with $x_n=0$, and then $|x_n-L|=|L|>\varepsilon$, contradicting convergence. Thus the only possible limit is $L=0$.
+
+But for $\varepsilon=1$ and any $N$, choose a prime $p>N$ (infinitely many primes exist); then $|x_p-0|=p\ge 2>\varepsilon$, so the definition of convergence to $0$ fails. Hence $(x_n)$ does not converge.
+
+Therefore, $(x_n)$ has exactly one cluster point (namely $0$) but is not convergent, showing the converse of the uniqueness-of-limit theorem is false.
+\end{proof}
+
+% Remark (optional): If a real sequence is bounded and has a unique cluster point,
+% then it \emph{does} converge to that cluster point (Bolzano--Weierstrass).
+% The counterexample above avoids boundedness via unbounded prime spikes.
+
+
+\section*{3}
+\subsection*{(a)}
+The sequence defined by
+\[
+a_0 = 0, \qquad a_{n+1} = \frac{1}{2}a_n + \frac{1}{2} \quad (n \in \mathbb{N})
+\]
+converges to $1$.
+
+\begin{proof}
+\textbf{Step 1: Invariant interval and bounds via induction.}
+We claim that
+\[
+0 \le a_n \le 1 \quad \text{for all } n \in \mathbb{N}.
+\]
+\emph{Base case.} For $n=0$ we have $a_0=0 \in [0,1]$.
+
+\emph{Inductive step.} Assume $0 \le a_n \le 1$ for some $n$. Then
+\[
+a_{n+1} \;=\; \frac{1}{2}a_n + \frac{1}{2}
+\;\ge\; \frac{1}{2}\cdot 0 + \frac{1}{2} \;=\; \frac{1}{2} \;\ge\; 0,
+\]
+and
+\[
+a_{n+1} \;=\; \frac{1}{2}a_n + \frac{1}{2}
+\;\le\; \frac{1}{2}\cdot 1 + \frac{1}{2} \;=\; 1.
+\]
+Hence $a_{n+1} \in [0,1]$. By induction, $0 \le a_n \le 1$ for all $n$.
+
+\medskip
+\textbf{Step 2: Monotonicity.}
+Using the recurrence and the bound $a_n \le 1$, we compute
+\[
+a_{n+1} - a_n
+= \left(\frac{1}{2}a_n + \frac{1}{2}\right) - a_n
+= \frac{1}{2}(1 - a_n)
+\;\ge\; 0.
+\]
+Thus $(a_n)$ is monotonically increasing.
+
+\medskip
+\textbf{Step 3: Convergence (Monotone Convergence Theorem).}
+The sequence $(a_n)$ is increasing and bounded above by $1$ (from Step 1), hence it converges. Let
+\[
+\lim_{n\to\infty} a_n =: \ell \in [0,1].
+\]
+
+\medskip
+\textbf{Step 4: Identification of the limit (fixed-point equation).}
+Passing to the limit in the recurrence (using continuity of the affine map $x \mapsto \tfrac12 x + \tfrac12$) gives
+\[
+\ell = \lim_{n\to\infty} a_{n+1}
+= \lim_{n\to\infty} \left(\frac{1}{2}a_n + \frac{1}{2}\right)
+= \frac{1}{2}\ell + \frac{1}{2}.
+\]
+Solving,
+\[
+\ell - \frac{1}{2}\ell = \frac{1}{2}
+\;\Longleftrightarrow\;
+\frac{1}{2}\ell = \frac{1}{2}
+\;\Longleftrightarrow\;
+\ell = 1.
+\]
+Therefore, $\lim_{n\to\infty} a_n = 1$.
+\end{proof}
+
+
+%%%%%
+
+\subsection*{(b)}
+Let $(b_n)_{n\in\mathbb{N}} \subset \mathbb{R}$ with $\lim_{n\to\infty} b_n = b \in \mathbb{R}$.
+Define for each $m\in\mathbb{N}$ the arithmetic mean
+\[
+c_m := \frac{1}{m}\sum_{n=0}^{m-1} b_n.
+\]
+Then $\displaystyle \lim_{m\to\infty} c_m = b$.
+
+\begin{proof}
+Fix $\varepsilon>0$. Since $b_n \to b$, by the definition of limit there exists $N\in\mathbb{N}$ such that
+\[
+|b_n - b| \le \frac{\varepsilon}{2}
+\qquad \text{for all } n \ge N.
+\]
+For $m\in\mathbb{N}$ with $m \ge N+1$ we estimate
+\[
+c_m - b
+= \frac{1}{m}\sum_{n=0}^{m-1} b_n - b
+= \frac{1}{m}\sum_{n=0}^{m-1} (b_n - b)
+= \frac{1}{m}\sum_{n=0}^{N-1} (b_n - b) \;+\; \frac{1}{m}\sum_{n=N}^{m-1} (b_n - b).
+\]
+Taking absolute values and using the triangle inequality yields
+\[
+|c_m - b|
+\le \frac{1}{m}\sum_{n=0}^{N-1} |b_n - b|
+\;+\; \frac{1}{m}\sum_{n=N}^{m-1} |b_n - b|.
+\]
+By the choice of $N$, for every $n\ge N$ we have $|b_n - b| \le \varepsilon/2$, hence
+\[
+\frac{1}{m}\sum_{n=N}^{m-1} |b_n - b|
+\le \frac{1}{m}\cdot (m-N)\cdot \frac{\varepsilon}{2}
+\le \frac{\varepsilon}{2}.
+\]
+For the finite “early” block, define the constant
+\[
+K := \sum_{n=0}^{N-1} |b_n - b| \;\ge\; 0,
+\]
+so that
+\[
+\frac{1}{m}\sum_{n=0}^{N-1} |b_n - b| \;=\; \frac{K}{m}.
+\]
+Combining the two bounds gives
+\[
+|c_m - b| \;\le\; \frac{K}{m} \;+\; \frac{\varepsilon}{2}.
+\]
+Choose
+\[
+M \;:=\; \max\!\left\{\,N+1,\ \left\lceil \frac{2K}{\varepsilon} \right\rceil \right\}.
+\]
+Then for all $m \ge M$ we have $m \ge N+1$ and $m \ge 2K/\varepsilon$, hence
+\[
+\frac{K}{m} \;\le\; \frac{\varepsilon}{2}.
+\]
+Therefore, for all $m \ge M$,
+\[
+|c_m - b| \;\le\; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} \;=\; \varepsilon.
+\]
+Since $\varepsilon>0$ was arbitrary, it follows that $c_m \to b$ as $m\to\infty$.
+\end{proof}
+
+%%%%%%%
+
+\section*{4}
+\subsection*{(a) i}
+For $0 < x < y$, we have $x^p < y^p$ for all $p \in \mathbb{N}\setminus\{0\}$.
+
+\begin{proof}[Proof by induction on $p$]
+\medskip
+
+\emph{Base case $p=1$.} We have $x^1 = x < y = y^1$ by hypothesis.
+
+\emph{Inductive step.} Assume $x^p < y^p$ for some $p \ge 1$. Since $x^p>0$ and $y>0$, multiplying inequalities by positive numbers preserves the inequality. Thus
+\[
+x^{p+1} \;=\; x^p \cdot x \;<\; x^p \cdot y
+\quad\text{(from $x<y$)}
+\]
+and
+\[
+x^p \cdot y \;<\; y^p \cdot y \;=\; y^{p+1}
+\quad\text{(from $x^p<y^p$)}.
+\]
+Combining gives $x^{p+1} < y^{p+1}$. By induction, $x^p<y^p$ for all $p\in\mathbb{N}\setminus\{0\}$.
+\end{proof}
+
+\subsection*{(a) ii}
+For $0 < x < y$, we have $x^{1/q} < y^{1/q}$ for all $q \in \mathbb{N}\setminus\{0\}$.
+
+\begin{proof}
+Let $u := x^{1/q} > 0$ and $v := y^{1/q} > 0$, so that $u^q = x$ and $v^q = y$.
+Suppose, for contradiction, that $u \ge v$. Since $q\in\mathbb{N}$ and the map $t\mapsto t^q$ is strictly increasing on $(0,\infty)$ by part (a), we would have
+\[
+u^q \;\ge\; v^q \;\Longrightarrow\; x \;\ge\; y,
+\]
+contradicting $x<y$. Hence $u<v$, i.e., $x^{1/q} < y^{1/q}$.
+\end{proof}
+
+\subsection*{(a) iii}
+For $0 < x < y$, we have $x^\alpha < y^\alpha$ for all $\alpha \in \mathbb{Q}$ with $\alpha>0$.
+
+\begin{proof}
+Write $\alpha=\dfrac{m}{n}$ with $m,n\in\mathbb{N}\setminus\{0\}$. By part (b),
+\[
+x^{1/n} \;<\; y^{1/n}.
+\]
+Applying part (a) with exponent $m$ (and positive bases) gives
+\[
+\bigl(x^{1/n}\bigr)^m \;<\; \bigl(y^{1/n}\bigr)^m
+\quad\Longleftrightarrow\quad
+x^{m/n} \;<\; y^{m/n}.
+\]
+Thus $x^\alpha < y^\alpha$ for all rational $\alpha>0$.
+\end{proof}
+
+\subsection*{(b) Binomial Theorem}
+For all real numbers $x,y$ and all $n\in\mathbb{N}$,
+\[
+(x+y)^n = \sum_{k=0}^{n} \binom{n}{k}\, x^{k}\, y^{\,n-k}.
+\]
+
+\begin{proof}[Proof by induction on $n$]
+We will use Pascal's identity: for all $m,j\in\mathbb{N}$,
+\[
+\binom{m}{j} = \binom{m-1}{j} + \binom{m-1}{j-1},
+\]
+with the conventions $\binom{m}{-1}=\binom{m}{m+1}=0$.
+
+\medskip
+
+\emph{Base case $n=0$.} We have $(x+y)^0=1$, and
+\[
+\sum_{k=0}^{0} \binom{0}{k} x^k y^{0-k} = \binom{0}{0} x^0 y^0 = 1.
+\]
+Thus the formula holds for $n=0$.
+
+\emph{Inductive step.} Assume the identity holds for some $n\ge 0$, i.e.
+\[
+(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k y^{\,n-k}.
+\]
+Then
+\[
+\begin{aligned}
+(x+y)^{n+1}
+&= (x+y)\,(x+y)^n \\
+&= (x+y)\sum_{k=0}^{n} \binom{n}{k} x^k y^{\,n-k} \\
+&= \sum_{k=0}^{n} \binom{n}{k} x^{k+1} y^{\,n-k}
+   \;+\; \sum_{k=0}^{n} \binom{n}{k} x^{k} y^{\,n+1-k}.
+\end{aligned}
+\]
+Reindex the first sum by $j=k+1$ (so $j=1,\dots,n+1$), and rename $k$ to $j$ in the second sum:
+\[
+\sum_{j=1}^{n+1} \binom{n}{j-1} x^{j} y^{\,n+1-j}
+\;+\;
+\sum_{j=0}^{n} \binom{n}{j} x^{j} y^{\,n+1-j}.
+\]
+Combine them into a single sum from $j=0$ to $n+1$ (using $\binom{n}{-1}=\binom{n}{n+1}=0$):
+\[
+\sum_{j=0}^{n+1} \!\Big(\binom{n}{j-1}+\binom{n}{j}\Big)\, x^{j} y^{\,n+1-j}.
+\]
+By Pascal's identity,
+\[
+\binom{n}{j-1}+\binom{n}{j}=\binom{n+1}{j},
+\]
+hence
+\[
+(x+y)^{n+1}=\sum_{j=0}^{n+1} \binom{n+1}{j}\, x^{j} y^{\,n+1-j}.
+\]
+This is exactly the desired formula for $n+1$. By induction, the identity holds for all $n\in\mathbb{N}$.
+\end{proof}
+
+\subsection*{(c) Direct lower bound proof of $2^{\,n-1}\le n!$}
+For every integer $n\ge 0$,
+\[
+2^{\,n-1}\;\le\; n!.
+\]
+
+\begin{proof}
+We check the small cases first:
+\[
+n=0:\quad 2^{-1}=\tfrac12 \le 0!=1,
+\qquad
+n=1:\quad 2^{0}=1 = 1!.
+\]
+Now assume $n\ge 2$. Then
+\[
+n! \;=\; 1\cdot 2 \cdot 3 \cdots n
+\;\ge\; 1 \cdot \underbrace{2\cdot 2 \cdots 2}_{\text{$n-1$ factors}}
+\;=\; 2^{\,n-1},
+\]
+because each factor $k$ with $k\in\{2,3,\dots,n\}$ satisfies $k\ge 2$.
+Hence $2^{\,n-1}\le n!$ for all $n\ge 0$.
+\end{proof}
+
+\subsection*{(d) Inductive proof of the finite geometric sum}
+For any real $x\neq 1$ and any $n\in\mathbb{N}$,
+\[
+\sum_{k=0}^{n} x^k \;=\; \frac{1 - x^{\,n+1}}{1 - x}.
+\]
+
+\begin{proof}
+We proceed by induction on $n$.
+
+\emph{Base case $n=0$.}
+\[
+\sum_{k=0}^{0} x^k = 1
+\qquad\text{and}\qquad
+\frac{1 - x^{\,0+1}}{1 - x} = \frac{1 - x}{1 - x} = 1.
+\]
+Thus the identity holds for $n=0$.
+
+\emph{Inductive step.}
+Assume for some $n\ge 0$ that
+\[
+\sum_{k=0}^{n} x^k \;=\; \frac{1 - x^{\,n+1}}{1 - x}.
+\]
+Then
+\[
+\sum_{k=0}^{n+1} x^k
+= \left(\sum_{k=0}^{n} x^k\right) + x^{\,n+1}
+= \frac{1 - x^{\,n+1}}{1 - x} + x^{\,n+1}
+= \frac{1 - x^{\,n+1} + x^{\,n+1} - x^{\,n+2}}{1 - x}
+= \frac{1 - x^{\,n+2}}{1 - x}.
+\]
+This is exactly the desired formula with $n$ replaced by $n+1$. Hence the statement holds for all $n\in\mathbb{N}$ by induction.
+
+\end{proof}
+
+\subsection*{(e) Inductive proof of Bernoulli's inequality}
+For all real $x>-1$ and all integers $n\ge0$, we have $(1+x)^n \ge 1 + nx$.
+
+\begin{proof}
+We proceed by induction on \(n\).
+
+Base cases:
+\begin{itemize}
+\item \(n=0:\quad (1+x)^0=1 \ge 1 = 1+0\cdot x.\)
+\item \(n=1:\quad (1+x)^1=1+x = 1+1\cdot x.\)
+\end{itemize}
+
+Induction step: Assume for some \(n\ge1\) that \((1+x)^n \ge 1 + nx\). Since \(x>-1\) we have \(1+x>0\), so multiplying preserves the inequality:
+\[
+(1+x)^{n+1}=(1+x)^n(1+x)\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x,
+\]
+because \(nx^2\ge0\). Hence the claim holds for \(n+1\).
+
+By induction the inequality holds for all integers \(n\ge0\) and all \(x>-1\).
+\end{proof}
+
+\end{document}

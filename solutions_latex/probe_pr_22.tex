@@ -1,0 +1,111 @@
+\documentclass[12pt,a4paper]{article}
+
+% -- Packages --
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% -- Page Setup --
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% -- Header/Footer --
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 1}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% -- Theorem Environments --
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% -- Custom Environments --
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\subsection*{(a) Binet’s formula}
+\begin{proof}
+We are given $F_0=0$, $F_1=1$, and for $n\ge 2$,
+\[
+F_n \;=\; F_{n-1}+F_{n-2}.
+\]
+We will solve this linear recurrence via its characteristic equation and determine the constants from the initial conditions.
+
+\paragraph{Step 1: Characteristic equation.}
+Look for solutions of the form $u_n=r^n$. Substituting into $u_n=u_{n-1}+u_{n-2}$ gives
+\[
+r^n \;=\; r^{n-1}+r^{n-2}
+\;\Longleftrightarrow\;
+r^2 \;=\; r+1
+\;\Longleftrightarrow\;
+r^2-r-1=0.
+\]
+The two roots are
+\[
+\varphi:=\frac{1+\sqrt{5}}{2},\qquad
+\psi:=\frac{1-\sqrt{5}}{2}.
+\]
+Hence every sequence of the form
+\[
+u_n \;=\; A\,\varphi^n + B\,\psi^n
+\]
+satisfies the same recurrence.
+
+\paragraph{Step 2: Fit the initial conditions.}
+Impose $u_0=F_0=0$ and $u_1=F_1=1$:
+\[
+u_0=A\varphi^0+B\psi^0=A+B=0 \quad\Longrightarrow\quad B=-A,
+\]
+\[
+u_1=A\varphi+B\psi=A(\varphi-\psi)=1.
+\]
+Compute
+\[
+\varphi-\psi=\frac{1+\sqrt{5}}{2}-\frac{1-\sqrt{5}}{2}=\sqrt{5},
+\]
+so
+\[
+A=\frac{1}{\varphi-\psi}=\frac{1}{\sqrt{5}},
+\qquad
+B=-\frac{1}{\sqrt{5}}.
+\]
+
+\paragraph{Step 3: Closed form and conclusion.}
+Therefore
+\[
+u_n \;=\; \frac{1}{\sqrt{5}}\bigl(\varphi^n-\psi^n\bigr).
+\]
+Since $u_n$ satisfies the Fibonacci recurrence and matches the initial values $F_0,F_1$, by uniqueness of solutions to a second-order linear recurrence (or by a short induction) we have $u_n=F_n$ for all $n\in\mathbb{N}$. Hence
+\[
+F_n \;=\; \frac{1}{\sqrt{5}}
+\left(
+\left(\frac{1+\sqrt{5}}{2}\right)^{\!n}
+-
+\left(\frac{1-\sqrt{5}}{2}\right)^{\!n}
+\right).
+\qedhere
+\end{proof}
+
+
+\end{document}
