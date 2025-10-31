@@ -1,0 +1,207 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 6}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\C}{\mathbb{C}}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+
+\section*{Practice Problems}
+
+\subsection*{Problem 1}
+Untersuchen Sie die folgenden Reihen auf Konvergenz:
+
+(a) $\sum_{n=1}^{\infty} \frac{(-1)^n}{\sqrt{n}}$
+
+(b) $\sum_{n=1}^{\infty} \frac{n^2}{2^n + n^3}$
+
+(c) $\sum_{n=1}^{\infty} \frac{2^n \cdot n!}{(n+2)!}$
+
+(d) $\sum_{n=2}^{\infty} \frac{1}{n(\ln n)^2}$
+
+\subsection*{Problem 2}
+Untersuchen Sie die folgenden Reihen auf Konvergenz:
+
+(a) $\sum_{k=1}^{\infty} \frac{(-1)^k \cdot k}{k^2 + 1}$
+
+(b) $\sum_{k=1}^{\infty} \frac{1}{k^2 + k}$
+
+(c) $\sum_{k=1}^{\infty} \frac{(2k)!}{(k!)^2 \cdot 4^k}$
+
+(d) $\sum_{k=1}^{\infty} \left(\frac{k}{k+1}\right)^{k^2}$
+
+\section*{Solutions}
+
+\subsection*{Problem 1}
+
+\subsubsection*{(a) $\sum_{n=1}^{\infty} \frac{(-1)^n}{\sqrt{n}}$}
+
+\begin{solution}
+We apply the Leibniz criterion (alternating series test).
+
+The series has the form $\sum_{n=1}^{\infty} (-1)^n a_n$ where $a_n = \frac{1}{\sqrt{n}}$.
+
+We need to verify three conditions:
+
+\textbf{1. Alternating signs:} The factor $(-1)^n$ ensures alternating signs.  
+
+\textbf{2. Terms decreasing in absolute value:} We have $|a_n| = \frac{1}{\sqrt{n}}$.
+For $n \geq 1$: $|a_{n+1}| = \frac{1}{\sqrt{n+1}} < \frac{1}{\sqrt{n}} = |a_n|$
+
+Therefore $\{|a_n|\}$ is monotone decreasing.  
+
+\textbf{3. Terms approach zero:} $\lim_{n \to \infty} |a_n| = \lim_{n \to \infty} \frac{1}{\sqrt{n}} = 0$  
+
+Since all three conditions of the Leibniz criterion are satisfied, the series $\sum_{n=1}^{\infty} \frac{(-1)^n}{\sqrt{n}}$ converges.
+\end{solution}
+
+\subsubsection*{(b) $\sum_{n=1}^{\infty} \frac{n^2}{2^n + n^3}$}
+
+\begin{solution}
+We use the Direct Comparison Test.
+
+\textbf{Step 1: Choose comparison series}
+We compare with $\sum_{n=1}^{\infty} \frac{n^2}{2^n}$, which we will show converges using the ratio test.
+
+For $\sum_{n=1}^{\infty} \frac{n^2}{2^n}$, let $b_n = \frac{n^2}{2^n}$:
+$$\left|\frac{b_{n+1}}{b_n}\right| = \frac{\frac{(n+1)^2}{2^{n+1}}}{\frac{n^2}{2^n}} = \frac{(n+1)^2}{n^2} \cdot \frac{2^n}{2^{n+1}} = \left(\frac{n+1}{n}\right)^2 \cdot \frac{1}{2}$$
+
+$$\lim_{n \to \infty} \left|\frac{b_{n+1}}{b_n}\right| = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^2 \cdot \frac{1}{2} = 1 \cdot \frac{1}{2} = \frac{1}{2} < 1$$
+
+So $\sum \frac{n^2}{2^n}$ converges by the ratio test.
+
+\textbf{Step 2: Establish the inequality}
+For $n \geq 1$: $2^n + n^3 > 2^n$, therefore:
+$$\frac{n^2}{2^n + n^3} < \frac{n^2}{2^n}$$
+
+\textbf{Step 3: Apply the Direct Comparison Test}
+Since $\sum_{n=1}^{\infty} \frac{n^2}{2^n}$ converges and $0 < \frac{n^2}{2^n + n^3} < \frac{n^2}{2^n}$ for all $n \geq 1$, by the Direct Comparison Test, the series $\sum_{n=1}^{\infty} \frac{n^2}{2^n + n^3}$ converges.
+\end{solution}
+
+\subsubsection*{(c) $\sum_{n=1}^{\infty} \frac{2^n \cdot n!}{(n+2)!}$}
+
+\begin{solution}
+We first simplify the general term and then apply the Ratio Test.
+
+\textbf{Step 1: Simplify the general term}
+$$\frac{2^n \cdot n!}{(n+2)!} = \frac{2^n \cdot n!}{(n+2)(n+1) \cdot n!} = \frac{2^n}{(n+2)(n+1)}$$
+
+\textbf{Step 2: Apply the Ratio Test}
+Let $a_n = \frac{2^n}{(n+2)(n+1)}$. We compute:
+$$\left|\frac{a_{n+1}}{a_n}\right| = \frac{\frac{2^{n+1}}{(n+3)(n+2)}}{\frac{2^n}{(n+2)(n+1)}} = \frac{2^{n+1} \cdot (n+2)(n+1)}{2^n \cdot (n+3)(n+2)}$$
+
+\textbf{Step 3: Simplify the ratio}
+$$\left|\frac{a_{n+1}}{a_n}\right| = \frac{2^{n+1}}{2^n} \cdot \frac{(n+2)(n+1)}{(n+3)(n+2)} = 2 \cdot \frac{n+1}{n+3}$$
+
+\textbf{Step 4: Take the limit}
+$$\lim_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| = \lim_{n \to \infty} 2 \cdot \frac{n+1}{n+3} = 2 \cdot \lim_{n \to \infty} \frac{1 + \frac{1}{n}}{1 + \frac{3}{n}} = 2 \cdot \frac{1}{1} = 2$$
+
+\textbf{Step 5: Apply the Ratio Test criterion}
+Since $\lim_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| = 2 > 1$, the series $\sum_{n=1}^{\infty} \frac{2^n \cdot n!}{(n+2)!}$ diverges.
+
+\textbf{Insight:} Even though the factorial $(n+2)!$ grows very rapidly, the exponential $2^n$ in the numerator combined with the polynomial factor dominates, causing divergence.
+\end{solution}
+
+\subsection*{Problem 2}
+
+\subsubsection*{(a) $\sum_{k=1}^{\infty} \frac{(-1)^k \cdot k}{k^2 + 1}$}
+
+\begin{solution}
+We apply the Leibniz criterion (alternating series test).
+
+The series has the form $\sum_{k=1}^{\infty} (-1)^k a_k$ where $a_k = \frac{k}{k^2 + 1}$.
+
+We need to verify three conditions:
+
+\textbf{1. Alternating signs:} The factor $(-1)^k$ ensures alternating signs.
+
+\textbf{2. Terms approach zero:} 
+$$\lim_{k \to \infty} |a_k| = \lim_{k \to \infty} \frac{k}{k^2 + 1} = \lim_{k \to \infty} \frac{1}{k + \frac{1}{k}} = \frac{1}{\infty + 0} = 0$$
+
+\textbf{3. Terms decreasing in absolute value:} We need to show that $\frac{k+1}{(k+1)^2 + 1} < \frac{k}{k^2 + 1}$ for $k \geq 1$.
+
+Cross multiplying (both denominators are positive):
+$$(k+1)(k^2 + 1) < k[(k+1)^2 + 1]$$
+
+Expanding the left side: $(k+1)(k^2 + 1) = k^3 + k^2 + k + 1$
+
+Expanding the right side: $k[(k+1)^2 + 1] = k[k^2 + 2k + 2] = k^3 + 2k^2 + 2k$
+
+We need: $k^3 + k^2 + k + 1 < k^3 + 2k^2 + 2k$
+
+Simplifying: $k^2 + k + 1 < 2k^2 + 2k$, which gives us $1 < k^2 + k = k(k+1)$
+
+For $k \geq 1$: $k(k+1) \geq 1 \cdot 2 = 2 > 1$, so the inequality holds.
+
+Therefore $\{|a_k|\}$ is monotone decreasing.
+
+Since all three conditions of the Leibniz criterion are satisfied, the series $\sum_{k=1}^{\infty} \frac{(-1)^k \cdot k}{k^2 + 1}$ converges.
+\end{solution}
+
+\subsubsection*{(b) $\sum_{k=1}^{\infty} \frac{1}{k^2 + k}$}
+
+\begin{solution}
+We first try the Ratio Test, which turns out to be inconclusive, then use the Direct Comparison Test.
+
+\textbf{Attempt 1: Ratio Test}
+Let $a_k = \frac{1}{k^2 + k}$. We compute:
+$$\left|\frac{a_{k+1}}{a_k}\right| = \frac{\frac{1}{(k+1)^2 + (k+1)}}{\frac{1}{k^2 + k}} = \frac{k^2 + k}{(k+1)^2 + (k+1)}$$
+
+Simplifying the denominator: $(k+1)^2 + (k+1) = k^2 + 2k + 1 + k + 1 = k^2 + 3k + 2$
+
+So: $$\left|\frac{a_{k+1}}{a_k}\right| = \frac{k^2 + k}{k^2 + 3k + 2} = \frac{k(k+1)}{(k+1)(k+2)} = \frac{k}{k+2}$$
+
+Taking the limit:
+$$\lim_{k \to \infty} \left|\frac{a_{k+1}}{a_k}\right| = \lim_{k \to \infty} \frac{k}{k+2} = \lim_{k \to \infty} \frac{1}{1 + \frac{2}{k}} = \frac{1}{1} = 1$$
+
+Since the limit equals 1, the Ratio Test is inconclusive.
+
+\textbf{Attempt 2: Direct Comparison Test}
+We compare with the convergent series $\sum_{k=1}^{\infty} \frac{1}{k^2}$ (p-series with $p = 2 > 1$).
+
+For $k \geq 1$: $k^2 + k > k^2$, therefore:
+$$\frac{1}{k^2 + k} < \frac{1}{k^2}$$
+
+Since $\sum_{k=1}^{\infty} \frac{1}{k^2}$ converges and $0 < \frac{1}{k^2 + k} < \frac{1}{k^2}$ for all $k \geq 1$, by the Direct Comparison Test, the series $\sum_{k=1}^{\infty} \frac{1}{k^2 + k}$ converges.
+
+\textbf{Alternative approach:} We could also use partial fractions: $\frac{1}{k^2 + k} = \frac{1}{k(k+1)} = \frac{1}{k} - \frac{1}{k+1}$, giving a telescoping series with sum 1.
+\end{solution}
+
+\end{document}

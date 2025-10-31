@@ -1,0 +1,309 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 6}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\C}{\mathbb{C}}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\subsection*{(a)}
+
+\textbf{Series:} $\sum_{k=0}^{\infty} \frac{(-1)^k}{2^k}$
+
+\begin{solution}
+We apply the Leibniz criterion (alternating series test) to show convergence.
+
+The series has the form $\sum_{k=0}^{\infty} (-1)^k a_k$ where $a_k = \frac{1}{2^k}$.
+
+We need to verify three conditions:
+
+\textbf{1. Alternating signs:} The factor $(-1)^k$ ensures alternating signs.  
+
+\textbf{2. Terms decreasing in absolute value:} We have $|a_k| = \frac{1}{2^k}$.
+For $k \geq 0$: $|a_{k+1}| = \frac{1}{2^{k+1}} = \frac{1}{2} \cdot \frac{1}{2^k} = \frac{1}{2} |a_k| < |a_k|$
+
+Therefore $\{|a_k|\}$ is monotone decreasing.  
+
+\textbf{3. Terms approach zero:} $\lim_{k \to \infty} |a_k| = \lim_{k \to \infty} \frac{1}{2^k} = 0$  
+
+Since all three conditions of the Leibniz criterion are satisfied, the series $\sum_{k=0}^{\infty} \frac{(-1)^k}{2^k}$ converges.
+
+\end{solution}
+
+\subsection*{(b)}
+
+\textbf{Series:} $\sum_{k=1}^{\infty} \frac{1}{4k^2 - 1}$
+
+\begin{solution}
+We use the Direct Comparison Test to show convergence.
+
+\textbf{Step 1: Choose comparison series}
+We know that $\sum_{k=1}^{\infty} \frac{1}{k^2}$ converges (p-series with $p = 2 > 1$).
+
+We will compare our series with $\sum_{k=1}^{\infty} \frac{1}{3k^2}$, which also converges since it equals $\frac{1}{3}\sum_{k=1}^{\infty} \frac{1}{k^2}$.
+
+\textbf{Step 2: Establish the inequality}
+For $k \geq 1$, we need to show that $\frac{1}{4k^2-1} \leq \frac{1}{3k^2}$.
+
+This is equivalent to showing $3k^2 \leq 4k^2 - 1$, or $1 \leq k^2$.
+
+Since $k \geq 1$, we have $k^2 \geq 1$, so:
+$$4k^2 - 1 \geq 4k^2 - k^2 = 3k^2$$
+
+Taking reciprocals (and flipping the inequality):
+$$\frac{1}{4k^2-1} \leq \frac{1}{3k^2}$$
+
+\textbf{Step 3: Apply the Direct Comparison Test}
+Since:
+\begin{itemize}
+\item $\sum_{k=1}^{\infty} \frac{1}{3k^2}$ converges, and
+\item $0 < \frac{1}{4k^2-1} \leq \frac{1}{3k^2}$ for all $k \geq 1$
+\end{itemize}
+
+By the Direct Comparison Test (Theorem 3.5.4), the series $\sum_{k=1}^{\infty} \frac{1}{4k^2-1}$ converges.
+\end{solution}
+
+\subsection*{(c)}
+
+\textbf{Series:} $\sum_{k=1}^{\infty} \frac{k^4}{3^k}$
+
+\begin{solution}
+We use the Ratio Test to show convergence. This series has the form of a polynomial in the numerator and an exponential in the denominator, which suggests the Ratio Test.
+
+\textbf{Step 1: Apply the Ratio Test}
+Let $a_k = \frac{k^4}{3^k}$. We compute:
+$$\left|\frac{a_{k+1}}{a_k}\right| = \left|\frac{\frac{(k+1)^4}{3^{k+1}}}{\frac{k^4}{3^k}}\right| = \frac{(k+1)^4}{3^{k+1}} \cdot \frac{3^k}{k^4} = \frac{(k+1)^4}{k^4} \cdot \frac{3^k}{3^{k+1}} = \frac{(k+1)^4}{k^4} \cdot \frac{1}{3}$$
+
+\textbf{Step 2: Simplify the ratio}
+$$\left|\frac{a_{k+1}}{a_k}\right| = \frac{1}{3} \cdot \left(\frac{k+1}{k}\right)^4 = \frac{1}{3} \cdot \left(1 + \frac{1}{k}\right)^4$$
+
+\textbf{Step 3: Take the limit}
+$$\lim_{k \to \infty} \left|\frac{a_{k+1}}{a_k}\right| = \lim_{k \to \infty} \frac{1}{3} \cdot \left(1 + \frac{1}{k}\right)^4 = \frac{1}{3} \cdot (1 + 0)^4 = \frac{1}{3}$$
+
+\textbf{Step 4: Apply the Ratio Test criterion}
+Since $\lim_{k \to \infty} \left|\frac{a_{k+1}}{a_k}\right| = \frac{1}{3} < 1$, the series $\sum_{k=1}^{\infty} \frac{k^4}{3^k}$ converges.
+
+\end{solution}
+
+\subsection*{(d)}
+
+\textbf{Series:} $\sum_{k=1}^{\infty} \frac{k!}{k^k}$
+
+\begin{solution}
+We use the Ratio Test to show convergence. This series involves factorials, which makes the Ratio Test a natural choice.
+
+\textbf{Step 1: Set up the ratio}
+Let $a_k = \frac{k!}{k^k}$. We compute:
+$$\left|\frac{a_{k+1}}{a_k}\right| = \frac{\frac{(k+1)!}{(k+1)^{k+1}}}{\frac{k!}{k^k}} = \frac{(k+1)! \cdot k^k}{k! \cdot (k+1)^{k+1}}$$
+
+\textbf{Step 2: Simplify using factorial properties}
+Since $(k+1)! = (k+1) \cdot k!$:
+$$\frac{(k+1)! \cdot k^k}{k! \cdot (k+1)^{k+1}} = \frac{(k+1) \cdot k! \cdot k^k}{k! \cdot (k+1)^{k+1}} = \frac{(k+1) \cdot k^k}{(k+1)^{k+1}}$$
+
+\textbf{Step 3: Simplify the powers}
+Since $(k+1)^{k+1} = (k+1) \cdot (k+1)^k$:
+$$\frac{(k+1) \cdot k^k}{(k+1)^{k+1}} = \frac{(k+1) \cdot k^k}{(k+1) \cdot (k+1)^k} = \frac{k^k}{(k+1)^k} = \left(\frac{k}{k+1}\right)^k$$
+
+\textbf{Step 4: Rewrite for limit calculation}
+$$\left(\frac{k}{k+1}\right)^k = \left(\frac{1}{1 + \frac{1}{k}}\right)^k = \frac{1}{\left(1 + \frac{1}{k}\right)^k}$$
+
+\textbf{Step 5: Take the limit}
+Using the fundamental limit $\lim_{k \to \infty} \left(1 + \frac{1}{k}\right)^k = e$:
+$$\lim_{k \to \infty} \left|\frac{a_{k+1}}{a_k}\right| = \lim_{k \to \infty} \frac{1}{\left(1 + \frac{1}{k}\right)^k} = \frac{1}{e}$$
+
+\textbf{Step 6: Apply the Ratio Test criterion}
+Since $\lim_{k \to \infty} \left|\frac{a_{k+1}}{a_k}\right| = \frac{1}{e} \approx 0.368 < 1$, the series $\sum_{k=1}^{\infty} \frac{k!}{k^k}$ converges.
+
+\end{solution}
+
+\section*{2}
+
+\subsection*{(a)}
+
+\textbf{Problem:} Let $(a_n)_{n \in \mathbb{N}}$ be a sequence and $(a_{n_k})_{k \in \mathbb{N}}$ be a subsequence. Show by counterexample: If $\sum_{n \in \mathbb{N}} a_n$ converges, it does not generally follow that $\sum_{k \in \mathbb{N}} a_{n_k}$ converges.
+
+\begin{solution}
+We construct a counterexample using the alternating harmonic series.
+
+\textbf{Step 1: Define the sequence}
+Consider the alternating harmonic series:
+$$\sum_{n=1}^{\infty} a_n = \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \frac{1}{5} - \frac{1}{6} + \cdots$$
+
+This series converges by the Leibniz criterion (alternating series test):
+\begin{itemize}
+\item Terms alternate in sign: $(-1)^{n+1}$
+\item $\frac{1}{n} \to 0$ as $n \to \infty$
+\item $\frac{1}{n+1} < \frac{1}{n}$ (decreasing)
+\end{itemize}
+
+\textbf{Step 2: Choose an appropriate subsequence}
+Define the subsequence by taking only the positive terms:
+$$n_k = 2k-1 \text{ for } k = 1, 2, 3, \ldots$$
+
+This gives us $n_1 = 1, n_2 = 3, n_3 = 5, n_4 = 7, \ldots$ (all odd indices).
+
+\textbf{Step 3: Examine the subsequence series}
+The corresponding subsequence series is:
+$$\sum_{k=1}^{\infty} a_{n_k} = \sum_{k=1}^{\infty} a_{2k-1} = \sum_{k=1}^{\infty} \frac{(-1)^{2k}}{2k-1} = \sum_{k=1}^{\infty} \frac{1}{2k-1}$$
+
+This becomes:
+$$\frac{1}{1} + \frac{1}{3} + \frac{1}{5} + \frac{1}{7} + \frac{1}{9} + \cdots$$
+
+\textbf{Step 4: Show the subsequence series diverges}
+This is the series of reciprocals of odd numbers. We can show it diverges by comparison with the harmonic series:
+
+Since $\frac{1}{2k-1} > \frac{1}{2k}$ for all $k \geq 1$, we have:
+$$\sum_{k=1}^{\infty} \frac{1}{2k-1} > \sum_{k=1}^{\infty} \frac{1}{2k} = \frac{1}{2} \sum_{k=1}^{\infty} \frac{1}{k}$$
+
+Since $\sum_{k=1}^{\infty} \frac{1}{k}$ diverges (harmonic series), the series $\sum_{k=1}^{\infty} \frac{1}{2k-1}$ also diverges.
+
+\textbf{Conclusion:}
+We have shown that:
+\begin{itemize}
+\item $\sum_{n=1}^{\infty} a_n = \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}$ converges
+\item $\sum_{k=1}^{\infty} a_{n_k} = \sum_{k=1}^{\infty} \frac{1}{2k-1}$ diverges
+\end{itemize}
+
+Therefore, convergence of the original series does not imply convergence of every subsequence series.
+\end{solution}
+
+\subsection*{(b)}
+
+\textbf{Problem:} Prove: If $\sum_{n \in \mathbb{N}} a_n$ converges absolutely, then $\sum_{k \in \mathbb{N}} a_{n_k}$ also converges absolutely.
+
+\begin{solution}
+We prove this using the Monotone Bounded Theorem (Satz 3.2.2).
+
+\textbf{Given:} $\sum_{n=1}^{\infty} a_n$ converges absolutely, so $\sum_{n=1}^{\infty} |a_n|$ converges.
+
+\textbf{To prove:} $\sum_{k=1}^{\infty} a_{n_k}$ converges absolutely, i.e., $\sum_{k=1}^{\infty} |a_{n_k}|$ converges.
+
+\textbf{Step 1: Define partial sums}
+Let $S_N = \sum_{n=1}^{N} |a_n|$ and $T_K = \sum_{k=1}^{K} |a_{n_k}|$
+
+Since $\sum_{n=1}^{\infty} |a_n|$ converges, we have $\lim_{N \to \infty} S_N = S < \infty$.
+
+\textbf{Step 2: Show $(T_K)$ is bounded above}
+Since $(n_k)$ is a strictly increasing subsequence with $n_1 < n_2 < n_3 < \cdots$, each term $|a_{n_k}|$ appears in the partial sum $S_{n_K}$ of the absolutely convergent series.
+
+Therefore:
+$$T_K = |a_{n_1}| + |a_{n_2}| + \cdots + |a_{n_K}| \leq S_{n_K} \leq S < \infty$$
+
+So the sequence $(T_K)$ is bounded above by $S$.
+
+\textbf{Step 3: Show $(T_K)$ is monotone increasing}
+Since all terms $|a_{n_k}| \geq 0$:
+$$T_{K+1} = T_K + |a_{n_{K+1}}| \geq T_K$$
+
+Therefore $(T_K)$ is monotone increasing.
+
+\textbf{Step 4: Apply the Monotone Bounded Theorem}
+Since $(T_K)$ is monotone increasing and bounded above, it converges:
+$$\lim_{K \to \infty} T_K = \lim_{K \to \infty} \sum_{k=1}^{K} |a_{n_k}| \text{ exists and is finite}$$
+
+This means $\sum_{k=1}^{\infty} |a_{n_k}|$ converges.
+
+\textbf{Step 5: Conclude absolute convergence}
+Since $\sum_{k=1}^{\infty} |a_{n_k}|$ converges, the series $\sum_{k=1}^{\infty} a_{n_k}$ converges absolutely.
+
+\end{solution}
+
+\subsection*{(c)}
+
+\textbf{Task:} Using part (b), compute the sum of the series in Problem 1(a):
+$$\sum_{k=0}^{\infty} \frac{(-1)^k}{2^k}.$$
+
+\begin{solution}
+By part (b), if a series is absolutely convergent, then any subsequence series is also absolutely convergent and we may split the series into disjoint subsequences and sum them. Since
+$$\sum_{k=0}^{\infty} \left|\frac{(-1)^k}{2^k}\right| = \sum_{k=0}^{\infty} \frac{1}{2^k} $$
+converges, the original series is absolutely convergent. Split it into the even and the odd subsequences:
+\[
+\sum_{k=0}^{\infty} \frac{(-1)^k}{2^k}
+= \sum_{m=0}^{\infty} \frac{1}{2^{2m}} \; + \; \sum_{m=0}^{\infty} \frac{(-1)}{2^{2m+1}}.
+\]
+Both sums are geometric:
+\[
+\sum_{m=0}^{\infty} \frac{1}{2^{2m}} = \sum_{m=0}^{\infty} \left(\frac{1}{4}\right)^m = \frac{1}{1-\frac{1}{4}} = \frac{4}{3},\qquad
+\sum_{m=0}^{\infty} \frac{(-1)}{2^{2m+1}} = -\frac{1}{2} \sum_{m=0}^{\infty} \left(\frac{1}{4}\right)^m = -\frac{1}{2}\cdot \frac{1}{1-\frac{1}{4}} = -\frac{2}{3}.
+\]
+Adding the two convergent subsequence sums yields
+\[
+\sum_{k=0}^{\infty} \frac{(-1)^k}{2^k} = \frac{4}{3} - \frac{2}{3} = \frac{2}{3}.
+\]
+\end{solution}
+
+\section*{3}
+
+\textbf{Problem:} Let $(x_n)_{n\in\mathbb{N}}$ be a real sequence with $L := \limsup_{n\to\infty} x_n > -\infty$. Show that for every $\varepsilon>0$ there are at most finitely many indices $k$ such that
+$$x_k \ge L + \varepsilon.$$
+
+\begin{solution}
+
+\textbf{Solution via tail suprema.}
+Recall that $\displaystyle L = \lim_{n\to\infty} s_n$ where $s_n := \sup_{k\ge n} x_k$ and that $(s_n)$ is decreasing. Fix $\varepsilon>0$ and set $\delta := \varepsilon/2$. Since $s_n\to L$, there exists $N$ such that for all $n\ge N$ we have
+$$ s_n < L + \delta = L + \varepsilon/2. $$
+
+Assume by contradiction that there are infinitely many $k$ with $x_k \ge L+\varepsilon$. Then we can choose some $k\ge N$ with this property. But for any $k\ge N$ we also have
+$$ x_k \le s_k \le s_N < L + \varepsilon/2, $$
+which contradicts $x_k \ge L+\varepsilon$. Hence only finitely many indices can satisfy $x_k \ge L+\varepsilon$.
+
+\end{solution}
+
+\section*{4}
+
+\textbf{Problem:} Let $(a_n)_{n\in\mathbb{N}}$ be a sequence of nonnegative real numbers with $\sum_{n=1}^{\infty} a_n < \infty$. Show that the series
+$$\sum_{n=1}^{\infty} \frac{\sqrt{a_n}}{n}$$
+converges.
+
+\begin{solution}
+Set $x_n := \sqrt{a_n}$ and $y_n := \frac{1}{n}$. By the Cauchy--Schwarz inequality for series,
+\[
+\sum_{n=1}^{\infty} x_n y_n \;\le\; \Big(\sum_{n=1}^{\infty} x_n^2\Big)^{\!1/2} \; \Big(\sum_{n=1}^{\infty} y_n^2\Big)^{\!1/2}.
+\]
+Since $x_n^2 = a_n$ and $y_n^2 = 1/n^2$, we obtain
+\[
+\sum_{n=1}^{\infty} \frac{\sqrt{a_n}}{n} \;\le\; \Big(\sum_{n=1}^{\infty} a_n\Big)^{\!1/2}\; \Big(\sum_{n=1}^{\infty} \frac{1}{n^2}\Big)^{\!1/2} < \infty,
+\]
+because $\sum a_n$ converges by assumption and $\sum 1/n^2$ converges (p-series with $p=2$). Hence $\sum_{n=1}^{\infty} \frac{\sqrt{a_n}}{n}$ converges absolutely.
+
+\end{solution}
+
+\end{document}
