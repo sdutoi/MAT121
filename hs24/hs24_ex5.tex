@@ -1,0 +1,439 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 5}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+
+\textbf{Problem:} Given: $a_n \to a$ (where $a > 0$) and $p \in \mathbb{N}$
+Prove: $\sqrt[p]{a_n} \to \sqrt[p]{a}$
+
+\textbf{Solution using the hint from Problem 4(a):}
+
+\textbf{Hint:} For all $x, y \in \mathbb{R}$ and $n \in \mathbb{N}$:
+$$x^n - y^n = (x - y) \cdot \left(\sum_{i=0}^{n-1} x^{n-1-i}y^i\right)$$
+
+\textbf{Step 1: Set up the problem}
+
+Let $x = \sqrt[p]{a_n}$ and $y = \sqrt[p]{a}$. We want to show that $|\sqrt[p]{a_n} - \sqrt[p]{a}| \to 0$ as $n \to \infty$.
+
+\textbf{Step 2: Apply the hint}
+
+Using the hint with $n = p$:
+$$(\sqrt[p]{a_n})^p - (\sqrt[p]{a})^p = (\sqrt[p]{a_n} - \sqrt[p]{a}) \cdot \left(\sum_{i=0}^{p-1} (\sqrt[p]{a_n})^{p-1-i}(\sqrt[p]{a})^i\right)$$
+
+Since $(\sqrt[p]{a_n})^p = a_n$ and $(\sqrt[p]{a})^p = a$:
+$$a_n - a = (\sqrt[p]{a_n} - \sqrt[p]{a}) \cdot \left(\sum_{i=0}^{p-1} (\sqrt[p]{a_n})^{p-1-i}(\sqrt[p]{a})^i\right)$$
+
+\textbf{Step 3: Solve for the difference}
+
+Rearranging:
+$$\sqrt[p]{a_n} - \sqrt[p]{a} = \frac{a_n - a}{\sum_{i=0}^{p-1} (\sqrt[p]{a_n})^{p-1-i}(\sqrt[p]{a})^i}$$
+
+\textbf{Step 4: Bound the denominator}
+
+Since $a_n \to a$ and $a > 0$, for sufficiently large $n$, we have $a_n$ bounded away from 0. 
+Specifically, for large enough $n$: $\frac{a}{2} < a_n < \frac{3a}{2}$.
+
+Taking $p$-th roots: $\sqrt[p]{\frac{a}{2}} < \sqrt[p]{a_n} < \sqrt[p]{\frac{3a}{2}}$.
+
+Since $\sqrt[p]{a} > 0$, each term in the sum $\sum_{i=0}^{p-1} (\sqrt[p]{a_n})^{p-1-i}(\sqrt[p]{a})^i$ is bounded below by a positive constant.
+
+The smallest possible value occurs when $\sqrt[p]{a_n} = \sqrt[p]{\frac{a}{2}}$:
+$$\sum_{i=0}^{p-1} (\sqrt[p]{a_n})^{p-1-i}(\sqrt[p]{a})^i \geq \sum_{i=0}^{p-1} \left(\sqrt[p]{\frac{a}{2}}\right)^{p-1-i}(\sqrt[p]{a})^i = C > 0$$
+
+where $C$ is a positive constant independent of $n$.
+
+\textbf{Step 5: Apply the limit}
+
+Taking absolute values:
+$$|\sqrt[p]{a_n} - \sqrt[p]{a}| = \frac{|a_n - a|}{\left|\sum_{i=0}^{p-1} (\sqrt[p]{a_n})^{p-1-i}(\sqrt[p]{a})^i\right|} \leq \frac{|a_n - a|}{C}$$
+
+Since $a_n \to a$, we have $|a_n - a| \to 0$.
+
+Therefore: $|\sqrt[p]{a_n} - \sqrt[p]{a}| \leq \frac{|a_n - a|}{C} \to \frac{0}{C} = 0$
+
+This proves $\sqrt[p]{a_n} \to \sqrt[p]{a}$.
+
+\textbf{Key Insight:} The factorization formula from the hint allows us to express the difference of $p$-th roots in terms of the difference of the original sequences, transforming the problem from dealing with roots to dealing with the convergent sequence $a_n \to a$.
+
+\section*{2}
+\subsection*{(a)}
+\textbf{Problem:} Calculate $\lim_{n \to \infty} \frac{2n^2 + (-1)^n}{11n^2 + 3n + 1}$
+
+\textbf{Solution:}
+
+\textbf{Step 1: Analyze the oscillating term}
+
+The term $(-1)^n$ oscillates between $-1$ and $+1$:
+\begin{itemize}
+\item When $n$ is even: $(-1)^n = 1$
+\item When $n$ is odd: $(-1)^n = -1$
+\end{itemize}
+
+So the numerator becomes $2n^2 + 1$ or $2n^2 - 1$ depending on $n$.
+
+\textbf{Step 2: Factor out the highest power}
+
+Since we're looking at the limit as $n \to \infty$, we factor out $n^2$ from both numerator and denominator:
+
+\textbf{Numerator:} $2n^2 + (-1)^n = n^2\left(2 + \frac{(-1)^n}{n^2}\right)$
+
+\textbf{Denominator:} $11n^2 + 3n + 1 = n^2\left(11 + \frac{3}{n} + \frac{1}{n^2}\right)$
+
+\textbf{Step 3: Simplify the fraction}
+
+$$\lim_{n \to \infty} \frac{2n^2 + (-1)^n}{11n^2 + 3n + 1} = \lim_{n \to \infty} \frac{n^2\left(2 + \frac{(-1)^n}{n^2}\right)}{n^2\left(11 + \frac{3}{n} + \frac{1}{n^2}\right)}$$
+
+Cancel $n^2$:
+$$= \lim_{n \to \infty} \frac{2 + \frac{(-1)^n}{n^2}}{11 + \frac{3}{n} + \frac{1}{n^2}}$$
+
+\textbf{Step 4: Evaluate the limit of each term}
+
+As $n \to \infty$:
+\begin{itemize}
+\item $\frac{(-1)^n}{n^2} \to 0$ (since $\left|\frac{(-1)^n}{n^2}\right| = \frac{1}{n^2} \to 0$)
+\item $\frac{3}{n} \to 0$
+\item $\frac{1}{n^2} \to 0$
+\end{itemize}
+
+\textbf{Step 5: Apply the limit}
+
+$$\lim_{n \to \infty} \frac{2 + \frac{(-1)^n}{n^2}}{11 + \frac{3}{n} + \frac{1}{n^2}} = \frac{2 + 0}{11 + 0 + 0} = \frac{2}{11}$$
+
+\textbf{Answer:} $\boxed{\frac{2}{11}}$
+
+%%%
+
+\subsection*{(b)}
+\textbf{Problem:} Calculate $\lim_{n \to \infty} \frac{a^n + 3b^n}{2a^n + 5b^n}$ (for $a, b > 0$)
+
+\textbf{Solution:}
+
+Since we are given that $a, b > 0$ but their relationship is not specified, we must consider all possible cases.
+
+\textbf{Case 1: $a > b$}
+
+When $a > b > 0$, we have $\frac{b}{a} < 1$, so $\left(\frac{b}{a}\right)^n \to 0$ as $n \to \infty$.
+
+Factor out $a^n$ from both numerator and denominator:
+$$\frac{a^n + 3b^n}{2a^n + 5b^n} = \frac{a^n\left(1 + 3\left(\frac{b}{a}\right)^n\right)}{a^n\left(2 + 5\left(\frac{b}{a}\right)^n\right)} = \frac{1 + 3\left(\frac{b}{a}\right)^n}{2 + 5\left(\frac{b}{a}\right)^n}$$
+
+Taking the limit:
+$$\lim_{n \to \infty} \frac{1 + 3\left(\frac{b}{a}\right)^n}{2 + 5\left(\frac{b}{a}\right)^n} = \frac{1 + 3 \cdot 0}{2 + 5 \cdot 0} = \frac{1}{2}$$
+
+\textbf{Case 2: $b > a$}
+
+When $b > a > 0$, we have $\frac{a}{b} < 1$, so $\left(\frac{a}{b}\right)^n \to 0$ as $n \to \infty$.
+
+Factor out $b^n$ from both numerator and denominator:
+$$\frac{a^n + 3b^n}{2a^n + 5b^n} = \frac{b^n\left(\left(\frac{a}{b}\right)^n + 3\right)}{b^n\left(2\left(\frac{a}{b}\right)^n + 5\right)} = \frac{\left(\frac{a}{b}\right)^n + 3}{2\left(\frac{a}{b}\right)^n + 5}$$
+
+Taking the limit:
+$$\lim_{n \to \infty} \frac{\left(\frac{a}{b}\right)^n + 3}{2\left(\frac{a}{b}\right)^n + 5} = \frac{0 + 3}{2 \cdot 0 + 5} = \frac{3}{5}$$
+
+\textbf{Case 3: $a = b$}
+
+When $a = b$, we have:
+$$\frac{a^n + 3a^n}{2a^n + 5a^n} = \frac{4a^n}{7a^n} = \frac{4}{7}$$
+
+Therefore:
+$$\lim_{n \to \infty} \frac{4a^n}{7a^n} = \frac{4}{7}$$
+
+\textbf{Final Answer:}
+
+$$\lim_{n \to \infty} \frac{a^n + 3b^n}{2a^n + 5b^n} = \begin{cases}
+\frac{1}{2} & \text{if } a > b \\
+\frac{3}{5} & \text{if } b > a \\
+\frac{4}{7} & \text{if } a = b
+\end{cases}$$
+
+%%%%
+
+\subsection*{(c)}
+\textbf{Problem:} Calculate $\lim_{n \to \infty} n\left(\sqrt{4n^2 + 1} - 2n\right)$
+
+\textbf{Hint:} $x^2 - y^2 = (x - y)(x + y)$
+
+\textbf{Solution:}
+
+\textbf{Step 1: Identify the problem}
+
+As $n \to \infty$, we have:
+\begin{itemize}
+\item $n \to \infty$
+\item $\sqrt{4n^2 + 1} - 2n \to \infty - \infty$ (indeterminate form)
+\end{itemize}
+
+This gives us the indeterminate form $\infty \cdot (\infty - \infty)$, which we cannot evaluate directly.
+
+\textbf{Step 2: Apply conjugate multiplication}
+
+Multiply and divide by the conjugate of $(\sqrt{4n^2 + 1} - 2n)$:
+
+$$n\left(\sqrt{4n^2 + 1} - 2n\right) = n\left(\sqrt{4n^2 + 1} - 2n\right) \cdot \frac{\sqrt{4n^2 + 1} + 2n}{\sqrt{4n^2 + 1} + 2n}$$
+
+\textbf{Step 3: Apply the difference of squares formula}
+
+Using the hint $x^2 - y^2 = (x - y)(x + y)$ with $x = \sqrt{4n^2 + 1}$ and $y = 2n$:
+
+$$(\sqrt{4n^2 + 1} - 2n)(\sqrt{4n^2 + 1} + 2n) = (\sqrt{4n^2 + 1})^2 - (2n)^2$$
+
+$$= (4n^2 + 1) - 4n^2 = 1$$
+
+\textbf{Step 4: Simplify the expression}
+
+$$n\left(\sqrt{4n^2 + 1} - 2n\right) = n \cdot \frac{1}{\sqrt{4n^2 + 1} + 2n} = \frac{n}{\sqrt{4n^2 + 1} + 2n}$$
+
+\textbf{Step 5: Factor out $n$ from the denominator}
+
+$$\sqrt{4n^2 + 1} = \sqrt{n^2(4 + \frac{1}{n^2})} = n\sqrt{4 + \frac{1}{n^2}}$$
+
+Therefore:
+$$\frac{n}{\sqrt{4n^2 + 1} + 2n} = \frac{n}{n\sqrt{4 + \frac{1}{n^2}} + 2n} = \frac{n}{n\left(\sqrt{4 + \frac{1}{n^2}} + 2\right)}$$
+
+Cancel $n$:
+$$= \frac{1}{\sqrt{4 + \frac{1}{n^2}} + 2}$$
+
+\textbf{Step 6: Evaluate the limit}
+
+As $n \to \infty$:
+$$\frac{1}{n^2} \to 0$$
+
+Therefore:
+$$\lim_{n \to \infty} \frac{1}{\sqrt{4 + \frac{1}{n^2}} + 2} = \frac{1}{\sqrt{4 + 0} + 2} = \frac{1}{\sqrt{4} + 2} = \frac{1}{2 + 2} = \frac{1}{4}$$
+
+\textbf{Answer:} $\boxed{\frac{1}{4}}$
+
+%%%%
+
+\subsection*{(d)}
+\textbf{Problem:} Calculate $\lim_{n \to \infty} \left(\frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \cdots + \frac{1}{(n-1) \cdot n}\right)$
+
+\textbf{Hint:} $\frac{1}{k(k+1)} = \frac{1}{k} - \frac{1}{k+1}$
+
+\textbf{Solution:}
+
+\textbf{Step 1: Apply the hint to each term}
+
+Using the given identity $\frac{1}{k(k+1)} = \frac{1}{k} - \frac{1}{k+1}$, we can rewrite each term:
+
+\begin{align}
+\frac{1}{1 \cdot 2} &= \frac{1}{1} - \frac{1}{2}\\
+\frac{1}{2 \cdot 3} &= \frac{1}{2} - \frac{1}{3}\\
+\frac{1}{3 \cdot 4} &= \frac{1}{3} - \frac{1}{4}\\
+&\vdots\\
+\frac{1}{(n-1) \cdot n} &= \frac{1}{n-1} - \frac{1}{n}
+\end{align}
+
+\textbf{Step 2: Write out the sum}
+
+$$\sum_{k=1}^{n-1} \frac{1}{k(k+1)} = \sum_{k=1}^{n-1} \left(\frac{1}{k} - \frac{1}{k+1}\right)$$
+
+Expanding this sum:
+$$= \left(\frac{1}{1} - \frac{1}{2}\right) + \left(\frac{1}{2} - \frac{1}{3}\right) + \left(\frac{1}{3} - \frac{1}{4}\right) + \cdots + \left(\frac{1}{n-1} - \frac{1}{n}\right)$$
+
+\textbf{Step 3: Observe the telescoping pattern}
+
+When we expand the sum, most terms cancel:
+$$= \frac{1}{1} - \frac{1}{2} + \frac{1}{2} - \frac{1}{3} + \frac{1}{3} - \frac{1}{4} + \cdots + \frac{1}{n-1} - \frac{1}{n}$$
+
+The cancellation pattern:
+\begin{itemize}
+\item $-\frac{1}{2}$ from the first term cancels with $+\frac{1}{2}$ from the second term
+\item $-\frac{1}{3}$ from the second term cancels with $+\frac{1}{3}$ from the third term
+\item And so on...
+\end{itemize}
+
+\textbf{Step 4: Simplify after cancellation}
+
+After all the intermediate terms cancel, only the first and last terms remain:
+$$= \frac{1}{1} - \frac{1}{n} = 1 - \frac{1}{n}$$
+
+\textbf{Step 5: Take the limit}
+
+$$\lim_{n \to \infty} \left(1 - \frac{1}{n}\right) = 1 - \lim_{n \to \infty} \frac{1}{n} = 1 - 0 = 1$$
+
+\textbf{Answer:} $\boxed{1}$
+
+\textbf{Key Insight:} The partial fraction decomposition transforms the sum into a telescoping series where consecutive terms cancel, leaving only the boundary terms. This technique is powerful for evaluating sums involving products in denominators.
+
+%%%%%
+
+\section*{3}
+\subsection*{(a)}
+
+\begin{enumerate}
+    \item Let 
+    \[
+        A_n = \frac{1}{n}(a_1 + \cdots + a_n).
+    \]
+    \begin{enumerate}
+        \item Show that if $a_n \to a$, then also $A_n \to a$. \\
+        Hint: the sequence $(a_n)$ is bounded.
+    \end{enumerate}
+\end{enumerate}
+
+Let \(A_n=\frac{1}{n}\sum_{k=1}^n a_k\). Assume \(a_n \to a\). Set \(b_k:=a_k-a\). Then \(b_k \to 0\) and, by convergence, \((b_k)\) is bounded: there exists \(M>0\) with \(|b_k|\le M\) for all \(k\).
+
+Fix \(\varepsilon>0\). Choose \(m\) such that \(|b_k|<\varepsilon/2\) for all \(k\ge m+1\). For any \(n\ge m\),
+\[
+|A_n-a|
+= \left|\frac{1}{n}\sum_{k=1}^n b_k\right|
+\le \frac{1}{n}\sum_{k=1}^m |b_k| + \frac{1}{n}\sum_{k=m+1}^n |b_k|
+\le \frac{S_m}{n} + \frac{n-m}{n}\cdot \frac{\varepsilon}{2}
+\le \frac{S_m}{n} + \frac{\varepsilon}{2},
+\]
+where \(S_m:=\sum_{k=1}^m |b_k|\) is a fixed finite number (finite sum of bounded terms).
+
+Pick \(N \ge \max\{m,\, 2S_m/\varepsilon\}\). Then for all \(n\ge N\),
+\[
+|A_n-a| \le \frac{S_m}{n} + \frac{\varepsilon}{2} \le \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+\]
+Hence \(A_n \to a\).
+
+\emph{Use of the hint.} We used that \((a_n)\) (hence \((b_k)\)) is bounded to ensure \(S_m\) is finite and to control the initial finite block.
+
+\subsection*{(b)}
+\begin{enumerate}
+  \item Does the converse hold as well (i.e.\ $A_n \to a \implies a_n \to a$)?
+\end{enumerate}
+
+The converse is false in general. Let $a_n = (-1)^n$. Then
+\[
+A_n \;=\; \frac{1}{n}\sum_{k=1}^n (-1)^k
+\;=\;
+\begin{cases}
+0, & \text{if $n$ is even},\\[2pt]
+-\,\frac{1}{n}, & \text{if $n$ is odd}.
+\end{cases}
+\]
+Hence $A_n \to 0$ while $(a_n)$ does not converge, so $A_n \to a$ does not imply $a_n \to a$.
+
+\textit{Remark.} With extra assumptions (e.g., $(a_n)$ monotone), convergence of $(A_n)$ forces $(a_n)$ to converge to the same limit.
+
+
+%%%%%
+
+\section*{4}
+Let $a_n=\dfrac{10^n}{n!}$.
+
+\textbf{Key ratio (with full cancellation).} For all $n\ge 1$,
+\[
+\frac{a_{n+1}}{a_n}
+=\frac{\dfrac{10^{\,n+1}}{(n+1)!}}{\dfrac{10^{\,n}}{n!}}
+=\frac{10^{\,n+1}}{(n+1)!}\cdot\frac{n!}{10^{\,n}}
+=\frac{10^{\,n+1}}{10^{\,n}}\cdot\frac{n!}{(n+1)\,n!}
+=10\cdot\frac{1}{n+1}
+=\frac{10}{n+1}.
+\]
+
+\textbf{Eventually decreasing.} Since $\frac{10}{n+1}<1$ for all $n\ge 10$, we have $a_{n+1}<a_n$ for $n\ge 10$.
+
+\textbf{Bounded.} The sequence is positive. Let $M:=\max\{a_1,\dots,a_{10}\}$. For $n\ge 10$, $a_n\le a_{10}\le M$ by monotonicity; for $1\le n\le 10$, $a_n\le M$ by definition. Hence $(a_n)$ is bounded.
+
+\textbf{Limit is $0$ (geometric comparison explained).} Choose $N=19$. Then for all $n\ge N$,
+\[
+\frac{a_{n+1}}{a_n}=\frac{10}{n+1}\le \frac12
+\quad\Longrightarrow\quad
+a_{n+1}\le \frac12\,a_n.
+\]
+Iterating gives
+\[
+a_{N+1}\le \tfrac12 a_N,\quad
+a_{N+2}\le \tfrac12 a_{N+1}\le \big(\tfrac12\big)^2 a_N,\ \ldots,\
+a_{N+k}\le \big(\tfrac12\big)^k a_N\quad(k\ge 0).
+\]
+Thus $(a_{N+k})$ is dominated by the geometric sequence $a_N\big(\tfrac12\big)^k$ with ratio $r=\tfrac12$.
+
+\emph{Why this implies $a_n\to 0$.} For $0<r<1$, the geometric series $\sum_{k=0}^{\infty} r^k$ converges (its sum is $1/(1-r)$), and a necessary condition for convergence of any series is that its terms tend to $0$. Hence $r^k\to 0$, so in particular $\big(\tfrac12\big)^k\to 0$. By the comparison above,
+\[
+0\le a_{N+k}\le a_N\big(\tfrac12\big)^k\to 0,
+\]
+which forces $a_{N+k}\to 0$, and therefore $a_n\to 0$.
+
+\textit{Conclusion.} $(a_n)$ is bounded, strictly decreasing for all $n\ge 10$, and $\lim_{n\to\infty} a_n=0$.
+
+
+%%%%%%%
+
+\section*{5}
+\subsection*{(a)}
+Let $(a_n)$ and $(b_n)$ be sequences with $a_n>0$ and $b_n>0$. Set
+\[
+\alpha:=\limsup_{n\to\infty} a_n,\qquad
+\beta :=\limsup_{n\to\infty} b_n \quad (\in[0,\infty]).
+\]
+If $\alpha=\infty$ or $\beta=\infty$, then the right-hand side is $\infty$ and the inequality is trivial. Hence assume $\alpha,\beta<\infty$.
+
+Define the tail sups
+\[
+s_n:=\sup_{k\ge n} a_k,\qquad t_n:=\sup_{k\ge n} b_k,\qquad
+u_n:=\sup_{k\ge n}(a_k b_k).
+\]
+Standard facts about the limsup give
+\[
+s_n\searrow \alpha,\qquad t_n\searrow \beta,\qquad
+\limsup_{n\to\infty}(a_n b_n)=\lim_{n\to\infty} u_n.
+\]
+By positivity, for every $k\ge n$,
+\[
+a_k b_k \le \big(\sup_{j\ge n} a_j\big)\big(\sup_{j\ge n} b_j\big)=s_n\,t_n,
+\]
+hence $u_n=\sup_{k\ge n}(a_k b_k)\le s_n t_n$ for all $n$. Taking limits,
+\[
+\limsup_{n\to\infty}(a_n b_n)
+=\lim_{n\to\infty} u_n
+\le \lim_{n\to\infty} (s_n t_n)
+= \big(\lim_{n\to\infty}s_n\big)\big(\lim_{n\to\infty}t_n\big)
+=\alpha\,\beta.
+\]
+Here we used that $(s_n)$ and $(t_n)$ are monotone decreasing and bounded below by $0$, hence converge, and for convergent sequences the limit of the product equals the product of the limits. Therefore,
+\[
+\limsup_{n\to\infty}(a_n b_n)\le \big(\limsup_{n\to\infty} a_n\big)\big(\limsup_{n\to\infty} b_n\big).
+\]
+
+\textit{Remark.} Positivity is used in the estimate $u_n\le s_n t_n$; without $a_n,b_n\ge 0$ this simple supremum bound can fail.
+
+\end{document}

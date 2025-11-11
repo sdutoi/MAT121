@@ -1,0 +1,166 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage[T1]{fontenc} % For better font encoding
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{graphicx} % Images
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Practice Problem: Banach Spaces}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\N}{\mathbb{N}} % Added for convenience
+\newcommand{\R}{\mathbb{R}} % Added for convenience
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+% ----------- Document -----------
+\begin{document}
+
+\begin{exercise}[Practice: The Truncated Harmonic Sequence]
+Let $x$ be the harmonic sequence, $x = (1/m)_{m \ge 1} = (1, 1/2, 1/3, \dots)$.
+We define a sequence of sequences $(a_n)_{n \in \N}$ by truncating $x$.
+For $n \ge 1$, let $a_n$ be the sequence:
+\[
+    a_n := \left(1, \frac{1}{2}, \frac{1}{3}, \dots, \frac{1}{n}, 0, 0, \dots\right)
+\]
+That is, the $m$-th component of $a_n$ is given by:
+\[
+    A_{n,m} := \begin{cases} 1/m, & \text{if } 1 \le m \le n \\ 0, & \text{otherwise} \end{cases}
+\]
+Analyze the sequence $(a_n)_{n \in \N}$ in the spaces $\ell_1$, $\ell_2$, and $\ell_\infty$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Find the component-wise limit $L = (L_m)_{m \ge 1}$, where $L_m = \lim_{n \to \infty} A_{n,m}$.
+    \item Analyze the limit $L$: Does $L \in \ell_1$? Does $L \in \ell_2$? Does $L \in \ell_\infty$?
+    \item Analyze convergence in $\ell_2$:
+    \begin{enumerate}[label=(\roman*)]
+        \item Show that $(a_n)$ is a Cauchy sequence in $(\ell_2, \|\cdot\|_2)$.
+        \item Show that $(a_n)$ converges to $L$ in $(\ell_2, \|\cdot\|_2)$.
+    \end{enumerate}
+    \item Analyze convergence in $\ell_1$: Is $(a_n)$ a Cauchy sequence in $(\ell_1, \|\cdot\|_1)$?
+    \item Analyze convergence in $\ell_\infty$:
+    \begin{enumerate}[label=(\roman*)]
+        \item Is $(a_n)$ a Cauchy sequence in $(\ell_\infty, \|\cdot\|_\infty)$?
+        \item Does $(a_n)$ converge to $L$ in $(\ell_\infty, \|\cdot\|_\infty)$?
+    \end{enumerate}
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Pointwise Limit $L$:}
+    We fix a component $m \ge 1$. For all $n \ge m$, the definition of $A_{n,m}$ is $1/m$.
+    \[
+        L_m = \lim_{n \to \infty} A_{n,m} = \lim_{n \to \infty} \underbrace{A_{n,m}}_{\text{eventually } 1/m} = \frac{1}{m}
+    \]
+    Thus, the component-wise limit is the full harmonic sequence:
+    \[
+        L = \left(1, \frac{1}{2}, \frac{1}{3}, \dots\right)
+    \]
+
+    \item \textbf{Analysis of $L$:}
+    \begin{itemize}
+        \item \textbf{$\ell_1$:} $L \notin \ell_1$. The norm is $\norm{L}_1 = \sum_{m=1}^\infty \frac{1}{m}$, which is the harmonic series and diverges to $\infty$.
+        \item \textbf{$\ell_2$:} $L \in \ell_2$. The norm-squared is $\norm{L}_2^2 = \sum_{m=1}^\infty \frac{1}{m^2}$, which is a convergent p-series ($p=2 > 1$).
+        \item \textbf{$\ell_\infty$:} $L \in \ell_\infty$. The norm is $\norm{L}_\infty = \sup_{m \ge 1} \frac{1}{m} = 1$, which is finite.
+    \end{itemize}
+
+    \item \textbf{Analysis in $\ell_2$:}
+    \begin{enumerate}[label=(\roman*)]
+        \item \textbf{Cauchy in $\ell_2$:} Let $n > k \ge 1$. The difference is:
+        \[
+            a_n - a_k = (0, \dots, 0, \underbrace{\frac{1}{k+1}}_{(k+1)\text{-th}}, \dots, \frac{1}{n}, 0, \dots)
+        \]
+        The squared norm of the difference is:
+        \[
+            \norm{a_n - a_k}_2^2 = \sum_{m=k+1}^n \frac{1}{m^2}
+        \]
+        Since the series $\sum 1/m^2$ converges (part b), its partial sums form a Cauchy sequence. This means for any $\epsilon > 0$, there exists an $N$ such that for $n > k \ge N$, the sum $\sum_{m=k+1}^n \frac{1}{m^2} < \epsilon$.
+        Thus, $\lim_{n,k \to \infty} \norm{a_n - a_k}_2 = 0$. $(a_n)$ is Cauchy.
+        
+        \item \textbf{Convergence in $\ell_2$:} We check the distance to $L$:
+        \[
+            L - a_n = (0, \dots, 0, \underbrace{\frac{1}{n+1}}_{(n+1)\text{-th}}, \frac{1}{n+2}, \dots)
+        \]
+        The squared norm of the difference is:
+        \[
+            \norm{L - a_n}_2^2 = \sum_{m=n+1}^\infty \frac{1}{m^2}
+        \]
+        This is the remainder (tail) of the convergent series $\sum 1/m^2$. For any convergent series, the remainder must go to zero.
+        \[
+            \lim_{n \to \infty} \norm{L - a_n}_2^2 = 0 \implies \lim_{n \to \infty} \norm{L - a_n}_2 = 0
+        \]
+        Thus, $(a_n) \to L$ in $\ell_2$. (This confirms $\ell_2$ is a Banach space, as the Cauchy sequence converges to a limit $L$ that is in $\ell_2$.)
+    \end{enumerate}
+
+    \item \textbf{Analysis in $\ell_1$:}
+    The sequence $(a_n)$ is **not** Cauchy in $\ell_1$.
+    Consider the distance between $a_{2n}$ and $a_n$:
+    \[
+        a_{2n} - a_n = (0, \dots, 0, \frac{1}{n+1}, \dots, \frac{1}{2n}, 0, \dots)
+    \]
+    The $\ell_1$-norm is the sum of these components:
+    \[
+        \norm{a_{2n} - a_n}_1 = \sum_{m=n+1}^{2n} \frac{1}{m} = \frac{1}{n+1} + \frac{1}{n+2} + \dots + \frac{1}{2n}
+    \]
+    This sum contains $n$ terms. The smallest term is $1/(2n)$. We can find a lower bound:
+    \[
+        \norm{a_{2n} - a_n}_1 \ge n \cdot \left( \frac{1}{2n} \right) = \frac{1}{2}
+    \]
+    Since the distance between terms $a_{2n}$ and $a_n$ is always $\ge 1/2$, it cannot go to 0. The sequence is not Cauchy. (This makes sense, as its limit $L$ is not in $\ell_1$.)
+
+    \item \textbf{Analysis in $\ell_\infty$:}
+    \begin{enumerate}[label=(\roman*)]
+        \item \textbf{Cauchy in $\ell_\infty$:} Let $n > k \ge 1$.
+        \[
+            \norm{a_n - a_k}_\infty = \sup_{m \ge 1} |A_{n,m} - A_{k,m}| = \sup \left\{ \frac{1}{k+1}, \dots, \frac{1}{n} \right\}
+        \]
+        This supremum is the largest (first) term: $\frac{1}{k+1}$.
+        \[
+            \lim_{k \to \infty} \norm{a_n - a_k}_\infty = \lim_{k \to \infty} \frac{1}{k+1} = 0
+        \]
+        (Note: the limit is over both $n,k \to \infty$, so $k \to \infty$). Thus, $(a_n)$ is Cauchy.
+
+        \item \textbf{Convergence in $\ell_\infty$:}
+        \[
+            \norm{L - a_n}_\infty = \sup_{m \ge 1} |L_m - A_{n,m}| = \sup \left\{ \frac{1}{n+1}, \frac{1}{n+2}, \dots \right\}
+        \]
+        The supremum is the first term: $\frac{1}{n+1}$.
+        \[
+            \lim_{n \to \infty} \norm{L - a_n}_\infty = \lim_{n \to \infty} \frac{1}{n+1} = 0
+        \]
+        Thus, $(a_n) \to L$ in $\ell_\infty$. (This also confirms $\ell_\infty$ is a Banach space.)
+    \end{enumerate}
+\end{enumerate}
+\end{solution}
+
+\end{document}

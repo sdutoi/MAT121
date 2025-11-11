@@ -1,0 +1,478 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+% This chapter translation: Original German "Stetigkeit" (Continuity)
+% Numbering (Definition/Satz) preserved exactly as in source. Do NOT renumber.
+
+\begin{document}
+
+\section*{4.3 Continuity}
+
+In the following let $(X,\,\|\cdot\|_X)$, $(Y,\,\|\cdot\|_Y)$ and $(Z,\,\|\cdot\|_Z)$ be normed vector spaces.
+
+\paragraph{Definition 4.3.1} Let $D \subset X$ be nonempty and $f : D \to Y$ a function. $f$ is said to be continuous at $x_0 \in D$ if for every $V \in \mathcal U(f(x_0))$ there exists a $U \in \mathcal U(x_0)$ with
+\[
+ f(U \cap D) \subset V.
+\]
+
+$f$ is said to be continuous in $D' \subset D$, $D' \neq \varnothing$, if $f$ is continuous at every point $x \in D'$. If $f$ is continuous in $D$, we simply say $f$ is continuous.
+
+Before we give examples of continuous and non-continuous mappings, we want to state some other equivalent definitions of continuity.
+
+\paragraph{Theorem 4.3.2} Let $f : D \to Y$, $D \subset X$, and $x_0 \in D$. Then the following statements are equivalent:
+\begin{enumerate}[label=({\arabic*})]
+	\item $f$ is continuous at $x_0$.
+	\item $\forall\, \varepsilon > 0\; \exists\, \delta > 0:\; x \in D,\; \|x - x_0\|_X < \delta \implies \|f(x) - f(x_0)\|_Y < \varepsilon.$
+	\item $\forall\,(x_n)_{n\in\mathbb N} \subset D$ with $\lim_{n\to\infty} x_n = x_0$ it holds:
+	\[
+		\lim_{n\to\infty} f(x_n) = f(x_0).
+	\]
+\end{enumerate}
+
+\emph{Proof.}
+\begin{enumerate}[label=\alph*)]
+	\item We show $1 \implies 2$:
+  
+		Let $\varepsilon > 0$ and set $V := B(f(x_0),\varepsilon) \in \mathcal U(f(x_0))$. Then by Def.~4.2.1 there exists $U \in \mathcal U(x_0)$ with
+	\[
+		f(U \cap D) \subset V.
+	\]
+	Since $U$ is open, by Def.~4.2.1 there is a $\delta > 0$ with
+	\[
+		B(x_0,\delta) \subset U.
+	\]
+	Hence
+	\[
+		f\bigl(B(x_0,\delta) \cap D\bigr) \subset f(U \cap D) \subset V
+	\]
+	exists for all $\varepsilon > 0$, i.e. there is $\delta > 0$, so that for all $x \in D$ with $\|x - x_0\|_X < \delta$ it holds:
+	\[
+		\|f(x) - f(x_0)\|_Y < \varepsilon.
+	\]
+	\item We show $2 \implies 3$:
+  
+	Let $(x_n)_{n\in\mathbb N} \subset D$ with $x_n \xrightarrow{n\to\infty} x_0$ and let $\varepsilon > 0$. Let $\delta$ be as in (2). Then there is an $n_\varepsilon \in \mathbb N$ with
+	\[
+		\|x_n - x_0\|_X < \delta \qquad \forall n \ge n_\varepsilon.
+	\]
+	Therefore
+	\[
+		f(x_0) = \lim_{n\to\infty} f(x_n).
+	\]
+	\item We show $3 \implies 1$:
+  
+	Assume (3). Suppose $f$ is \emph{not} continuous at $x_0$. Then (negation of the definition) it follows:
+	\[
+		\exists V \in \mathcal U(f(x_0))\; \forall U \in \mathcal U(x_0): \quad f(U \cap D) \nsubseteq V
+	\]
+	\[\implies \exists V \in \mathcal U(f(x_0))\; \forall n \in \mathbb N:\; f\bigl(B(x_0,\tfrac{1}{n}) \cap D\bigr) \nsubseteq V \]
+	\[\implies \exists V \in \mathcal U(f(x_0))\; \forall n \in \mathbb N:\; \exists x_n \in B(x_0,\tfrac{1}{n}) \cap D:\; f(x_n) \notin V \]
+	\[\implies \exists (x_n)_{n\in\mathbb N} \subset D,\; \lim_{n\to\infty} x_n = x_0 \text{ and } f(x_n) \nrightarrow f(x_0).\]
+	Contradiction to (3). Thus (1) follows.
+\end{enumerate}
+\hfill $\blacksquare$
+
+\paragraph{Theorem 4.3.3} Let $f : D \to Y$ with $D \subset X$ and $\varnothing \neq D' \subset D$. Then the following statements are equivalent:
+\begin{enumerate}[label=({\arabic*})]
+	\item $f$ is continuous on $D'$.
+	\item Preimages of open sets in $Y$ are relatively open in $D'$, i.e. for every open subset $V \subset Y$ the preimage
+	\[
+		f^{-1}(V) := \{ x \in D : f(x) \in V \}
+	\]
+	has the property that $D' \cap f^{-1}(V)$ is relatively open in $D'$.
+	\item Preimages of closed sets in $Y$ are relatively closed in $D'$, i.e. for every closed subset $A \subset Y$ it holds: $D' \cap f^{-1}(A)$ is relatively closed in $D'$.
+\end{enumerate}
+
+\emph{Proof.}
+\begin{enumerate}[label=\alph*)]
+	\item We show $1 \implies 2$:
+  
+	Consider\footnote{Reminder: In the special case $D' = X$, "relatively open" means the same as "open", i.e., $f^{-1}(V)$ is open exactly when for each $x \in f^{-1}(V)$ there exists a $U \in \mathcal U(x)$ with $U \subset f^{-1}(V)$. In the general case $\varnothing \ne D' \subset D \subset X$, the set $f^{-1}(V)\cap D'$ is relatively open in $D'$ exactly when for every $x \in f^{-1}(V)\cap D'$ there exists a $U \in \mathcal U(x)$ with $U \cap D' \subset f^{-1}(V)\cap D'$.} $D' \cap f^{-1}(V)$.
+  
+		extbf{1st case:} $\varnothing = D' \cap f^{-1}(V)$ is relatively open.
+  
+		extbf{2nd case:} Let $x \in D' \cap f^{-1}(V)$. We claim: There exists an open set $U \in \mathcal U(x)$ with $D' \cap U \subset f^{-1}(V) \cap D'$.
+  
+	From $x \in f^{-1}(V)$ it follows
+	\[
+		f(x) \in V \implies V \in \mathcal U(f(x)) \implies \exists U \in \mathcal U(x): \; f(U \cap D') \subset V.
+	\]
+	Hence
+	\[
+		U \cap D' \subset f^{-1}(V).
+	\]
+	This shows $x \in U \cap D'$, and $x$ is a relatively interior point of $f^{-1}(V) \cap D'$.
+  
+	\item We show $2 \implies 3$:
+  
+	Let $A \subset Y$ be closed. Then $Y\setminus A$ is open and, by (2),
+	\[
+		D' \setminus f^{-1}(A) = D' \cap f^{-1}(Y\setminus A)
+	\]
+	is relatively open in $D'$, i.e. there exists an open subset $U$ in $X$ with
+	\[
+		D' \setminus f^{-1}(A) = U \cap D' \quad \implies \quad f^{-1}(A) \cap D' = (X\setminus U) \cap D'.
+	\]
+	Since $X\setminus U$ is closed in $X$, it follows that $f^{-1}(A) \cap D'$ is relatively closed in $D'$.
+  
+	\item We show $3 \implies 1$:
+  
+	Let $x \in D'$ and $V \in \mathcal U(f(x))$. Then $Y\setminus V$ is closed and, by (3),
+	\[
+		D' \setminus f^{-1}(V) = D' \cap f^{-1}(Y\setminus V)
+	\]
+	is relatively closed in $D'$. As in the proof of (2) $\implies$ (3) it follows that $f^{-1}(V)$ is relatively open in $D'$. Hence there exists an open set $U$ with
+	\[
+		x \in U \quad \text{and} \quad f^{-1}(V) \cap D' = U \cap D'.
+	\]
+	Therefore
+	\[
+		f(U \cap D') = f\bigl(f^{-1}(V) \cap D'\bigr) \subset f\bigl(f^{-1}(V)\bigr) = V.
+	\]
+	Thus $f$ is continuous.
+\end{enumerate}
+\hfill $\blacksquare$
+
+\paragraph{Example 4.3.4}
+\begin{enumerate}[label=({\arabic*})]
+	\item $f : X \to \mathbb R_{\ge 0}$ with $f(x) := \|x\|$ is continuous.
+	\item $f : \mathbb R_{\ge 0} \to \mathbb R_{\ge 0}$ with $f(x) := \sqrt{x}$ is continuous.
+	\item $f : \mathbb R \to \mathbb R$ with $f(x) := \lfloor x \rfloor := \max\{k \in \mathbb Z : k \le x\}$ is continuous for $x \in \mathbb R \setminus \mathbb Z$ and not continuous for $x \in \mathbb Z$.
+	\item $f : \mathbb R \to \mathbb R$ with
+	\[
+		f(x) := \begin{cases}
+			1, & x \in \mathbb Q, \\
+			0, & x \in \mathbb R \setminus \mathbb Q,
+		\end{cases}
+	\]
+	is continuous at no point $x \in \mathbb R$.
+	\item $f : \mathbb K^m \to \mathbb K$ with $f(x) := x_j$ for a fixed $j \in \{1,2,\dots,m\}$ is continuous for all $x \in \mathbb K^m$.
+	\item The function $f : \mathbb C \to \mathbb R$ with $f(z) := \operatorname{Re}(z)$ is continuous. The same holds for $f(z) := \operatorname{Im}(z)$.
+	\item Let $(X,\|\cdot\|_a)$, $(X,\|\cdot\|_b)$ be two normed vector spaces with equivalent norms. Then the identity $I : (X,\|\cdot\|_a) \to (X,\|\cdot\|_b)$, $Ix := x$, is continuous.
+	\item Let $f : X \to \mathbb R$ be continuous and $r \in \mathbb R$. Then the sets
+	\[
+		\{x \in X : f(x) > r\},\; \{x \in X : f(x) < r\}\ \text{are open and}
+	\]
+	\[
+		\{x \in X : f(x) \ge r\},\; \{x \in X : f(x) \le r\}\ \text{are closed}.
+	\]
+\end{enumerate}
+
+\emph{Proof.}
+\begin{enumerate}[label=({\arabic*})]
+	\item For $\varepsilon > 0$ choose $\delta = \varepsilon$. Then for all $x \in X$ with $\|x - x_0\| < \delta$ we have
+	\[
+		\bigl|\,\|x_0\| - \|x\|\,\bigr| \le \|x - x_0\| < \varepsilon.
+	\]
+	\item
+		\begin{enumerate}[label=\alph*)]
+			\item $x_0 = 0$:
+			Let $\varepsilon > 0$ and $\delta := \varepsilon^2$. Then for all $x \in [0,\delta]$ we have
+			\[
+				\bigl|\sqrt{x} - \sqrt{x_0}\bigr| = \sqrt{x} < \sqrt{\delta} = \varepsilon.
+			\]
+			\item $x_0 > 0$:
+			Let $\varepsilon > 0$ and $\delta := \varepsilon\sqrt{x_0}$. Then
+			\[
+				\bigl|\sqrt{x} - \sqrt{x_0}\bigr| = \left|\frac{x - x_0}{\sqrt{x} + \sqrt{x_0}}\right| \le \frac{1}{\sqrt{x_0}}|x - x_0| < \frac{\varepsilon\sqrt{x_0}}{\sqrt{x_0}} = \varepsilon.
+			\]
+		\end{enumerate}
+		\item If $x_0 \notin \mathbb Z$, then there exists $\delta > 0$ with $I = (x_0 - \delta, x_0 + \delta) \subset \mathbb R \setminus \mathbb Z$. On $I$ the function $f(x) = \lfloor x \rfloor$ is constant and hence continuous.
+
+		If $x_0 \in \mathbb Z$, then
+		\[
+			\forall x < x_0:\; f(x) \le f(x_0) - 1 = x_0 - 1, \qquad
+			\forall x \ge x_0:\; f(x) \ge f(x_0) = x_0.
+		\]
+		Therefore for every $\delta > 0$ there exists an $x \in (x_0 - \delta, x_0 + \delta)$ with
+		\[
+			|f(x) - f(x_0)| \ge 1.
+		\]
+		\item For each $x \in \mathbb R \setminus \mathbb Q$ there exists a sequence $(x_n) \subset \mathbb Q$ with $x_n \to x$. Then
+		\[
+			f(x) = 0, \qquad \lim_{n\to\infty} f(x_n) = 1.
+		\]
+		For $x \in \mathbb Q$ we can construct a sequence $(x_n) \subset \mathbb R\setminus \mathbb Q$ with $x_n \to x$ and argue as before.
+		\item Since all norms on $\mathbb K^m$ are equivalent, it holds:
+		\[
+			|f(x_0) - f(x)| = |(x_0)_j - x_j| \le \max_{1\le i\le m} |(x_0)_i - x_i| = \|x_0 - x\|_{\infty} \le C\|x_0 - x\|.
+		\]
+		For $\varepsilon > 0$ choose $\delta = \frac{\varepsilon}{C}$.
+		\item Continuity follows from $|\operatorname{Re}(z_0) - \operatorname{Re}(z)| = |\operatorname{Re}(z_0 - z)| \le |z_0 - z|$ with $\delta = \varepsilon$.
+		\item We have:
+		\[
+			c\|x\|_a \le \|x\|_b \le c'\|x\|_a \qquad \forall x \in X.
+		\]
+		Let $\varepsilon > 0$ and $\delta := \frac{\varepsilon}{c'}$. Then
+		\[
+			\|Ix_0 - Ix\|_b = \|x_0 - x\|_b \le c'\|x_0 - x\|_a < \varepsilon.
+		\]
+		\item We have
+		\[
+			B := \{y \in \mathbb R : y < r\}\ \text{is open and}\ \{x \in X : f(x) < r\} = f^{-1}(B).
+		\]
+		Therefore $f^{-1}(B)$ is open (see Theorem 4.3.3). The remaining cases in (8) are treated analogously.
+	\end{enumerate}
+	\hfill $\blacksquare$
+
+	\paragraph{Theorem 4.3.5} Let $D_f, D_g \subset X$, $x_0 \in D_f \cap D_g$ and $f : D_f \to Y$, $g : D_g \to Y$ be continuous at $x_0$, as well as $\alpha \in \mathbb K$. Then:
+	\begin{enumerate}[label=({\arabic*})]
+		\item $\alpha f : x \mapsto \alpha\cdot f(x)$ is continuous at $x_0$.
+		\item $f + g : x \mapsto f(x) + g(x)$ is continuous at $x_0$.
+		\item $Y = \mathbb K$, $f \cdot g : x \mapsto f(x)\cdot g(x)$ is continuous at $x_0$.
+		\item $Y = \mathbb K$ and $g(x_0) \neq 0$. Then $\frac{f}{g} : x \mapsto \frac{f(x)}{g(x)}$ is continuous at $x_0$.
+	\end{enumerate}
+	\emph{Proof.} Use the sequence criterion (Theorem 4.3.2) for characterization of continuity to reduce the statements back to Theorem 3.1.19 (algebraic rules with sequences). \hfill $\blacksquare$
+
+	\paragraph{Definition 4.3.6} Let $M \subset X$, $M \neq \varnothing$. Then $C(M,Y)$ denotes the vector space of all continuous functions from $M$ to $Y$.
+
+	Theorem 4.3.5 and Definition 4.3.6 imply that the set of all continuous functions $f : M \to Y$, i.e. $C(M,Y)$, forms a vector space.
+
+	\paragraph{Theorem 4.3.7} All polynomials, i.e. functions of the form
+	\[
+		f(x) = \sum_{k=0}^{n} a_k x^k, \qquad a_k \in \mathbb K,\; n \in \mathbb N,
+	\]
+	and all rational functions, i.e. functions of the form
+	\[
+		f(x) = \frac{p(x)}{q(x)}, \qquad p,q \text{ polynomials},
+	\]
+	are continuous on their domain of definition.
+
+	\emph{Proof.} Immediate consequence of Theorem 4.3.5. \hfill $\blacksquare$
+
+	\paragraph{Theorem 4.3.8} Let $f : D_f \to Y$, $D_f \subset X$ and $g : D_g \to Z$, $D_g \subset Y$ be two functions such that $f(D_f) \subset D_g$. Then the composition $g \circ f : D_f \to Z$ defined by
+	\[
+		(g \circ f)(x) := g(f(x))
+	\]
+	is continuous at $x_0 \in D_f$ if $f$ is continuous at $x_0$ and $g$ is continuous at $f(x_0)$.
+
+	\emph{Proof.} Let $W \in \mathcal U(g(y_0))$. Since $g$ is continuous at $y_0$, there exists $V \in \mathcal U(y_0)$ with
+	\[
+		g(V \cap D_g) \subset W.
+	\]
+	Since $f$ is continuous at $x_0$, there exists $U \in \mathcal U(x_0)$ with
+	\[
+		f(U \cap D_f) \subset V \quad \text{and hence}\quad f(U \cap D_f) \subset V \cap D_g.
+	\]
+	It follows:
+	\[
+		(g \circ f)(U \cap D_f) \subset W.
+	\]
+	\hfill $\blacksquare$
+
+	\paragraph{Example 4.3.9}
+	\begin{enumerate}[label=({\arabic*})]
+		\item Let $f : D \to Y$, $D \subset X$ be continuous. Then $\|f\|_Y : D \to \mathbb R_{\ge 0}$ with $x \mapsto \|f(x)\|_Y$ is continuous (see Example 4.3.4(1), Theorem 4.3.8).
+		\item Let $f : D \to \mathbb K$, $D \subset X$ be continuous. Then $f^2 : D \to \mathbb K$ with $x \mapsto (f(x))^2$ is continuous (Theorem 4.3.5(3)).
+		\item Let $f : D \to \mathbb R_{\ge 0}$, $D \subset X$ be continuous. Then $\sqrt{f} : D \to \mathbb R_{\ge 0}$ with $x \mapsto \sqrt{f(x)}$ is continuous (see Example 4.3.4(2), Theorem 4.3.8).
+	\end{enumerate}
+
+	\paragraph{Theorem 4.3.10}
+	\begin{enumerate}[label=({\arabic*})]
+		\item $f = (f_1,f_2,\dots,f_n) : D \to \mathbb K^n$, $D \subset X$, is continuous at $x_0 \in D$ if and only if all component functions $f_i$, $1 \le i \le n$, are continuous at $x_0$.
+		\item $f : D \to \mathbb C$, $D \subset X$, is continuous at $x_0 \in D$ if and only if $\operatorname{Re} f$ and $\operatorname{Im} f$ are continuous at $x_0$.
+	\end{enumerate}
+
+\emph{Proof.}
+\begin{enumerate}[label=({\arabic*})]
+	\item The direction "${\Rightarrow}$" follows from Theorem 4.3.8 and Example 4.3.4(5) (the map $(x_1,\dots,x_n) \mapsto x_i$ is continuous).
+
+	For the converse direction, let $\varepsilon > 0$. By the assumption there exist numbers $\delta_j(\varepsilon)$, $1 \le j \le n$, with
+	\[
+		|f_j(x) - f_j(x_0)| < \frac{\varepsilon}{n} \qquad \text{whenever } \|x - x_0\|_X < \delta_j(\varepsilon).
+	\]
+	Set $\delta := \min_{1\le j\le n} \delta_j(\varepsilon)$. Then for $x \in B(x_0,\delta)$ we obtain
+	\[
+		\|f(x) - f(x_0)\|_1 = \sum_{j=1}^{n} |f_j(x) - f_j(x_0)| < \varepsilon.
+	\]
+	To prove continuity with respect to any other norm on $\mathbb K^n$, use the equivalence of norms and replace $\varepsilon/n$ by $\varepsilon/(nc)$ with the corresponding equivalence constant $c$.
+
+	\item The claim follows from
+	\[
+		|f(z)| = \sqrt{(\operatorname{Re} f(z))^2 + (\operatorname{Im} f(z))^2} = \Bigl\|\begin{pmatrix} \operatorname{Re} f(z) \\ \operatorname{Im} f(z) \end{pmatrix}\Bigr\|_2,
+	\]
+	together with part (1) and Example 4.3.4(6).
+\end{enumerate}
+
+\hfill $\blacksquare$
+
+\paragraph{Definition 4.3.11} Let $f : D \to Y$, $D \subset X$, be a function. Let $x_0 \in X$ and suppose there exists a sequence $(x_n) \subset D$ with $\lim_{n\to\infty} x_n = x_0$. We define
+\[
+	y := \lim_{x\to x_0} f(x),
+\]
+if for every sequence $(x_n) \subset D$ with $x_n \to x_0$ as $n \to \infty$ it holds that
+\[
+	f(x_n) \longrightarrow y.
+\]
+
+\paragraph{Theorem 4.3.12} The following statements are equivalent:
+\begin{enumerate}[label=({\arabic*})]
+	\item $y = \lim_{x\to x_0} f(x)$,
+	\item $\forall V \in \mathcal U(y):\; \exists U \in \mathcal U(x_0):\; f(D \cap U) \subset V$.
+\end{enumerate}
+
+\emph{Proof.}
+\begin{enumerate}[label=\alph*)]
+	\item We show $(1) \Rightarrow (2)$ indirectly and assume instead that
+	\[
+		\exists V \in \mathcal U(y)\; \forall U \in \mathcal U(x_0):\; f(D \cap U) \nsubseteq V.
+	\]
+	Then it follows that for all $n \in \mathbb N$,
+	\[
+		f\Bigl(D \cap B\Bigl(x_0, \tfrac{1}{n}\Bigr)\Bigr) \nsubseteq V,
+	\]
+	and hence there exist $x_n \in D \cap B\bigl(x_0, \tfrac{1}{n}\bigr)$ with $f(x_n) \notin V$.
+	That is, there exists a sequence $(x_n)_{n\in\mathbb N} \subset D$ converging to $x_0$, but with $f(x_n) \notin V$.
+
+	\item We show $(2) \Rightarrow (1)$:
+  
+	Let $(x_n)_{n\in\mathbb N} \subset D$ with $x_n \to x_0$ and let $\varepsilon > 0$. Then there exists a $U \in \mathcal U(x_0)$ with $f(D \cap U) \subset B(y,\varepsilon)$. Since $x_n \to x_0$ there exists an $n_{U} \in \mathbb N$ with
+	\[
+		x_n \in U \qquad \forall n \ge n_U.
+	\]
+	Hence
+	\[
+		f(x_n) \in B(y,\varepsilon) \qquad \forall n \ge n_U,
+	\]
+	and therefore $f(x_n) \to y$.
+\end{enumerate}
+\hfill $\blacksquare$
+
+\paragraph{Remark 4.3.13}
+\begin{enumerate}[label=({\arabic*})]
+	\item Let $f : D \to Y$, $D \subset X$, and $x_0 \in D$. Then: “$\lim_{x\to x_0} f(x) = f(x_0)$” is equivalent to “$f$ is continuous at $x_0$”. (Theorem 4.3.2)
+	\item Let $f : D \to Y$, $D \subset X$, $x_0 \notin D$ and suppose
+	\[
+		y = \lim_{x\to x_0} f(x).
+	\]
+	Then we define an extension of $f$ by $\tilde f : D \cup \{x_0\} \to Y$ through
+	\[
+			ilde f(x) := \begin{cases}
+			f(x), & x \in D, \\
+			y, & x = x_0.
+		\end{cases}
+	\]
+	The function $\tilde f$ is continuous at $x_0$ and is therefore called a continuous extension.
+\end{enumerate}
+
+\paragraph{Example 4.3.14}
+\begin{enumerate}[label=({\arabic*})]
+	\item $X = Y = \mathbb R$, $D = X\setminus \{1\}$ and $f(x) := \frac{x^n - 1}{x - 1}$, $n \in \mathbb N$. From Lemma 3.2.3 it follows
+	\[
+		f(x) = \sum_{k=0}^{n-1} x^k \qquad \forall x \in \mathbb R \setminus \{1\},
+	\]
+	and hence
+	\[
+		\lim_{x\to 1} f(x) = n.
+	\]
+	That is,
+	\[
+			ilde f(x) = \begin{cases}
+			\frac{x^n - 1}{x - 1}, & x \in \mathbb R \setminus \{1\}, \\
+			n, & x = 1
+		\end{cases}
+	\]
+	is a continuous extension of $f$.
+	\item $X,Y = \mathbb C$, $D \subset \mathbb C \setminus \{0\}$ and $f(z) = \frac{e^z - 1}{z}$. We show: For any sequence $(z_n)$ with $z_n \to 0$, $f(z_n) \to 1$. This follows from:
+	\[
+		|f(z) - 1| = \left|\sum_{n=1}^{\infty} \frac{z^{n-1}}{n!} - 1\right| = \left|\sum_{n=2}^{\infty} \frac{z^{n-1}}{n!}\right| = \left|\sum_{m=1}^{\infty} \frac{z^{m}}{(m+1)!}\right| \le \frac{1}{2} \sum_{m=1}^{\infty} |z|^{m}
+	\]
+	\[
+		= \frac{1}{2} \Bigl( \frac{1}{1 - |z|} - 1\Bigr) = \frac{|z|}{2(1 - |z|)} \longrightarrow 0 \qquad |z| < 1.
+	\]
+\end{enumerate}
+\hfill $\blacksquare$
+
+\paragraph{Definition 4.3.15} The function $f : D \to \mathbb R$, $D \subset \mathbb R$ is called left-continuous (resp. right-continuous) at $x_0 \in D$ if for every $V \in \mathcal U(f(x_0))$ there exists a $\delta > 0$ with
+\[
+	f(D \cap ]x_0 - \delta, x_0]) \subset V \qquad (\text{resp.}\; f(D \cap [x_0, x_0 + \delta[) \subset V ).
+\]
+
+\paragraph{Example 4.3.16} The function $\lfloor\cdot\rfloor$ from Example 4.3.4(3) is right-continuous at every $x \in \mathbb R$.
+
+\paragraph{Theorem 4.3.17} The function $f : D \to \mathbb R$, $D \subset \mathbb R$, is continuous at $x_0 \in D$ if and only if it is both right- and left-continuous at $x_0$.
+
+\emph{Proof.} “$\Rightarrow$”: 
+Let $f$ be continuous at $x_0$. Then there exists for all $V \in \mathcal U(f(x_0))$ a $U \in \mathcal U(x_0)$ with $f(D \cap U) \subset V$. Then there exists a $\delta > 0$ with $]x_0 - \delta, x_0] \subset U$. It follows
+\[
+	f(D \cap ]x_0 - \delta, x_0]) \subset f(D \cap U) \subset V.
+\]
+The analogous argument gives right-continuity.
+
+“$\Leftarrow$”: 
+Let $f$ be left- and right-continuous at $x_0$, i.e. there exist $\delta_1, \delta_2 > 0$ with
+\[
+	f(D \cap ]x_0 - \delta_1, x_0]) \subset V, \qquad f(D \cap [x_0, x_0 + \delta_2[) \subset V.
+\]
+Choose $\delta := \min\{\delta_1, \delta_2\} > 0$. Then
+\[
+	f\bigl(D \cap ]x_0 - \delta, x_0 + \delta[\bigr) \subset V.
+\]
+\hfill $\blacksquare$
+
+In many cases it is important when, for prescribed $\varepsilon > 0$, for each point $x \in D$, the $\delta(x,\varepsilon)$ in the definition does not depend on $x$.
+
+\paragraph{Definition 4.3.18} Let $f : D \to Y$, $D \subset X$, be a function and $D' \subset D$. Then $f$ is called uniformly continuous on $D'$ if for every $\varepsilon > 0$ there exists a $\delta > 0$ with
+\[
+	\|f(x) - f(y)\|_Y < \varepsilon \qquad \forall x, y \in D' \text{ with } \|x - y\|_X < \delta.
+\]
+
+\paragraph{Remark 4.3.19} A uniformly continuous function is continuous.
+
+\paragraph{Example 4.3.20}
+\begin{enumerate}[label=({\arabic*})]
+	\item $f : X \to \mathbb R_{\ge 0}$ with $f(x) := \|x\|$ is uniformly continuous.
+	\item $f : \mathbb R \setminus \{0\} \to \mathbb R$ with $f(x) := \frac{1}{x}$ is not uniformly continuous.
+	\item $f : [-1,1] \to \mathbb R$ with $f(x) := x^2$ is uniformly continuous.
+    \item $f : \mathbb R \to \mathbb R$ with $f(x) := x^2$ is not uniformly continuous.
+\end{enumerate}
+
+\paragraph{Proof.}
+\begin{enumerate}
+  \item Use the reverse triangle inequality:
+  \[
+    \bigl|\,\|x\|-\|y\|\,\bigr| \le \|x-y\|
+  \]
+  for all $x,y$, hence $x\mapsto \|x\|$ is uniformly continuous.
+
+  \item By Theorem~4.3.5 the function $f(x)=\frac{1}{x}$ is continuous.  
+  Fix $\varepsilon:=1$ and let $\delta>0$ be arbitrary. Choose
+  \[
+    x=\frac{1}{n},\qquad n>\frac{1}{2\delta},\ n\in\mathbb{N}, 
+    \qquad\text{and}\qquad y=\frac{1}{2n}.
+  \]
+  Then $|x-y|=\frac{1}{2n}<\delta$, but
+  \[
+    |f(x)-f(y)|=\Bigl|\frac{1}{x}-\frac{1}{y}\Bigr|
+    =|n-2n|=n>1=\varepsilon.
+  \]
+  Hence $f$ is not uniformly continuous on $\mathbb{R}\setminus\{0\}$.
+
+  \item For $x,y\in[-1,1]$,
+  \[
+    |x^{2}-y^{2}|=|x-y|\cdot|x+y|\le 2\,|x-y|.
+  \]
+  Given $\varepsilon>0$, choose $\delta=\varepsilon/2$. Then
+  $|x-y|<\delta$ implies $|x^{2}-y^{2}|<\varepsilon$, so
+  $x\mapsto x^{2}$ is uniformly continuous on $[-1,1]$.
+
+  \item The function $x\mapsto x^{2}$ is continuous since it is a polynomial.
+  To see it is not uniformly continuous on $\mathbb{R}$, fix $\varepsilon:=1$
+  and let $\delta>0$ be arbitrary. Choose $x=n$ with $n>\frac{1}{\delta}$,
+  $n\in\mathbb{N}$, and set $y=x+\frac{\delta}{2}$. Then
+  \[
+    |x-y|=\frac{\delta}{2}<\delta,\qquad
+    |x^{2}-y^{2}|=\bigl|x\delta+\tfrac{\delta^{2}}{4}\bigr|
+    \ge |x\delta|=n\delta>1=\varepsilon.
+  \]
+  Therefore $x\mapsto x^{2}$ is not uniformly continuous on $\mathbb{R}$.
+\end{enumerate}
+\hfill$\square$
+
+\end{document}

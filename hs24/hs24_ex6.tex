@@ -1,0 +1,565 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 6}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\subsection*{(a)}
+
+We prove both claims by induction.
+
+\subsubsection*{Claim 1: $x_n \le 1$ for all $n \in \mathbb{N}$}
+\begin{itemize}
+    \item \textbf{Base Case ($n=1$):}
+    The statement is $x_1 \le 1$. Since $x_1 = 1$, this is true.
+
+    \item \textbf{Inductive Hypothesis:}
+    Assume the statement holds for some $k \ge 1$, i.e., $x_k \le 1$.
+
+    \item \textbf{Inductive Step:}
+    We must show that $x_{k+1} \le 1$. From the inductive hypothesis, we know $0 < x_k \le 1$ (since $x_1>0$ and the recurrence preserves positivity).
+    \begin{align*}
+        x_k &\le 1 \\
+        \implies x_k^2 &\le 1 \\
+        \implies x_k^2 + 1 &\le 2 \\
+        \implies \frac{x_k^2 + 1}{5} &\le \frac{2}{5}
+    \end{align*}
+    Thus, $x_{k+1} \le \frac{2}{5}$. Since $\frac{2}{5} \le 1$, we have shown $x_{k+1} \le 1$.
+\end{itemize}
+By the principle of induction, $x_n \le 1$ for all $n \in \mathbb{N}$.
+
+\subsubsection*{Claim 2: $|x_{n+1} - x_n| \le (2/5)^{n-1}$ for all $n \in \mathbb{N}$}
+\begin{itemize}
+    \item \textbf{Base Case ($n=1$):}
+    We must check if $|x_2 - x_1| \le (2/5)^{1-1} = 1$.
+    We have $x_1 = 1$ and $x_2 = (1^2+1)/5 = 2/5$.
+    So, $|x_2 - x_1| = |2/5 - 1| = |-3/5| = 3/5$.
+    The inequality $3/5 \le 1$ is true.
+
+    \item \textbf{Inductive Hypothesis:}
+    Assume the statement holds for some $k \ge 1$: $|x_{k+1} - x_k| \le (2/5)^{k-1}$.
+
+    \item \textbf{Inductive Step:}
+    We must show that $|x_{k+2} - x_{k+1}| \le (2/5)^k$.
+    \begin{align*}
+        |x_{k+2} - x_{k+1}| &= \left| \frac{x_{k+1}^2 + 1}{5} - \frac{x_k^2 + 1}{5} \right| \\
+        &= \frac{1}{5} |x_{k+1}^2 - x_k^2| \\
+        &= \frac{1}{5} |x_{k+1} - x_k| |x_{k+1} + x_k|
+    \end{align*}
+    From Claim 1, we know $0 < x_k \le 1$ and $0 < x_{k+1} \le 1$, so their sum $|x_{k+1} + x_k| = x_{k+1} + x_k \le 1+1=2$.
+    Using this and the inductive hypothesis, we get:
+    \begin{align*}
+        |x_{k+2} - x_{k+1}| &\le \frac{1}{5} \cdot \left( \left(\frac{2}{5}\right)^{k-1} \right) \cdot 2 \\
+        &= \frac{2}{5} \cdot \left(\frac{2}{5}\right)^{k-1} \\
+        &= \left(\frac{2}{5}\right)^k
+    \end{align*}
+\end{itemize}
+By the principle of induction, the inequality holds for all $n \in \mathbb{N}$.
+
+%%%
+
+
+\subsection*{(b)}
+To show that $(x_n)$ is a Cauchy sequence, we must prove that for every $\varepsilon > 0$, there exists an integer $N$ such that for all $m, n > N$, we have $|x_m - x_n| < \varepsilon$.
+
+Let's consider two integers $m, n$ and assume without loss of generality that $m > n$. We want to find an upper bound for $|x_m - x_n|$.
+
+\subsubsection*{1. Apply the Triangle Inequality}
+We can express the difference $x_m - x_n$ as a telescoping sum:
+\[
+x_m - x_n = (x_m - x_{m-1}) + (x_{m-1} - x_{m-2}) + \dots + (x_{n+1} - x_n)
+\]
+By applying the triangle inequality ($|a+b| \le |a|+|b|$) repeatedly, we get:
+\begin{align*}
+|x_m - x_n| &= \left| \sum_{k=n}^{m-1} (x_{k+1} - x_k) \right| \\
+&\le \sum_{k=n}^{m-1} |x_{k+1} - x_k|
+\end{align*}
+
+\subsubsection*{2. Use the Result from Part (a)}
+From part (a), we have the inequality $|x_{k+1} - x_k| \le (2/5)^{k-1}$. Substituting this into our sum gives:
+\[
+|x_m - x_n| \le \sum_{k=n}^{m-1} \left(\frac{2}{5}\right)^{k-1}
+\]
+
+\subsubsection*{3. Bound the Sum with a Geometric Series}
+The right-hand side is a finite geometric series. We can bound this finite sum by the corresponding infinite geometric series, which is guaranteed to converge since the common ratio $r=2/5$ satisfies $|r|<1$.
+\[
+\sum_{k=n}^{m-1} \left(\frac{2}{5}\right)^{k-1} < \sum_{k=n}^{\infty} \left(\frac{2}{5}\right)^{k-1}
+\]
+This infinite series is:
+\[
+\left(\frac{2}{5}\right)^{n-1} + \left(\frac{2}{5}\right)^{n} + \left(\frac{2}{5}\right)^{n+1} + \dots
+\]
+The sum of a geometric series $a + ar + ar^2 + \dots$ is given by the formula $\frac{a}{1-r}$.
+In our case, the first term is $a = (2/5)^{n-1}$ and the common ratio is $r = 2/5$.
+The sum is therefore:
+\[
+\frac{(2/5)^{n-1}}{1 - 2/5} = \frac{(2/5)^{n-1}}{3/5} = \frac{5}{3} \left(\frac{2}{5}\right)^{n-1}
+\]
+
+\subsubsection*{4. Conclude the Proof}
+We have now established the bound for any $m > n$:
+\[
+|x_m - x_n| < \frac{5}{3} \left(\frac{2}{5}\right)^{n-1}
+\]
+Let an arbitrary $\varepsilon > 0$ be given. We need to find an $N$ such that for all $m, n > N$, $|x_m - x_n| < \varepsilon$.
+Since $0 < 2/5 < 1$, the term $(2/5)^{n-1}$ approaches $0$ as $n \to \infty$.
+\[
+\lim_{n\to\infty} \frac{5}{3} \left(\frac{2}{5}\right)^{n-1} = 0
+\]
+By the definition of a limit, this means there exists an integer $N$ such that for all $n > N$, we have $\frac{5}{3} \left(\frac{2}{5}\right)^{n-1} < \varepsilon$.
+
+Now, if we choose any $m, n > N$ (assuming $m>n$ WLOG), it follows that:
+\[
+|x_m - x_n| < \frac{5}{3} \left(\frac{2}{5}\right)^{n-1} < \varepsilon
+\]
+This satisfies the definition of a Cauchy sequence. Therefore, $(x_n)$ is a Cauchy sequence.
+
+%%%%
+
+\subsection*{(c)}
+From part (b), we know that the sequence $(x_n)_{n \in \mathbb{N}}$ is a Cauchy sequence. Every Cauchy sequence of real numbers converges to a limit. Let's call this limit $L$.
+$$ L = \lim_{n \to \infty} x_n $$
+The sequence is defined by the recurrence relation:
+$$ x_{n+1} = \frac{x_n^2 + 1}{5} $$
+If we take the limit as $n \to \infty$ on both sides of the equation, we can use the property that $\lim_{n \to \infty} x_{n+1} = L$ and the limit laws:
+\begin{align*}
+    \lim_{n \to \infty} x_{n+1} &= \lim_{n \to \infty} \frac{x_n^2 + 1}{5} \\
+    L &= \frac{(\lim_{n \to \infty} x_n)^2 + 1}{5} \\
+    L &= \frac{L^2 + 1}{5}
+\end{align*}
+Now, we solve this algebraic equation for $L$:
+\begin{align*}
+    5L &= L^2 + 1 \\
+    L^2 - 5L + 1 &= 0
+\end{align*}
+Using the quadratic formula, we find the possible values for $L$:
+$$ L = \frac{-(-5) \pm \sqrt{(-5)^2 - 4(1)(1)}}{2(1)} = \frac{5 \pm \sqrt{25 - 4}}{2} = \frac{5 \pm \sqrt{21}}{2} $$
+This gives us two potential limits:
+$$ L_1 = \frac{5 + \sqrt{21}}{2} \quad \text{and} \quad L_2 = \frac{5 - \sqrt{21}}{2} $$
+From part (a), we have the condition that $x_n \le 1$ for all $n$. The limit of the sequence must also satisfy this condition, so $L \le 1$.
+
+We can estimate the value of $L_1$. Since $\sqrt{21} > \sqrt{16} = 4$,
+$$ L_1 = \frac{5 + \sqrt{21}}{2} > \frac{5 + 4}{2} = 4.5 $$
+Since $L_1 > 1$, it cannot be the correct limit.
+
+For $L_2$, we know $4 < \sqrt{21} < 5$.
+$$ \frac{5 - 5}{2} < \frac{5 - \sqrt{21}}{2} < \frac{5 - 4}{2} \implies 0 < L_2 < 0.5 $$
+This value satisfies the condition $L_2 \le 1$.
+
+Therefore, the limit of the sequence is:
+$$ L = \frac{5 - \sqrt{21}}{2} $$
+
+%%%%%
+\section*{2}
+Let $\sum_{n=1}^{\infty} a_n$ be an absolutely convergent series and let $(b_n)_{n \in \mathbb{N}}$ be a bounded sequence. We want to prove that the series $\sum_{n=1}^{\infty} a_n b_n$ is also absolutely convergent.
+
+\textbf{Given conditions:}
+\begin{itemize}
+    \item $\sum_{n=1}^{\infty} a_n$ is absolutely convergent, which means $\sum_{n=1}^{\infty} |a_n|$ converges.
+    \item $(b_n)_{n \in \mathbb{N}}$ is bounded, so there exists a constant $M > 0$ such that $|b_n| \leq M$ for all $n \in \mathbb{N}$.
+\end{itemize}
+
+\textbf{To prove:} $\sum_{n=1}^{\infty} a_n b_n$ is absolutely convergent, i.e., $\sum_{n=1}^{\infty} |a_n b_n|$ converges.
+
+\textbf{Proof:}
+For any $n \in \mathbb{N}$, we have:
+\begin{align*}
+    |a_n b_n| &= |a_n| \cdot |b_n| \\
+    &\leq |a_n| \cdot M \\
+    &= M |a_n|
+\end{align*}
+
+Since $\sum_{n=1}^{\infty} |a_n|$ converges and $M$ is a positive constant, the series $\sum_{n=1}^{\infty} M |a_n| = M \sum_{n=1}^{\infty} |a_n|$ also converges.
+
+By the Comparison Test, since $0 \leq |a_n b_n| \leq M |a_n|$ for all $n$ and $\sum_{n=1}^{\infty} M |a_n|$ converges, we conclude that $\sum_{n=1}^{\infty} |a_n b_n|$ converges.
+
+Therefore, $\sum_{n=1}^{\infty} a_n b_n$ is absolutely convergent.
+%%%%%
+\section*{3}
+\subsection*{(a)}
+We want to determine if the series $\sum_{n=1}^{\infty} \frac{n^6 - n}{n^7 + 1}$ converges.
+We will use the Limit Comparison Test. Let $a_n = \frac{n^6 - n}{n^7 + 1}$.
+For large $n$, the term $a_n$ behaves like $\frac{n^6}{n^7} = \frac{1}{n}$.
+Let's choose the comparison series $b_n = \frac{1}{n}$. The series $\sum_{n=1}^{\infty} b_n = \sum_{n=1}^{\infty} \frac{1}{n}$ is the harmonic series, which is known to diverge.
+
+Now, we compute the limit of the ratio $\frac{a_n}{b_n}$:
+\begin{align*}
+    L &= \lim_{n \to \infty} \frac{a_n}{b_n} \\
+      &= \lim_{n \to \infty} \frac{\frac{n^6 - n}{n^7 + 1}}{\frac{1}{n}} \\
+      &= \lim_{n \to \infty} \frac{n(n^6 - n)}{n^7 + 1} \\
+      &= \lim_{n \to \infty} \frac{n^7 - n^2}{n^7 + 1}
+\end{align*}
+To evaluate the limit, we divide the numerator and the denominator by the highest power of $n$, which is $n^7$:
+\begin{align*}
+    L &= \lim_{n \to \infty} \frac{\frac{n^7}{n^7} - \frac{n^2}{n^7}}{\frac{n^7}{n^7} + \frac{1}{n^7}} \\
+      &= \lim_{n \to \infty} \frac{1 - \frac{1}{n^5}}{1 + \frac{1}{n^7}} \\
+      &= \frac{1 - 0}{1 + 0} = 1
+\end{align*}
+Since the limit $L=1$ is a finite and positive number, the Limit Comparison Test states that $\sum a_n$ and $\sum b_n$ either both converge or both diverge.
+Because the harmonic series $\sum b_n = \sum \frac{1}{n}$ diverges, our original series $\sum_{n=1}^{\infty} \frac{n^6 - n}{n^7 + 1}$ must also \textbf{diverge}.
+
+
+%%%%
+
+
+\subsection*{(b)}
+Consider the series $\displaystyle \sum_{n=1}^\infty \frac{(n!)^{2024}}{2^{n^{2}}}$. Let
+\[
+a_n=\frac{(n!)^{2024}}{2^{n^{2}}}.
+\]
+Apply the ratio test:
+\[
+\frac{a_{n+1}}{a_n}
+= \frac{((n+1)!)^{2024}}{2^{(n+1)^2}} \cdot \frac{2^{n^{2}}}{(n!)^{2024}}
+= (n+1)^{2024}\, 2^{\,n^{2}-(n+1)^2}
+= (n+1)^{2024} 2^{-2n-1}
+= \frac{(n+1)^{2024}}{2^{2n+1}}.
+\]
+Then
+\[
+\lim_{n\to\infty} \frac{a_{n+1}}{a_n}
+= \lim_{n\to\infty} \frac{(n+1)^{2024}}{2^{2n+1}} = 0 < 1,
+\]
+since any exponential $2^{2n}$ dominates the polynomial $(n+1)^{2024}$. By the ratio test the series converges (absolutely).
+
+%%%%
+
+
+\subsection*{(c)}
+We want to determine if the series $\sum_{n=1}^{\infty} \frac{(-1)^n (n+2)}{2n+1}$ converges.
+
+This is an alternating series of the form $\sum_{n=1}^{\infty} (-1)^n b_n$ where $b_n = \frac{n+2}{2n+1}$.
+
+For the alternating series test to apply, we need:
+\begin{enumerate}
+    \item $b_n$ is eventually decreasing
+    \item $\lim_{n \to \infty} b_n = 0$
+\end{enumerate}
+
+Let's check condition (2). We compute:
+\begin{align*}
+    \lim_{n \to \infty} b_n &= \lim_{n \to \infty} \frac{n+2}{2n+1} \\
+    &= \lim_{n \to \infty} \frac{\frac{n}{n} + \frac{2}{n}}{\frac{2n}{n} + \frac{1}{n}} \\
+    &= \lim_{n \to \infty} \frac{1 + \frac{2}{n}}{2 + \frac{1}{n}} \\
+    &= \frac{1 + 0}{2 + 0} = \frac{1}{2}
+\end{align*}
+
+Since $\lim_{n \to \infty} b_n = \frac{1}{2} \neq 0$, the alternating series test fails.
+
+Moreover, this violates the necessary condition for convergence of any series. For a series $\sum a_n$ to converge, we must have $\lim_{n \to \infty} a_n = 0$.
+
+In our case, $a_n = \frac{(-1)^n (n+2)}{2n+1}$, and this limit does not exist (it oscillates between values close to $+\frac{1}{2}$ and $-\frac{1}{2}$).
+
+Therefore, the series \textbf{diverges}.
+
+%%%%%%%
+
+\section*{4}
+
+\textbf{Solution using the Ratio Test:}
+
+For the series $\sum_{n=1}^{\infty} \frac{x^n}{\sqrt{n}}$, let $a_n = \frac{x^n}{\sqrt{n}}$.
+
+The ratio test examines:
+$$\lim_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right|$$
+
+Let's calculate this ratio:
+$$\frac{a_{n+1}}{a_n} = \frac{\frac{x^{n+1}}{\sqrt{n+1}}}{\frac{x^n}{\sqrt{n}}} = \frac{x^{n+1}}{\sqrt{n+1}} \cdot \frac{\sqrt{n}}{x^n} = \frac{x^{n+1} \cdot \sqrt{n}}{x^n \cdot \sqrt{n+1}}$$
+
+Simplifying the $x$ terms:
+$$\frac{a_{n+1}}{a_n} = \frac{x^{n+1}}{x^n} \cdot \frac{\sqrt{n}}{\sqrt{n+1}} = x \cdot \frac{\sqrt{n}}{\sqrt{n+1}} = x \cdot \sqrt{\frac{n}{n+1}}$$
+
+Taking the absolute value:
+$$\left|\frac{a_{n+1}}{a_n}\right| = |x| \cdot \sqrt{\frac{n}{n+1}}$$
+
+Now we find the limit:
+$$\lim_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| = \lim_{n \to \infty} |x| \cdot \sqrt{\frac{n}{n+1}}$$
+
+For the square root term:
+$$\lim_{n \to \infty} \sqrt{\frac{n}{n+1}} = \lim_{n \to \infty} \sqrt{\frac{1}{1+\frac{1}{n}}} = \sqrt{\frac{1}{1}} = 1$$
+
+Therefore:
+$$\lim_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| = |x| \cdot 1 = |x|$$
+
+\textbf{By the ratio test:}
+\begin{itemize}
+    \item If $|x| < 1$, then the series converges absolutely
+    \item If $|x| > 1$, then the series diverges
+    \item If $|x| = 1$, the ratio test is inconclusive
+\end{itemize}
+
+\textbf{Checking the boundary cases ($|x| = 1$):}
+
+When $x = 1$: The series becomes $\sum_{n=1}^{\infty} \frac{1}{\sqrt{n}}$, which is a $p$-series with $p = \frac{1}{2} < 1$, so it diverges.
+
+When $x = -1$: The series becomes $\sum_{n=1}^{\infty} \frac{(-1)^n}{\sqrt{n}}$, which is an alternating series. Since $\frac{1}{\sqrt{n}}$ is decreasing and approaches $0$, this converges by the alternating series test.
+
+\textbf{Final Answer:}
+The series $\sum_{n=1}^{\infty} \frac{x^n}{\sqrt{n}}$ converges for $x \in (-1, 1]$.
+
+\begin{itemize}
+    \item Converges absolutely for $x \in (-1, 1)$
+    \item Converges conditionally for $x = -1$
+    \item Diverges for $|x| > 1$ and for $x = 1$
+\end{itemize}
+
+%%%%%
+
+\section*{4 - root test solution}
+We want to determine for which values of $x \in \mathbb{R}$ the series $\sum_{n=1}^{\infty} \frac{x^n}{\sqrt{n}}$ converges.
+
+This is a power series of the form $\sum_{n=1}^{\infty} a_n x^n$ where $a_n = \frac{1}{\sqrt{n}} = n^{-1/2}$.
+
+\textbf{Step 1: Find the radius of convergence using the Root Test (Cauchy-Hadamard)}
+
+The radius of convergence is given by:
+$$\rho = \frac{1}{\limsup_{n \to \infty} |a_n|^{1/n}}$$
+
+We compute:
+\begin{align*}
+|a_n|^{1/n} &= \left(\frac{1}{\sqrt{n}}\right)^{1/n} \\
+&= \left(n^{-1/2}\right)^{1/n} \\
+&= n^{-1/(2n)}
+\end{align*}
+
+Taking the limit:
+$$\lim_{n \to \infty} n^{-1/(2n)} = \lim_{n \to \infty} \frac{1}{n^{1/(2n)}} = \frac{1}{1} = 1$$
+
+Therefore: $\rho = \frac{1}{1} = 1$.
+
+\textbf{Step 2: Analyze convergence on the interval $(-1,1)$}
+
+For $|x| < 1$, the series converges absolutely by the radius of convergence.
+
+\textbf{Step 3: Check the boundary points}
+
+\textbf{At $x = 1$:}
+The series becomes $\sum_{n=1}^{\infty} \frac{1}{\sqrt{n}} = \sum_{n=1}^{\infty} \frac{1}{n^{1/2}}$.
+This is a $p$-series with $p = \frac{1}{2} < 1$, so it diverges.
+
+\textbf{At $x = -1$:}
+The series becomes $\sum_{n=1}^{\infty} \frac{(-1)^n}{\sqrt{n}}$.
+This is an alternating series. We apply the alternating series test:
+\begin{itemize}
+    \item $b_n = \frac{1}{\sqrt{n}}$ is positive
+    \item $b_n$ is decreasing since $\frac{1}{\sqrt{n+1}} < \frac{1}{\sqrt{n}}$
+    \item $\lim_{n \to \infty} b_n = \lim_{n \to \infty} \frac{1}{\sqrt{n}} = 0$
+\end{itemize}
+All conditions are satisfied, so the series converges at $x = -1$.
+
+\textbf{Conclusion:}
+The series $\sum_{n=1}^{\infty} \frac{x^n}{\sqrt{n}}$ converges for $x \in [-1, 1)$.
+
+%%%%%%%%%
+
+
+\section*{5}
+
+\[
+S \;=\; 1-\frac12+\frac13-\frac14+\frac15-\frac16+\cdots,
+\qquad
+T \;=\; 1+\frac13-\frac12+\frac15+\frac17-\frac14+\frac19+\frac1{11}-\frac16+\cdots
+\]
+Let
+\[
+A_n \;=\; \sum_{k=1}^n \frac1k
+\quad\text{(the $n$-th harmonic number).}
+\]
+
+\paragraph{1) Formula for \(S\).}
+\begin{align*}
+S_{2n}
+  &= \sum_{k=1}^{2n} \frac{(-1)^{k+1}}{k}
+   = \sum_{k=1}^{n}\!\left(\frac{1}{2k-1}-\frac{1}{2k}\right) \\
+  &= \sum_{k=1}^{2n}\frac1k \;-\; 2\sum_{k=1}^{n}\frac1{2k}
+   = A_{2n}-A_n.
+\end{align*}
+
+\paragraph{2) Formula for \(T\).}
+Group \(T\) in blocks of three terms:
+\[
+T_{3n}=\sum_{k=1}^{n}\!\left(\frac{1}{4k-3}+\frac{1}{4k-1}-\frac{1}{2k}\right).
+\]
+The two positive terms cover all odd denominators up to \(4n-1\), hence
+\[
+\sum_{k=1}^{n}\!\left(\frac{1}{4k-3}+\frac{1}{4k-1}\right)
+=\sum_{j=1}^{4n}\frac1j-\sum_{k=1}^{2n}\frac1{2k}
+= A_{4n}-\frac12 A_{2n}.
+\]
+Therefore
+\[
+T_{3n}
+= \left(A_{4n}-\frac12 A_{2n}\right) - \sum_{k=1}^{n}\frac1{2k}
+= A_{4n}-\frac12 A_{2n}-\frac12 A_n.
+\]
+
+\paragraph{Limits (optional).}
+Using \(A_n=\ln n+\gamma+o(1)\),
+\[
+S_{2n}=A_{2n}-A_n \longrightarrow \ln 2,
+\qquad
+T_{3n}=A_{4n}-\tfrac12 A_{2n}-\tfrac12 A_n \longrightarrow \tfrac32\ln 2.
+\]
+Since the next one or two terms in each block tend to \(0\), we also have
+\[
+\sum S = \ln 2,
+\qquad
+\sum T = \tfrac32 \ln 2.
+\]
+
+%%%%%%
+\subsection*{broken down:}
+% Definitions
+\[
+A_n := \sum_{j=1}^{n}\frac1j \quad\text{(harmonic numbers)}.
+\]
+
+% --- Part 1: S_{2n} ---
+\[
+S_{2n}
+= \sum_{k=1}^{2n}\frac{(-1)^{k+1}}{k}
+= \sum_{k=1}^{n}\!\left(\frac{1}{2k-1}-\frac{1}{2k}\right)
+= \underbrace{\sum_{k=1}^{n}\frac{1}{2k-1}}_{\text{odds up to }2n-1}
+   \;-\; \underbrace{\sum_{k=1}^{n}\frac{1}{2k}}_{\text{evens up to }2n}.
+\]
+
+Now split \(A_{2n}\) into odds + evens:
+\[
+A_{2n}
+= \sum_{j=1}^{2n}\frac1j
+= \underbrace{\sum_{k=1}^{n}\frac{1}{2k-1}}_{\text{odds}}
+  \;+\; \underbrace{\sum_{k=1}^{n}\frac{1}{2k}}_{\text{evens}}.
+\]
+Hence
+\[
+\sum_{k=1}^{n}\frac{1}{2k-1}
+= A_{2n} - \sum_{k=1}^{n}\frac{1}{2k}.
+\]
+Also factor the even-denominator sum:
+\[
+\sum_{k=1}^{n}\frac{1}{2k} = \frac12 \sum_{k=1}^{n}\frac1k = \frac12 A_n.
+\]
+Substitute both identities into \(S_{2n}\):
+\begin{align*}
+S_{2n}
+&= \Bigl(A_{2n} - \sum_{k=1}^{n}\tfrac{1}{2k}\Bigr)
+   - \sum_{k=1}^{n}\tfrac{1}{2k} \\
+&= A_{2n} - 2\sum_{k=1}^{n}\tfrac{1}{2k}
+ = A_{2n} - 2\cdot \frac12 A_n
+ = A_{2n} - A_n.
+\end{align*}
+
+% --- Part 2: T_{3n} ---
+\[
+T_{3n}
+= \sum_{k=1}^{n}\!\left(\frac{1}{4k-3}+\frac{1}{4k-1}-\frac{1}{2k}\right)
+= \underbrace{\sum_{k=1}^{n}\frac{1}{4k-3}+\sum_{k=1}^{n}\frac{1}{4k-1}}_{\text{all odds } \le 4n-1}
+  \;-\; \underbrace{\sum_{k=1}^{n}\frac{1}{2k}}_{\text{evens } \le 2n}.
+\]
+
+Relate the “odds up to \(4n-1\)” to \(A_{4n}\).
+Split \(A_{4n}\) into odds + evens:
+\[
+A_{4n}
+= \sum_{j=1}^{4n}\frac1j
+= \Bigl(\sum_{k=1}^{n}\frac{1}{4k-3} + \sum_{k=1}^{n}\frac{1}{4k-1}\Bigr)
+  + \sum_{k=1}^{2n}\frac{1}{2k}.
+\]
+Thus
+\[
+\sum_{k=1}^{n}\frac{1}{4k-3} + \sum_{k=1}^{n}\frac{1}{4k-1}
+= A_{4n} - \sum_{k=1}^{2n}\frac{1}{2k}.
+\]
+Convert the even sums by factoring \(1/2\):
+\[
+\sum_{k=1}^{2n}\frac{1}{2k} = \frac12 \sum_{k=1}^{2n}\frac1k = \frac12 A_{2n},
+\qquad
+\sum_{k=1}^{n}\frac{1}{2k} = \frac12 \sum_{k=1}^{n}\frac1k = \frac12 A_n.
+\]
+Substitute into \(T_{3n}\):
+\begin{align*}
+T_{3n}
+&= \Bigl(A_{4n} - \sum_{k=1}^{2n}\tfrac{1}{2k}\Bigr)
+   - \sum_{k=1}^{n}\tfrac{1}{2k} \\
+&= A_{4n} - \frac12 A_{2n} - \frac12 A_n.
+\end{align*}
+
+\subsection*{final part, prove T = 3 halves S}
+
+\[
+A_n := \sum_{k=1}^n \frac1k,\qquad
+S_{2n} = A_{2n} - A_n,\qquad
+T_{3n} = A_{4n} - \tfrac12 A_{2n} - \tfrac12 A_n.
+\]
+
+Compute the key difference:
+\[
+T_{3n} - \tfrac32 S_{2n}
+= \Bigl(A_{4n} - \tfrac12 A_{2n} - \tfrac12 A_n\Bigr)
+  - \tfrac32\,(A_{2n} - A_n)
+= A_{4n} - 2A_{2n} + A_n.
+\]
+
+Now use the standard convergence
+\[
+A_m - \ln m \;\longrightarrow\; \gamma
+\quad\text{(Euler’s constant)}.
+\]
+Write \(A_m = \ln m + \gamma + \varepsilon_m\) with \(\varepsilon_m \to 0\). Then
+\[
+A_{4n} - 2A_{2n} + A_n
+= \bigl(\ln(4n) - 2\ln(2n) + \ln n\bigr)
+  + (\varepsilon_{4n} - 2\varepsilon_{2n} + \varepsilon_n)
+= 0 + o(1) \;\longrightarrow\; 0.
+\]
+
+Hence
+\[
+\lim_{n\to\infty}\Bigl(T_{3n} - \tfrac32 S_{2n}\Bigr) = 0.
+\]
+Since the omitted terms between \(T_{3n}\) and general \(T_N\) (at most 2 terms), and between \(S_{2n}\) and general \(S_M\) (at most 1 term), go to 0, the full sums satisfy
+\[
+T = \tfrac32\, S.
+\]
+\end{document}

@@ -1094,15 +1094,15 @@ Before giving examples of continuous and discontinuous maps, we record equivalen
 	\]
 \end{enumerate}}
 \paragraph{Proof.}
-	extbf{a.} We show (1)$\Rightarrow$(2): Let $\eps>0$ and set $V:=B\big(f(x_0),\eps\big)\in\mathcal U\big(f(x_0)\big)$. By continuity at $x_0$ there exists $U\in\mathcal U(x_0)$ such that $f(U\cap D)\subset V$. Since $U$ is open, by Def.~4.2.1 there is $\delta>0$ with $B(x_0,\delta)\subset U$. Hence
+	\textbf{a.} We show (1)$\Rightarrow$(2): Let $\eps>0$ and set $V:=B\big(f(x_0),\eps\big)\in\mathcal U\big(f(x_0)\big)$. By continuity at $x_0$ there exists $U\in\mathcal U(x_0)$ such that $f(U\cap D)\subset V$. Since $U$ is open, by Def.~4.2.1 there is $\delta>0$ with $B(x_0,\delta)\subset U$. Hence
 \[
 	f\big(B(x_0,\delta)\cap D\big) \subset f(U\cap D) \subset V,
 \]
 which implies: for all $x\in D$ with $\|x-x_0\|_X<\delta$ we have $\|f(x)-f(x_0)\|_Y<\eps$.
 
-	extbf{b.} We show (2)$\Rightarrow$(3): Let $(x_n)_{n\in\N}\subset D$ with $x_n\to x_0$ and let $\eps>0$. Choose $\delta>0$ as in (2). Then there exists $n_\eps\in\N$ such that $\|x_n-x_0\|_X<\delta$ for all $n\ge n_\eps$. Hence $\|f(x_n)-f(x_0)\|_Y<\eps$ for all $n\ge n_\eps$, i.e. $f(x_n)\to f(x_0)$.
+	\textbf{b.} We show (2)$\Rightarrow$(3): Let $(x_n)_{n\in\N}\subset D$ with $x_n\to x_0$ and let $\eps>0$. Choose $\delta>0$ as in (2). Then there exists $n_\eps\in\N$ such that $\|x_n-x_0\|_X<\delta$ for all $n\ge n_\eps$. Hence $\|f(x_n)-f(x_0)\|_Y<\eps$ for all $n\ge n_\eps$, i.e. $f(x_n)\to f(x_0)$.
 
-	extbf{c.} We show (3)$\Rightarrow$(1): Suppose (3) holds but $f$ is not continuous at $x_0$. Negating Definition~4.3.1, there exists a neighborhood $V\in\mathcal U\big(f(x_0)\big)$ such that for every $U\in\mathcal U(x_0)$ we have $f(U\cap D)\not\subset V$. Equivalently,
+	\textbf{c.} We show (3)$\Rightarrow$(1): Suppose (3) holds but $f$ is not continuous at $x_0$. Negating Definition~4.3.1, there exists a neighborhood $V\in\mathcal U\big(f(x_0)\big)$ such that for every $U\in\mathcal U(x_0)$ we have $f(U\cap D)\not\subset V$. Equivalently,
 \[
 	\exists V\in\mathcal U\big(f(x_0)\big)\ \forall n\in\N:\ f\big(B(x_0,1/n)\cap D\big)\not\subset V.
 \]
@@ -1119,13 +1119,13 @@ Thus for this $V$ and every $n$ there exists $x_n\in B(x_0,1/n)\cap D$ with $f(x
 	\item Preimages of closed sets in $Y$ are relatively closed in $D'$, i.e. for every closed $A\subset Y$ the set $D'\cap f^{-1}(A)$ is relatively closed in $D'$.
 \end{enumerate}}
 \paragraph{Proof.}
-	extbf{a.} (1)$\Rightarrow$(2). Consider $D'\cap f^{-1}(V)$. If it is empty, it is relatively open in $D'$ by convention. Otherwise, let $x\in D'\cap f^{-1}(V)$, so $f(x)\in V$ with $V$ open in $Y$. By continuity at $x$ there exists $U\in\mathcal U(x)$ with $f(U\cap D)\subset V$. Then
+	\textbf{a.} (1)$\Rightarrow$(2). Consider $D'\cap f^{-1}(V)$. If it is empty, it is relatively open in $D'$ by convention. Otherwise, let $x\in D'\cap f^{-1}(V)$, so $f(x)\in V$ with $V$ open in $Y$. By continuity at $x$ there exists $U\in\mathcal U(x)$ with $f(U\cap D)\subset V$. Then
 \[
 	U\cap D' \subset f^{-1}(V)\cap D',
 \]
 which shows that for every $x\in D'\cap f^{-1}(V)$ there is a neighborhood $U$ of $x$ in $X$ with $U\cap D'\subset f^{-1}(V)\cap D'$. Hence $D'\cap f^{-1}(V)$ is relatively open in $D'$.
 
-	extbf{b.} (2)$\Rightarrow$(3). Let $A\subset Y$ be closed. Then $Y\setminus A$ is open and, by (2),
+	\textbf{b.} (2)$\Rightarrow$(3). Let $A\subset Y$ be closed. Then $Y\setminus A$ is open and, by (2),
 \[
 	D'\setminus f^{-1}(A) 
 		= D'\cap f^{-1}(Y\setminus A)
@@ -1136,7 +1136,7 @@ is relatively open in $D'$. Hence there exists some open $U\subset X$ with $D'\s
 \]
 and since $U^{c}$ is closed in $X$, the set $f^{-1}(A)\cap D'$ is relatively closed in $D'$.
 
-	extbf{c.} (3)$\Rightarrow$(1). Let $x\in D'$ and let $V\in\mathcal U\big(f(x)\big)$. Then $Y\setminus V$ is closed, hence by (3) the set $D'\cap f^{-1}(Y\setminus V)$ is relatively closed in $D'$. Arguing as in the proof of (2)$\Rightarrow$(3), it follows that $f^{-1}(V)$ is relatively open in $D'$, so there exists an open neighborhood $U\in\mathcal U(x)$ with
+	\textbf{c.} (3)$\Rightarrow$(1). Let $x\in D'$ and let $V\in\mathcal U\big(f(x)\big)$. Then $Y\setminus V$ is closed, hence by (3) the set $D'\cap f^{-1}(Y\setminus V)$ is relatively closed in $D'$. Arguing as in the proof of (2)$\Rightarrow$(3), it follows that $f^{-1}(V)$ is relatively open in $D'$, so there exists an open neighborhood $U\in\mathcal U(x)$ with
 \[
 	f^{-1}(V)\cap D' = U\cap D'.
 \]

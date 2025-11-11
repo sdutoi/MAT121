@@ -1,0 +1,212 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{graphicx} % Images
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 7}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+% ==========================================
+\begin{document}
+
+\section*{1 (Convergence Radius I)}
+
+\subsection*{(a)}
+\textbf{Series:} $\displaystyle \sum_{n=0}^{\infty} \frac{z^n}{n^3+1} = \sum_{n=0}^{\infty} a_n z^n$, $a_n = \frac{1}{n^3+1}$.
+
+\begin{solution}
+Radius: $R=\lim_{n\to\infty}\bigl|\tfrac{a_n}{a_{n+1}}\bigr|=\lim \tfrac{n^3+1}{(n+1)^3+1}=1$.
+- If $|z|<1$, converges absolutely.
+- If $|z|>1$, $\frac{|z|^n}{n^3+1}\not\to0$, so diverges.
+- If $|z|=1$, $\sum \frac{|z|^n}{n^3+1}\le \sum \frac{1}{n^3}$, so absolute convergence.
+
+Thus $R=1$ and convergence for all $|z|\le1$.
+\end{solution}
+
+\subsection*{(b)}
+\textbf{Series:} $\displaystyle \sum_{n=0}^{\infty} \frac{2^n}{3^{n^2}}\, z^n$, $a_n = \dfrac{2^n}{3^{n^2}}$.
+
+\begin{solution}
+$R=\lim_{n\to\infty}\bigl|\tfrac{a_n}{a_{n+1}}\bigr|
+=\lim \frac{1}{2}3^{2n+1}=+\infty$. The series converges for all $z\in\C$.
+\end{solution}
+
+\subsection*{(c)}
+\textbf{Series:} $\displaystyle \sum_{n=0}^{\infty} \frac{n^5+1}{3^n+1}\, z^n$, $a_n = \dfrac{n^5+1}{3^n+1}$.
+
+\begin{solution}
+$R=\lim_{n\to\infty}\bigl|\tfrac{a_n}{a_{n+1}}\bigr|
+=\lim \frac{n^5+1}{(n+1)^5+1}\cdot \frac{3^{n+1}+1}{3^n+1}=3$.
+- If $|z|<3$, absolute convergence.
+- If $|z|>3$, divergence.
+- If $|z|=3$, $|a_n z^n|=(n^5+1)\frac{3^n}{3^n+1}\sim n^5\not\to0$, so divergence.
+
+Hence $R=3$ and divergence on $|z|=3$.
+\end{solution}
+
+\section*{2 (Convergence Radius II)}
+
+Let $\sum_{n=0}^{\infty} a_n x^n$ have radius $1$.
+
+\subsection*{(a)}
+Let $0<B<1$. Show: for every $\varepsilon>0$ there exists $N=N(\varepsilon,B)$ such that
+$\sum_{n=N}^{\infty}|a_n||y|^n\le\varepsilon$ for all $|y|<B$.
+
+\begin{solution}
+Pick $r$ with $B<r<1$ and set $\rho:=B/r<1$. Since $\sum |a_n|r^n$ converges, its tails tend to $0$. For $|y|<B$ and $n\ge N$,
+$\bigl(\tfrac{|y|}{r}\bigr)^n\le \rho^n\le \rho^N$, hence
+\[
+\sum_{n=N}^{\infty}|a_n||y|^n
+=\sum_{n=N}^{\infty}|a_n|r^n\Bigl(\tfrac{|y|}{r}\Bigr)^n
+\le \rho^N\sum_{n=N}^{\infty}|a_n|r^n.
+\]
+The right-hand side tends to $0$ as $N\to\infty$, so choose $N$ with
+$\rho^N\sum_{n=N}^{\infty}|a_n|r^n\le \varepsilon$. This $N$ works for all $|y|<B$.
+\end{solution}
+
+\subsection*{(b)}
+Let $(x_m)_m$ be a sequence with $|x_m|<1$ for all $m\in\mathbb{N}$ and suppose $x_m\to x$ for some $x\in\mathbb{R}$ with $|x|<1$. Show that there is a $B<1$ such that
+\[\sup\{ |x_m|, |x|\} \le B.\]
+
+\begin{solution}
+Pick a buffer $\varepsilon := \tfrac{1-|x|}{2}>0$, so that $|x|+\varepsilon=\tfrac{|x|+1}{2}=:B_{\mathrm{tail}}<1$.
+By convergence, there exists $N\in\mathbb{N}$ such that for all $m\ge N$ we have $|x_m-x|<\varepsilon$. Hence, for all $m\ge N$,
+\[
+ |x_m| \le |x| + |x_m-x| < |x| + \varepsilon = B_{\mathrm{tail}} < 1.
+\]
+Define
+\[
+ B := \max\bigl\{ B_{\mathrm{tail}}, |x_1|, |x_2|,\dots, |x_{N-1}| \bigr\}.
+\]
+Each quantity inside the maximum is strictly smaller than $1$ (by hypothesis and because $B_{\mathrm{tail}}<1$), hence $B<1$.
+For $m\ge N$ we have $|x_m|\le B_{\mathrm{tail}}\le B$, while for $1\le m<N$ we have $|x_m|\le B$ by construction; clearly also $|x|\le B_{\mathrm{tail}}\le B$. Therefore
+\[
+ \sup\{ |x_m|, |x|\} \le B < 1.
+\]
+\end{solution}
+% ...existing code...
+\subsubsection*{(c)}
+Let $\sum_{n=0}^{\infty} a_n x^n$ be a power series with radius of convergence $1$. Suppose $(x_m)_{m\in\mathbb N}$ satisfies $|x_m|<1$ for all $m$ and $x_m\to x$ with $|x|<1$. We show
+\[
+\lim_{m\to\infty}\sum_{n=0}^{\infty} a_n x_m^n \;=\; \sum_{n=0}^{\infty} a_n x^n.
+\]
+\begin{solution}
+By part (b), there exists $B<1$ such that $\sup\{|x_m|,|x|\}\le B$. By part (a), for every $\varepsilon>0$ there is $N=N(\varepsilon,B)\in\mathbb N$ such that for all $|y|\le B$,
+\[
+\sum_{n>N} |a_n|\,|y|^n \le \varepsilon.
+\]
+Fix $\varepsilon>0$ and choose $N$ accordingly. For any $m\in\mathbb N$ we write
+\[
+\sum_{n=0}^{\infty} a_n x_m^n - \sum_{n=0}^{\infty} a_n x^n
+= \underbrace{\sum_{n=0}^{N} a_n\,(x_m^n-x^n)}_{\text{finite part}}
+\;+\; \underbrace{\sum_{n>N}^{\infty} a_n x_m^n}_{\text{tail at }x_m}
+\;-\; \underbrace{\sum_{n>N}^{\infty} a_n x^n}_{\text{tail at }x}.
+\]
+Taking absolute values and applying the triangle inequality gives
+\[
+\Bigl|\sum_{n=0}^{\infty} a_n x_m^n - \sum_{n=0}^{\infty} a_n x^n\Bigr|
+\;\le\; \Bigl|\sum_{n=0}^{N} a_n\,(x_m^n-x^n)\Bigr|
+\;+\; \sum_{n>N}^{\infty} |a_n|\,|x_m|^n
+\;+\; \sum_{n>N}^{\infty} |a_n|\,|x|^n.
+\]
+Since $|x_m|\le B$ and $|x|\le B$, the last two terms are bounded by $\varepsilon$ each by (a).
+For the finite part, use the algebraic identity $a^n-b^n=(a-b)\sum_{k=0}^{n-1}a^{n-1-k}b^k$ to get, for $n\ge1$,
+\[
+|x_m^n-x^n| \le |x_m-x|\sum_{k=0}^{n-1}|x_m|^{\,n-1-k}|x|^{\,k} \le |x_m-x|\, n B^{n-1}.
+\]
+Therefore
+\[
+\Bigl|\sum_{n=0}^{N} a_n\,(x_m^n-x^n)\Bigr|
+\le |x_m-x|\sum_{n=1}^{N} n |a_n| B^{n-1}
+=: C_{N,B}\,|x_m-x|.
+\]
+Because $x_m\to x$, there exists $m_\varepsilon$ such that for all $m\ge m_\varepsilon$ we have $|x_m-x|\le \varepsilon/C_{N,B}$, and hence
+\[
+\Bigl|\sum_{n=0}^{\infty} a_n x_m^n - \sum_{n=0}^{\infty} a_n x^n\Bigr|
+\le C_{N,B}|x_m-x|+\varepsilon+\varepsilon \le 3\varepsilon.
+\]
+Since $\varepsilon>0$ is arbitrary, the claim follows.
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%
+
+\section*{3 (Normed Vector Spaces I)}
+\begin{solution}
+Example in $\mathbb{R}^2$: take $x=(4,0)$ and $y=(3,3)$. Then
+$\norm{x}_2=4$, $\norm{y}_2=\sqrt{18}>4$, while $\norm{x}_{\infty}=4$ and $\norm{y}_{\infty}=3<4$.
+
+This does not contradict norm equivalence: in finite dimensions there exist constants $C_1,C_2>0$ with
+$C_1\norm{v}_{\infty}\le \norm{v}_2\le C_2\norm{v}_{\infty}$ for all $v$, but equivalence does not preserve the ordering between \emph{different} vectors.
+\end{solution}
+Instead, norm equivalence means that the norms are "comparable" for any \textit{single} vector. Formally, it means there exist positive constants $C_1$ and $C_2$ such that for \textbf{any vector $v$}, the following inequality holds:
+$$ C_1 \norm{v}_{\infty} \le \norm{v}_2 \le C_2 \norm{v}_{\infty} $$
+(For $\mathbb{R}^n$, these constants are $C_1 = 1$ and $C_2 = \sqrt{n}$.)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+
+\section*{4 (Normed Vector Spaces II)}
+
+For $x, y \in \mathbb{R}$, we write $(x, y)$ for the vector in $\mathbb{R}^2$ with components $x$ and $y$.
+
+\noindent For $x,y\in\mathbb{R}$, write $(x,y)$ for the vector in $\mathbb{R}^2$.
+
+\subsection*{(a)} 
+
+
+$B(0,1)=\{(x,y): |x|^3+|y|^3\le1\}$; its boundary is $|x|^3+|y|^3=1$ (symmetric ``supercircle'' with intercepts $(\pm1,0)$ and $(0,\pm1)$).
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{plot1.png}
+\end{center}
+
+
+\subsection*{(b)}
+
+\begin{solution}
+Clearly $\norm{v}_{\heartsuit}\ge0$ and $\norm{v}_{\heartsuit}=0\iff v=0$. For $\alpha\in\mathbb{R}$,
+$\norm{\alpha v}_{\heartsuit}=\sqrt{(\alpha x)^2+2(\alpha y)^2}=|\alpha|\norm{v}_{\heartsuit}$. For the triangle inequality define $T(x,y)=(x,\sqrt2\,y)$. Then $\norm{v}_{\heartsuit}=\norm{T(v)}_2$, hence
+$\norm{v+w}_{\heartsuit}=\norm{T(v+w)}_2\le\norm{T(v)}_2+\norm{T(w)}_2=\norm{v}_{\heartsuit}+\norm{w}_{\heartsuit}$.
+\end{solution}
+
+\subsection*{(c)} 
+
+$B(0,1)=\{(x,y): x^2+2y^2\le1\}$, an ellipse with axes intercepts $(\pm1,0)$ and $(0,\pm1/\sqrt2)$.
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{plot2.png}
+\end{center}
+
+\end{document}

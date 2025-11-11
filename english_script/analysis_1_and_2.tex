@@ -5,7 +5,6 @@
 % translating the original two-semester German Analysis script.
 %
 % HOW TO USE:
-%  1. Keep each section/subsection heading (English with German in parentheses)
 %     so it's easy to cross-reference the source.
 %  2. Replace the \todo{...} markers with translated content incrementally.
 %  3. If you keep some German text temporarily, wrap it in \textit{...} or a
@@ -30,7 +29,7 @@
 \documentclass[12pt,a4paper]{article}
 
 % -------------------- Packages --------------------
-\usepackage[utf8]{inputenc} % (Redundant in modern engines, harmless)
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{amsmath,amssymb,amsthm}
@@ -49,7 +48,11 @@
 \geometry{margin=2.5cm}
 
 % -------------------- Metadata --------------------
-\title{Analysis I \& II \newline\small (English Translation Draft)}
+\iffalse
+		itle{Analysis I \& II \newline\small (English Translation Draft)}
+\fi
+% (replaced malformed title line below)
+\csname title\endcsname{Analysis I \& II \newline\small (English Translation Draft)}
 \author{Based on original German script (private use)}
 \date{\today}
 
@@ -81,234 +84,48 @@
 \paragraph*{Definition #1 ( #2 ).} #3\par}
 \newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
 \paragraph*{Theorem #1 ( #2 ).} #3\par}
-\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
-\paragraph*{Example #1 ( #2 ).} #3\par}
-\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
-\paragraph*{Remark #1 ( #2 ).} #3\par}
 \newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
 \paragraph*{Proposition #1 ( #2 ).} #3\par}
 \newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
 \paragraph*{Lemma #1 ( #2 ).} #3\par}
 \newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
 \paragraph*{Corollary #1 ( #2 ).} #3\par}
-
-% Theorem styles (adjust as needed)
-% Theorem styles (adjust as needed)
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{example}[theorem]{Example}
-
-% Hyperref setup
-\hypersetup{
-	colorlinks=true,
-	linkcolor=blue,
-	urlcolor=teal,
-	citecolor=purple,
-	pdfauthor={Translation Draft},
-	pdftitle={Analysis I & II (English Translation Draft)}
-}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
 
 \begin{document}
+
 \maketitle
-% Table of Contents (clickable via hyperref)
-% Table of Contents (clickable via hyperref)
-\hypersetup{linktoc=all} % make both section numbers and titles clickable
+% Table of contents on its own page, with subsections included
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Table of Contents}
+\clearpage
 \tableofcontents
-\newpage
-% ---------------------------------------------------------------------------
-% Chapter 1 placeholder (Grundbegriffe)
-% ---------------------------------------------------------------------------
+\clearpage
+
 \section{Basic Concepts (Grundbegriffe)}
+\subsection{Logic (Logik)}\label{subsec:logic}
+% Placeholder to preserve numbering; content to be translated/added.
+	odo{Translate and insert: propositional calculus basics, quantifiers, basic proof methods.}
 
-% This chapter is not yet translated. We keep a visible skeleton so the TOC
-% matches the German script and subsequent chapters are numbered 2, 3, 4, ...
+\subsection{Sets (Mengen)}\label{subsec:sets}
+% Placeholder
+	odo{Translate and insert: basic set operations, subsets, Cartesian products, maps.}
 
-\subsection{Logic (Logik)}\todo{Placeholder for future translation}
-\subsection{Sets (Mengen)}\todo{Placeholder for future translation}
-\subsection{Functions (Funktionen)}\todo{Placeholder for future translation}
-\subsection{Relations (Relationen)}\todo{Placeholder for future translation}
+\subsection{Functions (Funktionen)}\label{subsec:functions}
+% Placeholder
+	odo{Translate and insert: definition, image/preimage, injective/surjective/bijective, composition.}
 
-% ...existing code...
-% Temporarily disable early draft snippets from Chapter 1 until translation
-% is ready; they are kept here for later use to preserve numbering context.
-\iffalse
-\NumberedDefinition{1.4.9}{Maximal and minimal elements}{Let \((M,\preceq)\) be an ordered set and \(A\subset M\) with \(A\neq\emptyset\). An element \(m\in A\) is called maximal in \(A\) if
-\[
-\bigl(x\in A \ \wedge\ m\preceq x\bigr)\ \Longrightarrow\ x = m.
-\]
-(That is, no element of \(A\) lies strictly above \(m\).)
-An element \(m\in A\) is called minimal in \(A\) if
-\[
-\bigl(x\in A \ \wedge\ x\preceq m\bigr)\ \Longrightarrow\ x = m.
-\]
-(That is, no element of \(A\) lies strictly below \(m\).)
-\label{def:1.4.9}}
+\subsection{Relations (Relationen)}\label{subsec:relations}
+% Placeholder
+	odo{Translate and insert: equivalence relations, order relations, partitions.}
 
-An element \(m\in A\) is a \emph{maximum} (largest element) of \(A\) if it is an upper bound of \(A\) and \(m\in A\); we then write \(m=\max A\). Dually, \(m\in A\) is a \emph{minimum} (smallest element) if it is a lower bound of \(A\) and belongs to \(A\); then \(m=\min A\).
-
-Observe the distinction:
-\begin{itemize}[leftmargin=*]
-	\item A set may possess several distinct maximal elements (and several minimal elements) in a partial order.
-	\item If a maximum exists it is the \emph{only} maximal element (and similarly a minimum, if it exists, is the only minimal element).
-	\item In a total order, if a maximal element exists then it is automatically the maximum; likewise for minimal/minimum.
-\end{itemize}
-
-\NumberedDefinition{1.4.10}{Upper/lower bounds, supremum and infimum}{Let \((M,\preceq)\) be an ordered set and let \(A\subset M\) with \(A\neq\emptyset\).
-\begin{itemize}[leftmargin=*]
-	\item An element \(u\in M\) is called an \emph{upper bound} of \(A\) if \(a\preceq u\) for all \(a\in A\). We say that \(A\) is \emph{bounded above} if it has an upper bound.
-	\item An element \(l\in M\) is a \emph{lower bound} of \(A\) if \(l\preceq a\) for all \(a\in A\). We say that \(A\) is \emph{bounded below} if it has a lower bound.
-	\item An element \(s\in M\) is the \emph{supremum} (least upper bound) of \(A\) if it is an upper bound of \(A\) and for every upper bound \(u\) of \(A\) we have \(s\preceq u\). We then write \(s=\sup A\).
-	\item An element \(i\in M\) is the \emph{infimum} (greatest lower bound) of \(A\) if it is a lower bound of \(A\) and for every lower bound \(l\) of \(A\) we have \(l\preceq i\). We then write \(i=\inf A\).
-\end{itemize}
-If it exists and belongs to the set, the supremum is the maximum; if the infimum exists and belongs to the set, it is the minimum.
-}
-
-\paragraph{Remarks.}
-\begin{itemize}[leftmargin=*]
-	\item Supremum and infimum, when they exist, are unique.
-	\item A set can be bounded above without possessing a maximum; e.g. the open interval \((0,1)\subset \R\) has \(1\) as least upper bound but no maximum.
-	\item In \(\R\) (and more generally any order-complete set) every nonempty set that is bounded above has a supremum, and every nonempty set bounded below has an infimum.
-	\item The dual notions are exchanged by replacing the order \(\preceq\) with its opposite.
-\end{itemize}
-
-\paragraph{Equivalent characterization of supremum.} For a nonempty subset \(A\subset \R\) that is bounded above and a number \(s\in\R\), the following are equivalent:
-\begin{enumerate}[label=\alph*) ,leftmargin=*]
-	\item \(s=\sup A\).
-	\item (i) \(a\le s\) for all \(a\in A\); and (ii) for every \(\eps>0\) there exists \(a\in A\) with \(s-\eps < a\).
-\end{enumerate}
-This is the content already stated in Proposition~2.3.7 for the real numbers.
-
-\paragraph{Notation.} When helpful we also write \(\sup_{a\in A} a\) for \(\sup A\), and similarly for the infimum.
-\fi
-
-% ============================================================================
-% 2 Numbers (Zahlen) -- Original start p.15
-% ============================================================================
 \section{Numbers (Zahlen)}
-
-\subsection{The Natural Numbers (Die natürlichen Zahlen)}
-We know the natural numbers from counting. All structural properties of the natural numbers can be derived from the 
-successor map $\nu(n)=n+1$. This is the idea behind the Peano axioms, which formalize the introduction of the natural numbers.
-
-\NumberedDefinition{2.1.1}{Peano axioms}{The natural numbers form a set $\N$ with a distinguished element $0$ and a map $\nu: \N\to\N$ with the following properties:
-\begin{description}[leftmargin=*]
-	\item[P1)] $\nu$ is injective and $0\notin \mathrm{Range}(\nu)$.
-	\item[P2)] (Principle of complete induction.) If $A\subset \N$ satisfies $0\in A$ and
-	\[
-		n\in A \ \Longrightarrow\ \nu(n)\in A,
-	\]
-	then $A=\N$.
-\end{description}
-The numbers $\nu(0),\,\nu\big(\nu(0)\big),\,\dots$ are called $1,2,\dots$ respectively.}
-
-All properties of $\N$ may be derived from the Peano axioms. For example, we can define an order on $\N$ as follows: say
-\emph{$k\le m$} if either $k=m$, or if $m$ can be reached from $k$ by repeated application of $\nu$, i.e., there exists $r\in\N$ such that $\nu^{r}(k)=m$.
-It is easy to check that this is a (total) order relation. From the axioms one also obtains $0\le n$ for every $n\in\N$. The sum on $\N$ can be defined via repeated application of $\nu$ (recursively by $k+0:=k$ and $k+\nu(m):=\nu(k+m)$). We write $m<n$ if $m\le n$ and $m\ne n$.
-
-\NumberedTheorem{2.1.2}{Well-ordering principle}{Every nonempty subset $M\subset \N$ has a minimum.}
-
-\paragraph{Proof.} Consider the set of lower bounds of $M$ in $\N$,
-\[
-	A := \{ k\in \N : k\le m \text{ for all } m\in M\}.
-\]
-We know $0\in A$ because $0\le m$ for all $m\in\N$. Since $M\ne\emptyset$, not every number is a lower bound of $M$, hence $A\ne \N$. By the induction principle (P2) contrapositively, from $A\ne \N$ and $0\in A$ it follows that there exists some $n\in A$ with $\nu(n)\notin A$.
-
-The condition $n\in A$ means $n\le m$ for all $m\in M$. The condition $\nu(n)\notin A$ means there exists some $m\in M$ with $m<\nu(n)$. Combining these we obtain
-\[
-	n\le m < n+1=\nu(n) \quad\Longrightarrow\quad m=n.
-\]
-Thus $n\in M$ and $n$ is the smallest element of $M$. \qed
-
-Since $0\in A$, we obtain
-\[
-	\neg(n\in A) \ \Longrightarrow\ (n+1)\in A
-	\qquad\Longleftrightarrow\qquad
-	\exists n_0\in A : (n_0+1)\notin A.
-\]
-
-We claim that this $n_0$ is the desired minimum of $M$. To see this, note that
-\[
-	(n_0+1)\notin A \ \Longleftrightarrow\ \exists p\in M : p < n_0+1
-	\ \Longleftrightarrow\ \exists p\in M : p\le n_0.
-\]
-Since $n_0\in A$, we also have $n_0\le p$. Hence $n_0=p\in M$. This implies $k\le n_0$ for all $k\in A$. Thus $n_0$ is a maximal element of $A$, i.e. $n_0=\inf(M)$. Because $n_0\in M$, it follows that $n_0=\min M$. \qed
-
-The Peano axioms provide a useful method for proving the truth of statement forms over $\N$.
-
-\NumberedProposition{2.1.3}{Inductive proof}{Let $A(n)$ be a statement about $\N$. If $A(0)$ holds and if
-\[
-	A(n) \ \Longrightarrow\ A(n+1), \qquad \text{for all } n\in\N,
-\]
-then $A(n)$ holds for all $n\in\N$.}
-
-\paragraph{Proof.} Let $B:=\{ n\in\N : A(n) \text{ holds}\}$. By Def. 2.1.1(P2) it follows from
-\[
-	(0\in B) \ \wedge\ (n\in B \ \Longrightarrow\ (n+1)\in B)
-\]
-that $B=\N$. \qed
-
-The proof of $A(0)$ is called the induction anchor or base case. The proof of the implication
-\[
-	A(n) \ \Longrightarrow\ A(n+1)
-\]
-is the induction step (inductive step).
-
-Generalizations: Inductive proofs can also begin with $n=n_0>0$. That is, one has:
-\[
-	A(n_0)\ \wedge\ (A(n)\ \Longrightarrow\ A(n+1),\ \ \forall n\ge n_0)\ \Longrightarrow\ A(n),\ \ \forall n\ge n_0.
-\]
-
-For the induction step one may also assume the validity of all statements $A(k)$ for $k\le n$. That is,
-\[
-	A(0)\ \wedge\ (A(0)\wedge\cdots\wedge A(n)\ \Longrightarrow\ A(n+1),\ \ \forall n\in\N)\ \Longrightarrow\ A(n),\ \ \forall n\in\N.
-\]
-
-\NumberedExample{2.1.4}{}{\begin{itemize}[leftmargin=*]
-	\item For $n\ge 1$ let $A(n)$ be the statement
-	\[
-		1+3+5+\cdots+(2n-1) = n^2.
-	\]
-	To show $A(n)$ for all $n\in\N$, it suffices to note that $A(1)$ holds and that $A(n)\ \Longrightarrow\ A(n+1)$ holds for all $n\in\N$. The base case is clear. To prove the induction step, assume $A(n)$ holds, and show $A(n+1)$. Observe that
-	\[
-		1+3+\cdots+(2(n+1)-1)
-			= 1+3+\cdots+(2n-1)+(2n+1)
-			= n^2 + (2n+1)
-			= (n+1)^2,
-	\]
-	where we used the assumption $A(n)$ in the second equality.
-
-	\item We claim that every $n\in\N\setminus\{0\}$ can be written as a product of prime numbers.\footnote{In the literature one often does \emph{not} count $1$ as a prime number, but rather defines $2$ as the smallest prime. In this statement we use the set of primes that contains $1$ as its smallest element.} To prove this claim, for $n\in\N\setminus\{0\}$ let $A(n)$ be the statement that $n$ can be written as a product of primes. Clearly $A(1)$ holds (since $1$ is a prime). Now assume $A(1)\land\cdots\land A(n)$ holds (that is, $A(k)$ holds for all $k\le n$), and show that $A(n+1)$ holds. We distinguish two cases. If $(n+1)$ is a prime, we are done. If $(n+1)$ is not a prime, then there exist $p,q\in\N$ with $n+1=pq$. Since $p,q\le n$, the induction hypothesis implies that $p$ and $q$ can be factored as products of primes. From $n+1=pq$ we can therefore also write $(n+1)$ as a product of primes.
-\end{itemize}}
-
-The principle of complete induction can also be used to formulate (or define) objects inductively (or recursively). For example, $n!$, called $n$ factorial, is defined as the product of all integers between $1$ and $n$, i.e.
-\[
-	n! = 1\cdot 2\cdot 3\cdots n,
-\]
-with the convention $0!:=1$. The same quantity can be defined recursively by the rule: set $0!:=1$ and, for $n\in\N\\\{0\}$,
-\[
-	n! := n\,(n-1)!.
-\]
-The fact that in this way $n!$ is indeed defined for every $n\in\N$ is a consequence of the principle of complete induction.
-
-If $(a_n)_{n\in\N}$ is a sequence with values in some set in which an addition is defined, we define the sum $\sum_{j=0}^{n} a_j$ for all $n\in\N$ by the recursive definition
-\[
-	\sum_{j=0}^{0} a_j := a_0
-	\quad\text{and}\quad
-	\sum_{j=0}^{n+1} a_j := \Big(\sum_{j=0}^{n} a_j\Big) + a_{n+1}.
-\]
-Similarly, if $(a_j)_{j\in\N}$ takes values in a set in which a multiplication is defined, we define the product $\prod_{j=0}^{n} a_j$ recursively by
-\[
-	\prod_{j=0}^{0} a_j := a_0
-	\quad\text{and}\quad
-	\prod_{j=0}^{n+1} a_j := \Big(\prod_{j=0}^{n} a_j\Big) a_{n+1}.
-\]
+\subsection{The Natural Numbers (Die natürlichen Zahlen)}\label{subsec:natural-numbers}
+% Placeholder
+	odo{Translate and insert: Peano axioms (brief), induction, basic properties.}
 
 \subsection{The Rational Numbers (Die rationalen Zahlen)}
 \paragraph{Motivation.} In $\N$ neither addition nor multiplication is invertible in general: given $n,m\in\N$ there need not exist $x\in\N$ with $n+x=m$ nor $x\in\N$ with $n\,x=m$. Passing to integers $\Z$ fixes additivity (every $m\in\Z$ has an additive inverse $-m$), but multiplicative inverses still fail to exist except for $\pm1$. We therefore enlarge $\Z$ to a number system where every nonzero element has a multiplicative inverse—the \emph{rational numbers} $\Q$.
@@ -357,171 +174,18 @@ This yields a total order compatible with the field operations; in particular $\
 	\item if $0\le a$ and $0\le b$ then $0\le a\,b$.
 \end{itemize}}
 
+\iffalse
 \NumberedDefinition{2.2.2}{Field (Körper)}{A set $K$ equipped with an addition $+ : K\times K\to K$ and a multiplication $\cdot : K\times K\to K$ is called a \emph{field} if the following hold:
 \begin{enumerate}[label={A\arabic*)}, leftmargin=*]
-	\item $x+y=y+x$ for all $x,y\in K$ (commutativity of addition).
-	\item $x+(y+z)=(x+y)+z$ for all $x,y,z\in K$ (associativity of addition).
-	\item There exists $0\in K$ (additive identity) with $x+0=x$ for all $x\in K$.
-	\item For every $x\in K$ there exists $y\in K$ with $x+y=0$ (additive inverse).
-\end{enumerate}
-\begin{enumerate}[label={M\arabic*)}, leftmargin=*]
-	\item $x\cdot y = y\cdot x$ for all $x,y\in K$ (commutativity of multiplication).
-	\item $x\cdot(y\cdot z)=(x\cdot y)\cdot z$ for all $x,y,z\in K$ (associativity of multiplication).
-	\item There exists $1\in K$ with $1\ne 0$ (multiplicative identity) such that $x\cdot 1=x$ for all $x\in K$.
-	\item For every $x\in K\setminus\{0\}$ there exists $y\in K$ with $x\cdot y=1$ (multiplicative inverse).
-	\item $x\cdot(y+z)=x\cdot y + x\cdot z$ for all $x,y,z\in K$ (distributivity).
-\end{enumerate}}
 
-\NumberedRemark{2.2.3}{Uniqueness and basic consequences}{
-The neutral elements are unique. If $0,0'\in K$ satisfy $a+0=a$ and $a+0'=a$ for all $a\in K$, then $0=0'$; similarly for $1$. For any $x\in K$ the additive inverse is unique: if $x+y_1=0$ and $x+y_2=0$, then $y_1=y_2$; we denote it by $-x$ and define subtraction by $a-b:=a+(-b)$. Likewise, the multiplicative inverse is unique for each $x\in K\setminus\{0\}$; we denote it by $1/x$ and define division $a/b:=a\cdot(1/b)$ for $b\ne0$.
+\fi
+\subsection{The Real Numbers (Die reellen Zahlen)}\label{subsec:real-numbers}
 
-Useful rules (all consequences of the axioms): $-(-a)=a$; if $a\ne0$ then $1/(1/a)=a$; $0\cdot a=0$; $(-1)\cdot a=-a$; $(-1)\cdot(-1)=1$; $a\cdot(b-c)=ab-ac$; and $ab=0\Rightarrow a=0$ or $b=0$.
-}
+% Included from external file to keep structure modular and avoid ordering conflicts.
+\input{sections/2.3-real-numbers}
 
-\NumberedDefinition{2.2.4}{Ordered field}{An \emph{ordered field} is a field $K$ endowed with a total order $\le$ such that the following congruence properties hold for all $a,b,c\in K$:
-\begin{description}[leftmargin=*]
-	\item[O1)] $a\le b \ \Longrightarrow\ a+c \le b+c$.
-	\item[O2)] $\big( a\le b \ \wedge\ 0\le c\big) \ \Longrightarrow\ ac \le bc$.
-\end{description}}
-
-The notation $a\ge b$ means $b\le a$; $a<b$ means "$a\le b$ and $a\ne b$"; $a>b$ means $b<a$.
-
-The following familiar calculation rules for inequalities follow from the axioms of ordered fields (proof as an exercise). Let $a,b,c\in K$. Then
-\begin{itemize}[leftmargin=*]
-	\item $a\le b \iff a+c\le b+c$.
-	\item $a<b \iff a+c<b+c$.
-	\item $a<b \iff 0<b-a$. In particular $a<0 \iff 0<-a$.
-	\item $a>0 \wedge b>0 \ \Rightarrow\ ab>0$.
-	\item $a\ne0 \ \Rightarrow\ a^2>0$.
-	\item $1>0$.
-	\item $a>0 \ \Rightarrow\ 1+a>0$.
-\end{itemize}
-
-On an ordered field one defines the absolute value by
-\[
-	|a| := \begin{cases}
-		a,& \text{if } a\ge 0,\\
-		-a,& \text{if } a<0.
-	\end{cases}
-\]
-From the calculation rules it follows that $|a|\ge 0$ for all $a\in K$.
-By Theorem~2.2.1, all of the above rules apply to $\Q$.
-
-\subsection{The Real Numbers (Die reellen Zahlen)}
-	odo{Add translation: completeness axiom, least upper bound property}
-\label{subsec:reals}
-	odo{Add translation: construction and basic field/order axioms (placeholder).}
-
-% ---------------------------------------------------------------------------
-% Fixed-number translations: 2.3.2–2.3.4 (Order completeness of R)
-% ---------------------------------------------------------------------------
-\NumberedDefinition{2.3.2}{Order completeness}{A totally ordered set $(M,\preceq)$ is called \emph{order complete} if the following holds: whenever $A,B\subset M$ are nonempty with $a\preceq b$ for all $a\in A$ and $b\in B$, there exists $c\in M$ with $a\preceq c$ for all $a\in A$ and $c\preceq b$ for all $b\in B$.}
-
-\NumberedRemark{2.3.3}{\(\Q\) is not order complete}{Let $A=\{x\in\Q: x>0\text{ and }x^2<2\}$ and $B=\{x\in\Q: x>0\text{ and }x^2>2\}$. There is no $c\in\Q$ with $a\le c\le b$ for all $a\in A$ and $b\in B$. If such a $c$ existed, then $c=\sqrt{2}$.}
-
-\NumberedTheorem{2.3.4}{Existence and uniqueness of the reals}{There exists an order-complete ordered field, and this object is unique up to isomorphism; we denote it by $\R$.}
-
-\NumberedProposition{2.3.7}{Characterization of the supremum}{Let $A\subset \R$ be nonempty and bounded above. Then $s=\sup(A)$ if and only if $a\le s$ for all $a\in A$ and for every $\eps>0$ there exists $a\in A$ with $s-\eps < a \le s$.}
-
-% ---------------------------------------------------------------------------
-% Newly added: Theorem 2.3.8 and Corollary 2.3.9 (Archimedean property)
-% ---------------------------------------------------------------------------
-\NumberedTheorem{2.3.8}{Archimedean Principle}{The set of natural numbers $\N$ is not bounded above in $\R$.}
-
-\paragraph{Proof.} Suppose for contradiction that $\N$ is bounded above in $\R$. Let $s=\sup \N$. By Proposition~2.3.7 (characterization of the supremum), for every $\eps>0$ there exists $n\in\N$ with $s-\eps < n \le s$. Choosing $\eps=1$ we obtain $s-1 < n \le s$, hence $s < n+1$. But $n+1\in\N$ and $n+1>s$, contradicting that $s$ is an upper bound of $\N$. Therefore $\N$ is unbounded above. \qed
-
-\NumberedCorollary{2.3.9}{Reciprocals become arbitrarily small}{For every $\eps>0$ there exists $n\in\N\setminus\{0\}$ with $0<1/n<\eps$.}
-
-\paragraph{Proof.} Let $\eps>0$. By the Archimedean Principle (Theorem~2.3.8) there exists $n\in\N$ with $n>1/\eps$. Then $0<1/n<\eps$. \qed
-
-\NumberedProposition{2.3.14}{Existence of $\sqrt{2}$}{There exists $c\in\R$, $c>0$, with $c^2=2$.}
-
-\paragraph{Proof.}
-Let
-\[
-	A:=\{ x\in\R : x\ge 0 \text{ and } x^2\le 2\}.
-\]
-The set $A$ is clearly bounded above. Let $c:=\sup(A)$. We claim that $c^2=2$.
-
-Suppose first that $c^2<2$. Choose $0<\eps<1$ with $\eps<\dfrac{2-c^2}{2c+1}$. Then
-\[
-	(c+\eps)^2 = c^2 + 2c\eps + \eps^2 \le c^2 + (2c+1)\eps \le 2,
-\]
-so $c+\eps\in A$, contradicting that $c$ is an upper bound of $A$.
-
-Now suppose that $c^2>2$. For $0<\eps<\dfrac{c^2-2}{2c}$ we have
-\[
-	(c-\eps)^2 = c^2 - 2c\eps + \eps^2 > c^2 - 2c\eps > 2,
-\]
-which implies $c-\eps$ is an upper bound for $A$, contradicting that $c$ is the least upper bound. Hence $c^2=2$. \qed
-
-\NumberedRemark{2.3.15}{(see exercises)}{Let $a\in\R$ with $a>0$ and $p\in\N\setminus\{0\}$. Then there exists a unique real $x>0$ with $x^p=a$.}
-
-\subsection{Countable and Uncountable Sets (Abzählbare und überabzählbare Mengen)}
-
-\paragraph{Guiding question.} How can we compare the \emph{cardinality} (size) of infinite sets?\footnote{For a finite nonempty set $A$, its cardinality is the unique $n\in\N$ admitting a bijection $A\to\{1,2,\dots,n\}$.}
-
-\NumberedDefinition{2.4.1}{Same cardinality (equipotent sets)}{Two sets $A$ and $B$ have the same cardinality (are \emph{equipotent}) if there exists a bijection $\varphi: A\to B$.}
-
-If $A$ is a nonempty finite set, then there exists some $n\in\N$ and a bijection $\varphi: A\to\{1,2,\dots,n\}$. (Conversely, this property can be taken as the \emph{definition} of finiteness.) The number $n$ is uniquely determined and is called the \emph{cardinality} of $A$.
-
-\NumberedDefinition{2.4.2}{(Countably) infinite and countable sets}{A set $A$ is called \emph{countably infinite} if it is equipotent with $\N$. We call $A$ \emph{countable} if it is finite or countably infinite.}
-
-A bijection $\N\to A$ can be viewed as an \emph{enumeration} of the elements of $A$. Thus a countable set is one whose elements can be organized into a (potentially infinite) ordered list (sequence).
-
-\NumberedExample{2.4.3}{Squares and integers are countable}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item The map $\varphi: \N\to \{ n^2 : n\in\N\}$ given by $\varphi(n)=n^2$ is a bijection. Hence the set of perfect squares has the same cardinality as $\N$.
-	\item The set $\Z$ is countable. An explicit enumeration is $0,1,-1,2,-2,3,-3,\dots$. Equivalently, the function $f: \N\to\Z$ defined by $f(2n)=n$ and $f(2n-1)=-n$ (for $n\ge1$) is a bijection.
-\end{enumerate}}
-
-We now discuss some important arithmetic rules for countability.
-
-\NumberedProposition{2.4.4}{Every subset of $\N$ is countable}{Let $A\subset \N$.}
-
-\paragraph{Proof.} If $A$ is bounded above, then $A$ is finite (its maximum exists), so certainly countable. Suppose instead that $A$ is unbounded above. Define a function $\varphi: \N\to A$ recursively by
-\[
-	\varphi(0) := \min A, \qquad \varphi(n+1) := \min\{ a\in A : a> \varphi(n)\}.
-\]
-This is well-defined because every nonempty subset of $\N$ has a minimum. (The set $\{a\in A : a>\varphi(n)\}$ is nonempty since $A$ is unbounded.) The map is injective since $\varphi(n+1)>\varphi(n)$ for all $n$. To prove surjectivity, let $a\in A$ and set
-\[
-	B := \{ n\in\N : \varphi(n) \ge a\}.
-\]
-The set $B$ is nonempty (because $A$ is unbounded and $\varphi$ increases without bound), so let $m=\min B$. If $m=0$ then $\varphi(0)=\min A \ge a$, which forces $a=\min A$ and hence $a=\varphi(0)$. Assume $m>0$. Then $m-1\notin B$, so $\varphi(m-1) < a$. By definition of $\varphi(m)$ we have
-\[
-	\varphi(m)= \min\{ b\in A : b>\varphi(m-1)\} \le a.
-\]
-But also $a\in A$ and $a>\varphi(m-1)$, so the minimum equals $a$, hence $\varphi(m)=a$. Thus $\varphi$ is surjective and therefore a bijection $\N\to A$; in particular $A$ is countable. \qed
-
-\emph{Generalization.} Every subset of a countable set is countable (apply the above to the image of the subset under a bijection with $\N$).
-
-\NumberedProposition{2.4.5}{Surjective image of a countable set}{Let $B$ be countable and let $\psi: B\to A$ be surjective. Then $A$ is countable.}
-
-\paragraph{Proof.} Without loss of generality we may assume $B\subset \N$ (since $B$ is countable, identify it with a subset of $\N$ via a bijection). For $a\in A$ define
-\[
-	\varphi(a) := \min\{ b\in B : \psi(b)=a \}.
-\]
-This is well-defined because the fiber $\{b\in B: \psi(b)=a\}$ is nonempty by surjectivity. The map $\varphi: A\to B$ is injective (if $\varphi(a_1)=\varphi(a_2)=b$, then $b$ is the unique minimal element of each fiber, hence $a_1=a_2$). Therefore $A$ is in bijection with the subset $\varphi(A)\subset B\subset \N$ and thus countable. \qed
-
-\NumberedTheorem{2.4.6}{The product $\N\times\N$ is countable}{The Cartesian product $\N\times \N$ is countable.}
-
-\paragraph{Proof.} Organize the elements of $\N\times\N$ in a list by grouping them in ``diagonals.'' For $\ell\in\N$ define the $\ell$th diagonal
-\[
-	\N^{2}_{\ell} := \{ (n,m)\in \N\times\N : n+m = \ell \}.
-\]
-Each $\N^{2}_{\ell}$ is finite and can be enumerated, for example: $(\ell,0), (\ell-1,1), (\ell-2,2), \dots, (0,\ell)$. Listing these diagonals in increasing order of $\ell=0,1,2,\dots$ yields an enumeration of all of $\N\times\N$. Hence $\N\times\N$ is countable. \qed
-
-\emph{Generalization.} If $A_1, A_2, \dots, A_n$ are countable sets, then the finite product $A_1\times A_2 \times \cdots \times A_n$ is countable.
-
-\paragraph{Proof (sketch).} By induction on $n$. The case $n=2$ follows from the theorem with suitable bijections $\N\to A_i$. If $A_1\times\cdots\times A_n$ is countable, then $(A_1\times\cdots\times A_n)\times A_{n+1}$ is a product of two countable sets and hence countable.
-
-\NumberedTheorem{2.4.7}{$\Q$ is countable}{The set $\Q$ of rational numbers is countable.}
-
-\paragraph{Proof.} The sets $\Z$ and $\N\setminus\{0\}$ are countable. Hence $\Z\times (\N\setminus\{0\})$ is countable. The map $\phi: \Z\times (\N\setminus\{0\}) \to \Q$, $\phi(p,q)=p/q$, is surjective (put a fraction in lowest terms and absorb the sign into the numerator). By Proposition~2.4.5 the surjective image of a countable set is countable, so $\Q$ is countable. \qed
-
-Another important observation is that countable unions of countable sets are again countable.
-
-\NumberedTheorem{2.4.8}{Countable union of countable sets}{Let $(A_n)_{n\ge 1}$ be a sequence of countable sets. Then $\displaystyle\bigcup_{n=1}^{\infty} A_n$ is countable.}
-
+\subsection{Countable and Uncountable Sets (Abzählbar und überabzählbar)}\label{subsec:countable}
+We collect basic facts on countability (countable unions), Cantor's theorem on power sets, and the uncountability of the reals.
 \paragraph{Proof.} For each $n\in\N$ pick an injection (bijectively identify) $B_n\subset \N$ with $A_n$; that is, choose a bijection $\phi_n: B_n\to A_n$ with $B_n\subset \N$. Now set
 \[
 	B := \{ (n,m)\in \N\times\N : m\in B_n\}.
@@ -623,649 +287,15 @@ Let $z=x+iy$ with $x,y\in\R$ be a complex number. Then we define
 	\item $|z| := \sqrt{x^2+y^2}$ the modulus of $z$,
 	\item $\overline{z} := x - iy$ the conjugate of $z$.
 \end{itemize}
-The following calculation rules hold for
-$z=x+iy$, $w=u+iv$ with $x,y,u,v\in\R$:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $\Re z = \tfrac12(z+\overline{z}),\quad \Im z = \tfrac{1}{2i}(z-\overline{z})$.
-	\item $z\in\R \iff z=\overline{z}$.
-	\item $\overline{\overline{z}}=z$.
-	\item $\overline{z+w}=\overline{z}+\overline{w},\quad \overline{z\,w}=\overline{z}\,\overline{w}$.
-	\item $|z|^2 = z\,\overline{z}$.
-	\item $|z|\ge 0,\quad |z|=0 \iff z=0$.
-	\item For real numbers $z$ (viewed in $\C$): $|z|_{\C}=|z|_{\R}$.
-	\item Triangle inequality: $|z+w|\le |z|+|w|$.
-	\item Multiplicativity: $|z\,w|=|z|\,|w|$.
-	\item Reverse triangle inequality: $\big||z|-|w|\big| \le |z-w|$.
-	\item $|\Re z|\le |z|$ and $|\Im z|\le |z|$.
-	\item For all $z\in\C\setminus\{0\}$: $\displaystyle \frac{1}{z}=\frac{\overline{z}}{|z|^2}$.
-\end{enumerate}
-\emph{Proof.} Exercise.
 }
 
+% [Removed misplaced Section 4 continuity content from here]
 
-\NumberedDefinition{2.5.3}{Notation $\K$}{In what follows, we use $\K$ to denote either $\R$ or $\C$.}
-\subsection{The Vector Spaces \texorpdfstring{$\R^m$}{R^m} (Die Vektorräume \texorpdfstring{$\R^m$}{R^m})}
 
-\paragraph{Remark.} This topic (and linear maps between vector spaces) is treated systematically in a Linear Algebra course. We record here only the basic structure we need.
 
-The space $\R^m = \{ x = (x_1,\dots,x_m) : x_j\in\R \text{ for } 1\le j\le m \}$ consists of all $m$-tuples of real numbers. These spaces play an extremely important role in mathematics and in scientific applications (for example, the position of a particle can be described by a point $x=(x_1,x_2,x_3)\in\R^3$; its state by position and velocity by a point $(x_1,x_2,x_3,v_1,v_2,v_3)\in\R^6$).
 
-On $\R^m$ we define \'addition\'. For $x=(x_1,\dots,x_m)$ and $y=(y_1,\dots,y_m)$ in $\R^m$ we set
-\[
-	x+y := (x_1+y_1,\; x_2+y_2,\; \dots,\; x_m+y_m).
-\]
-
-We also define scalar multiplication on $\R^m$. For $\alpha\in\R$ and $x=(x_1,\dots,x_m)\in\R^m$ set
-\[
-	\alpha x := (\alpha x_1,\alpha x_2,\dots,\alpha x_m) \in \R^m.
-\]
-
-With these two operations $\R^m$ is a real vector space: the eight usual axioms (commutativity and associativity of addition, additive identity and inverses, compatibility and identity for scalar multiplication, and the two distributive laws) are easily verified componentwise. Later we will endow $\R^m$ with norms and inner products to obtain geometric notions (length, angle, etc.).
-
-\NumberedDefinition{2.6.1}{Vector space over $\R$}{A set $V$ together with an addition $+ : V\times V\to V$ and a scalar multiplication $\cdot : \R\times V\to V$ is called a (real) \emph{vector space} if the following hold for all $x,y,z\in V$ and all $\alpha,\beta\in\R$:
-\begin{itemize}[leftmargin=*]
-	\item $x+y = y+x$.
-	\item $(x+y)+z = x+(y+z)$.
-	\item There exists $0\in V$ with $x+0 = x$ (additive identity).
-	\item For every $x\in V$ there exists $-x\in V$ with $x+(-x)=0$ (additive inverse).
-	\item $\alpha(\beta x) = (\alpha\beta)x$.
-	\item $\alpha(x+y) = \alpha x + \alpha y$.
-	\item $(\alpha+\beta)x = \alpha x + \beta x$.
-	\item $1\,x = x$.
-\end{itemize}}
-
-Analogously one defines vector spaces over an arbitrary field $K$. The space $\R^m$ is a vector space over $\R$ for every $m\in\N\setminus\{0\}$ (and similarly $\C^m$ is a vector space over $\C$). Note that for $m\ge2$, $\R^m$ is \emph{not} a field because there is no multiplication of two vectors making the field axioms hold (although $\R^2\cong \C$ \emph{as a real vector space}, it cannot simultaneously be ordered like $\R$). For $m\ge2$ there is no natural total order on $\R^m$ compatible with the vector space structure.
-
-It is very useful to define on $\R^m$ a function that measures the ``length'' of vectors. For $x=(x_1,\dots,x_m)\in\R^m$ we set the (Euclidean) norm
-\begin{equation}\label{eq:euclidean-norm}\tag{2.6.1}
-	\|x\| := \Bigg( \sum_{j=1}^m |x_j|^2 \Bigg)^{1/2}.
-\end{equation}
-This function $\|\cdot\| : \R^m\to \R$ has the properties
-\begin{enumerate}[label=\roman*.), leftmargin=*]
-	\item $\|x\| \ge 0$ for all $x$, with $\|x\|=0$ iff $x=0$.
-	\item $\|\alpha x\| = |\alpha|\,\|x\|$ for all $\alpha\in\R$ and $x\in\R^m$.
-	\item (Triangle inequality) $\|x+y\| \le \|x\| + \|y\|$ for all $x,y\in\R^m$.
-\end{enumerate}
-A function with these three properties is called a \emph{norm}. A vector space equipped with a norm is a \emph{normed space}. Thus $(\R^m,\|\cdot\|)$ with \eqref{eq:euclidean-norm} is a normed space.
-
-\paragraph{Other norms.} The norm on a vector space need not be unique. On $\R^m$ one can also define for $p>1$ (in fact $p\ge 1$) the $p$-norm
-\[
-	\|x\|_p := \Bigg( \sum_{j=1}^m |x_j|^p \Bigg)^{1/p},
-\]
-which is again a norm (the triangle inequality follows from Minkowski's inequality). All these norms are equivalent on finite-dimensional spaces, a fact used later when discussing continuity and convergence.
-
-% ============================================================================
-% 3 Sequences and Series (Folgen und Reihen) -- Original start p.31
-% ============================================================================
 \section{Sequences and Series (Folgen und Reihen)}
-
-\subsection{Convergence of Sequences (Konvergenz von Folgen)}
-
-In this chapter we study sequences and series in the set of real (and complex) numbers—abstractly we will sometimes write $\K\in\{\R,\C\}$. We will frequently need to estimate absolute values of products, sums, and differences and recall the rules from Section 2.5, in particular $|x|=|-x|$ for all $x\in\K$ and the triangle / reverse triangle inequalities
-\[
-	|x+y|\le |x|+|y|,\qquad |x-y|\ge |x|-|y|,\qquad |x-y|\ge |y|-|x|,\qquad \forall x,y\in\K.
-\]
-
-\NumberedDefinition{3.1.1}{Sequence}{A (scalar) \emph{sequence} (in $\K$) is a map $x: \N\to\K$ (``enumeration''). Each natural number $n$ is assigned a value $x_n\in\K$. We write $(x_0,x_1,\dots)$ or more briefly $(x_n)_{n\in\N}$.}
-
-\NumberedRemark{3.1.2}{Set of values vs. sequence}{The sequence $(x_n)_{n\in\N}$ is not the same thing as the set $\{x_n: n\in\N\}$—the order and multiplicities matter for the sequence.}
-
-\NumberedDefinition{3.1.3}{Accumulation point (cluster point)}{Let $(x_n)_{n\in\N}$ be a sequence in $\K$ and $a\in\K$. We call $a$ an \emph{accumulation point} (cluster point) of $(x_n)$ if for every $\eps>0$ there exists an infinite subset $N_\eps\subset \N$ with
-\begin{equation}\label{eq:3.1.1}\tag{3.1.1}
-	|x_n-a| < \eps \qquad \forall n\in N_\eps.
-\end{equation}}
-
-\NumberedTheorem{3.1.4}{Equivalent characterization of cluster points}{For a sequence $(x_n)$ and $a\in\K$ the following are equivalent:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $a$ is a cluster point of $(x_n)_{n\in\N}$.
-	\item For every $\eps>0$ and every $N\in\N$ there exists $m\ge N$ with $|x_m-a|<\eps$.
-\end{enumerate}}
-
-\paragraph{Proof.} (1)$\Rightarrow$(2). Let $a$ be a cluster point and $\eps>0$, $N\in\N$. By definition there is an infinite set $N_\eps$ with \eqref{eq:3.1.1}. Since $N_\eps$ is infinite it contains some $m\ge N$. Then $|x_m-a|<\eps$.
-
-(2)$\Rightarrow$(1). Fix $\eps>0$. Construct inductively an increasing sequence of indices in which the values lie within $\eps$ of $a$. Set $n_0:=0$. Given $n_k$, apply (2) with $N=n_k+1$ to find $n_{k+1}\ge n_k+1$ such that $|x_{n_{k+1}}-a|<\eps$. The set $N_\eps:=\{ n_k : k\in\N\}$ is infinite and satisfies \eqref{eq:3.1.1}. Hence $a$ is a cluster point. \qed
-
-\NumberedExample{3.1.5}{Examples of cluster points}{Let $\K\in\{\R,\C\}$.
-\begin{enumerate}[label={({\arabic*})}, leftmargin=*]
-	\item If $x_n\equiv a$ for all $n\in\N$, then $a$ is a cluster point.
-	\item The sequence $x_n=1/n$ has $0$ as a cluster point.
-	\item $((-1)^n)_{n\in\N}$ has precisely the cluster points $1$ and $-1$.
-	\item $(i^n)_{n\in\N}$ has the cluster points $1,-1,i,-i$.
-	\item The sequence $x_n=n$ has no cluster point.
-	\item The sequence defined by $x_0=x_1=1$ and $x_n=x_{n-1}+x_{n-2}$ for $n\ge2$ (Fibonacci numbers) has no cluster point.
-	\item If $(x_n)$ is an enumeration of $\Q$, then \emph{every} $a\in\R$ is a cluster point of $(x_n)$.
-\end{enumerate}}
-
-\paragraph{Proof.}
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item[1.] Trivial.
-	\item[2.] From the Archimedean Principle (Theorem~2.3.8): for any $\eps>0$ choose $n>1/\eps$, then $|x_n-0|=1/n<\eps$; in fact the tail provides infinitely many such indices.
-	\item[3.-5.] Trivial: the values visit finitely many points infinitely often.
-	\item[6.] Exercise: the Fibonacci sequence is strictly increasing and unbounded, hence has no cluster point.
-	\item[7.] Indirect argument. Fix $a\in\R$. For each $k\in\N$ choose $n_k>k$ and set $m_k:=\lfloor n_k a\rfloor$. Then $\big| a - m_k/n_k\big|<1/n_k$ by construction. Thus for any $\eps>0$ and all sufficiently large $k$ we have $\big| m_k/n_k - a\big|<\eps$. The rationals $m_k/n_k$ are pairwise distinct (denominators increase), hence there are infinitely many rationals within any neighborhood of $a$. Since $(x_n)$ lists each rational exactly once, there are infinitely many indices $n$ with $|x_n-a|<\eps$, so $a$ is a cluster point. \qed
-\end{enumerate}
-
-\NumberedDefinition{3.1.6}{Convergent sequence}{A sequence $(x_n)_{n\in\N}$ is said to \emph{converge} if there exists $a\in\K$ such that
-\[
-	\forall\,\eps>0\ \exists\, n_\eps\in\N\ \forall\, n\ge n_\eps:\ |x_n-a|<\eps.
-\]
-The number $a$ is called the \emph{limit} of $(x_n)$. We write $x_n\to a$ as $n\to\infty$ or $a=\lim_{n\to\infty} x_n$. A sequence that has no limit is called \emph{divergent}.}
-
-\paragraph{Continuation of Example~3.1.5.}
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $\lim_{n\to\infty} x_n=a$.
-	\item $\lim_{n\to\infty} x_n=0$.
-	\item--(7) The remaining sequences are divergent.
-\end{enumerate}
-
-\NumberedDefinition{3.1.7}{Bounded sequence}{A sequence $(x_n)_{n\in\N}$ is called \emph{bounded} if there exists a constant $c\in\R_{\ge 0}$ such that
-\[
-	|x_n|\le c \qquad \text{for all } n\in\N.
-\]}
-
-\NumberedTheorem{3.1.8}{Convergent sequences are bounded}{Every convergent sequence is bounded.}
-
-\paragraph{Proof.} Let $a:=\lim_{n\to\infty} x_n$. Then there exists $n_1\in\N$ with $|x_n-a|<1$ for all $n\ge n_1$. Hence for $n\ge n_1$,
-\[
-	|x_n| = |x_n-a+a| \le |x_n-a| + |a| < |a|+1.
-\]
-Set
-\[
-	c := \max\big\{\, |a|+1,\ \max\{ |x_n| : n<n_1\}\big\}.
-\]
-Then $|x_n|\le c$ for all $n\in\N$. \qed
-
-\NumberedRemark{3.1.9}{Converse fails}{Items (3) and (4) of Example~3.1.5 show that the converse of Theorem~3.1.8 is false: a bounded sequence need not converge.}
-
-\NumberedTheorem{3.1.10}{Uniqueness of the limit}{If $\lim_{n\to\infty} x_n = a$, then $a$ is the only cluster point of $(x_n)_{n\in\N}$. In particular, the limit of a convergent sequence is unique.}
-
-\paragraph{Proof.} By Definitions~3.1.3 and 3.1.6 the limit $a$ is a cluster point. Let $b\in\K\setminus\{a\}$ and set $\eps := \tfrac12 |b-a|>0$. Then there exists $n_0\in\N$ with $|x_n-a|<\eps$ for all $n\ge n_0$. For such $n$ we have
-\[
-	|x_n-b| = |b-x_n| = |(b-a)+(a-x_n)| \ge |b-a| - |a-x_n| > |b-a|-\eps = \eps.
-\]
-Thus there are only finitely many indices with $|x_n-b|<\eps$, so $b$ is not a cluster point. Hence $a$ is the unique cluster point and therefore the unique limit. \qed
-
-For the next remark we will need the following definition.
-
-\NumberedDefinition{3.1.11}{Monotone and strictly monotone maps}{Let $(M,\preceq_M)$ and $(N,\preceq_N)$ be totally ordered sets, and let $\phi: M\to N$.
-\begin{itemize}[leftmargin=*]
-	\item $\phi$ is called \emph{monotone increasing} if $\phi(x)\preceq_N \phi(y)$ for all $x,y\in M$ with $x\preceq_M y$.
-	\item $\phi$ is called \emph{strictly} monotone increasing if $\phi(x)\prec_N \phi(y)$ for all $x,y\in M$ with $x\prec_M y$.
-	\item $\phi$ is called \emph{monotone decreasing} if $\phi(y)\preceq_N \phi(x)$ for all $x,y\in M$ with $x\preceq_M y$.
-	\item $\phi$ is called \emph{strictly} monotone decreasing if $\phi(y)\prec_N \phi(x)$ for all $x,y\in M$ with $x\prec_M y$.
-\end{itemize}
-Here $x\prec_M y$ means $x\preceq_M y$ and $x\ne y$ (similarly for $\prec_N$).}
-
-\NumberedRemark{3.1.12}{A nonconvergent bounded example}{The sequence $\{\tfrac12,1,\tfrac13,3,\tfrac14,4,\dots\}$ has exactly one cluster point ($0$) but does not converge.}
-
-\NumberedDefinition{3.1.13}{Subsequence}{Let $(x_n)_{n\in\N}$ be a sequence and let $\phi: \N\to\N$ be a strictly monotone increasing map. Then $(x_{n_k})_{k\in\N}:=(x_{\phi(k)})_{k\in\N}$ is called a \emph{subsequence} of $(x_n)_{n\in\N}$.}
-
-\NumberedExample{3.1.14}{Constant subsequences of $((-1)^n)$}{The sequence $((-1)^n)_{n\in\N}$ has the constant subsequences $((-1)^{2k})_{k\in\N}$ and $((-1)^{2k+1})_{k\in\N}$, i.e. the constant sequences $(1,1,\dots)$ and $(-1,-1,\dots)$.}
-
-\NumberedTheorem{3.1.15}{Convergence via subsequences}{The following are equivalent for a sequence $(x_n)$ and $a\in\K$:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $x_n\to a$ as $n\to\infty$.
-	\item $x_{n_k}\to a$ for every subsequence $(x_{n_k})_{k\in\N}$ of $(x_n)_{n\in\N}$.
-\end{enumerate}}
-
-\paragraph{Proof.} (1)$\Rightarrow$(2). Let $(x_{n_k})$ be any subsequence and let $\eps>0$. Then there exists $n_\eps$ such that $|x_n-a|<\eps$ for all $n\ge n_\eps$. Since the index map $\phi$ of a subsequence is strictly increasing, there exists $k_\eps$ with $\phi(k)\ge n_\eps$ for all $k\ge k_\eps$, hence $|x_{n_k}-a|<\eps$ for all $k\ge k_\eps$.
-
-(2)$\Rightarrow$(1). Take the identity subsequence $\phi(n)=n$. \qed
-
-\NumberedTheorem{3.1.16}{Cluster points and convergent subsequences}{The following are equivalent for a sequence $(x_n)$ and $a\in\K$:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $a$ is a cluster point of $(x_n)_{n\in\N}$.
-	\item There exists a subsequence $(x_{n_k})_{k\in\N}$ of $(x_n)_{n\in\N}$ with $x_{n_k}\to a$ as $k\to\infty$.
-\end{enumerate}}
-
-\paragraph{Proof.} (1)$\Rightarrow$(2). Construct the subsequence recursively. Set $n_0:=0$. Suppose $0<n_1<\dots<n_{k-1}$ have been chosen. Since $a$ is a cluster point, by Theorem~3.1.4(2) there exists $m\ge n_{k-1}+1$ with $|x_m-a|<1/k$. Define
-\[
-	n_k := \min\{ m : m>n_{k-1} \text{ and } |x_m-a|< 1/k\}.
-\]
-Then $k\mapsto n_k$ is strictly increasing. Given $\eps>0$, choose $k_\eps$ with $1/k_\eps<\eps$. By construction, for all $k\ge k_\eps$ we have $|x_{n_k}-a|<1/k\le 1/k_\eps<\eps$, hence $x_{n_k}\to a$.
-
-(2)$\Rightarrow$(1). If a subsequence converges to $a$, then by Theorem~3.1.4(2) (characterization of cluster points) $a$ is a cluster point; this uses Definition~3.1.6 of convergence. \qed
-
-\NumberedDefinition{3.1.17}{Null sequence}{A sequence $(x_n)_{n\in\N}$ is called a \emph{null sequence} if $\lim_{n\to\infty} x_n=0$.}
-
-\NumberedLemma{3.1.18}{Basic facts about null sequences}{
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item If $(x_n)$ is a null sequence, then $(|x_n|)$ is also a null sequence.
-	\item If $x_n\to a$, then $(x_n-a)$ is a null sequence.
-	\item Let $(x_n)$ be a sequence in $\K$ and let $(r_n)$ be a null sequence in $\R_{\ge0}$. Suppose there exists $n_0\in\N$ such that $|x_n|\le r_n$ for all $n\ge n_0$. Then $(x_n)$ is a null sequence.
-\end{enumerate}}
-
-\paragraph{Proof.} (1) and (2) are immediate. For (3): let $\eps>0$. Choose $n'_\eps$ such that $r_n<\eps$ for all $n\ge n'_\eps$. Set $n_\eps:=\max\{n_0,n'_\eps\}$. Then for all $n\ge n_\eps$ we have $|x_n-0|=|x_n|\le r_n<\eps$, proving $x_n\to0$. \qed
-
-\NumberedTheorem{3.1.19}{Algebra of limits}{Let $(x_n)$ and $(y_n)$ be sequences and let $\alpha\in\K$ be a scalar. Then:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item If $x_n\to a$, then $\alpha x_n\to \alpha a$.
-	\item If $x_n\to a$ and $y_n\to b$, then $x_n+y_n\to a+b$.
-	\item If $x_n\to 0$ and $(y_n)$ is bounded, then $x_n y_n\to 0$.
-	\item If $x_n\to a$ and $y_n\to b$, then $x_n\,y_n\to a\,b$.
-	\item If $x_n\to a$ and $a\ne0$, then there exists $n_0$ with $x_n\ne0$ for all $n\ge n_0$ and $\dfrac{1}{x_n}\to \dfrac{1}{a}$.
-	\item If $x_n\to a$, then $|x_n|\to |a|$.
-\end{enumerate}
-\paragraph{Proof.}
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item If $\alpha=0$ the claim is trivial. Assume $\alpha\ne0$ and let $\eps>0$. Choose $n_\eps$ with $|x_n-a|<\eps/|\alpha|$ for all $n\ge n_\eps$. Then
-	\[
-		|\alpha x_n-\alpha a| = |\alpha|\,|x_n-a| < |\alpha|\,\frac{\eps}{|\alpha|} = \eps
-		\qquad (n\ge n_\eps),
-	\]
-	hence $\alpha x_n\to \alpha a$.
-	\item Let $\eps>0$. Choose $n_1$ with $|x_n-a|<\eps/2$ for $n\ge n_1$ and $n_2$ with $|y_n-b|<\eps/2$ for $n\ge n_2$. For $n\ge n_\eps:=\max\{n_1,n_2\}$ we have
-	\[
-		|(x_n+y_n)-(a+b)| \le |x_n-a|+|y_n-b| < \eps/2+\eps/2 = \eps,
-	\]
-	so $x_n+y_n\to a+b$.
-	\item Suppose $|y_n|\le c$ for all $n$ with some $c>0$. Given $\eps>0$, choose $n_\eps$ with $|x_n|<\eps/c$ for all $n\ge n_\eps$. Then for $n\ge n_\eps$,
-	\[
-		|x_n y_n| \le |x_n|\,|y_n| \le (\eps/c)\,c = \eps,
-	\]
-	hence $x_n y_n\to 0$.
-	\item Use the identity
-	\[
-		 x_n y_n - ab = (x_n-a)\,y_n + a\,(y_n-b).
-	\]
-	Since $y_n\to b$, the sequence $(y_n)$ is bounded; by (3) the product $(x_n-a)\,y_n$ is a null sequence. Also $y_n-b\to0$ and (1) with $\alpha=a$ gives $a\,(y_n-b)\to0$. Therefore $x_n y_n - ab\to0$, i.e. $x_n y_n\to ab$.
-	\item Since $x_n\to a$ with $a\ne0$, there exists $n_0$ with $|x_n-a|<|a|/2$ for all $n\ge n_0$, hence $|x_n|\ge |a|-|x_n-a| > |a|/2>0$. For $n\ge n_0$ we obtain
-	\[
-		\Big|\frac{1}{x_n}-\frac{1}{a}\Big| = \frac{|a-x_n|}{|a|\,|x_n|}
-		\le \frac{|x_n-a|}{|a|\,(|a|/2)} = \frac{2}{|a|^2}\,|x_n-a|.
-	\]
-	Since $|x_n-a|\to0$, Lemma~3.1.18(3) implies $\frac{1}{x_n}-\frac{1}{a}\to0$; thus $1/x_n\to 1/a$.
-	\item From the reverse triangle inequality $\big||x_n|-|a|\big|\le |x_n-a|$ and $|x_n-a|\to0$ we conclude $|x_n|\to |a|$; equivalently, apply Lemma~3.1.18(3) with $r_n:=|x_n-a|$.
-\end{enumerate}
-\qed}
-
-\NumberedRemark{4.2.3}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item The notion of ``open'' depends on the ambient vector space. For instance, the interval $(0,1)$ is open in $\R$, but the set $(0,1)\times\{0\}$ is not open in $\R^{2}$.
-	\item If $\|\cdot\|_{a}$ and $\|\cdot\|_{b}$ are equivalent norms on $X$, then a subset $O\subset X$ is open with respect to $\|\cdot\|_{a}$ if and only if it is open with respect to $\|\cdot\|_{b}$. In general, however, the open balls differ as sets:
-	\[
-		B(x,r)_{\|\cdot\|_{a}} \ne B(x,r)_{\|\cdot\|_{b}}.
-	\]
-\end{enumerate}}
-
-\NumberedTheorem{4.2.4}{Basic closure properties of open sets}{Let $\mathcal O\subset \mathcal P(X)$ denote the collection of all open subsets of $X$. Then:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $\emptyset\in\mathcal O$ and $X\in\mathcal O$.
-	\item If $\{O_\alpha\}_{\alpha\in A}$ is any family of sets in $\mathcal O$ (with arbitrary index set $A$), then $\displaystyle \bigcup_{\alpha\in A} O_\alpha \in\mathcal O$.
-	\item If $O_1,O_2\in\mathcal O$, then $O_1\cap O_2\in\mathcal O$. In particular, finite intersections of open sets are open.
-\end{enumerate}}
-\paragraph{Proof.}
-@ 1 Trivial.
-
-@ 2 Let $x\in \bigcup_{\alpha\in A} O_\alpha$. Then $x\in O_{\alpha_0}$ for some $\alpha_0\in A$. Since $O_{\alpha_0}$ is open, there exists $\eps>0$ with
-\[
-	B(x,\eps) \subset O_{\alpha_0} \subset \bigcup_{\alpha\in A} O_\alpha.
-\]
-Thus the union is open.
-
-@ 3 Let $x\in O_1\cap O_2$. Since $O_i$ is open, there exists $\eps_i>0$ with $B(x,\eps_i)\subset O_i$ for $i=1,2$. With $\eps:=\min\{\eps_1,\eps_2\}$ we have $B(x,\eps)\subset O_1\cap O_2$. Hence $O_1\cap O_2$ is open. \qed
-
-\NumberedRemark{4.2.5}{}{Let $X\ne\emptyset$ and let $\mathcal T\subset \mathcal P(X)$ be a family of subsets satisfying properties (1)--(3) of Theorem~4.2.4. Then $\mathcal T$ is called a topology on $X$, and $(X,\mathcal T)$ is a topological space. Many statements proved below for normed vector spaces remain valid verbatim for general topological spaces.}
-
-\NumberedRemark{4.2.6}{}{A countable intersection of open sets need not be open in general. Moreover, singletons $\{x\}$ are never open in a normed vector space.}
-
-\NumberedDefinition{4.2.7}{Closed set}{A subset $M\subset X$ is called \emph{closed} if and only if its complement $M^{c}:=X\setminus M$ is open.}
-
-\NumberedTheorem{4.2.8}{Basic closure properties of closed sets}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $\emptyset$ and $X$ are closed.
-	\item Arbitrary intersections of closed sets are closed.
-	\item Finite unions of closed sets are closed.
-\end{enumerate}}
-
-\paragraph{Proof.}
-(1) Since $X^{c}=\emptyset$ and $\emptyset^{c}=X$ are open, by definition both $X$ and $\emptyset$ are closed.
-
-(2),(3) Follow from De Morgan's laws together with Theorem~4.2.4: for a family $\{M_\alpha\}_{\alpha\in A}$ one has
-\[
-	\Big( \bigcap_{\alpha\in A} M_\alpha \Big)^{c} = \bigcup_{\alpha\in A} (M_\alpha)^{c},
-	\qquad
-	(M_1\cup M_2)^{c} = M_1^{c}\cap M_2^{c}.
-\]
-Since arbitrary unions of open sets are open and finite intersections of open sets are open, the complements above are open, hence the original sets are closed. \qed
-
-\NumberedRemark{4.2.9}{}{Arbitrary unions of closed sets need not be closed in general.}
-
-\NumberedDefinition{4.2.10}{Contact and accumulation points; closure}{Let $M\subset X$.
-\begin{itemize}[leftmargin=*]
-	\item A point $x\in X$ is called a \emph{contact point} of $M$ if for every neighborhood $U\in\mathcal U(x)$ we have $U\cap M\ne\emptyset$.
-	\item A point $x\in X$ is called an \emph{accumulation point} of $M$ if for every $U\in\mathcal U(x)$ we have $M\cap (U\setminus\{x\})\ne\emptyset$.
-\end{itemize}
-The \emph{closure} of $M$ is
-\[
-	\overline{M} := \{\, x\in X : x \text{ is a contact point of } M \,\}.
-\]
-}
-
-\NumberedExample{4.2.11}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $M=\{\tfrac{1}{n} : n\in\N\}$. Then $0\in X$ is a contact point and is the unique accumulation point of $M$.
-	\item $M=B(0,1)$. Then $\overline{M}=\{x\in X : \|x\|\le 1\}$, and every contact point is also an accumulation point.
-\end{enumerate}}
-\paragraph{Proof.}
-(1) Clear: every ball around $0$ contains some $1/n$, and every other point either belongs to $M$ or has a neighborhood disjoint from $M$. Moreover, if $a\ne 0$, then for sufficiently small $\eps>0$ the punctured ball $B(a,\eps)\setminus\{a\}$ contains no points of $M$; hence $0$ is the only accumulation point.
-
-(2) Let $x\in X$.
-\begin{enumerate}[label={(\alph*)}, leftmargin=2em]
-	\item If $\|x\|<1$, then $x\in M$, so for every $U\in\mathcal U(x)$ we have $U\cap M\ne\emptyset$; thus $x$ is a contact point.
-	\item If $\|x\|=1$, fix $0<\eps<1$ and set $x_{\eps}:=(1-\tfrac{\eps}{2})x\in M$. Then $\|x-x_{\eps}\|=\tfrac{\eps}{2}\,\|x\|=\tfrac{\eps}{2}<\eps$, hence $x_{\eps}\in B(x,\eps)\cap M\ne\emptyset$. Thus $x$ is a contact point.
-	\item If $\|x\|>1$, let $\eps:=\tfrac{1}{2}(\|x\|-1)>0$ and take any $y\in B(x,\eps)$. Then
-	\[
-		\|y\| = \|(-x) - (y-x)\| \ge \|x\| - \|y-x\| > \|x\| - \tfrac{1}{2}(\|x\|-1) = \tfrac{1}{2}\,\|x\| + \tfrac{1}{2} > 1,
-	\]
-	so $y\notin B(0,1)$. Hence $B(x,\eps)\cap M=\emptyset$ and $x$ is not a contact point.
-\end{enumerate}
-Consequently $\overline{M}=\{x: \|x\|\le 1\}$. At boundary points with $\|x\|=1$ the construction in (b) moreover shows there are infinitely many points of $M$ in every punctured neighborhood of $x$, so every contact point is an accumulation point. \qed
-
-\NumberedTheorem{4.2.12}{Elementary properties of the closure}{Let $M\subset X$. Then:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $M\subset \overline{M}$.
-	\item $M=\overline{M}$ if and only if $M$ is closed.
-\end{enumerate}}
-\paragraph{Proof.}
-(1) Immediate from the definitions of contact point and $\overline{M}$.
-
-(2) ("$\Rightarrow$") Suppose $M=\overline{M}$. If $x\in M^{c}=(\overline{M})^{c}$, then $x$ is not a contact point of $M$, hence there exists some $U\in\mathcal U(x)$ with $U\cap M=\emptyset$. Thus $U\subset M^{c}$ and $M^{c}$ is open. Therefore $M$ is closed.
-
-("$\Leftarrow$") If $M$ is closed, then $M^{c}$ is open. Hence for every $x\in M^{c}$ there exists $U\in\mathcal U(x)$ with $U\subset M^{c}$, i.e. $U\cap M=\emptyset$. Thus $x$ is not a contact point of $M$, so $x\notin \overline{M}$, which shows $M^{c}\subset (\overline{M})^{c}$. Taking complements yields $\overline{M}\subset M$. Together with (1) we obtain $M=\overline{M}$. \qed
-
-\NumberedTheorem{4.2.13}{Sequential characterization}{Let $M\subset X$ and $x\in X$.
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $x$ is an accumulation point of $M$ if and only if there exists a sequence $(x_n)_{n\in\N}\subset M$ with $x_n\ne x$ for all $n$ and $x_n\to x$.
-	\item $x$ is a contact point of $M$ if and only if there exists a sequence $(x_n)_{n\in\N}\subset M$ with $x_n\to x$.
-\end{enumerate}}
-\paragraph{Proof.}
-(1) ("$\Rightarrow$") If $x$ is an accumulation point, then for each $n\in\N$ we can choose $x_n\in B(x,1/n)\cap M\setminus\{x\}$. By construction $x_n\to x$ and $x_n\ne x$.
-
-("$\Leftarrow$") Let $U\in\mathcal U(x)$. Since $x_n\to x$, there exists $k\in\N$ with $x_k\in U$. If additionally $x_k\ne x$ for all $k$, then $U\cap (M\setminus\{x\})\ne\emptyset$, proving that $x$ is an accumulation point.
-
-(2) Analogous to (1), omitting the constraint $x_n\ne x$. \qed
-
-\NumberedTheorem{4.2.14}{Closedness via accumulation points and sequences}{For $M\subset X$ the following are equivalent:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $M$ is closed.
-	\item $M$ contains all its accumulation points.
-	\item For every convergent sequence $(x_n)_{n\in\N}\subset M$ one has $\displaystyle\lim_{n\to\infty} x_n \in M$.
-\end{enumerate}}
-\paragraph{Proof.} (1)$\Leftrightarrow$(2) follows from Theorems~4.2.12 and 4.2.13. Equivalence with (3) is standard and left as an exercise. \qed
-
-\NumberedTheorem{4.2.15}{Closure as the smallest closed superset}{The closure is the smallest closed set containing $M$, i.e.
-\[
-	\overline{M} = \bigcap\{ A : A\supset M,\ A \text{ closed}\}.
-\]}
-\paragraph{Proof.}
-Let $B := \bigcap\{ A : A\supset M,\ A \text{ closed}\}$. By Theorem~4.2.8, $B$ is closed. Also $M\subset B$. If $x\in B^{c}$, then there exists $U\in\mathcal U(x)$ with $U\subset B^{c}$ (since $B^{c}$ is open as the union of the opens $A^{c}$). Thus $U\cap M=\emptyset$, hence $x\notin \overline{M}$. Therefore $B^{c}\subset (\overline{M})^{c}$ and $\overline{M}\subset B$.
-
-Conversely, if $x\in (\overline{M})^{c}$ then there exists $U\in\mathcal U(x)$ with $U\cap M=\emptyset$. The set $U^{c}$ is closed and contains $M$, hence $B\subset U^{c}$ and so $x\notin B$. Thus $(\overline{M})^{c}\subset B^{c}$ and $B\subset \overline{M}$. Hence $B=\overline{M}$. \qed
-
-\NumberedTheorem{4.2.16}{Elementary rules for closures}{For $A,B\subset X$:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item If $A\subset B$, then $\overline{A}\subset \overline{B}$.
-	\item $\overline{\,\overline{A}\,}=\overline{A}$.
-	\item $\overline{A\cup B} = \overline{A}\cup \overline{B}$.
-\end{enumerate}}
-\paragraph{Proof.} Exercise. \qed
-
-\NumberedDefinition{4.2.17}{Interior}{For $M\subset X$ define the interior of $M$ by
-\[
-	M^{\circ} := \{\, x\in X : x \text{ is an interior point of } M \,\}.
-\]}
-
-From Definition~4.2.1 of “open” it follows immediately:
-
-\NumberedTheorem{4.2.18}{Basic facts about the interior}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $M^{\circ}\subset M$.
-	\item $M^{\circ} = M$ if and only if $M$ is open.
-\end{enumerate}}
-
-Analogous to 4.2.15 and 4.2.16 we obtain:
-
-\NumberedTheorem{4.2.19}{Interior as the largest open subset}{The interior is the largest open subset of $M$, i.e.
-\[
-	M^{\circ} = \bigcup\{ O : O\subset M,\ O \text{ open}\}.
-\]}
-\paragraph{Proof.} Analogous to the proof of Theorem~4.2.15. \qed
-
-\NumberedTheorem{4.2.20}{Elementary rules for interiors}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item If $A\subset B$, then $A^{\circ}\subset B^{\circ}$.
-	\item $(A^{\circ})^{\circ} = A^{\circ}$.
-	\item $(A\cap B)^{\circ} = A^{\circ}\cap B^{\circ}$.
-\end{enumerate}}
-\paragraph{Proof.} Exercise. \qed
-
-\NumberedDefinition{4.2.21}{Boundary}{The boundary of a set $M$ is defined by
-\[
-	\partial M := \overline{M} \setminus M^{\circ} .
-\]}
-
-\NumberedExample{4.2.22}{Boundaries of basic balls}{
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item If $M=B(0,1)$, then $M^{\circ}=M$, $\overline{M}=\{x\in X: \|x\|\le 1\}$ and $\partial M = \{x\in X: \|x\|=1\}$.
-	\item If $M=B(0,1)\setminus\{0\}$, then $M^{\circ}=M$, $\overline{M}=\{x\in X: \|x\|\le 1\}$ and $\partial M = \{x\in X: \|x\|=1\}\cup\{0\}$.
-\end{enumerate}}
-
-The following Hausdorff separation axiom is easy to verify for normed vector spaces. For general topological spaces it must be imposed as a separate axiom; without it many essential theorems are false.
-
-\NumberedTheorem{4.2.23}{Hausdorff property in normed spaces}{Let $x,y\in X$ with $x\ne y$. Then there exist neighborhoods $U_x\in\mathcal U(x)$ and $U_y\in\mathcal U(y)$ with $U_x\cap U_y=\emptyset$.}
-\paragraph{Proof.} Let $r:=\|x-y\|>0$. Set $U_x:=B(x,\tfrac r2)$ and $U_y:=B(y,\tfrac r2)$. For $z\in U_y$ we have
-\[\|x-z\|\ge \|x-y\|-\|y-z\|> \|x-y\|-\tfrac r2 = \tfrac r2,\]
-so $z\notin U_x$. Hence $U_x\cap U_y=\emptyset$. \qed
-
-An easy consequence of Theorem~4.2.14 is:
-
-\NumberedTheorem{4.2.24}{Singletons are closed}{For $x\in X$, the set $\{x\}$ is closed.}
-
-\NumberedDefinition{4.2.25}{Relative topology}{Let $M\subset X$, $M\ne\emptyset$. The relative (subspace) topology on $M$ is defined by
-\[
-	\mathcal T_M := \{\, U\cap M : U \text{ open in } X \,\}.
-\]
-We call $A\subset M$ relatively open in $M$ if $A\in\mathcal T_M$. For $x\in M$ define the system of relative neighborhoods by $\mathcal U_M(x):=\{\, U\cap M : U\in\mathcal U(x) \,\}$. A point $x\in A\subset M$ is a relative interior point of $A$ if there exists $V\in\mathcal U_M(x)$ with $x\in V\subset A$. We call $A\subset M$ relatively closed in $M$ if $A\in\{\, B\cap M : B \text{ closed in } X \,\}$.}
-
-Obviously, $A\subset M$ is relatively open (resp. relatively closed) if and only if there exists an open (resp. closed) set $B\subset X$ with $A = B\cap M$.
-
-\NumberedExample{4.2.26}{Relatively open/closed subsets of a half-closed interval}{Let $X=\R$ and $M=[0,1)$. Then $[0,\tfrac12)$ is relatively open in $M$ and $[\tfrac12,1)$ is relatively closed in $M$. Indeed,
-\[
-	[0,\tfrac12) = \big((-\tfrac12,\tfrac12)\big) \cap M =: B_o\cap M,\qquad
-	[\tfrac12,1) = \big([\tfrac12,1]\big) \cap M =: B_a\cap M,
-\]
-where $B_o\subset\R$ is open and $B_a\subset\R$ is closed.}
-
-\subsection*{4.3 Continuity (Stetigkeit)}
-\addcontentsline{toc}{subsection}{4.3 Continuity (Stetigkeit)}
-
-In the following, let $(X,\|\cdot\|_X)$, $(Y,\|\cdot\|_Y)$ and $(Z,\|\cdot\|_Z)$ be normed vector spaces.
-
-\NumberedDefinition{4.3.1}{Continuity via neighborhoods}{Let $D\subset X$ be nonempty and $f:D\to Y$ a function. We say that $f$ is continuous at $x_0\in D$ if for every $V\in\mathcal U\big(f(x_0)\big)$ there exists $U\in\mathcal U(x_0)$ with
-\[
-	f(U\cap D) \subset V.
-\]
-We say $f$ is continuous on $D'\subset D$, $D'\ne\emptyset$, if it is continuous at every point $x\in D'$. In particular, if $f$ is continuous on $D$, we simply say: $f$ is continuous.}
-
-Before giving examples of continuous and discontinuous maps, we record equivalent characterizations of continuity.
-
-\NumberedTheorem{4.3.2}{Equivalent characterizations of continuity}{Let $f:D\to Y$ with $D\subset X$ and let $x_0\in D$. The following are equivalent:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $f$ is continuous at $x_0$.
-	\item For every $\eps>0$ there exists $\delta>0$ such that for all $x\in D$ with $\|x-x_0\|_X<\delta$ one has $\|f(x)-f(x_0)\|_Y<\eps$.
-	\item For every sequence $(x_n)_{n\in\N}\subset D$ with $\lim_{n\to\infty} x_n = x_0$ one has
-	\[
-		 \lim_{n\to\infty} f(x_n) = f(x_0).
-	\]
-\end{enumerate}}
-\paragraph{Proof.}
-	extbf{a.} We show (1)$\Rightarrow$(2): Let $\eps>0$ and set $V:=B\big(f(x_0),\eps\big)\in\mathcal U\big(f(x_0)\big)$. By continuity at $x_0$ there exists $U\in\mathcal U(x_0)$ such that $f(U\cap D)\subset V$. Since $U$ is open, by Def.~4.2.1 there is $\delta>0$ with $B(x_0,\delta)\subset U$. Hence
-\[
-	f\big(B(x_0,\delta)\cap D\big) \subset f(U\cap D) \subset V,
-\]
-which implies: for all $x\in D$ with $\|x-x_0\|_X<\delta$ we have $\|f(x)-f(x_0)\|_Y<\eps$.
-
-	extbf{b.} We show (2)$\Rightarrow$(3): Let $(x_n)_{n\in\N}\subset D$ with $x_n\to x_0$ and let $\eps>0$. Choose $\delta>0$ as in (2). Then there exists $n_\eps\in\N$ such that $\|x_n-x_0\|_X<\delta$ for all $n\ge n_\eps$. Hence $\|f(x_n)-f(x_0)\|_Y<\eps$ for all $n\ge n_\eps$, i.e. $f(x_n)\to f(x_0)$.
-
-	extbf{c.} We show (3)$\Rightarrow$(1): Suppose (3) holds but $f$ is not continuous at $x_0$. Negating Definition~4.3.1, there exists a neighborhood $V\in\mathcal U\big(f(x_0)\big)$ such that for every $U\in\mathcal U(x_0)$ we have $f(U\cap D)\not\subset V$. Equivalently,
-\[
-	\exists V\in\mathcal U\big(f(x_0)\big)\ \forall n\in\N:\ f\big(B(x_0,1/n)\cap D\big)\not\subset V.
-\]
-Thus for this $V$ and every $n$ there exists $x_n\in B(x_0,1/n)\cap D$ with $f(x_n)\notin V$. Then $x_n\to x_0$ while $f(x_n)\not\to f(x_0)$, contradicting (3). Hence $f$ is continuous at $x_0$. \qed
-
-\NumberedTheorem{4.3.3}{Preimage criteria for continuity}{Let $f:D\to Y$ with $D\subset X$ and let $\emptyset\ne D'\subset D$. The following are equivalent:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $f$ is continuous on $D'$.
-	\item Preimages of open sets in $Y$ are relatively open in $D'$, i.e. for every open $V\subset Y$ the set
-		\[
-			f^{-1}(V) := \{ x\in D : f(x)\in V\}
-		\]
-		satisfies that $D'\cap f^{-1}(V)$ is relatively open in $D'$.
-	\item Preimages of closed sets in $Y$ are relatively closed in $D'$, i.e. for every closed $A\subset Y$ the set $D'\cap f^{-1}(A)$ is relatively closed in $D'$.
-\end{enumerate}}
-\paragraph{Proof.}
-	extbf{a.} (1)$\Rightarrow$(2). Consider $D'\cap f^{-1}(V)$. If it is empty, it is relatively open in $D'$ by convention. Otherwise, let $x\in D'\cap f^{-1}(V)$, so $f(x)\in V$ with $V$ open in $Y$. By continuity at $x$ there exists $U\in\mathcal U(x)$ with $f(U\cap D)\subset V$. Then
-\[
-	U\cap D' \subset f^{-1}(V)\cap D',
-\]
-which shows that for every $x\in D'\cap f^{-1}(V)$ there is a neighborhood $U$ of $x$ in $X$ with $U\cap D'\subset f^{-1}(V)\cap D'$. Hence $D'\cap f^{-1}(V)$ is relatively open in $D'$.
-
-	extbf{b.} (2)$\Rightarrow$(3). Let $A\subset Y$ be closed. Then $Y\setminus A$ is open and, by (2),
-\[
-	D'\setminus f^{-1}(A) 
-		= D'\cap f^{-1}(Y\setminus A)
-\]
-is relatively open in $D'$. Hence there exists some open $U\subset X$ with $D'\setminus f^{-1}(A) = U\cap D'$. Taking complements relative to $D'$ yields
-\[
-	f^{-1}(A)\cap D' = U^{c}\cap D',
-\]
-and since $U^{c}$ is closed in $X$, the set $f^{-1}(A)\cap D'$ is relatively closed in $D'$.
-
-	extbf{c.} (3)$\Rightarrow$(1). Let $x\in D'$ and let $V\in\mathcal U\big(f(x)\big)$. Then $Y\setminus V$ is closed, hence by (3) the set $D'\cap f^{-1}(Y\setminus V)$ is relatively closed in $D'$. Arguing as in the proof of (2)$\Rightarrow$(3), it follows that $f^{-1}(V)$ is relatively open in $D'$, so there exists an open neighborhood $U\in\mathcal U(x)$ with
-\[
-	f^{-1}(V)\cap D' = U\cap D'.
-\]
-Consequently
-\[
-	f(U\cap D') = f\big(f^{-1}(V)\cap D'\big) \subset f\big(f^{-1}(V)\big) = V,
-\]
-showing that $f$ is continuous at $x$. Since $x\in D'$ was arbitrary, $f$ is continuous on $D'$. \qed
-
-\NumberedExample{4.3.4}{Basic continuity examples}{
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $f:X\to\R_{\ge 0}$, $f(x):=\|x\|$, is continuous.
-	\item $f: \R_{\ge 0}\to\R_{\ge 0}$, $f(x):=\sqrt{x}$, is continuous.
-	\item $f: \R\to\R$, $f(x):=\lfloor x\rfloor := \max\{k\in\Z: k\le x\}$, is continuous on $\R\setminus\Z$ and discontinuous at every $x\in\Z$.
-	\item $f: \R\to\R$ given by $f(x):=\begin{cases}1,& x\in\Q,\\ 0,& x\in \R\setminus\Q,\end{cases}$ is nowhere continuous.
-	\item For $\K\in\{\R,\C\}$ and $m\in\N$, the coordinate projection $f: \K^{m}\to\K$, $f(x)=x_j$ for a fixed $j\in\{1,\dots,m\}$, is continuous.
-	\item The map $f: \C\to\R$, $f(z):=\Re(z)$, is continuous. The same holds for $f(z):=\Im(z)$.
-		\item Let $(X,\|\cdot\|_a)$ and $(X,\|\cdot\|_b)$ be two normed vector spaces on the same underlying vector space with equivalent norms. Then the identity $I:(X,\|\cdot\|_a)\to (X,\|\cdot\|_b)$, $I(x)=x$, is continuous.
-		\item If $f:X\to\R$ is continuous and $r\in\R$, then the sets $\{x\in X: f(x)>r\}$ and $\{x\in X: f(x)<r\}$ are open, while $\{x\in X: f(x)\ge r\}$ and $\{x\in X: f(x)\le r\}$ are closed.
-\end{enumerate}}
-
-	\paragraph{Proof.}
-	\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-		\item Given $\eps>0$ choose $\delta:=\eps$. If $\|x-x_0\|<\delta$, then by the reverse triangle inequality
-			\[
-				\big|\,\|x\| - \|x_0\|\,\big| \le \|x-x_0\| < \eps.
-			\]
-		\item Consider $f(x)=\sqrt{x}$ on $\R_{\ge0}$ and fix $x_0\ge0$.
-			\begin{enumerate}[label=\alph*.), leftmargin=2em]
-				\item If $x_0=0$, let $\eps>0$ and set $\delta:=\eps^2$. For $x\in[0,\delta]$ we have
-					$|\sqrt{x}-\sqrt{x_0}|=\sqrt{x}<\sqrt{\delta}=\eps$.
-				\item If $x_0>0$, let $\eps>0$ and set $\delta:=\eps\sqrt{x_0}$. Then for all $x\ge0$ with $|x-x_0|<\delta$,
-					\[
-						|\sqrt{x}-\sqrt{x_0}| = \frac{|x-x_0|}{\sqrt{x}+\sqrt{x_0}}
-							\le \frac{|x-x_0|}{\sqrt{x_0}} < \eps.
-					\]
-			\end{enumerate}
-		\item Let $f(x)=\lfloor x\rfloor$.
-			If $x_0\notin\Z$, there exists $\delta>0$ with $I:=(x_0-\delta, x_0+\delta)\subset \R\setminus\Z$. On $I$, $f$ is constant and hence continuous. If $x_0\in\Z$, then for $x<x_0$ we have $f(x)\le f(x_0)-1=x_0-1$, and for $x\ge x_0$, $f(x)\ge f(x_0)=x_0$. Thus, for every $\delta>0$ there exists $x\in(x_0-\delta, x_0+\delta)$ with $|f(x)-f(x_0)|\ge1$, so $f$ is discontinuous at $x_0$.
-		\item Let $f=\mathbf{1}_{\Q}$, i.e. $f(x)=1$ if $x\in\Q$ and $0$ otherwise. If $x\in\R\setminus\Q$, choose a sequence $(x_n)\subset\Q$ with $x_n\to x$. Then $f(x)=0$ but $f(x_n)=1\to1\ne f(x)$. If $x\in\Q$, choose $(x_n)\subset \R\setminus\Q$ with $x_n\to x$. Then $f(x)=1$ while $f(x_n)=0\to0\ne f(x)$. Hence $f$ is nowhere continuous.
-		\item Let $f(x)=x_j$ on $\K^m$ and let $\|\cdot\|$ be any norm on $\K^m$. Since all norms on finite-dimensional spaces are equivalent, there exists $C\ge1$ with $\|y\|_{\infty} \le C\,\|y\|$ for all $y\in\K^m$. Then
-			\[
-				|f(x)-f(x_0)| = |(x_0)_j - x_j| \le \max_{1\le i\le m} |(x_0)_i - x_i| = \|x-x_0\|_{\infty} \le C\,\|x-x_0\|.
-			\]
-			Given $\eps>0$, choose $\delta:=\eps/C$.
-			\item For $f(z)=\Re(z)$ and any $z,z_0\in\C$,
-				\[
-					|\Re(z)-\Re(z_0)| = |\Re(z-z_0)| \le |z-z_0|.
-				\]
-				Hence with $\delta:=\eps$ we obtain $|\Re(z)-\Re(z_0)|<\eps$ whenever $|z-z_0|<\delta$. The same argument applies to $\Im$.
-			\item By equivalence of norms there exist constants $c,\,\overline{c}>0$ with
-				\[
-					c\,\|x\|_a \le \|x\|_b \le \overline{c}\,\|x\|_a \qquad (\forall x\in X).
-				\]
-				Given $\eps>0$, choose $\delta:=\eps/\overline{c}$. If $\|x-x_0\|_a<\delta$, then
-				\[
-					\|I x - I x_0\|_b = \|x-x_0\|_b \le \overline{c}\,\|x-x_0\|_a < \eps,
-				\]
-				showing continuity of $I$.
-			\item Let $B:=\{y\in\R: y<r\}$, which is open in $\R$. Then
-				\[
-					\{x\in X: f(x)<r\} = f^{-1}(B)
-				\]
-				is open by Theorem~4.3.3. The case $f(x)>r$ is analogous with $\{y: y>r\}$, and the closedness of $\{f\ge r\}$ and $\{f\le r\}$ follows by taking preimages of the closed sets $(-\infty,r]$ and $[r,\infty)$.
-	\end{enumerate}
-
-		\NumberedTheorem{4.3.5}{Algebra of continuous functions}{Let $D_f,D_g\subset X$, $x_0\in D_f\cap D_g$, and let $f:D_f\to Y$, $g:D_g\to Y$ be continuous at $x_0$. Let $\alpha\in\K$. Then:
-		\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-			\item $\alpha f : x\mapsto \alpha\,f(x)$ is continuous at $x_0$.
-			\item $f+g : x\mapsto f(x)+g(x)$ is continuous at $x_0$.
-			\item If $Y=\K$, then $f\cdot g : x\mapsto f(x)\,g(x)$ is continuous at $x_0$.
-			\item If $Y=\K$ and $g(x_0)\ne0$, then $\dfrac{f}{g} : x\mapsto \dfrac{f(x)}{g(x)}$ is continuous at $x_0$.
-		\end{enumerate}}
-		\paragraph{Proof.} Use the sequential characterization of continuity (Theorem~4.3.2(3)): if $x_n\to x_0$ in $X$ with $x_n\in D_f\cap D_g$, then by continuity $f(x_n)\to f(x_0)$ and $g(x_n)\to g(x_0)$ in $Y$ (resp. in $\K$). The claims (1)–(4) follow from the algebra of limits for sequences (Theorem~3.1.19); in (4) also use Theorem~3.1.19(5) to pass to reciprocals since $g(x_0)\ne0$. \qed
-
-		\NumberedDefinition{4.3.6}{Space of continuous maps}{Let $M\subset X$, $M\ne\emptyset$. We denote by $C(M,Y)$ the vector space of all continuous functions $f: M\to Y$.}
-
-		By Theorem~4.3.5 and Definition~4.3.6, the set $C(M,Y)$ is a vector space under pointwise operations.
-
-		\NumberedTheorem{4.3.7}{Polynomials and rational functions are continuous}{Every polynomial, i.e. a function of the form
-		\[
-			f(x) = \sum_{k=0}^{n} a_k x^{k}, \qquad a_k\in\K,\ n\in\N,
-		\]
-		and every rational function on its domain,
-		\[
-			f(x) = \frac{p(x)}{q(x)}, \qquad p,q \text{ polynomials},
-		\]
-		is continuous on its domain of definition.}
-		\paragraph{Proof.} Immediate from Theorem~4.3.5 by iteratively applying the rules for sums, products, and quotients (where defined). \qed
-
-		\NumberedTheorem{4.3.8}{Composition}{Let $f:D_f\to Y$ and $g:D_g\to Z$ be functions with $D_f\subset X$, $D_g\subset Y$ and $f(D_f)\subset D_g$. Define the composition $g\circ f: D_f\to Z$ by $(g\circ f)(x):=g\bigl(f(x)\bigr)$. If $f$ is continuous at $x_0\in D_f$ and $g$ is continuous at $y_0=f(x_0)\in D_g$, then $g\circ f$ is continuous at $x_0$.}
-		\paragraph{Proof.} Let $W\in\mathcal U(g(y_0))$. Since $g$ is continuous at $y_0$, there exists $V\in\mathcal U(y_0)$ such that $g\bigl(V\cap D_g\bigr)\subset W$. As $f$ is continuous at $x_0$, there exists $U\in\mathcal U(x_0)$ with $f\bigl(U\cap D_f\bigr)\subset V$. Because $f(D_f)\subset D_g$, we have $f\bigl(U\cap D_f\bigr)\subset V\cap D_g$, hence $(g\circ f)\bigl(U\cap D_f\bigr)\subset W$. Thus $g\circ f$ is continuous at $x_0$. \qed
-
-		\NumberedExample{4.3.9}{}{\leavevmode
-		\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-			\item If $f:D\to Y$ is continuous and $D\subset X$, then the map $\|f\|_Y : D\to \R_{\ge0}$, $x\mapsto \|f(x)\|_Y$, is continuous (cf. Example~4.3.4(1), Theorem~4.3.8).
-			\item If $f:D\to\K$ is continuous with $D\subset X$, then $f^{2}:D\to\K$, $x\mapsto (f(x))^2$, is continuous (Theorem~4.3.5(3)).
-			\item If $f:D\to\R_{\ge0}$ is continuous with $D\subset X$, then $\sqrt{\,\cdot\,}\circ f : D\to\R_{\ge0}$, $x\mapsto \sqrt{f(x)}$, is continuous (cf. Example~4.3.4(2), Theorem~4.3.8).
-		\end{enumerate}}
-
-		\NumberedTheorem{4.3.10}{Continuity via components}{
-		\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-			\item Let $f=(f_1,\dots,f_n): D\to\K^{n}$ with $D\subset X$ and $x_0\in D$. Then $f$ is continuous at $x_0$ if and only if each component $f_i:D\to\K$ is continuous at $x_0$ for $1\le i\le n$.
-			\item A function $f:D\to\C$, $D\subset X$, is continuous at $x_0\in D$ if and only if $\Re f$ and $\Im f$ are continuous at $x_0$.
-		\end{enumerate}}
-		\paragraph{Proof.}
-		\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-			\item ($\Rightarrow$) The coordinate projections $\pi_i: \K^n\to\K$, $\pi_i(y)=y_i$, are continuous (Example~4.3.4(5)). Hence $f_i=\pi_i\circ f$ is continuous at $x_0$ by Theorem~4.3.8.
-
-			($\Leftarrow$) Fix $\eps>0$. For each $1\le j\le n$, continuity of $f_j$ at $x_0$ yields a $\delta_j(\eps)>0$ such that
-			\[
-				|f_j(x)-f_j(x_0)| < \frac{\eps}{n} \quad \text{whenever } \|x-x_0\|<\delta_j(\eps).
-			\]
-			Set $\delta := \min_{1\le j\le n} \delta_j(\eps)$. Then for all $x\in B(x_0,\delta)$,
-			\[
-				\|f(x)-f(x_0)\|_{1} = \sum_{j=1}^{n} |f_j(x)-f_j(x_0)| < n\cdot \frac{\eps}{n} = \eps.
-			\]
-			Thus $f$ is continuous at $x_0$ with respect to $\|\cdot\|_1$ on $\K^n$. By equivalence of norms on finite-dimensional spaces, continuity holds for any norm on $\K^n$ as well.
-
-			\item This is the special case $n=2$ with $\K=\R$ under the identification $\C\cong\R^2$: the direction $\Rightarrow$ follows by composing $f$ with the continuous maps $\Re$ and $\Im$ (Example~4.3.4(6), Theorem~4.3.8). For $\Leftarrow$, use the estimate
-			\[
-				|f(x)-f(x_0)| \le |\Re f(x)-\Re f(x_0)| + |\Im f(x)-\Im f(x_0)|,
-			\]
-			i.e. the $\ell^1$ norm on $\R^2$, and conclude as in (1); equivalence of norms on $\C\cong\R^2$ yields the claim for any norm.
-		\end{enumerate}
-		\qed
-
-
+\subsection{Convergent Sequences (Konvergenz von Folgen)}
 
 \NumberedTheorem{3.1.20}{Order of limits and squeeze principle}{
 \begin{enumerate}[label={(\arabic*)}, leftmargin=*]
@@ -1321,332 +351,8 @@ $(s_n)_{n\in\N}$ is convergent and hence a Cauchy sequence. Thus, for every $\ep
 \]
 \qed
 
-\subsection*{4.4 Functions in $\R$}
-\addcontentsline{toc}{subsection}{4.4 Functions in $\R$}
 
-In the following, let $I\subset\R$ always be a nonempty interval.
-
-\NumberedDefinition{4.4.1}{Monotonicity}{A function $f:I\to\R$ is called
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item monotone increasing,
-	\item monotone decreasing,
-	\item strictly increasing,
-	\item strictly decreasing,
-\end{enumerate}
-if for all $x,y\in I$ with $x<y$ we have, respectively,
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $f(x)\le f(y)$,
-	\item $f(x)\ge f(y)$,
-	\item $f(x)< f(y)$,
-	\item $f(x)> f(y)$.
-\end{enumerate}
-A function that is either (strictly) decreasing or (strictly) increasing is called (strictly) monotone.}
-
-\NumberedExample{4.4.2}{}{\leavevmode
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $f(x):=x^{2}$ is strictly decreasing on $(-\infty,0]$ and strictly increasing on $[0,\infty)$. If $0\in \mathring I$ (i.e. $0$ is an interior point of $I$), then $f$ is not monotone on $I$.
-	\item The floor function $f(x):=\lfloor x\rfloor$ is monotone increasing.
-	\item The function
-		\[
-			f(x):=\begin{cases}
-				1, & x\in\Q,\\
-				0, & x\in\R\setminus\Q,
-			\end{cases}
-		\]
-		is not monotone.
-\end{enumerate}}
-
-\NumberedTheorem{4.4.3}{One-sided limits of monotone functions}{Let $f:I\to\R$ be monotone and set $\alpha:=\inf I$, $\beta:=\sup I$ (possibly infinite). Then the one-sided limits
-\[
-	f(\alpha+0):=\lim_{x\to\alpha+0} f(x)=\lim_{\substack{x\to\alpha\\ x>\alpha}} f(x),
-	\qquad
-	f(\beta-0):=\lim_{x\to\beta-0} f(x)=\lim_{\substack{x\to\beta\\ x<\beta}} f(x)
-\]
-exist in $\R$, and we have
-\[
-	f(\alpha+0)=
-	\begin{cases}
-		\inf\{f(x): x\in I\setminus\{\alpha\}\}, & \text{if $f$ is increasing},\\[0.3em]
-		\sup\{f(x): x\in I\setminus\{\alpha\}\}, & \text{if $f$ is decreasing},
-	\end{cases}
-\]
-and
-\[
-	f(\beta-0)=
-	\begin{cases}
-		\sup\{f(x): x\in I\setminus\{\beta\}\}, & \text{if $f$ is increasing},\\[0.3em]
-		\inf\{f(x): x\in I\setminus\{\beta\}\}, & \text{if $f$ is decreasing}.
-	\end{cases}
-\]
-}
-\paragraph{Proof.} Consider the increasing case and set
-\[
-	b:=\sup\{f(x): x\in I\setminus\{\beta\}\}\in\overline{\R}.
-\]
-Let $(x_n)\subset [\alpha,\beta)$ with $x_n\to\beta$ and $x_n<\beta$ for all $n\in\N$. Since $b$ is the supremum, for every $\eta<b$ there exists $\xi\in[\alpha,\beta)$ with $f(\xi)\ge\eta$ and an index $n_{\xi}$ such that $x_n\ge\xi$ for all $n\ge n_{\xi}$. Because $f$ is increasing,
-\[
-	\eta\le f(\xi)\le f(x_n)\le b \qquad (n\ge n_{\xi}).
-\]
-As $\eta<b$ was arbitrary, it follows that $\lim_{n\to\infty} f(x_n)=b$. Hence $f(\beta-0)$ exists and equals $b$. The remaining statements are shown analogously. \qed
-
-\NumberedDefinition{4.4.4}{Jump discontinuity}{Let $D\subset\R$, $D\ne\emptyset$, and let $Y$ be a normed vector space. A function $f:D\to Y$ is said to have a jump at a point $x_0\in\R$ with
-\[
-	x_0\in \overline{D\cap(-\infty,x_0)}\ \cap\ \overline{D\cap(x_0,\infty)}
-\]
-if the one-sided limits
-\[
-	\lim_{x\to x_0\pm 0} f(x) = f(x_0\pm 0)
-\]
-exist and are different.}
-
-\NumberedExample{4.4.5}{}{For the function $f(x):=\lfloor x\rfloor$, every $k\in\Z$ is a jump point, since
-\[
-	f(k+0)-f(k-0)=1.
-\]
-}
-
-Theorem~4.4.3 shows that for every monotone function $f:I\to\R$ and every $x_0$ in the interior of $I$, the one-sided limits $f(x_0\pm 0)$ exist. Example~4.4.5 shows that there are functions with countably many jump discontinuities. The next theorem shows that monotone functions can have at most countably many jumps.
-
-\NumberedTheorem{4.4.6}{}{Let $f:I\to\R$ be monotone. Then $f$ is continuous except at at most countably many jump points.}
-\paragraph{Proof.} Assume $f$ is increasing. Define the set of jump points
-\[
-	M := \{\, x\in \mathring I : f(x+0)\ne f(x-0)\,\}.
-\]
-We claim that $M$ is countable. Idea: construct an injective map $q:M\to\Q$. For $x\in M$ we have $f(x-0)<f(x+0)$, so by density of $\Q$ there exists $z\in\Q$ with
-\[
-	z\in\bigl( f(x-0),\, f(x+0) \bigr).
-\]
-Define $q(x):=z$. We show $q$ is injective. If $x,y\in M$ with $x<y$, then by monotonicity
-\[
-	q(x) < f(x+0) \le f(y-0) < q(y).
-\]
-Hence $q(x)\ne q(y)$ whenever $x\ne y$, so $q$ is injective. Since $\Q$ is countable, $M$ is countable. \qed
-
-\NumberedTheorem{4.4.7}{Intermediate Value Theorem}{Let $f:[a,b]\to\R$ be continuous with $f(a)<0<f(b)$. Then $f$ has a zero $\xi\in(a,b)$, i.e. $f(\xi)=0$.}
-\paragraph{Proof.} (Interval bisection.) Construct a sequence of nested intervals $[a_k,b_k]$ recursively by
-\[
-	[a_0,b_0]:=[a,b], \qquad
-	[a_{k+1},b_{k+1}]:=
-	\begin{cases}
-		\bigl[a_k,\, \tfrac{a_k+b_k}{2}\bigr], & \text{if } f\bigl( \tfrac{a_k+b_k}{2} \bigr) > 0,\\[0.4em]
-		\bigl[ \tfrac{a_k+b_k}{2},\, b_k \bigr], & \text{if } f\bigl( \tfrac{a_k+b_k}{2} \bigr) \le 0,
-	\end{cases}
-	\qquad k\ge 0.
-\]
-Then: (1) $(a_k)$ is monotonically increasing and bounded above by $b$; (2) $(b_k)$ is monotonically decreasing and bounded below by $a$; (3) for all $k\in\N$, $b_k-a_k=2^{-k}(b-a)$. By the nested-interval argument (cf. Bolzano–Weierstrass, Theorem~3.2.5), there exists a common limit $\xi\in[a,b]$. By construction, for all $k\ge0$ we have
-\[
-	f(a_k) \le 0 \le f(b_k).
-\]
-By continuity of $f$,
-\[
-	f(\xi) = \lim_{k\to\infty} f(a_k) \le 0 \le \lim_{k\to\infty} f(b_k) = f(\xi),
-\]
-hence $f(\xi)=0$ and $\xi\in(a,b)$ since $f(a)<0<f(b)$. \qed
-
-We distinguish three types of intervals: closed $I=[a,b]$, open $I=(a,b)$, and half-open $I=(a,b]$ or $I=[a,b)$.
-
-\NumberedTheorem{4.4.8}{}{Let $f:I\to\R$ be continuous and strictly monotone increasing (respectively, strictly monotone decreasing). Then $J:=f(I)$ is an interval of the same type as $I$, and $f$ maps $I$ bijectively onto $J$. The inverse map $f^{-1}:J\to I$ is continuous and strictly monotone increasing (respectively, strictly monotone decreasing).}
-\paragraph{Proof.} We consider the strictly increasing case; the decreasing case is analogous. Set $\alpha:=\inf I$, $\beta:=\sup I$ (in $\overline{\R}$). By Theorem~4.4.3, the one-sided limits
-\[
-	a:=f(\alpha+0), \qquad b:=f(\beta-0)
-\]
-exist (in $\overline{\R}$). We first show
-\[
-	(a,b)\subset J:=f(I)\subset [a,b].
-\]
-The right inclusion is clear by the definition of $a$ and $b$. For the left inclusion, let $a<\eta<b$. Because $b$ is the supremum of $J$, there exist $t_2\in (\alpha,\beta)$ with $f(t_2)>\eta$ and $t_1\in(\alpha,\beta)$ with $f(t_1)<\eta$. Since $f$ is strictly increasing, $t_1<t_2$ and hence $f(t_1)<\eta<f(t_2)$. By continuity (Intermediate Value Theorem, Theorem~4.4.7) there exists $\tau\in[t_1,t_2]\subset(\alpha,\beta)$ with $f(\tau)=\eta$. Thus $\eta\in J$, so $(a,b)\subset J$. Hence $J$ is an interval.
-
-Strict monotonicity implies that $J$ contains its infimum $a$ if and only if $I$ contains $\alpha$, and $J$ contains its supremum $b$ if and only if $I$ contains $\beta$. Therefore $J$ has the same endpoint type as $I$.
-
-For bijectivity: strict monotonicity yields injectivity of $f$ on $I$, and surjectivity holds by definition of $J=f(I)$. Hence $f:I\to J$ is bijective.
-
-For the inverse $g:=f^{-1}:J\to I$ we first show strict monotonicity: let $y_1<y_2$ in $J$ and assume towards a contradiction that $x_1:=g(y_1)\ge g(y_2)=:x_2$. Then
-\[
-	y_1=f(g(y_1))\ge f(g(y_2))=y_2,
-\]
-contradiction. Thus $g$ is strictly increasing.
-
-It remains to prove continuity of $g$. Fix $y_0\in J$. Consider a sequence $(y_n)\subset J$ with $y_n\nearrow y_0$; set $x_n:=g(y_n)$. Then $(x_n)$ is increasing and bounded above by $g(y_0)$, hence $x_n\to\bar x\le g(y_0)$. If $\bar x< x_0:=g(y_0)$, then by continuity of $f$,
-\[
-	y_0 = \lim_{n\to\infty} y_n = \lim_{n\to\infty} f(x_n) = f(\bar x) < f(x_0)=y_0,
-\]
-which is impossible. Thus $g(y_0-0)=g(y_0)$. An analogous argument with $y_n\searrow y_0$ shows $g(y_0+0)=g(y_0)$. Hence $g$ is continuous at $y_0$. \qed
-
-\NumberedExample{4.4.9}{}{Let $n\ge 2$ and define $f: \R_{\ge0}\to\R_{\ge0}$ by $f(x):=x^{n}$. We show $f$ is strictly increasing. For $0\le x<y$,
-\[
-	f(y)-f(x)=y^{n}-x^{n}=y^{n}\Bigl(1-\bigl(\tfrac{x}{y}\bigr)^{n}\Bigr)
-	= y^{n}\Bigl(1-\tfrac{x}{y}\Bigr)\sum_{j=0}^{n-1} \Bigl(\tfrac{x}{y}\Bigr)^{\,n-1-j} > 0,
-\]
-since $y>0$, $0\le x/y<1$, and the sum is positive. Moreover, because $0\le f(x)=x^{n}\le x$ for $x<1$, we have $f(0+0)=0$, and since $f(x)=x^{n}\ge x$ for $x>1$, we have $f(+\infty-0)=+\infty$.
-
-Thus $f:\R_{\ge0}\to\R_{\ge0}$ is bijective, continuous, and strictly increasing. By Theorem~4.4.8 it has a continuous, strictly increasing inverse $g: \R_{\ge0}\to\R_{\ge0}$. We write
-\[
-	\sqrt[n]{\,x\,} := g(x) := f^{-1}(x).
-\]
-}
-
-\subsection*{4.5 The exponential function}
-\addcontentsline{toc}{subsection}{4.5 The exponential function}
-
-\NumberedDefinition{4.5.1}{Power-series definitions}{Define three functions on $\C$ by
-\[
-	\exp(z):=e^{z} := \sum_{n=0}^{\infty} \frac{z^{n}}{n!},\qquad
-	\cos(z) := \sum_{n=0}^{\infty} (-1)^{n} \frac{z^{2n}}{(2n)!},\qquad
-	\sin(z) := \sum_{n=0}^{\infty} (-1)^{n} \frac{z^{2n+1}}{(2n+1)!}.
-\]
-These are called the exponential, cosine, and sine functions.}
-
-\NumberedTheorem{4.5.2}{Basic properties}{
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item The power series in Definition~4.5.1 all have radius of convergence $+\infty$.
-	\item $\exp,\sin,\cos$ are real-valued on $\R$.
-	\item $e^{z_1+z_2}=e^{z_1}\cdot e^{z_2}$.
-	\item $e^{z}\ne0$ for all $z\in\C$, and $e^{-z}=1/e^{z}$.
-	\item $e^{iz}=\cos(z)+i\sin(z)$.
-\end{enumerate}}
-
-\NumberedRemark{4.3.13}{Limits and continuous extension}{
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item Let $f:D\to Y$, $D\subset X$, and $x_0\in D$. Then
-	\[
-		\lim_{x\to x_0} f(x) = f(x_0)
-	\]
-	is equivalent to “$f$ is continuous at $x_0$” (Theorem~4.3.2).
-	\item Let $f:D\to Y$, $D\subset X$, $x_0\notin D$, and suppose the limit
-	\[
-		y = \lim_{x\to x_0} f(x)
-	\]
-	exists. Define an extension $\,\tilde f: D\cup\{x_0\}\to Y$ by
-	\[
-				ilde f(x) :=
-			\begin{cases}
-				f(x), & x\in D,\\
-				y, & x=x_0.
-			\end{cases}
-	\]
-	Then $\tilde f$ is continuous at $x_0$ and is called the continuous extension of $f$ (at $x_0$).
-\end{enumerate}}
-
-\NumberedExample{4.3.14}{}{\leavevmode
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item Let $X=Y=\R$, $D=\R\setminus\{1\}$, and $f(x):=\dfrac{x^{n}-1}{x-1}$ with $n\in\N$. By Lemma~3.2.3,
-		\[
-			f(x) = \sum_{k=0}^{n-1} x^{k} \qquad (x\in\R\setminus\{1\}),
-		\]
-		hence $\lim_{x\to 1} f(x)=n$. Thus the function
-		\[
-					ilde f(x) :=
-			\begin{cases}
-				\dfrac{x^{n}-1}{x-1}, & x\ne 1,\\
-				n, & x=1,
-			\end{cases}
-		\]
-		is a continuous extension of $f$ at $x=1$.
-
-	\item Let $X=Y=\C$, $D=\C\setminus\{0\}$, and $f(z):=\dfrac{e^{z}-1}{z}$. For any sequence $(z_n)$ with $z_n\to 0$ we have $f(z_n)\to 1$. Indeed,
-		\[
-			|f(z)-1| = \Bigl|\sum_{n=1}^{\infty} \frac{z^{\,n-1}}{n!} - 1\Bigr|
-			= \Bigl|\sum_{n=2}^{\infty} \frac{z^{\,n-1}}{n!}\Bigr|
-			= \Bigl|\sum_{m=1}^{\infty} \frac{z^{\,m}}{(m+1)!}\Bigr|
-			\le \frac{1}{2} \sum_{m=1}^{\infty} |z|^{m}
-			= \frac{1}{2} \Bigl( \frac{1}{1-|z|} - 1 \Bigr)
-			= \frac{|z|}{2(1-|z|)} \xrightarrow[|z|\to 0]{} 0
-		\]
-		(since $1/(m+1)!\le 1/2$ for $m\ge 1$). Hence $f(z)\to 1$ as $z\to 0$. Define
-		\[
-					ilde f(z) :=
-			\begin{cases}
-				\dfrac{e^{z}-1}{z}, & z\in\C\setminus\{0\},\\
-				1, & z=0,
-			\end{cases}
-		\]
-		which is a continuous extension of $f$ at $z=0$.
-\end{enumerate}}
-
-\NumberedDefinition{4.3.15}{One-sided continuity on $\R$}{Let $f:D\to\R$ with $D\subset\R$. We say that $f$ is left-continuous (respectively, right-continuous) at $x_0\in D$ if for every $V\in\mathcal U\bigl(f(x_0)\bigr)$ there exists $\delta>0$ such that
-\[
-	f\bigl(D\cap(x_0-\delta,\,x_0] \bigr) \subset V
-	\qquad \text{(respectively, } f\bigl(D\cap[\,x_0,\,x_0+\delta)\bigr)\subset V\,\text{)}.
-\]
-}
-
-\NumberedExample{4.3.16}{}{The function $[x]$ from Example~4.3.4(3) (the greatest integer function) is right-continuous at every $x\in\R$.}
-
-\NumberedTheorem{4.3.17}{Left and right continuity}{Let $f:D\to\R$ with $D\subset\R$. Then $f$ is continuous at $x_0\in D$ if and only if it is both left-continuous and right-continuous at $x_0$.}
-\paragraph{Proof.} “$\Rightarrow$”: If $f$ is continuous at $x_0$, then for every $V\in\mathcal U(f(x_0))$ there exists $U\in\mathcal U(x_0)$ with $f(D\cap U)\subset V$. Choose $\delta>0$ with $(x_0-\delta, x_0] \subset U$; then $f\bigl(D\cap(x_0-\delta, x_0] \bigr)\subset V$, i.e. $f$ is left-continuous at $x_0$. The right-continuity follows analogously using $[x_0, x_0+\delta)$.
-
-“$\Leftarrow$”: Let $V\in\mathcal U\bigl(f(x_0)\bigr)$ and assume $f$ is left- and right-continuous at $x_0$. Then there exist $\delta_1,\delta_2>0$ such that
-\[
-	f\bigl(D\cap(x_0-\delta_1, x_0] \bigr)\subset V,\qquad
-	f\bigl(D\cap[ x_0, x_0+\delta_2) \bigr)\subset V.
-\]
-Let $\delta:=\min\{\delta_1,\delta_2\}>0$ and set $U:=(x_0-\delta, x_0+\delta)$ (any neighborhood of $x_0$ would do). Then $D\cap U$ is contained in the union of the two one-sided neighborhoods above, hence $f(D\cap U)\subset V$. Thus $f$ is continuous at $x_0$. \qed
-
-In many situations it is important that for a prescribed $\eps>0$ one can choose the $\delta>0$ in the definition of continuity uniformly for all points in a set.
-
-\NumberedDefinition{4.3.18}{Uniform continuity}{Let $f:D\to Y$, $D\subset X$, and let $D'\subset D$. We say that $f$ is uniformly continuous on $D'$ if for every $\eps>0$ there exists $\delta>0$ such that
-\[
-	\|f(x)-f(y)\|_{Y} < \eps \qquad \text{for all } x,y\in D' \text{ with } \|x-y\|<\delta.
-\]
-}
-
-\NumberedRemark{4.3.19}{}{Every uniformly continuous function is continuous.}
-
-\NumberedExample{4.3.20}{}{\leavevmode
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $f:X\to\R_{\ge 0}$, $f(x):=\|x\|_X$, is uniformly continuous.
-	\item $f: \R\setminus\{0\}\to\R$, $f(x):=1/x$, is not uniformly continuous.
-	\item $f:[-1,1]\to\R$, $f(x):=x^{2}$, is uniformly continuous.
-	\item $f:\R\to\R$, $f(x):=x^{2}$, is not uniformly continuous.
-\end{enumerate}}
-
-\paragraph{Proof.}
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item By the reverse triangle inequality,
-		\[
-			\bigl|\,\|x\| - \|y\|\,\bigr| \le \|x-y\| \qquad (\forall x,y\in X),
-		\]
-		hence for any $\eps>0$ choose $\delta:=\eps$ to get $|\|x\|-\|y\||<\eps$ whenever $\|x-y\|<\delta$.
-	\item By Theorem~4.3.5 the function is continuous. Let $\delta>0$ be arbitrary and choose $x=1/n$ with $n>\tfrac{1}{2\delta}$ and $y=1/(2n)$. Then $|x-y|=\tfrac{1}{2n}<\delta$, but
-		\[
-			\Bigl|\frac{1}{x}-\frac{1}{y}\Bigr| = |n-2n| = n > 1.
-		\]
-		Thus no $\delta$ works for $\eps=1$, and $f$ is not uniformly continuous.
-	\item For $x,y\in[-1,1]$,
-		\[
-			|x^{2}-y^{2}| = |x-y|\,|x+y| \le 2\,|x-y|.
-		\]
-		Hence for a given $\eps>0$ choose $\delta:=\eps/2$ to get $|x^{2}-y^{2}|<\eps$ whenever $|x-y|<\delta$.
-	\item Let $\delta>0$ and choose $n\in\N$ with $n>1/\delta$. Set $x:=n$ and $y:=n+\delta/2$. Then $|x-y|=\delta/2<\delta$, but
-		\[
-			|x^{2}-y^{2}| = |(x-y)(x+y)| = (\delta/2)\,(2n+\delta/2) > n\,\delta > 1.
-		\]
-		Hence $f$ is not uniformly continuous on $\R$.
-\end{enumerate}
-\qed
-
-\NumberedDefinition{4.3.11}{Limit of a function at a point}{Let $f:D\to Y$, $D\subset X$, and let $x_0\in X$ be such that there exists a sequence $(x_n)\subset D$ with $\lim_{n\to\infty} x_n = x_0$. We define
-\[
-	y := \lim_{x\to x_0} f(x),
-\]
-whenever for every sequence $(x_n)\subset D$ with $x_n\to x_0$ as $n\to\infty$ it holds that $f(x_n)\to y$.}
-
-\NumberedTheorem{4.3.12}{Neighborhood characterization of the limit}{The following statements are equivalent:
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item $y = \lim_{x\to x_0} f(x)$,
-	\item For every $V\in \mathcal U(y)$ there exists $U\in \mathcal U(x_0)$ such that $f(D\cap U)\subset V$.
-\end{enumerate}}
-\paragraph{Proof.}
-\begin{enumerate}[label=\alph*.), leftmargin=*]
-	\item (1) $\Rightarrow$ (2): We argue by contradiction. Suppose there is $V\in\mathcal U(y)$ such that for all $U\in\mathcal U(x_0)$ we have $f(D\cap U)\nsubseteq V$. Then, for every $n\in\N$,
-	\[
-		f\bigl(D\cap B(x_0,1/n)\bigr) \nsubseteq V,
-	\]
-	hence we can choose $x_n\in D\cap B(x_0,1/n)$ with $f(x_n)\notin V$. The sequence $(x_n)$ lies in $D$ and satisfies $x_n\to x_0$, but $f(x_n)\notin V$ for all $n$, contradicting $f(x_n)\to y$. Thus (2) holds.
-
-	\item (2) $\Rightarrow$ (1): Let $(x_n)\subset D$ with $x_n\to x_0$ and let $\eps>0$. By (2) there exists $U\in\mathcal U(x_0)$ with $f(D\cap U)\subset B(y,\eps)$. Since $x_n\to x_0$, there exists $n_U\in\N$ such that $x_n\in U$ for all $n\ge n_U$. Consequently $f(x_n)\in B(y,\eps)$ for all $n\ge n_U$, i.e. $f(x_n)\to y$. Hence $y=\lim_{x\to x_0} f(x)$.
-\end{enumerate}
-\qed
+\NumberedRemark{3.4.4}{}{Example~3.4.2(3) shows that the converse of Theorem~3.4.3 is, in general, false.}
 
 \NumberedRemark{3.4.4}{}{Example~3.4.2(3) shows that the converse of Theorem~3.4.3 is, in general, false.}
 
@@ -1759,169 +465,7 @@ In the following we compile some statements about natural numbers that can be pr
 \[
 	0! := 1, \qquad k! := k\,(k-1)! \quad (k=1,2,\dots).
 \]
-For natural numbers $n\ge k$ the binomial coefficient is defined by
-\[
-	\binom{n}{k} := \frac{n!}{k!\,(n-k)!}.
-\]
-
-\NumberedLemma{3.2.3}{Basic algebraic and summation facts}{
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item (Binomial theorem) For all real numbers $x,y$ and all $n\in\N$,
-	\[
-		(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{k} y^{\,n-k}.
-	\]
-
-	\item For all $k\ge 0$ one has $2^{\,k-1} \le k!$.
-
-	\item (Finite geometric sum) For every real $x\ne 1$ and every $n\in\N$,
-	\[
-		\sum_{k=0}^{n} x^k = \frac{1 - x^{n+1}}{1-x}.
-	\]
-	(For $x=1$ the sum equals $n+1$.)
-
-	\item (Bernoulli's inequality) For all $x>-1$ and $n\ge 0$,
-	\[
-		(1+x)^n \ge 1 + n x.
-	\]
-\end{enumerate}}
-
-\NumberedExample{3.2.4}{Standard limit examples}{
-\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-	\item Let $a\in\K$. Then $a^n\to 0$ if $|a|<1$; $a^n\to 1$ if $a=1$; and the sequence $(a^n)_{n\in\N}$ diverges if $|a|\ge 1$ and $a\ne 1$.
-
-	\item Let $a\in\K$ with $|a|<1$ and let $r\in\N$. Then $n^{r} a^{n}\to 0$ as $n\to\infty$.
-
-	\item $\displaystyle \lim_{n\to\infty} \sqrt[n]{\,n\,} = 1$.
-
-	\item If $a\in\R_{>0}$ then $\displaystyle \lim_{n\to\infty} \sqrt[n]{\,a\,} = 1$.
-
-	\item The sequence $\bigl(1+\tfrac{1}{n}\bigr)^{\!n}$ is convergent. Its limit is called Euler's number and denoted by $e$. Moreover $2<e<3$.
-
-	\item $\displaystyle \lim_{n\to\infty} \sum_{k=0}^{n} \frac{1}{k!} = e$.
-\end{enumerate}}
-
-	\paragraph{Proof.}
-	\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-		\item Suppose $(a^n)$ is convergent and set $\alpha:=\lim_{n\to\infty} a^n$. Then
-		\[
-			\alpha = \lim a^n = \lim a^{n+1} = \lim (a\,a^n) = a\,\alpha.
-		\]
-		Hence either $\alpha=0$ or $a=1$. In the latter case the sequence is constant and thus $\alpha=1$.
-
-		If $|a|<1$, the sequence $(|a|^n)$ is monotone decreasing and bounded below by $0$, hence convergent by Theorem~3.2.2. Since $a\ne1$, necessarily $\lim a^n=0$.
-
-		If $|a|=1$ and $a\ne1$ and $(a^n)$ were convergent, then $|a|^n\to0$, contradicting $|a|=1$. Thus $(a^n)$ diverges.
-
-		If $|a|>1$, then for any $\eps>0$ there exists $n_\eps$ with $\big(1/|a|\big)^n<\eps$ for all $n\ge n_\eps$, hence $|a|^n>1/\eps$ for all such $n$. Thus $(a^n)$ is unbounded and therefore divergent by Theorem~3.1.8.
-
-		\item Assume $a\ne0$ and set $\alpha:=|a|$ and $x_n:=n^r\alpha^n$. Then
-		\[
-			\frac{x_{n+1}}{x_n} = \alpha\Big(1+\frac{1}{n}\Big)^{\!r} \xrightarrow[n\to\infty]{} \alpha.
-		\]
-		Choose $\beta\in(\alpha,1]$. Then there exists $n_0$ with $x_{n+1}/x_n<\beta$ for all $n\ge n_0$, i.e. $x_{n+1}<\beta x_n$ for all $n\ge n_0$. By induction,
-		\[
-			x_n \le x_{n_0}\,\beta^{\,n-n_0}\qquad (n\ge n_0).
-		\]
-		Since $0<\beta<1$, we obtain $x_n\to0$. Hence $|n^r a^n|=x_n\to0$, and by Lemma~3.1.18(3) it follows that $n^r a^n\to0$.
-
-		\item Let $\eps>0$. Since $0<\tfrac{1}{1+\eps}<1$, part (2) with $r=1$ and $a=\tfrac{1}{1+\eps}$ yields
-		\[
-			\lim_{n\to\infty} n\Big(\tfrac{1}{1+\eps}\Big)^{\!n} = 0.
-		\]
-		Hence there exists $n_0>1$ so that $0<n(1+\eps)^{-n}<1$ for all $n\ge n_0$. This implies
-		\[
-			1 \le \sqrt[n]{n} < 1+\eps \qquad (n\ge n_0),
-		\]
-		and therefore $\lim_{n\to\infty} \sqrt[n]{n} = 1$.
-			\item Let $a>0$. By the Archimedean property there exists $n_0\in\N$ such that $\tfrac{1}{n}<a<n$ for all $n\ge n_0$. Taking $n$th roots gives
-			\[
-				\frac{1}{\sqrt[n]{n}} < \sqrt[n]{a} < \sqrt[n]{n} \qquad (n\ge n_0).
-			\]
-			By (3) we have $\sqrt[n]{n}\to 1$, and by Theorem~3.1.19(5) also $1/\sqrt[n]{n}\to 1$. Hence by the squeeze principle (Theorem~3.1.20(2)) we obtain $\sqrt[n]{a}\to 1$.
-
-			\item Set $e_n := \bigl(1+\tfrac{1}{n}\bigr)^{\!n}$. We show $(e_n)$ is bounded and monotone increasing.
-
-			(Boundedness) Using the binomial theorem and the estimate $\binom{n}{k}\le \dfrac{n^k}{k!}$,
-			\[
-				e_n = \sum_{k=0}^{n} \binom{n}{k}\,\frac{1}{n^k}
-						= 1 + \sum_{k=1}^{n} \frac{n(n-1)\cdots(n-k+1)}{k!}\,\frac{1}{n^k}
-						\le 1 + \sum_{k=1}^{n} \frac{1}{k!}.
-			\]
-			By Lemma~3.2.3(2) we have $\tfrac{1}{k!}\le 2^{-(k-1)}$ for $k\ge1$, and by Lemma~3.2.3(3) the geometric tail is bounded, yielding $e_n\le 3$.
-
-			(Monotonicity) Compute
-			\[
-				\frac{e_n}{e_{n-1}} = \Big(1+\frac{1}{n}\Big)\Big(1-\frac{1}{n^2}\Big)^{n-1}.
-			\]
-			By Bernoulli's inequality (Lemma~3.2.3(4)), $(1-t)^{n-1}\ge 1-(n-1)t$ for $t=1/n^2$, hence $\big(1-\tfrac{1}{n^2}\big)^{n-1}\ge 1-\tfrac{n-1}{n^2}$. Multiplying by $1+\tfrac{1}{n}$ gives $\tfrac{e_n}{e_{n-1}}\ge 1$. Thus $(e_n)$ is increasing. Since $e_1=2$ and $e_n\le 3$, the sequence converges; denote its limit by $e$, whence $2<e<3$.
-
-			\item Let $x_n := \sum_{k=0}^{n} \dfrac{1}{k!}$. Then $(x_n)$ is monotone increasing and $0<x_n\le 3$ by the estimate used above, hence $x_n\to e'$ for some $e'\in\R$.
-
-			First, $e\le e'$: from the binomial expansion we have $e_n\le x_n$ for every $n$, so taking limits and using Theorem~3.1.20(1) yields $e\le e'$.
-
-			Second, $e\ge e'$: fix any $m\in\N$ and define
-			\[
-				y_n := \sum_{k=0}^{m} \binom{n}{k}\,\frac{1}{n^k} < e_n.
-			\]
-			For each fixed $k\le m$,
-			\[
-				\binom{n}{k}\,\frac{1}{n^k} = \frac{1}{k!}\,\frac{n(n-1)\cdots(n-k+1)}{n^k}
-					= \frac{1}{k!}\,\prod_{j=0}^{k-1}\Big(1-\frac{j}{n}\Big)
-					\xrightarrow[n\to\infty]{} \frac{1}{k!}.
-			\]
-			Hence $y_n\to x_m$ as $n\to\infty$. Since $e_n>y_n$ for all $n$, taking limits gives $e\ge x_m$. Because $m$ was arbitrary and $x_m\nearrow e'$, it follows that $e\ge e'$. Combining the two inequalities yields $e=e'$.
-		\end{enumerate}
-
-		\paragraph{Addendum (exercise).}
-		For $n\in\N$ and $0<a<b$ show:
-		\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
-			\item $0<a<b \ \Rightarrow\ 0<\sqrt[n]{a}<\sqrt[n]{b}$,
-			\item $0<a\le b \ \Rightarrow\ 0<\sqrt[n]{a}\le \sqrt[n]{b}$.
-		\end{enumerate}
-
-\NumberedTheorem{3.2.5}{Bolzano--Weierstrass}{Every bounded sequence in $\K$ has at least one accumulation point.}
-
-\paragraph{Proof.} First treat $\K=\R$. Let $(x_k)_{k\in\N}$ be a bounded sequence in $\R$. Then there exist $A_0,B_0\in\R$ with $A_0< B_0$ and
-\[
-	A_0 \le x_k \le B_0 \qquad \forall k\in\N.
-\]
-Starting with the closed interval $[A_0,B_0]$ we construct by bisection two sequences of nested intervals $([A_n,B_n])_{n\in\N}$ and midpoints $c_n:=\tfrac12(A_n+B_n)$ recursively as follows.
-
-Consider the three cases regarding how many terms of the sequence lie in each half of $[A_n,B_n]$:
-\begin{description}[leftmargin=*]
-	\item[Case 1.] Infinitely many indices $k$ satisfy $x_k = c_n = \tfrac12(A_n+B_n)$. Then $c:=c_n$ is evidently an accumulation point (indeed, constant subsequence).
-
-	\item[Case 2.] Infinitely many terms of $(x_k)$ lie in the left half $[A_n,\,c_n)$. Set $A_{n+1}:=A_n$ and $B_{n+1}:=c_n$.
-
-	\item[Case 3.] Infinitely many terms of $(x_k)$ lie in the right half $(c_n,\,B_n]$. Set $A_{n+1}:=c_n$ and $B_{n+1}:=B_n$.
-\end{description}
-At least one of these three cases occurs at each step, so the construction proceeds indefinitely. By construction, for all $n$ we have a closed interval $[A_n,B_n]\subset [A_0,B_0]$ that contains infinitely many terms of the sequence and satisfies
-\[
-	A_{n+1},B_{n+1} \in [A_n,B_n], \qquad B_{n+1}-A_{n+1} = \tfrac12\,(B_n-A_n),
-\]
-in particular \(A_n\) is monotone increasing, \(B_n\) is monotone decreasing, and both are bounded with
-\[
-	A_n, B_n \in [A_0,B_0], \qquad B_n-A_n = 2^{-n}(B_0-A_0).
-\]
-Hence $(A_n)$ and $(B_n)$ converge in $\R$ (Theorem~3.2.2). Set
-\[
-	c := \lim_{n\to\infty} A_n = \lim_{n\to\infty} B_n.
-\]
-We claim that $c$ is an accumulation point of $(x_k)$. Let $\eps>0$. Choose $n_1$ with $c-\eps < A_n \le c$ for all $n\ge n_1$, and choose $n_2$ with $c\le B_n < c+\eps$ for all $n\ge n_2$. For $n\ge n_\eps:=\max\{n_1,n_2\}$ we have
-\[
-	c-\eps < A_n \le c \le B_n < c+\eps.
-\]
-By construction, each interval $[A_n,B_n]$ contains infinitely many terms of the sequence. Therefore there exist infinitely many indices $k$ with $x_k\in [A_n,B_n]\subset (c-\eps, c+\eps)$. This proves that for every $\eps>0$ there are infinitely many $k$ with $|x_k-c|<\eps$, i.e. $c$ is an accumulation point in $\R$.
-
-Now let $\K=\C$ and $(x_k)_{k\in\N}$ be bounded in $\C$. Define real sequences
-\[
-	u_k := \Re(x_k), \qquad v_k := \Im(x_k), \qquad k\in\N.
-\]
-Since $|\Re z|\le |z|$ and $|\Im z|\le |z|$, the sequences $(u_k)$ and $(v_k)$ are bounded in $\R$. By the real case there exists a subsequence $(u_{k_\ell})_{\ell\in\N}$ converging to some $a\in\R$. The corresponding subsequence $(v_{k_\ell})_{\ell\in\N}$ is still bounded, hence by the real Bolzano--Weierstrass theorem admits a further subsequence $(v_{k_{\ell_m}})_{m\in\N}$ converging to some $b\in\R$. Then the paired subsequence $(x_{k_{\ell_m}})$ satisfies
-\[
-	\Re(x_{k_{\ell_m}}) \to a, \qquad \Im(x_{k_{\ell_m}}) \to b.
-\]
-Therefore, using $|z|\ge |\Re z|$ and $|z|\ge |\Im z|$ (or the inequality $|x+iy-(a+ib)|\le |\Re(x-(a+ib))| + |\Im(x-(a+ib))|$), we obtain
+% (deleted: earlier misplaced, unnumbered "4.4 Functions in R" block)
 \[
 	|x_{k_{\ell_m}} - (a+ib)| \le \big|\Re(x_{k_{\ell_m}}) - a\big| + \big|\Im(x_{k_{\ell_m}}) - b\big| \xrightarrow[m\to\infty]{} 0.
 \]
@@ -2905,11 +1449,596 @@ In the following, $(X,\|\cdot\|)$ is a normed $\K$-vector space.
 \]
 \qed}
 	
+% (Removed misplaced subsection header; 4.2 continues here. Proper 4.3 Continuity starts later under Section 4.)
+
+\NumberedRemark{4.2.3}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item The notion of "open" depends on the ambient vector space. For instance, the interval $(0,1)$ is open in $\R$, but the set $(0,1)\times\{0\}$ is not open in $\R^{2}$.
+	\item If $\|\cdot\|_{a}$ and $\|\cdot\|_{b}$ are equivalent norms on $X$, then a subset $O\subset X$ is open with respect to $\|\cdot\|_{a}$ if and only if it is open with respect to $\|\cdot\|_{b}$. In general, however, the open balls differ as sets:
+	\[
+		B(x,r)_{\|\cdot\|_{a}} \ne B(x,r)_{\|\cdot\|_{b}}.
+	\]
+\end{enumerate}}
+
+\NumberedTheorem{4.2.4}{Basic closure properties of open sets}{Let $\mathcal O\subset \mathcal P(X)$ denote the collection of all open subsets of $X$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\emptyset\in\mathcal O$ and $X\in\mathcal O$.
+	\item If $\{O_\alpha\}_{\alpha\in A}$ is any family of sets in $\mathcal O$ (with arbitrary index set $A$), then $\displaystyle \bigcup_{\alpha\in A} O_\alpha \in\mathcal O$.
+	\item If $O_1,O_2\in\mathcal O$, then $O_1\cap O_2\in\mathcal O$. In particular, finite intersections of open sets are open.
+\end{enumerate}}
+\paragraph{Proof.}
+1) Trivial.
+
+2) Let $x\in \bigcup_{\alpha\in A} O_\alpha$. Then $x\in O_{\alpha_0}$ for some $\alpha_0\in A$. Since $O_{\alpha_0}$ is open, there exists $\eps>0$ with
+\[
+	B(x,\eps) \subset O_{\alpha_0} \subset \bigcup_{\alpha\in A} O_\alpha.
+\]
+Thus the union is open.
+
+3) Let $x\in O_1\cap O_2$. Since $O_i$ is open, there exists $\eps_i>0$ with $B(x,\eps_i)\subset O_i$ for $i=1,2$. With $\eps:=\min\{\eps_1,\eps_2\}$ we have $B(x,\eps)\subset O_1\cap O_2$. Hence $O_1\cap O_2$ is open. \qed
+
+\NumberedRemark{4.2.5}{}{Let $X\ne\emptyset$ and let $\mathcal T\subset \mathcal P(X)$ be a family of subsets satisfying properties (1)--(3) of Theorem~4.2.4. Then $\mathcal T$ is called a topology on $X$, and $(X,\mathcal T)$ is a topological space. Many statements proved below for normed vector spaces remain valid verbatim for general topological spaces.}
+
+\NumberedRemark{4.2.6}{}{A countable intersection of open sets need not be open in general. Moreover, singletons $\{x\}$ are never open in a normed vector space.}
+
+\NumberedDefinition{4.2.7}{Closed set}{A subset $M\subset X$ is called \emph{closed} if and only if its complement $M^{c}:=X\setminus M$ is open.}
+
+\NumberedTheorem{4.2.8}{Basic closure properties of closed sets}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\emptyset$ and $X$ are closed.
+	\item Arbitrary intersections of closed sets are closed.
+	\item Finite unions of closed sets are closed.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) Since $X^{c}=\emptyset$ and $\emptyset^{c}=X$ are open, by definition both $X$ and $\emptyset$ are closed.
+
+(2),(3) Follow from De Morgan's laws together with Theorem~4.2.4: for a family $\{M_\alpha\}_{\alpha\in A}$ one has
+\[
+	\Big( \bigcap_{\alpha\in A} M_\alpha \Big)^{c} = \bigcup_{\alpha\in A} (M_\alpha)^{c},
+	\qquad
+	(M_1\cup M_2)^{c} = M_1^{c}\cap M_2^{c}.
+\]
+Since arbitrary unions of open sets are open and finite intersections of open sets are open, the complements above are open, hence the original sets are closed. \qed
+
+\NumberedRemark{4.2.9}{}{Arbitrary unions of closed sets need not be closed in general.}
+
+\NumberedDefinition{4.2.10}{Contact and accumulation points; closure}{Let $M\subset X$.
+\begin{itemize}[leftmargin=*]
+	\item A point $x\in X$ is called a \emph{contact point} of $M$ if for every neighborhood $U\in\mathcal U(x)$ we have $U\cap M\ne\emptyset$.
+	\item A point $x\in X$ is called an \emph{accumulation point} of $M$ if for every $U\in\mathcal U(x)$ we have $M\cap (U\setminus\{x\})\ne\emptyset$.
+\end{itemize}
+The \emph{closure} of $M$ is
+\[
+	\overline{M} := \{\, x\in X : x \text{ is a contact point of } M \,\}.
+\]
+}
+
+\NumberedExample{4.2.11}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M=\{\tfrac{1}{n} : n\in\N\}$. Then $0\in X$ is a contact point and is the unique accumulation point of $M$.
+	\item $M=B(0,1)$. Then $\overline{M}=\{x\in X : \|x\|\le 1\}$, and every contact point is also an accumulation point.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) Clear: every ball around $0$ contains some $1/n$, and every other point either belongs to $M$ or has a neighborhood disjoint from $M$. Moreover, if $a\ne 0$, then for sufficiently small $\eps>0$ the punctured ball $B(a,\eps)\setminus\{a\}$ contains no points of $M$; hence $0$ is the only accumulation point.
+
+(2) Let $x\in X$.
+\begin{enumerate}[label={(\alph*)}, leftmargin=2em]
+	\item If $\|x\|<1$, then $x\in M$, so for every $U\in\mathcal U(x)$ we have $U\cap M\ne\emptyset$; thus $x$ is a contact point.
+	\item If $\|x\|=1$, fix $0<\eps<1$ and set $x_{\eps}:=(1-\tfrac{\eps}{2})x\in M$. Then $\|x-x_{\eps}\|=\tfrac{\eps}{2}\,\|x\|=\tfrac{\eps}{2}<\eps$, hence $x_{\eps}\in B(x,\eps)\cap M\ne\emptyset$. Thus $x$ is a contact point.
+	\item If $\|x\|>1$, let $\eps:=\tfrac{1}{2}(\|x\|-1)>0$ and take any $y\in B(x,\eps)$. Then
+	\[
+		\|y\| = \|(-x) - (y-x)\| \ge \|x\| - \|y-x\| > \|x\| - \tfrac{1}{2}(\|x\|-1) = \tfrac{1}{2}\,\|x\| + \tfrac{1}{2} > 1,
+	\]
+	so $y\notin B(0,1)$. Hence $B(x,\eps)\cap M=\emptyset$ and $x$ is not a contact point.
+\end{enumerate}
+Consequently $\overline{M}=\{x: \|x\|\le 1\}$. At boundary points with $\|x\|=1$ the construction in (b) moreover shows there are infinitely many points of $M$ in every punctured neighborhood of $x$, so every contact point is an accumulation point. \qed
+
+\NumberedTheorem{4.2.12}{Elementary properties of the closure}{Let $M\subset X$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M\subset \overline{M}$.
+	\item $M=\overline{M}$ if and only if $M$ is closed.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) Immediate from the definitions of contact point and $\overline{M}$.
+
+(2) ("$\Rightarrow$") Suppose $M=\overline{M}$. If $x\in M^{c}=(\overline{M})^{c}$, then $x$ is not a contact point of $M$, hence there exists some $U\in\mathcal U(x)$ with $U\cap M=\emptyset$. Thus $U\subset M^{c}$ and $M^{c}$ is open. Therefore $M$ is closed.
+
+("$\Leftarrow$") If $M$ is closed, then $M^{c}$ is open. Hence for every $x\in M^{c}$ there exists $U\in\mathcal U(x)$ with $U\subset M^{c}$, i.e. $U\cap M=\emptyset$. Thus $x$ is not a contact point of $M$, so $x\notin \overline{M}$, which shows $M^{c}\subset (\overline{M})^{c}$. Taking complements yields $\overline{M}\subset M$. Together with (1) we obtain $M=\overline{M}$. \qed
+
+\NumberedTheorem{4.2.13}{Sequential characterization}{Let $M\subset X$ and $x\in X$.
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $x$ is an accumulation point of $M$ if and only if there exists a sequence $(x_n)_{n\in\N}\subset M$ with $x_n\ne x$ for all $n$ and $x_n\to x$.
+	\item $x$ is a contact point of $M$ if and only if there exists a sequence $(x_n)_{n\in\N}\subset M$ with $x_n\to x$.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) ("$\Rightarrow$") If $x$ is an accumulation point, then for each $n\in\N$ we can choose $x_n\in B(x,1/n)\cap M\setminus\{x\}$. By construction $x_n\to x$ and $x_n\ne x$.
+
+("$\Leftarrow$") Let $U\in\mathcal U(x)$. Since $x_n\to x$, there exists $k\in\N$ with $x_k\in U$. If additionally $x_k\ne x$ for all $k$, then $U\cap (M\setminus\{x\})\ne\emptyset$, proving that $x$ is an accumulation point.
+
+(2) Analogous to (1), omitting the constraint $x_n\ne x$. \qed
+
+\NumberedTheorem{4.2.14}{Closedness via accumulation points and sequences}{For $M\subset X$ the following are equivalent:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M$ is closed.
+	\item $M$ contains all its accumulation points.
+	\item For every convergent sequence $(x_n)_{n\in\N}\subset M$ one has $\displaystyle\lim_{n\to\infty} x_n \in M$.
+\end{enumerate}}
+\paragraph{Proof.} (1)$\Leftrightarrow$(2) follows from Theorems~4.2.12 and 4.2.13. Equivalence with (3) is standard and left as an exercise. \qed
+
+\NumberedTheorem{4.2.15}{Closure as the smallest closed superset}{The closure is the smallest closed set containing $M$, i.e.
+\[
+	\overline{M} = \bigcap\{ A : A\supset M,\ A \text{ closed}\}.
+\]}
+\paragraph{Proof.}
+Let $B := \bigcap\{ A : A\supset M,\ A \text{ closed}\}$. By Theorem~4.2.8, $B$ is closed. Also $M\subset B$. If $x\in B^{c}$, then there exists $U\in\mathcal U(x)$ with $U\subset B^{c}$ (since $B^{c}$ is open as the union of the opens $A^{c}$). Thus $U\cap M=\emptyset$, hence $x\notin \overline{M}$. Therefore $B^{c}\subset (\overline{M})^{c}$ and $\overline{M}\subset B$.
+
+Conversely, if $x\in (\overline{M})^{c}$ then there exists $U\in\mathcal U(x)$ with $U\cap M=\emptyset$. The set $U^{c}$ is closed and contains $M$, hence $B\subset U^{c}$ and so $x\notin B$. Thus $(\overline{M})^{c}\subset B^{c}$ and $B\subset \overline{M}$. Hence $B=\overline{M}$. \qed
+
+\NumberedTheorem{4.2.16}{Elementary rules for closures}{For $A,B\subset X$:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $A\subset B$, then $\overline{A}\subset \overline{B}$.
+	\item $\overline{\,\overline{A}\,}=\overline{A}$.
+	\item $\overline{A\cup B} = \overline{A}\cup \overline{B}$.
+\end{enumerate}}
+\paragraph{Proof.} Exercise. \qed
+
+\NumberedDefinition{4.2.17}{Interior}{For $M\subset X$ define the interior of $M$ by
+\[
+	M^{\circ} := \{\, x\in X : x \text{ is an interior point of } M \,\}.
+\]}
+
+From Definition~4.2.1 of “open” it follows immediately:
+
+\NumberedTheorem{4.2.18}{Basic facts about the interior}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M^{\circ}\subset M$.
+	\item $M^{\circ} = M$ if and only if $M$ is open.
+\end{enumerate}}
+
+Analogous to 4.2.15 and 4.2.16 we obtain:
+
+\NumberedTheorem{4.2.19}{Interior as the largest open subset}{The interior is the largest open subset of $M$, i.e.
+\[
+	M^{\circ} = \bigcup\{ O : O\subset M,\ O \text{ open}\}.
+\]}
+\paragraph{Proof.} Analogous to the proof of Theorem~4.2.15. \qed
+
+\NumberedTheorem{4.2.20}{Elementary rules for interiors}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $A\subset B$, then $A^{\circ}\subset B^{\circ}$.
+	\item $(A^{\circ})^{\circ} = A^{\circ}$.
+	\item $(A\cap B)^{\circ} = A^{\circ}\cap B^{\circ}$.
+\end{enumerate}}
+\paragraph{Proof.} Exercise. \qed
+
+\NumberedDefinition{4.2.21}{Boundary}{The boundary of a set $M$ is defined by
+\[
+	\partial M := \overline{M} \setminus M^{\circ} .
+\]}
+
+\NumberedExample{4.2.22}{Boundaries of basic balls}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $M=B(0,1)$, then $M^{\circ}=M$, $\overline{M}=\{x\in X: \|x\|\le 1\}$ and $\partial M = \{x\in X: \|x\|=1\}$.
+	\item If $M=B(0,1)\setminus\{0\}$, then $M^{\circ}=M$, $\overline{M}=\{x\in X: \|x\|\le 1\}$ and $\partial M = \{x\in X: \|x\|=1\}\cup\{0\}$.
+\end{enumerate}}
+
+The following Hausdorff separation axiom is easy to verify for normed vector spaces. For general topological spaces it must be imposed as a separate axiom; without it many essential theorems are false.
+
+\NumberedTheorem{4.2.23}{Hausdorff property in normed spaces}{Let $x,y\in X$ with $x\ne y$. Then there exist neighborhoods $U_x\in\mathcal U(x)$ and $U_y\in\mathcal U(y)$ with $U_x\cap U_y=\emptyset$.}
+\paragraph{Proof.} Let $r:=\|x-y\|>0$. Set $U_x:=B(x,\tfrac r2)$ and $U_y:=B(y,\tfrac r2)$. For $z\in U_y$ we have
+\[\|x-z\|\ge \|x-y\|-\|y-z\|> \|x-y\|-\tfrac r2 = \tfrac r2,\]
+so $z\notin U_x$. Hence $U_x\cap U_y=\emptyset$. \qed
+
+An easy consequence of Theorem~4.2.14 is:
+
+\NumberedTheorem{4.2.24}{Singletons are closed}{For $x\in X$, the set $\{x\}$ is closed.}
+
+\NumberedDefinition{4.2.25}{Relative topology}{Let $M\subset X$, $M\ne\emptyset$. The relative (subspace) topology on $M$ is defined by
+\[
+	\mathcal T_M := \{\, U\cap M : U \text{ open in } X \,\}.
+\]
+We call $A\subset M$ relatively open in $M$ if $A\in\mathcal T_M$. For $x\in M$ define the system of relative neighborhoods by $\mathcal U_M(x):=\{\, U\cap M : U\in\mathcal U(x) \,\}$. A point $x\in A\subset M$ is a relative interior point of $A$ if there exists $V\in\mathcal U_M(x)$ with $x\in V\subset A$. We call $A\subset M$ relatively closed in $M$ if $A\in\{\, B\cap M : B \text{ closed in } X \,\}$.}
+
+Obviously, $A\subset M$ is relatively open (resp. relatively closed) if and only if there exists an open (resp. closed) set $B\subset X$ with $A = B\cap M$.
+
+\NumberedExample{4.2.26}{Relatively open/closed subsets of a half-closed interval}{Let $X=\R$ and $M=[0,1)$. Then $[0,\tfrac12)$ is relatively open in $M$ and $[\tfrac12,1)$ is relatively closed in $M$. Indeed,
+\[
+	[0,\tfrac12) = \big((-\tfrac12,\tfrac12)\big) \cap M =: B_o\cap M,\qquad
+	[\tfrac12,1) = \big([\tfrac12,1]\big) \cap M =: B_a\cap M,
+\]
+where $B_o\subset\R$ is open and $B_a\subset\R$ is closed.}
+	
 \subsection{Continuity (Stetigkeit)}
-	
+
+\NumberedDefinition{4.3.1}{Continuity}{Let $X$ and $Y$ be normed vector spaces, $\emptyset\ne D\subset X$, and $f:D\to Y$.
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f$ is said to be continuous at $x_0\in D$ if for every $\eps>0$ there exists $\delta>0$ such that
+	\[
+		\|x-x_0\|<\delta\ (x\in D) \quad\Longrightarrow\quad \|f(x)-f(x_0)\|_Y<\eps.
+	\]
+	Equivalently: for every neighborhood $V\in\mathcal U\big(f(x_0)\big)$ there exists $U\in\mathcal U(x_0)$ with $f\big(U\cap D\big)\subset V$.
+	\item If $\emptyset\ne D'\subset D$, then $f$ is continuous on $D'$ if it is continuous at every $x\in D'$.
+\end{enumerate}}
+
+\NumberedTheorem{4.3.2}{Equivalent characterizations of continuity at a point}{Let $\emptyset\ne D\subset X$, $f:D\to Y$, and $x_0\in D$. The following are equivalent:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f$ is continuous at $x_0$ in the $\eps$–$\delta$ sense of Definition~4.3.1.
+	\item For every neighborhood $V\in\mathcal U\big(f(x_0)\big)$ there exists $U\in\mathcal U(x_0)$ such that $f\big(U\cap D\big)\subset V$.
+	\item (Sequential characterization.) For every sequence $(x_n)\subset D$ with $x_n\to x_0$ in $X$, one has $f(x_n)\to f(x_0)$ in $Y$.
+\end{enumerate}}
+\paragraph{Proof.}
+$(1)\Rightarrow(2)$: Given $V\in\mathcal U\big(f(x_0)\big)$, choose $\eps>0$ with $B_Y\big(f(x_0),\eps\big)\subset V$. By (1) there exists $\delta>0$ such that $\|x-x_0\|<\delta$ implies $\|f(x)-f(x_0)\|<\eps$. With $U:=B_X(x_0,\delta)$ we get $f(U\cap D)\subset V$.
+
+$(2)\Rightarrow(3)$: Let $(x_n)\subset D$ with $x_n\to x_0$. For $\eps>0$ set $V:=B_Y\big(f(x_0),\eps\big)$. By (2) there exists $U\in\mathcal U(x_0)$ with $f(U\cap D)\subset V$. Since $x_n\to x_0$, there exists $n_\eps$ with $x_n\in U$ for all $n\ge n_\eps$, hence $f(x_n)\in V$ for $n\ge n_\eps$. Thus $f(x_n)\to f(x_0)$.
+
+$(3)\Rightarrow(1)$: Suppose (1) fails. Then there exists $\eps_0>0$ such that for every $k\in\N$ there is $x_k\in D$ with $\|x_k-x_0\|<1/k$ and $\|f(x_k)-f(x_0)\|\ge\eps_0$. Then $x_k\to x_0$ but $f(x_k)\not\to f(x_0)$, contradicting (3). \qed
+
+\NumberedTheorem{4.3.3}{Preimage criteria for continuity}{Let $f:D\to Y$ with $D\subset X$ and let $\emptyset\ne D'\subset D$. The following are equivalent:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f$ is continuous on $D'$.
+	\item Preimages of open sets in $Y$ are relatively open in $D'$, i.e. for every open $V\subset Y$ the set
+		\[
+			f^{-1}(V) := \{ x\in D : f(x)\in V\}
+		\]
+		satisfies that $D'\cap f^{-1}(V)$ is relatively open in $D'$.
+	\item Preimages of closed sets in $Y$ are relatively closed in $D'$, i.e. for every closed $A\subset Y$ the set $D'\cap f^{-1}(A)$ is relatively closed in $D'$.
+\end{enumerate}}
+\paragraph{Proof.}
+		extbf{a.} (1)$\Rightarrow$(2). Consider $D'\cap f^{-1}(V)$. If it is empty, it is relatively open in $D'$ by convention. Otherwise, let $x\in D'\cap f^{-1}(V)$, so $f(x)\in V$ with $V$ open in $Y$. By continuity at $x$ there exists $U\in\mathcal U(x)$ with $f(U\cap D)\subset V$. Then
+\[
+	U\cap D' \subset f^{-1}(V)\cap D',
+\]
+which shows that for every $x\in D'\cap f^{-1}(V)$ there is a neighborhood $U$ of $x$ in $X$ with $U\cap D'\subset f^{-1}(V)\cap D'$. Hence $D'\cap f^{-1}(V)$ is relatively open in $D'$.
+
+		extbf{b.} (2)$\Rightarrow$(3). Let $A\subset Y$ be closed. Then $Y\setminus A$ is open and, by (2),
+\[
+	D'\setminus f^{-1}(A) 
+		= D'\cap f^{-1}(Y\setminus A)
+\]
+is relatively open in $D'$. Hence there exists some open $U\subset X$ with $D'\setminus f^{-1}(A) = U\cap D'$. Taking complements relative to $D'$ yields
+\[
+	f^{-1}(A)\cap D' = U^{c}\cap D',
+\]
+and since $U^{c}$ is closed in $X$, the set $f^{-1}(A)\cap D'$ is relatively closed in $D'$.
+
+		extbf{c.} (3)$\Rightarrow$(1). Let $x\in D'$ and let $V\in\mathcal U\big(f(x)\big)$. Then $Y\setminus V$ is closed, hence by (3) the set $D'\cap f^{-1}(Y\setminus V)$ is relatively closed in $D'$. Arguing as in the proof of (2)$\Rightarrow$(3), it follows that $f^{-1}(V)$ is relatively open in $D'$, so there exists an open neighborhood $U\in\mathcal U(x)$ with
+\[
+	f^{-1}(V)\cap D' = U\cap D'.
+\]
+Consequently
+\[
+	f(U\cap D') = f\big(f^{-1}(V)\cap D'\big) \subset f\big(f^{-1}(V)\big) = V,
+\]
+showing that $f$ is continuous at $x$. Since $x\in D'$ was arbitrary, $f$ is continuous on $D'$. \qed
+
+\NumberedExample{4.3.4}{Basic continuity examples}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f:X\to\R_{\ge 0}$, $f(x):=\|x\|$, is continuous.
+	\item $f: \R_{\ge 0}\to\R_{\ge 0}$, $f(x):=\sqrt{x}$, is continuous.
+	\item $f: \R\to\R$, $f(x):=\lfloor x\rfloor := \max\{k\in\Z: k\le x\}$, is continuous on $\R\setminus\Z$ and discontinuous at every $x\in\Z$.
+	\item $f: \R\to\R$ given by $f(x):=\begin{cases}1,& x\in\Q,\\ 0,& x\in \R\setminus\Q,\end{cases}$ is nowhere continuous.
+	\item For $\K\in\{\R,\C\}$ and $m\in\N$, the coordinate projection $f: \K^{m}\to\K$, $f(x)=x_j$ for a fixed $j\in\{1,\dots,m\}$, is continuous.
+	\item The map $f: \C\to\R$, $f(z):=\Re(z)$, is continuous. The same holds for $f(z):=\Im(z)$.
+		\item Let $(X,\|\cdot\|_a)$ and $(X,\|\cdot\|_b)$ be two normed vector spaces on the same underlying vector space with equivalent norms. Then the identity $I:(X,\|\cdot\|_a)\to (X,\|\cdot\|_b)$, $I(x)=x$, is continuous.
+		\item If $f:X\to\R$ is continuous and $r\in\R$, then the sets $\{x\in X: f(x)>r\}$ and $\{x\in X: f(x)<r\}$ are open, while $\{x\in X: f(x)\ge r\}$ and $\{x\in X: f(x)\le r\}$ are closed.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Given $\eps>0$ choose $\delta:=\eps$. If $\|x-x_0\|<\delta$, then by the reverse triangle inequality
+		\[
+			\big|\,\|x\| - \|x_0\|\,\big| \le \|x-x_0\| < \eps.
+		\]
+	\item Consider $f(x)=\sqrt{x}$ on $\R_{\ge0}$ and fix $x_0\ge0$.
+		\begin{enumerate}[label=\alph*.), leftmargin=2em]
+			\item If $x_0=0$, let $\eps>0$ and set $\delta:=\eps^2$. For $x\in[0,\delta]$ we have
+				$|\sqrt{x}-\sqrt{x_0}|=\sqrt{x}<\sqrt{\delta}=\eps$.
+			\item If $x_0>0$, let $\eps>0$ and set $\delta:=\eps\sqrt{x_0}$. Then for all $x\ge0$ with $|x-x_0|<\delta$,
+				\[
+					|\sqrt{x}-\sqrt{x_0}| = \frac{|x-x_0|}{\sqrt{x}+\sqrt{x_0}}
+						\le \frac{|x-x_0|}{\sqrt{x_0}} < \eps.
+				\]
+		\end{enumerate}
+	\item Let $f(x)=\lfloor x\rfloor$.
+		If $x_0\notin\Z$, there exists $\delta>0$ with $I:=(x_0-\delta, x_0+\delta)\subset \R\setminus\Z$. On $I$, $f$ is constant and hence continuous. If $x_0\in\Z$, then for $x<x_0$ we have $f(x)\le f(x_0)-1=x_0-1$, and for $x\ge x_0$, $f(x)\ge f(x_0)=x_0$. Thus, for every $\delta>0$ there exists $x\in(x_0-\delta, x_0+\delta)$ with $|f(x)-f(x_0)|\ge1$, so $f$ is discontinuous at $x_0$.
+	\item Let $f=\mathbf{1}_{\Q}$, i.e. $f(x)=1$ if $x\in\Q$ and $0$ otherwise. If $x\in\R\setminus\Q$, choose a sequence $(x_n)\subset\Q$ with $x_n\to x$. Then $f(x)=0$ but $f(x_n)=1\to1\ne f(x)$. If $x\in\Q$, choose $(x_n)\subset \R\setminus\Q$ with $x_n\to x$. Then $f(x)=1$ while $f(x_n)=0\to0\ne f(x)$. Hence $f$ is nowhere continuous.
+	\item Let $f(x)=x_j$ on $\K^m$ and let $\|\cdot\|$ be any norm on $\K^m$. Since all norms on finite-dimensional spaces are equivalent, there exists $C\ge1$ with $\|y\|_{\infty} \le C\,\|y\|$ for all $y\in\K^m$. Then
+		\[
+			|f(x)-f(x_0)| = |(x_0)_j - x_j| \le \max_{1\le i\le m} |(x_0)_i - x_i| = \|x-x_0\|_{\infty} \le C\,\|x-x_0\|.
+		\]
+		Given $\eps>0$, choose $\delta:=\eps/C$.
+	\item For $f(z)=\Re(z)$ and any $z,z_0\in\C$,
+		\[
+			|\Re(z)-\Re(z_0)| = |\Re(z-z_0)| \le |z-z_0|.
+		\]
+		Hence with $\delta:=\eps$ we obtain $|\Re(z)-\Re(z_0)|<\eps$ whenever $|z-z_0|<\delta$. The same argument applies to $\Im$.
+	\item By equivalence of norms there exist constants $c,\,\overline{c}>0$ with
+		\[
+			c\,\|x\|_a \le \|x\|_b \le \overline{c}\,\|x\|_a \qquad (\forall x\in X).
+		\]
+		Given $\eps>0$, choose $\delta:=\eps/\overline{c}$. If $\|x-x_0\|_a<\delta$, then
+		\[
+			\|I x - I x_0\|_b = \|x-x_0\|_b \le \overline{c}\,\|x-x_0\|_a < \eps,
+		\]
+		showing continuity of $I$.
+	\item Let $B:=\{y\in\R: y<r\}$, which is open in $\R$. Then
+		\[
+			\{x\in X: f(x)<r\} = f^{-1}(B)
+		\]
+		is open by Theorem~4.3.3. The case $f(x)>r$ is analogous with $\{y: y>r\}$, and the closedness of $\{f\ge r\}$ and $\{f\le r\}$ follows by taking preimages of the closed sets $(-\infty,r]$ and $[r,\infty)$.
+\end{enumerate}
+
+\NumberedTheorem{4.3.5}{Algebra of continuous functions}{Let $D_f,D_g\subset X$, $x_0\in D_f\cap D_g$, and let $f:D_f\to Y$, $g:D_g\to Y$ be continuous at $x_0$. Let $\alpha\in\K$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\alpha f : x\mapsto \alpha\,f(x)$ is continuous at $x_0$.
+	\item $f+g : x\mapsto f(x)+g(x)$ is continuous at $x_0$.
+	\item If $Y=\K$, then $f\cdot g : x\mapsto f(x)\,g(x)$ is continuous at $x_0$.
+	\item If $Y=\K$ and $g(x_0)\ne0$, then $\dfrac{f}{g} : x\mapsto \dfrac{f(x)}{g(x)}$ is continuous at $x_0$.
+\end{enumerate}}
+\paragraph{Proof.} Use the sequential characterization of continuity (Theorem~4.3.2(3)): if $x_n\to x_0$ in $X$ with $x_n\in D_f\cap D_g$, then by continuity $f(x_n)\to f(x_0)$ and $g(x_n)\to g(x_0)$ in $Y$ (resp. in $\K$). The claims (1)–(4) follow from the algebra of limits for sequences (Theorem~3.1.19); in (4) also use Theorem~3.1.19(5) to pass to reciprocals since $g(x_0)\ne0$. \qed
+
+\NumberedDefinition{4.3.6}{Space of continuous maps}{Let $M\subset X$, $M\ne\emptyset$. We denote by $C(M,Y)$ the vector space of all continuous functions $f: M\to Y$.}
+
+By Theorem~4.3.5 and Definition~4.3.6, the set $C(M,Y)$ is a vector space under pointwise operations.
+
+\NumberedTheorem{4.3.7}{Polynomials and rational functions are continuous}{Every polynomial, i.e. a function of the form
+\[
+	f(x) = \sum_{k=0}^{n} a_k x^{k}, \qquad a_k\in\K,\ n\in\N,
+\]
+and every rational function on its domain,
+\[
+	f(x) = \frac{p(x)}{q(x)}, \qquad p,q \text{ polynomials},
+\]
+is continuous on its domain of definition.}
+\paragraph{Proof.} Immediate from Theorem~4.3.5 by iteratively applying the rules for sums, products, and quotients (where defined). \qed
+
+\NumberedTheorem{4.3.8}{Composition}{Let $f:D_f\to Y$ and $g:D_g\to Z$ be functions with $D_f\subset X$, $D_g\subset Y$ and $f(D_f)\subset D_g$. Define the composition $g\circ f: D_f\to Z$ by $(g\circ f)(x):=g\bigl(f(x)\bigr)$. If $f$ is continuous at $x_0\in D_f$ and $g$ is continuous at $y_0=f(x_0)\in D_g$, then $g\circ f$ is continuous at $x_0$.}
+\paragraph{Proof.} Let $W\in\mathcal U(g(y_0))$. Since $g$ is continuous at $y_0$, there exists $V\in\mathcal U(y_0)$ such that $g\bigl(V\cap D_g\bigr)\subset W$. As $f$ is continuous at $x_0$, there exists $U\in\mathcal U(x_0)$ with $f\bigl(U\cap D_f\bigr)\subset V$. Because $f(D_f)\subset D_g$, we have $f\bigl(U\cap D_f\bigr)\subset V\cap D_g$, hence $(g\circ f)\bigl(U\cap D_f\bigr)\subset W$. Thus $g\circ f$ is continuous at $x_0$. \qed
+
+\NumberedExample{4.3.9}{}{{\leavevmode}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $f:D\to Y$ is continuous and $D\subset X$, then the map $\|f\|_Y : D\to \R_{\ge0}$, $x\mapsto \|f(x)\|_Y$, is continuous (cf. Example~4.3.4(1), Theorem~4.3.8).
+	\item If $f:D\to\K$ is continuous with $D\subset X$, then $f^{2}:D\to\K$, $x\mapsto (f(x))^2$, is continuous (Theorem~4.3.5(3)).
+	\item If $f:D\to\R_{\ge0}$ is continuous with $D\subset X$, then $\sqrt{\,\cdot\,}\circ f : D\to\R_{\ge0}$, $x\mapsto \sqrt{f(x)}$, is continuous (cf. Example~4.3.4(2), Theorem~4.3.8).
+\end{enumerate}}
+
+\NumberedTheorem{4.3.10}{Continuity via components}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $f=(f_1,\dots,f_n): D\to\K^{n}$ with $D\subset X$ and $x_0\in D$. Then $f$ is continuous at $x_0$ if and only if each component $f_i:D\to\K$ is continuous at $x_0$ for $1\le i\le n$.
+	\item A function $f:D\to\C$, $D\subset X$, is continuous at $x_0\in D$ if and only if $\Re f$ and $\Im f$ are continuous at $x_0$.
+\end{enumerate}}
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item ($\Rightarrow$) The coordinate projections $\pi_i: \K^n\to\K$, $\pi_i(y)=y_i$, are continuous (Example~4.3.4(5)). Hence $f_i=\pi_i\circ f$ is continuous at $x_0$ by Theorem~4.3.8.
+
+	($\Leftarrow$) Fix $\eps>0$. For each $1\le j\le n$, continuity of $f_j$ at $x_0$ yields a $\delta_j(\eps)>0$ such that
+	\[
+		|f_j(x)-f_j(x_0)| < \frac{\eps}{n} \quad \text{whenever } \|x-x_0\|<\delta_j(\eps).
+	\]
+	Set $\delta := \min_{1\le j\le n} \delta_j(\eps)$. Then for all $x\in B(x_0,\delta)$,
+	\[
+		\|f(x)-f(x_0)\|_{1} = \sum_{j=1}^{n} |f_j(x)-f_j(x_0)| < n\cdot \frac{\eps}{n} = \eps.
+	\]
+	Thus $f$ is continuous at $x_0$ with respect to $\|\cdot\|_1$ on $\K^n$. By equivalence of norms on finite-dimensional spaces, continuity holds for any norm on $\K^n$ as well.
+\end{enumerate}
+\qed
+
+\NumberedRemark{4.3.13}{Limits and continuous extension}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $f:D\to Y$, $D\subset X$, and $x_0\in D$. Then $\lim_{x\to x_0} f(x) = f(x_0)$ is equivalent to “$f$ is continuous at $x_0$” (Theorem~4.3.2).
+	\item Let $f:D\to Y$, $D\subset X$, $x_0\notin D$, and suppose $y = \lim_{x\to x_0} f(x)$ exists. Define an extension $\tilde f: D\cup\{x_0\}\to Y$ by
+	\[
+				ilde f(x) :=
+		\begin{cases}
+			f(x), & x\in D,\\
+			y, & x=x_0.
+		\end{cases}
+	\]
+	Then $\tilde f$ is continuous at $x_0$ and is called the continuous extension of $f$ (at $x_0$).
+\end{enumerate}}
+
+\NumberedExample{4.3.14}{}{{\leavevmode}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $X=Y=\R$, $D=\R\setminus\{1\}$, and $f(x):=\dfrac{x^{n}-1}{x-1}$ with $n\in\N$. By Lemma~3.2.3,
+		\[
+			f(x) = \sum_{k=0}^{n-1} x^{k} \qquad (x\in\R\setminus\{1\}),
+		\]
+		hence $\lim_{x\to 1} f(x)=n$. Thus the function
+		\[
+					ilde f(x) :=
+			\begin{cases}
+				\dfrac{x^{n}-1}{x-1}, & x\ne 1,\\
+				n, & x=1,
+			\end{cases}
+		\]
+		is a continuous extension of $f$ at $x=1$.
+	\item Let $X=Y=\C$, $D=\C\setminus\{0\}$, and $f(z):=\dfrac{e^{z}-1}{z}$. For any sequence $(z_n)$ with $z_n\to 0$ we have $f(z_n)\to 1$; thus defining
+		\[
+					ilde f(z) :=
+			\begin{cases}
+				\dfrac{e^{z}-1}{z}, & z\in\C\setminus\{0\},\\
+				1, & z=0,
+			\end{cases}
+		\]
+		gives a continuous extension at $z=0$.
+\end{enumerate}}
+
 \subsection{Functions on \texorpdfstring{$\R$}{R} (Funktionen in \texorpdfstring{$\R$}{R})}
-	
+
+In the following, let $I\subset\R$ always be a nonempty interval.
+
+\NumberedDefinition{4.4.1}{Monotonicity}{A function $f:I\to\R$ is called
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item monotone increasing,
+	\item monotone decreasing,
+	\item strictly increasing,
+	\item strictly decreasing,
+\end{enumerate}
+if for all $x,y\in I$ with $x<y$ we have, respectively,
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f(x)\le f(y)$,
+	\item $f(x)\ge f(y)$,
+	\item $f(x)< f(y)$,
+	\item $f(x)> f(y)$.
+\end{enumerate}
+A function that is either (strictly) decreasing or (strictly) increasing is called (strictly) monotone.}
+
+\NumberedExample{4.4.2}{}{{\leavevmode}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f(x):=x^{2}$ is strictly decreasing on $(-\infty,0]$ and strictly increasing on $[0,\infty)$. If $0\in \mathring I$ (i.e. $0$ is an interior point of $I$), then $f$ is not monotone on $I$.
+	\item The floor function $f(x):=\lfloor x\rfloor$ is monotone increasing.
+	\item The function
+		\[
+			f(x):=\begin{cases}
+				1, & x\in\Q,\\
+				0, & x\in\R\setminus\Q,
+			\end{cases}
+		\]
+		is not monotone.
+\end{enumerate}}
+
+\NumberedTheorem{4.4.3}{One-sided limits of monotone functions}{Let $f:I\to\R$ be monotone and set $\alpha:=\inf I$, $\beta:=\sup I$ (possibly infinite). Then the one-sided limits
+\[
+	f(\alpha+0):=\lim_{x\to\alpha+0} f(x)=\lim_{\substack{x\to\alpha\\ x>\alpha}} f(x),
+	\qquad
+	f(\beta-0):=\lim_{x\to\beta-0} f(x)=\lim_{\substack{x\to\beta\\ x<\beta}} f(x)
+\]
+exist in $\R$, and we have
+\[
+	f(\alpha+0)=
+	\begin{cases}
+		\inf\{f(x): x\in I\setminus\{\alpha\}\}, & \text{if $f$ is increasing},\\[0.3em]
+		\sup\{f(x): x\in I\setminus\{\alpha\}\}, & \text{if $f$ is decreasing},
+	\end{cases}
+\]
+and
+\[
+	f(\beta-0)=
+	\begin{cases}
+		\sup\{f(x): x\in I\setminus\{\beta\}\}, & \text{if $f$ is increasing},\\[0.3em]
+		\inf\{f(x): x\in I\setminus\{\beta\}\}, & \text{if $f$ is decreasing}.
+	\end{cases}
+\]
+}
+\paragraph{Proof.} Consider the increasing case and set
+\[
+	b:=\sup\{f(x): x\in I\setminus\{\beta\}\}\in\overline{\R}.
+\]
+Let $(x_n)\subset [\alpha,\beta)$ with $x_n\to\beta$ and $x_n<\beta$ for all $n\in\N$. Since $b$ is the supremum, for every $\eta<b$ there exists $\xi\in[\alpha,\beta)$ with $f(\xi)\ge\eta$ and an index $n_{\xi}$ such that $x_n\ge\xi$ for all $n\ge n_{\xi}$. Because $f$ is increasing,
+\[
+	\eta\le f(\xi)\le f(x_n)\le b \qquad (n\ge n_{\xi}).
+\]
+As $\eta<b$ was arbitrary, it follows that $\lim_{n\to\infty} f(x_n)=b$. Hence $f(\beta-0)$ exists and equals $b$. The remaining statements are shown analogously. \qed
+
+\NumberedDefinition{4.4.4}{Jump discontinuity}{Let $D\subset\R$, $D\ne\emptyset$, and let $Y$ be a normed vector space. A function $f:D\to Y$ is said to have a jump at a point $x_0\in\R$ with
+\[
+	x_0\in \overline{D\cap(-\infty,x_0)}\ \cap\ \overline{D\cap(x_0,\infty)}
+\]
+if the one-sided limits
+\[
+	\lim_{x\to x_0\pm 0} f(x) = f(x_0\pm 0)
+\]
+exist and are different.}
+
+\NumberedExample{4.4.5}{}{For the function $f(x):=\lfloor x\rfloor$, every $k\in\Z$ is a jump point, since
+\[
+	f(k+0)-f(k-0)=1.
+\]
+}
+
+Theorem~4.4.3 shows that for every monotone function $f:I\to\R$ and every $x_0$ in the interior of $I$, the one-sided limits $f(x_0\pm 0)$ exist. Example~4.4.5 shows that there are functions with countably many jump discontinuities. The next theorem shows that monotone functions can have at most countably many jumps.
+
+\NumberedTheorem{4.4.6}{}{Let $f:I\to\R$ be monotone. Then $f$ is continuous except at at most countably many jump points.}
+\paragraph{Proof.} Assume $f$ is increasing. Define the set of jump points
+\[
+	M := \{\, x\in \mathring I : f(x+0)\ne f(x-0)\,\}.
+\]
+We claim that $M$ is countable. Idea: construct an injective map $q:M\to\Q$. For $x\in M$ we have $f(x-0)<f(x+0)$, so by density of $\Q$ there exists $z\in\Q$ with
+\[
+	z\in\bigl( f(x-0),\, f(x+0) \bigr).
+\]
+Define $q(x):=z$. We show $q$ is injective. If $x,y\in M$ with $x<y$, then by monotonicity
+\[
+	q(x) < f(x+0) \le f(y-0) < q(y).
+\]
+Hence $q(x)\ne q(y)$ whenever $x\ne y$, so $q$ is injective. Since $\Q$ is countable, $M$ is countable. \qed
+
+\NumberedTheorem{4.4.7}{Intermediate Value Theorem}{Let $f:[a,b]\to\R$ be continuous with $f(a)<0<f(b)$. Then $f$ has a zero $\xi\in(a,b)$, i.e. $f(\xi)=0$.}
+\paragraph{Proof.} (Interval bisection.) Construct a sequence of nested intervals $[a_k,b_k]$ recursively by
+\[
+	[a_0,b_0]:=[a,b], \qquad
+	[a_{k+1},b_{k+1}]:=
+	\begin{cases}
+		\bigl[a_k,\, \tfrac{a_k+b_k}{2}\bigr], & \text{if } f\bigl( \tfrac{a_k+b_k}{2} \bigr) > 0,\\[0.4em]
+		\bigl[ \tfrac{a_k+b_k}{2},\, b_k \bigr], & \text{if } f\bigl( \tfrac{a_k+b_k}{2} \bigr) \le 0,
+	\end{cases}
+	\qquad k\ge 0.
+\]
+Then: (1) $(a_k)$ is monotonically increasing and bounded above by $b$; (2) $(b_k)$ is monotonically decreasing and bounded below by $a$; (3) for all $k\in\N$, $b_k-a_k=2^{-k}(b-a)$. By the nested-interval argument (cf. Bolzano–Weierstrass, Theorem~3.2.5), there exists a common limit $\xi\in[a,b]$. By construction, for all $k\ge0$ we have
+\[
+	f(a_k) \le 0 \le f(b_k).
+\]
+By continuity of $f$,
+\[
+	f(\xi) = \lim_{k\to\infty} f(a_k) \le 0 \le \lim_{k\to\infty} f(b_k) = f(\xi),
+\]
+hence $f(\xi)=0$ and $\xi\in(a,b)$ since $f(a)<0<f(b)$. \qed
+
+We distinguish three types of intervals: closed $I=[a,b]$, open $I=(a,b)$, and half-open $I=(a,b]$ or $I=[a,b)$.
+
+\NumberedTheorem{4.4.8}{}{Let $f:I\to\R$ be continuous and strictly monotone increasing (respectively, strictly monotone decreasing). Then $J:=f(I)$ is an interval of the same type as $I$, and $f$ maps $I$ bijectively onto $J$. The inverse map $f^{-1}:J\to I$ is continuous and strictly monotone increasing (respectively, strictly monotone decreasing).}
+\paragraph{Proof.} We consider the strictly increasing case; the decreasing case is analogous. Set $\alpha:=\inf I$, $\beta:=\sup I$ (in $\overline{\R}$). By Theorem~4.4.3, the one-sided limits
+\[
+	a:=f(\alpha+0), \qquad b:=f(\beta-0)
+\]
+exist (in $\overline{\R}$). We first show
+\[
+	(a,b)\subset J:=f(I)\subset [a,b].
+\]
+The right inclusion is clear by the definition of $a$ and $b$. For the left inclusion, let $a<\eta<b$. Because $b$ is the supremum of $J$, there exist $t_2\in (\alpha,\beta)$ with $f(t_2)>\eta$ and $t_1\in(\alpha,\beta)$ with $f(t_1)<\eta$. Since $f$ is strictly increasing, $t_1<t_2$ and hence $f(t_1)<\eta<f(t_2)$. By continuity (Intermediate Value Theorem, Theorem~4.4.7) there exists $\tau\in[t_1,t_2]\subset(\alpha,\beta)$ with $f(\tau)=\eta$. Thus $\eta\in J$, so $(a,b)\subset J$. Hence $J$ is an interval.
+
+Strict monotonicity implies that $J$ contains its infimum $a$ if and only if $I$ contains $\alpha$, and $J$ contains its supremum $b$ if and only if $I$ contains $\beta$. Therefore $J$ has the same endpoint type as $I$.
+
+For bijectivity: strict monotonicity yields injectivity of $f$ on $I$, and surjectivity holds by definition of $J=f(I)$. Hence $f:I\to J$ is bijective.
+
+For the inverse $g:=f^{-1}:J\to I$ we first show strict monotonicity: let $y_1<y_2$ in $J$ and assume towards a contradiction that $x_1:=g(y_1)\ge g(y_2)=:x_2$. Then
+\[
+	y_1=f(g(y_1))\ge f(g(y_2))=y_2,
+\]
+contradiction. Thus $g$ is strictly increasing.
+
+It remains to prove continuity of $g$. Fix $y_0\in J$. Consider a sequence $(y_n)\subset J$ with $y_n\nearrow y_0$; set $x_n:=g(y_n)$. Then $(x_n)$ is increasing and bounded above by $g(y_0)$, hence $x_n\to\bar x\le g(y_0)$. If $\bar x< x_0:=g(y_0)$, then by continuity of $f$,
+\[
+	y_0 = \lim_{n\to\infty} y_n = \lim_{n\to\infty} f(x_n) = f(\bar x) < f(x_0)=y_0,
+\]
+which is impossible. Thus $g(y_0-0)=g(y_0)$. An analogous argument with $y_n\searrow y_0$ shows $g(y_0+0)=g(y_0)$. Hence $g$ is continuous at $y_0$. \qed
+
+\NumberedExample{4.4.9}{}{Let $n\ge 2$ and define $f: \R_{\ge0}\to\R_{\ge0}$ by $f(x):=x^{n}$. We show $f$ is strictly increasing. For $0\le x<y$,
+\[
+	f(y)-f(x)=y^{n}-x^{n}=y^{n}\Bigl(1-\bigl(\tfrac{x}{y}\bigr)^{n}\Bigr)
+	= y^{n}\Bigl(1-\tfrac{x}{y}\Bigr)\sum_{j=0}^{n-1} \Bigl(\tfrac{x}{y}\Bigr)^{\,n-1-j} > 0,
+\]
+since $y>0$, $0\le x/y<1$, and the sum is positive. Moreover, because $0\le f(x)=x^{n}\le x$ for $x<1$, we have $f(0+0)=0$, and since $f(x)=x^{n}\ge x$ for $x>1$, we have $f(+\infty-0)=+\infty$.
+
+Thus $f:\R_{\ge0}\to\R_{\ge0}$ is bijective, continuous, and strictly increasing. By Theorem~4.4.8 it has a continuous, strictly increasing inverse $g: \R_{\ge0}\to\R_{\ge0}$. We write
+\[
+	\sqrt[n]{\,x\,} := g(x) := f^{-1}(x).
+\]
+}
+
 \subsection{The Exponential Function (Die Exponentialfunktion)}
+
+\NumberedDefinition{4.5.1}{Power-series definitions}{Define three functions on $\C$ by
+\[
+	\exp(z):=e^{z} := \sum_{n=0}^{\infty} \frac{z^{n}}{n!},\qquad
+	\cos(z) := \sum_{n=0}^{\infty} (-1)^{n} \frac{z^{2n}}{(2n)!},\qquad
+	\sin(z) := \sum_{n=0}^{\infty} (-1)^{n} \frac{z^{2n+1}}{(2n+1)!}.
+\]
+These are called the exponential, cosine, and sine functions.}
+
+\NumberedTheorem{4.5.2}{Basic properties}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item The power series in Definition~4.5.1 all have radius of convergence $+\infty$.
+	\item $\exp,\sin,\cos$ are real-valued on $\R$.
+	\item $e^{z_1+z_2}=e^{z_1}\cdot e^{z_2}$.
+	\item $e^{z}\ne0$ for all $z\in\C$, and $e^{-z}=1/e^{z}$.
+	\item $e^{iz}=\cos(z)+i\sin(z)$.
+\end{enumerate}}
 	
 % ============================================================================
 % 5 Differential Calculus in One Variable (Differentialrechnung einer Veränderlichen) -- p.95

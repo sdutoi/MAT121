@@ -1,0 +1,162 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 7}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\subsection*{(a)}
+\textbf{Series:} $\displaystyle \sum_{n=0}^{\infty} \frac{z^n}{n^3+1} = \sum_{n=0}^{\infty} a_n z^n$, $a_n = \frac{1}{n^3+1}$.
+
+\begin{solution}
+Radius: $R=\lim_{n\to\infty}\bigl|\tfrac{a_n}{a_{n+1}}\bigr|=\lim \tfrac{n^3+1}{(n+1)^3+1}=1$.
+- If $|z|<1$, converges absolutely.
+- If $|z|>1$, $\frac{|z|^n}{n^3+1}\not\to0$, so diverges.
+- If $|z|=1$, $\sum \frac{|z|^n}{n^3+1}\le \sum \frac{1}{n^3}$, so absolute convergence.
+
+Thus $R=1$ and convergence for all $|z|\le1$.
+\end{solution}
+
+\subsection*{(b)}
+\textbf{Series:} $\displaystyle \sum_{n=0}^{\infty} \frac{2^n}{3^{n^2}}\, z^n$, $a_n = \dfrac{2^n}{3^{n^2}}$.
+
+\begin{solution}
+$R=\lim_{n\to\infty}\bigl|\tfrac{a_n}{a_{n+1}}\bigr|
+=\lim \frac{1}{2}3^{2n+1}=+\infty$. The series converges for all $z\in\C$.
+\end{solution}
+
+\subsection*{(c)}
+\textbf{Series:} $\displaystyle \sum_{n=0}^{\infty} \frac{n^5+1}{3^n+1}\, z^n$, $a_n = \dfrac{n^5+1}{3^n+1}$.
+
+\begin{solution}
+$R=\lim_{n\to\infty}\bigl|\tfrac{a_n}{a_{n+1}}\bigr|
+=\lim \frac{n^5+1}{(n+1)^5+1}\cdot \frac{3^{n+1}+1}{3^n+1}=3$.
+- If $|z|<3$, absolute convergence.
+- If $|z|>3$, divergence.
+- If $|z|=3$, $|a_n z^n|=(n^5+1)\frac{3^n}{3^n+1}\sim n^5\not\to0$, so divergence.
+
+Hence $R=3$ and divergence on $|z|=3$.
+\end{solution}
+
+\section*{Exercise 2 (Convergence Radius II)}
+
+Let $\sum_{n=0}^{\infty} a_n x^n$ have radius $1$.
+
+\subsection*{(a)}
+Let $0<B<1$. Show: for every $\varepsilon>0$ there exists $N=N(\varepsilon,B)$ such that
+$\sum_{n=N}^{\infty}|a_n||y|^n\le\varepsilon$ for all $|y|<B$.
+
+\begin{solution}
+Pick $r$ with $B<r<1$ and set $\rho:=B/r<1$. Since $\sum |a_n|r^n$ converges, its tails tend to $0$. For $|y|<B$ and $n\ge N$,
+$\bigl(\tfrac{|y|}{r}\bigr)^n\le \rho^n\le \rho^N$, hence
+\[
+\sum_{n=N}^{\infty}|a_n||y|^n
+=\sum_{n=N}^{\infty}|a_n|r^n\Bigl(\tfrac{|y|}{r}\Bigr)^n
+\le \rho^N\sum_{n=N}^{\infty}|a_n|r^n.
+\]
+The right-hand side tends to $0$ as $N\to\infty$, so choose $N$ with
+$\rho^N\sum_{n=N}^{\infty}|a_n|r^n\le \varepsilon$. This $N$ works for all $|y|<B$.
+\end{solution}
+
+\subsection*{(b)}
+Let $(x_m)_m$ be a sequence with $|x_m|<1$ for all $m\in\mathbb{N}$ and suppose $x_m\to x$ for some $x\in\mathbb{R}$ with $|x|<1$. Show that there is a $B<1$ such that
+\[\sup\{ |x_m|, |x|\} \le B.\]
+
+\begin{solution}
+Pick $\varepsilon := \tfrac{1-|x|}{2}>0$ and set $B_{\mathrm{tail}}:=|x|+\varepsilon<1$. By convergence, there exists $N$ such that $|x_m-x|<\varepsilon$ for all $m\ge N$, hence $|x_m|\le B_{\mathrm{tail}}$ for $m\ge N$. Let
+\[
+ B := \max\bigl\{ B_{\mathrm{tail}}, |x_1|,\dots, |x_{N-1}| \bigr\}<1.
+\]
+Then $\sup\{|x_m|,|x|\}\le B$.
+\end{solution}
+
+\subsection*{(c)}
+Let $\sum_{n=0}^{\infty} a_n x^n$ be a power series with radius $1$. Suppose $|x_m|<1$ and $x_m\to x$ with $|x|<1$. Show
+\[
+\lim_{m\to\infty}\sum_{n=0}^{\infty} a_n x_m^n \;=\; \sum_{n=0}^{\infty} a_n x^n.
+\]
+\begin{solution}
+By (b) pick $B<1$ with $\sup\{|x_m|,|x|\}\le B$. By (a), given $\varepsilon>0$ choose $N$ such that $\sum_{n>N}|a_n||y|^n\le\varepsilon$ for all $|y|\le B$. Then
+\[
+\Bigl|\sum_{n=0}^{\infty} a_n x_m^n - \sum_{n=0}^{\infty} a_n x^n\Bigr|
+\le \sum_{n=0}^{N} |a_n|\,|x_m^n-x^n| + 2\varepsilon.
+\]
+For the finite sum, $|x_m^n-x^n|\le |x_m-x|\,n B^{n-1}$, hence it tends to $0$ as $m\to\infty$. Thus the total difference goes to $0$.
+\end{solution}
+
+\section*{Exercise 3 (Normed Vector Spaces I)}
+
+Let $n\ge2$. Give $x,y\in\mathbb{R}^n$ with
+$\norm{x}_2 < \norm{y}_2$ and $\norm{y}_{\infty} < \norm{x}_{\infty}$. Is this a contradiction to the equivalence of $\norm{\cdot}_2$ and $\norm{\cdot}_{\infty}$?
+
+\begin{solution}
+Take $x=(4,0,\dots,0)$ and $y=(3,3,0,\dots,0)\in\mathbb{R}^n$. Then
+$\norm{x}_2=4$, $\norm{y}_2=\sqrt{18}>4$, while $\norm{x}_\infty=4$ and $\norm{y}_\infty=3$. No contradiction: norm equivalence means there exist $C_1,C_2>0$ with
+$C_1\norm{v}_\infty\le\norm{v}_2\le C_2\norm{v}_\infty$ for every vector $v$; it does not preserve order between different vectors.
+\end{solution}
+
+\section*{Exercise 4 (Normed Vector Spaces II, 2 + 4 + 2 P.)}
+
+For $x,y\in\mathbb{R}$, write $(x,y)$ for the vector in $\mathbb{R}^2$.
+
+\subsection*{(a)}
+On $\mathbb{R}^2$ define $\norm{(x,y)}_3=(|x|^3+|y|^3)^{1/3}$. Sketch the unit ball $B(0,1)$.
+
+\begin{solution}
+$B(0,1)=\{(x,y): |x|^3+|y|^3\le1\}$. The boundary $|x|^3+|y|^3=1$ is a symmetric supercircle (“squircle”) with intercepts $(\pm1,0)$ and $(0,\pm1)$.
+\end{solution}
+
+\subsection*{(b)}
+Show that $\norm{(x,y)}_{\heartsuit}=\sqrt{x^2+2y^2}$ is a norm.
+
+\begin{solution}
+Let $T:\mathbb{R}^2\to\mathbb{R}^2$, $T(x,y)=(x,\sqrt{2}\,y)$. Then
+$\norm{(x,y)}_{\heartsuit}=\norm{T(x,y)}_2$. Since $T$ is linear and invertible, $v\mapsto \norm{T v}_2$ satisfies positive definiteness, homogeneity, and the triangle inequality (the last by the triangle inequality for $\norm{\cdot}_2$). Hence $\norm{\cdot}_{\heartsuit}$ is a norm.
+\end{solution}
+
+\subsection*{(c)}
+Sketch the unit ball $B(0,1)$ with respect to $\norm{\cdot}_{\heartsuit}$.
+
+\begin{solution}
+$B(0,1)=\{(x,y): x^2+2y^2\le1\}$, an ellipse centered at the origin with intercepts $(\pm1,0)$ and $\bigl(0,\pm\tfrac{1}{\sqrt{2}}\bigr)$ and semi-axes $1$ (x-axis) and $1/\sqrt{2}$ (y-axis).
+\end{solution}
+
+\end{document}

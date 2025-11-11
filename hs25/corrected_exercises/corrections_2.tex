@@ -1,0 +1,85 @@
+% Corrections 2: (0,1) ~ R without trig/derivatives
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem*{remark}{Remark}
+
+\title{Corrections 2\\A bijection between $(0,1)$ and $\mathbb{R}$}
+\date{}
+\author{}
+
+\begin{document}
+\maketitle
+
+\begin{theorem}
+The open interval $(0,1)$ is equinumerous with $\mathbb{R}$.
+\end{theorem}
+
+\begin{proof}
+We give an explicit bijection using only rational functions. Define $f:(0,1)\to \mathbb{R}$ by
+\[
+  f(x)=
+  \begin{cases}
+    1-\dfrac{1}{2x}, & 0<x\le \tfrac12,\\[6pt]
+    \dfrac{1}{2(1-x)}-1, & \tfrac12\le x<1.
+  \end{cases}
+\]
+Both formulas give $f(\tfrac12)=0$, so $f$ is well defined on $(0,1)$. Note that
+$f\big((0,\tfrac12]\big)=(-\infty,0]$ and $f\big([\tfrac12,1)\big)=[0,\infty)$, hence $f$ is onto if and only if it has an inverse.
+
+Define $g:\mathbb{R}\to(0,1)$ by
+\[
+  g(y)=
+  \begin{cases}
+    \dfrac{1}{2(1-y)}, & y\le 0,\\[6pt]
+    1-\dfrac{1}{2(y+1)}, & y\ge 0.
+  \end{cases}
+\]
+Clearly $g(y)\in(0,\tfrac12]$ for $y\le 0$ and $g(y)\in[\tfrac12,1)$ for $y\ge 0$; in particular $g$ maps into $(0,1)$.
+
+We show that $g$ is the inverse of $f$ by direct algebra.
+\begin{itemize}
+  \item If $y\le 0$, then $x=g(y)=\dfrac{1}{2(1-y)}\le \tfrac12$ and therefore
+  \[
+    f(g(y))=1-\frac{1}{2x}=1-\frac{1}{2\cdot \frac{1}{2(1-y)}}=1-(1-y)=y.
+  \]
+  \item If $y\ge 0$, then $x=g(y)=1-\dfrac{1}{2(y+1)}\ge \tfrac12$ and therefore
+  \[
+    f(g(y))=\frac{1}{2(1-x)}-1
+    =\frac{1}{2\left(1-1+\frac{1}{2(y+1)}\right)}-1
+    =(y+1)-1=y.
+  \]
+\end{itemize}
+Conversely, for $0<x\le \tfrac12$ we have
+\[
+  g(f(x))=\frac{1}{2\!\left(1-\left(1-\frac{1}{2x}\right)\right)}=\frac{1}{2\cdot \frac{1}{2x}}=x,
+\]
+while for $\tfrac12\le x<1$ we have
+\[
+  g(f(x))=1-\frac{1}{2\!\left(\frac{1}{2(1-x)}+1\right)}
+  =1-\frac{1}{\frac{1}{1-x}+2}
+  =1-\frac{1-x}{1+(1-x)}=x.
+\]
+Thus $f\circ g=\operatorname{id}_{\mathbb{R}}$ and $g\circ f=\operatorname{id}_{(0,1)}$, so $f$ is a bijection and $(0,1)$ is equinumerous with $\mathbb{R}$.
+\end{proof}
+
+\begin{remark}[Optional alternative]
+Composing elementary bijections also yields one: map $(0,1)$ to $(-1,1)$ by $t=2x-1$, then map $(-1,1)$ to $\mathbb{R}$ by
+\[
+  h(t)=\frac{t}{1-|t|},\qquad
+  h^{-1}(y)=
+  \begin{cases}
+    \dfrac{y}{1+y}, & y\ge 0,\\[4pt]
+    \dfrac{y}{1-y}, & y\le 0.
+  \end{cases}
+\]
+Both directions use only rational expressions.
+\end{remark}
+
+\end{document}

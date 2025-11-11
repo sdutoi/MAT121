@@ -1,0 +1,517 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 2}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\subsection*{(a)}
+
+We want to prove that for $0 \le k < (n-1)/2$, the inequality $\binom{n}{k} < \binom{n}{k+1}$ holds.
+Since the binomial coefficients are positive for $n \ge 0$, this is equivalent to showing that their ratio is greater than 1:
+\[
+\frac{\binom{n}{k+1}}{\binom{n}{k}} > 1
+\]
+We transform the ratio:
+\begin{align*}
+\frac{\binom{n}{k+1}}{\binom{n}{k}} &= \frac{\frac{n!}{(k+1)!(n-k-1)!}}{\frac{n!}{k!(n-k)!}} \\
+&= \frac{n!}{(k+1)!(n-k-1)!} \cdot \frac{k!(n-k)!}{n!} \\
+&= \frac{k!(n-k)!}{(k+1)!(n-k-1)!} \\
+&= \frac{k! \cdot (n-k) \cdot (n-k-1)!}{(k+1) \cdot k! \cdot (n-k-1)!} \\
+&= \frac{n-k}{k+1}
+\end{align*}
+Now we must show that $\frac{n-k}{k+1} > 1$, given the condition $k < \frac{n-1}{2}$.
+\begin{align*}
+k &< \frac{n-1}{2} \\
+2k &< n-1 \\
+2k+1 &< n \\
+k+1 &< n-k \\
+1 &< \frac{n-k}{k+1} \quad (\text{since } k+1 > 0)
+\end{align*}
+
+Thus, we have shown that $\frac{\binom{n}{k+1}}{\binom{n}{k}} > 1$, from which it follows that $\binom{n}{k} < \binom{n}{k+1}$. $\blacksquare$
+
+\subsection*{(b)}
+
+
+We want to prove the identity $\sum_{i=0}^{k} \binom{n+i}{i} = \binom{n+1+k}{k}$ by induction on $k$.
+
+\paragraph{Base Case:} We test the case for $k=0$.
+\begin{itemize}
+    \item Left-Hand Side (LHS): $\sum_{i=0}^{0} \binom{n+i}{i} = \binom{n+0}{0} = \binom{n}{0} = 1$.
+    \item Right-Hand Side (RHS): $\binom{n+1+0}{0} = \binom{n+1}{0} = 1$.
+\end{itemize}
+Since LHS = RHS, the base case holds.
+
+\paragraph{Inductive Hypothesis:} We assume that the formula holds for an arbitrary but fixed integer $k \ge 0$:
+\[
+\sum_{i=0}^{k} \binom{n+i}{i} = \binom{n+1+k}{k}
+\]
+
+\paragraph{Inductive Step:} We must show that the formula also holds for $k+1$. The goal is to prove:
+\[
+\sum_{i=0}^{k+1} \binom{n+i}{i} = \binom{n+1+(k+1)}{k+1} = \binom{n+k+2}{k+1}
+\]
+We start with the left-hand side, split the sum, and apply the inductive hypothesis:
+\begin{align*}
+\sum_{i=0}^{k+1} \binom{n+i}{i} &= \left( \sum_{i=0}^{k} \binom{n+i}{i} \right) + \binom{n+(k+1)}{k+1} \\
+&\overset{\text{Hyp.}}{=} \binom{n+1+k}{k} + \binom{n+k+1}{k+1}
+\end{align*}
+Now we use Pascal's Identity, which states that $\binom{m}{r} + \binom{m}{r+1} = \binom{m+1}{r+1}$.
+Letting $m=n+k+1$ and $r=k$, we get:
+\begin{align*}
+\binom{n+k+1}{k} + \binom{n+k+1}{k+1} &= \binom{(n+k+1)+1}{k+1} \\
+&= \binom{n+k+2}{k+1}
+\end{align*}
+This is the right-hand side of the statement for $k+1$. Thus, the inductive step is complete.
+
+By the principle of mathematical induction, the identity holds for all integers $k \ge 0$. $\blacksquare$
+
+\section*{2}
+\subsection*{(a)}
+
+\textbf{Statement:} For all $a, b \in K$ with $a \neq 0$, the equation $a \cdot x + b = 0$ has exactly one solution.
+
+\textbf{Proof:}
+
+We need to prove two things: existence and uniqueness of the solution.
+
+\textbf{Existence:}
+Since $K$ is a field and $a \neq 0$, the multiplicative inverse $a^{-1}$ exists in $K$.
+
+To find a solution, we solve for $x$:
+\begin{align}
+a \cdot x + b &= 0\\
+a \cdot x &= -b\\
+a^{-1} \cdot (a \cdot x) &= a^{-1} \cdot (-b)\\
+(a^{-1} \cdot a) \cdot x &= -a^{-1}b\\
+1 \cdot x &= -a^{-1}b\\
+x &= -a^{-1}b
+\end{align}
+
+Let's verify this is indeed a solution:
+$$a \cdot (-a^{-1}b) + b = -(a \cdot a^{-1}) \cdot b + b = -1 \cdot b + b = -b + b = 0$$
+
+\textbf{Uniqueness:}
+Suppose $x_1$ and $x_2$ are both solutions to $a \cdot x + b = 0$.
+
+Then:
+\begin{align}
+a \cdot x_1 + b &= 0 \implies a \cdot x_1 = -b\\
+a \cdot x_2 + b &= 0 \implies a \cdot x_2 = -b
+\end{align}
+
+Therefore: $a \cdot x_1 = a \cdot x_2$
+
+Since $a \neq 0$, we can multiply both sides by $a^{-1}$:
+$$a^{-1} \cdot (a \cdot x_1) = a^{-1} \cdot (a \cdot x_2)$$
+
+Using associativity:
+$$(a^{-1} \cdot a) \cdot x_1 = (a^{-1} \cdot a) \cdot x_2$$
+
+Since $a^{-1} \cdot a = 1$:
+$$x_1 = x_2$$
+
+Therefore, the solution is unique: $x = -a^{-1}b$.
+
+\subsection*{(b)}
+
+\textbf{Statement:} For all $a \in K$ with $a \neq 0$, we have $a^2 > 0$.
+
+\textbf{Proof:}
+
+Since $K$ is an ordered field, we have the trichotomy property: for any element $a \in K$, exactly one of the following holds:
+\begin{itemize}
+\item $a > 0$ (a is positive)
+\item $a = 0$ (a is zero)
+\item $a < 0$ (a is negative)
+\end{itemize}
+
+Since we're given that $a \neq 0$, we have two cases to consider:
+
+\textbf{Case 1:} $a > 0$
+
+If $a > 0$, then by the axiom for ordered fields (if $x > 0$ and $y > 0$, then $xy > 0$), we have:
+$$a \cdot a = a^2 > 0$$
+
+\textbf{Case 2:} $a < 0$
+
+If $a < 0$, then $-a > 0$ (since the additive inverse reverses the inequality).
+
+By the axiom for ordered fields, since both $a < 0$ and $a < 0$, their product satisfies:
+$$a \cdot a = a^2 > 0$$
+
+This follows from the general principle that the product of two negative elements in an ordered field is positive.
+
+\textbf{Conclusion:} In both cases, $a^2 > 0$ for any $a \neq 0$.
+
+
+\subsection*{(c)}
+
+\textbf{Statement:} For all $x, y \in K$ with $x, y > 0$, we have $x^2 > y^2$ if and only if $x > y$.
+
+\textbf{Proof:}
+
+We need to prove both directions of the if-and-only-if statement.
+
+\textbf{Direction 1: ($\Rightarrow$) If $x^2 > y^2$, then $x > y$}
+
+We prove this by contradiction. Assume $x^2 > y^2$ but $x \leq y$.
+
+Since $x, y > 0$, we have two subcases:
+
+\textbf{Subcase 1a:} $x = y$
+
+If $x = y$, then $x^2 = y^2$, which contradicts $x^2 > y^2$.
+
+\textbf{Subcase 1b:} $x < y$
+
+If $x < y$, then since both $x, y > 0$, we can apply the ordering axiom for positive elements: if $0 < x < y$, then $x \cdot x < y \cdot y$ (since multiplying inequalities by positive numbers preserves the inequality).
+
+This gives us $x^2 < y^2$, which contradicts our assumption that $x^2 > y^2$.
+
+Since both subcases lead to contradictions, we must have $x > y$.
+
+\textbf{Direction 2: ($\Leftarrow$) If $x > y$, then $x^2 > y^2$}
+
+Assume $x > y$ where $x, y > 0$.
+
+Since $x > y > 0$, we can apply the ordering axiom for ordered fields: if $a > b > 0$ and $c > d > 0$, then $ac > bd$.
+
+Setting $a = c = x$ and $b = d = y$, we get:
+$$x \cdot x > y \cdot y$$
+
+Therefore: $x^2 > y^2$.
+
+\textbf{Conclusion:} We have proven both directions, so $x^2 > y^2$ if and only if $x > y$ for positive $x, y$.
+
+
+\section*{3}
+
+\textbf{Problem:} We consider the subset 
+$$A = \left\{(-1)^n \left(5 - \frac{3}{n+1}\right) + 1 : n \in \mathbb{N}\right\}$$
+of $\mathbb{Q}$.
+
+\begin{enumerate}
+\item[(a)] Show that $A$ is bounded.
+\item[(b)] Calculate $\sup(A)$ and $\inf(A)$.
+\end{enumerate}
+
+\subsection*{(a)}
+
+\textbf{Statement:} Show that $A$ is bounded.
+
+\textbf{Solution:}
+
+To show that $A$ is bounded, we need to find real numbers $M$ and $m$ such that $m \leq a \leq M$ for all $a \in A$.
+
+First, let's analyze the general term of $A$:
+$$a_n = (-1)^n \left(5 - \frac{3}{n+1}\right) + 1$$
+
+Let's simplify this expression:
+\begin{align}
+a_n &= (-1)^n \left(5 - \frac{3}{n+1}\right) + 1\\
+&= (-1)^n \left(\frac{5(n+1) - 3}{n+1}\right) + 1\\
+&= (-1)^n \left(\frac{5n + 2}{n+1}\right) + 1
+\end{align}
+
+Now we need to consider two cases based on the parity of $n$:
+
+\textbf{Case 1:} $n$ is even (so $(-1)^n = 1$)
+\begin{align}
+a_n &= \frac{5n + 2}{n+1} + 1\\
+&= \frac{5n + 2 + n + 1}{n+1}\\
+&= \frac{6n + 3}{n+1}\\
+&= \frac{6(n+1) - 3}{n+1}\\
+&= 6 - \frac{3}{n+1}
+\end{align}
+
+We established that: $0 < \frac{3}{n+1} \leq \frac{3}{2}$
+
+Now we have the expression: $a_n = 6 - \frac{3}{n+1}$
+
+To find the bounds for $a_n$, we need to see what happens when we subtract $\frac{3}{n+1}$ from $6$.
+
+\textbf{Key insight:} When we subtract a positive number from $6$, the result is less than $6$.
+
+Since $0 < \frac{3}{n+1} \leq \frac{3}{2}$, let's see what happens to $6 - \frac{3}{n+1}$:
+
+\textbf{Upper bound:}
+\begin{itemize}
+\item The smallest value of $\frac{3}{n+1}$ occurs when $n$ is largest
+\item As $n \to \infty$, we have $\frac{3}{n+1} \to 0$
+\item So $6 - \frac{3}{n+1}$ approaches $6$ from below
+\item Therefore: $6 - \frac{3}{n+1} < 6$
+\end{itemize}
+
+\textbf{Lower bound:}
+\begin{itemize}
+\item The largest value of $\frac{3}{n+1}$ is $\frac{3}{2}$ (when $n = 1$)
+\item So the smallest value of $6 - \frac{3}{n+1}$ is: $6 - \frac{3}{2} = 6 - 1.5 = 4.5$
+\item Therefore: $6 - \frac{3}{n+1} \geq 4.5$
+\end{itemize}
+
+\textbf{Final result:}
+$$4.5 \leq 6 - \frac{3}{n+1} < 6$$
+
+Which means: $4.5 \leq a_n < 6$
+
+\textbf{Case 2:} $n$ is odd (so $(-1)^n = -1$)
+\begin{align}
+a_n &= -\frac{5n + 2}{n+1} + 1\\
+&= \frac{-(5n + 2) + n + 1}{n+1}\\
+&= \frac{-4n - 1}{n+1}\\
+&= -\frac{4(n+1) - 3}{n+1}\\
+&= -4 + \frac{3}{n+1}
+\end{align}
+
+Since $n \geq 1$, we have $0 < \frac{3}{n+1} \leq \frac{3}{2}$.
+
+Therefore: $-4 < -4 + \frac{3}{n+1} \leq -4 + \frac{3}{2} = -2.5$, so $-4 < a_n \leq -2.5$.
+
+\textbf{Conclusion:}
+\begin{itemize}
+\item When $n$ is even: $4.5 \leq a_n < 6$
+\item When $n$ is odd: $-4 < a_n \leq -2.5$
+\end{itemize}
+
+Therefore, all elements of $A$ satisfy: $-4 < a_n < 6$.
+
+We can choose $m = -4$ and $M = 6$ as bounds, so $A$ is bounded with $-4 < a \leq 6$ for all $a \in A$.
+
+\subsection*{(b)}
+
+\textbf{Statement:} Calculate $\sup(A)$ and $\inf(A)$.
+
+\textbf{Solution:}
+
+From part (a), we found that:
+\begin{itemize}
+\item When $n$ is even: $a_n = 6 - \frac{3}{n+1}$, so $4.5 \leq a_n < 6$
+\item When $n$ is odd: $a_n = -4 + \frac{3}{n+1}$, so $-4 < a_n \leq -2.5$
+\end{itemize}
+
+Let's analyze each case more carefully to find the supremum and infimum.
+
+\textbf{Finding $\sup(A)$}
+
+\textbf{Case 1: Even $n$}
+
+For even $n$, we have $a_n = 6 - \frac{3}{n+1}$.
+
+Let's look at specific values:
+\begin{align}
+n = 2: \quad a_2 &= 6 - \frac{3}{3} = 6 - 1 = 5\\
+n = 4: \quad a_4 &= 6 - \frac{3}{5} = 6 - 0.6 = 5.4\\
+n = 6: \quad a_6 &= 6 - \frac{3}{7} \approx 5.57
+\end{align}
+
+As $n \to \infty$ (even), $a_n \to 6$.
+
+\textbf{Case 2: Odd $n$}
+
+For odd $n$, we have $a_n = -4 + \frac{3}{n+1}$.
+
+\begin{align}
+n = 1: \quad a_1 &= -4 + \frac{3}{2} = -4 + 1.5 = -2.5\\
+n = 3: \quad a_3 &= -4 + \frac{3}{4} = -4 + 0.75 = -3.25
+\end{align}
+
+As $n \to \infty$ (odd), $a_n \to -4$.
+
+\textbf{Conclusion for $\sup(A)$:}
+
+The largest values in $A$ come from the even case, and they approach $6$ as $n \to \infty$, but never reach $6$.
+
+For any $\varepsilon > 0$, we can find an even $n$ large enough so that $6 - \frac{3}{n+1} > 6 - \varepsilon$.
+But $6 \notin A$ since $6 - \frac{3}{n+1} < 6$ for all finite $n$.
+
+Therefore: $\sup(A) = 6$.
+
+\textbf{Finding $\inf(A)$}
+
+From our analysis:
+\begin{itemize}
+\item The odd case gives: $-4 < a_n \leq -2.5$
+\item The even case gives: $4.5 \leq a_n < 6$
+\end{itemize}
+
+The smallest values in $A$ come from the odd case, and they approach $-4$ as $n \to \infty$, but never reach $-4$.
+
+For any $\varepsilon > 0$, we can find an odd $n$ large enough so that $-4 + \frac{3}{n+1} < -4 + \varepsilon$.
+But $-4 \notin A$ since $-4 + \frac{3}{n+1} > -4$ for all finite $n$.
+
+Therefore: $\inf(A) = -4$.
+
+\textbf{Final Answer:}
+
+$$\sup(A) = 6 \quad \text{and} \quad \inf(A) = -4$$
+
+\textbf{Note:} Both the supremum and infimum are not achieved by any element in $A$ (they are not maximum or minimum values), but they are the least upper bound and greatest lower bound respectively.
+
+\section*{4}
+
+\textbf{Problem:} Let $A$ and $B$ be subsets of $\mathbb{Q}$. We use the notation: $A + B = \{a + b : a \in A, b \in B\}$.
+
+\begin{enumerate}
+\item[(a)] Assume that $\max(A)$ and $\max(B)$ exist. Prove that $\max(A + B)$ also exists and
+$$\max(A + B) = \max(A) + \max(B)$$
+\item[(b)] Assume that $\sup(A)$ and $\sup(B)$ exist. Prove that $\sup(A + B)$ also exists and
+$$\sup(A + B) = \sup(A) + \sup(B)$$
+\end{enumerate}
+
+\subsection*{(a)}
+
+\textbf{Statement:} Assume that $\max(A)$ and $\max(B)$ exist. Prove that $\max(A + B)$ also exists and $\max(A + B) = \max(A) + \max(B)$.
+
+\textbf{Proof:}
+
+Since $\max(A)$ and $\max(B)$ exist, let's denote:
+\begin{itemize}
+\item $\alpha = \max(A)$
+\item $\beta = \max(B)$
+\end{itemize}
+
+This means:
+\begin{itemize}
+\item $\alpha \in A$ and $\alpha \geq a$ for all $a \in A$
+\item $\beta \in B$ and $\beta \geq b$ for all $b \in B$
+\end{itemize}
+
+We need to prove two things:
+\begin{enumerate}
+\item $\max(A + B)$ exists
+\item $\max(A + B) = \alpha + \beta$
+\end{enumerate}
+
+\textbf{Step 1: Show that $\alpha + \beta \in A + B$}
+
+Since $\alpha \in A$ and $\beta \in B$, by definition of $A + B$, we have:
+$$\alpha + \beta \in A + B$$
+
+\textbf{Step 2: Show that $\alpha + \beta$ is an upper bound for $A + B$}
+
+Let $c$ be any element of $A + B$. Then $c = a + b$ for some $a \in A$ and $b \in B$.
+
+Since $\alpha = \max(A)$, we have $a \leq \alpha$.
+Since $\beta = \max(B)$, we have $b \leq \beta$.
+
+Adding these inequalities:
+$$a + b \leq \alpha + \beta$$
+
+Therefore: $c \leq \alpha + \beta$
+
+This shows that $\alpha + \beta$ is an upper bound for all elements in $A + B$.
+
+\textbf{Step 3: Conclude that $\alpha + \beta = \max(A + B)$}
+
+From Steps 1 and 2:
+\begin{itemize}
+\item $\alpha + \beta \in A + B$ (so it's achieved)
+\item $\alpha + \beta \geq c$ for all $c \in A + B$ (so it's an upper bound)
+\end{itemize}
+
+Therefore, $\alpha + \beta$ is the maximum element of $A + B$.
+
+\textbf{Conclusion:}
+$$\max(A + B) = \alpha + \beta = \max(A) + \max(B)$$
+
+\subsection*{(b)}
+
+\textbf{Statement:} Assume that $\sup(A)$ and $\sup(B)$ exist. Prove that $\sup(A + B)$ also exists and $\sup(A + B) = \sup(A) + \sup(B)$.
+
+\textbf{Proof:}
+
+Since $\sup(A)$ and $\sup(B)$ exist, let's denote:
+\begin{itemize}
+\item $\sigma = \sup(A)$
+\item $\tau = \sup(B)$
+\end{itemize}
+
+We need to prove two things:
+\begin{enumerate}
+\item $\sup(A + B)$ exists
+\item $\sup(A + B) = \sigma + \tau$
+\end{enumerate}
+
+\textbf{Step 1: Show that $A + B$ is bounded above}
+
+Let $c$ be any element of $A + B$. Then $c = a + b$ for some $a \in A$ and $b \in B$.
+
+Since $\sigma = \sup(A)$, we have $a \leq \sigma$ for all $a \in A$.
+Since $\tau = \sup(B)$, we have $b \leq \tau$ for all $b \in B$.
+
+Adding these inequalities:
+$$a + b \leq \sigma + \tau$$
+
+Therefore: $c \leq \sigma + \tau$ for all $c \in A + B$
+
+This shows that $A + B$ is bounded above by $\sigma + \tau$, so $\sup(A + B)$ exists.
+
+\textbf{Step 2: Show that $\sigma + \tau \leq \sup(A + B)$}
+
+We need to show that $\sigma + \tau$ is the least upper bound. We'll prove that any number smaller than $\sigma + \tau$ cannot be an upper bound for $A + B$.
+
+Let $\varepsilon > 0$ be arbitrary. We want to find an element in $A + B$ that is greater than $(\sigma + \tau) - \varepsilon$.
+
+Since $\sigma = \sup(A)$, there exists $a \in A$ such that $a > \sigma - \frac{\varepsilon}{2}$.
+Since $\tau = \sup(B)$, there exists $b \in B$ such that $b > \tau - \frac{\varepsilon}{2}$.
+
+Then $a + b \in A + B$ and:
+$$a + b > \left(\sigma - \frac{\varepsilon}{2}\right) + \left(\tau - \frac{\varepsilon}{2}\right) = \sigma + \tau - \varepsilon$$
+
+This shows that for any $\varepsilon > 0$, there exists an element in $A + B$ greater than $(\sigma + \tau) - \varepsilon$.
+
+Therefore, $\sigma + \tau$ is the least upper bound of $A + B$.
+
+\textbf{Step 3: Conclude that $\sigma + \tau = \sup(A + B)$}
+
+From Steps 1 and 2:
+\begin{itemize}
+\item $A + B$ is bounded above by $\sigma + \tau$
+\item $\sigma + \tau$ is the least such upper bound
+\end{itemize}
+
+Therefore: $\sup(A + B) = \sigma + \tau = \sup(A) + \sup(B)$
+
+
+\end{document}

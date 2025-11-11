@@ -1,0 +1,212 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{graphicx} % Images
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 8}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\begin{solution}
+1. Define the sequence $(x_n)_{n \in \mathbb{N}}$ by $x_n = \frac{1}{n}$.
+\begin{itemize}
+    \item $\sum_{n=1}^{\infty} |x_n| = \sum_{n=1}^{\infty} \frac{1}{n} = \infty$ (Harmonic series).
+    \item $\sum_{n=1}^{\infty} |x_n|^2 = \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6} < \infty$.
+    \item $\sup_{n \in \mathbb{N}} |x_n| = \sup_{n \in \mathbb{N}} \frac{1}{n} = 1 < \infty$.
+\end{itemize}
+Therefore: $(x_n) \notin \ell_1$ and $(x_n) \in \ell_2 \cap \ell_\infty$.
+
+\vspace{1em} % Adds vertical space between the two parts
+
+2. Define the sequence $(y_n)_{n \in \mathbb{N}}$ by $y_n = 1$.
+\begin{itemize}
+    \item $\sum_{n=1}^{\infty} |y_n| = \sum_{n=1}^{\infty} 1 = \infty$.
+    \item $\sum_{n=1}^{\infty} |y_n|^2 = \sum_{n=1}^{\infty} 1^2 = \infty$.
+    \item $\sup_{n \in \mathbb{N}} |y_n| = \sup_{n \in \mathbb{N}} 1 = 1 < \infty$.
+\end{itemize}
+Therefore: $(y_n) \notin \ell_1 \cup \ell_2$ and $(y_n) \in \ell_\infty$.
+\end{solution}
+
+\section*{2}
+\subsection*{(a)}
+
+\begin{solution}
+Since $\mathbb{R}^k$ is a finite-dimensional vector space, all norms are equivalent. Convergence in $(\mathbb{R}^k, \|\cdot\|_\infty)$ is therefore equivalent to convergence in $(\mathbb{R}^k, \|\cdot\|_1)$.
+
+We check for convergence by examining component-wise convergence. Let $j \in \{0, \dots, k-1\}$ be a fixed index. The $j$-th component of $a_n$ is $A_{n,j}$.
+
+For $n \ge j$, we have $A_{n,j} = \frac{1}{n+j+1}$.
+We calculate the limit as $n \to \infty$:
+\[ \lim_{n \to \infty} A_{n,j} = \lim_{n \to \infty} \frac{1}{n+j+1} = 0 \]
+Since every component $j \in \{0, \dots, k-1\}$ converges to 0, the vector sequence $(a_n)$ converges to the zero vector $L = (0, \dots, 0) \in \mathbb{R}^k$.
+
+\begin{enumerate}[label=(\roman*)]
+    \item Yes, $(a_n)$ converges to the zero vector.
+    \item Yes, $(a_n)$ converges to the zero vector.
+\end{enumerate}
+\end{solution}
+
+\subsection*{(b)}
+
+\subsubsection*{(i)}
+\begin{solution}
+We have
+\[
+\|b_n\|_1 = \sum_{m=0}^{\infty} |A_{n,m}| = \sum_{m=0}^{n} \frac{1}{n+m+1},
+\]
+which is a finite sum of $n+1$ positive terms, hence finite. Thus $b_n \in \ell_1$ for all $n$.
+\end{solution}
+
+\subsubsection*{(ii)}
+\begin{solution}
+For each fixed $m$, $\displaystyle \lim_{n\to\infty} A_{n,m}=\lim_{n\to\infty}\frac{1}{n+m+1}=0$, so the only possible limit in $\ell_1$ is the zero sequence. But
+\[
+\|b_n\|_1=\sum_{m=0}^{n}\frac{1}{n+m+1}=\frac{1}{n+1}+\cdots+\frac{1}{2n+1}
+\ge (n+1)\cdot\frac{1}{2n+1}=\frac{n+1}{2n+1}\xrightarrow[n\to\infty]{}\frac12\neq 0.
+\]
+Hence $(b_n)$ does not converge in $\|\cdot\|_1$.
+\end{solution}
+
+\subsubsection*{(iii)}
+\begin{solution}
+\[
+\|b_n\|_2^2=\sum_{m=0}^{\infty}|A_{n,m}|^2=\sum_{m=0}^{n}\left(\frac{1}{n+m+1}\right)^2
+\le (n+1)\left(\frac{1}{n+1}\right)^2=\frac{1}{n+1}\xrightarrow[n\to\infty]{}0.
+\]
+Thus $\|b_n\|_2\to 0$ and $(b_n)$ converges to $0$ in $\|\cdot\|_2$.
+\end{solution}
+
+\subsubsection*{(iv)}
+\begin{solution}
+\[
+\|b_n\|_\infty=\sup_{m\ge 0}|A_{n,m}|=\max\left\{\frac{1}{n+1},\frac{1}{n+2},\dots,\frac{1}{2n+1}\right\}=\frac{1}{n+1}\xrightarrow[n\to\infty]{}0.
+\]
+Thus $(b_n)$ converges to $0$ in $\|\cdot\|_\infty$.
+\end{solution}
+
+% ==========================================
+\section*{3}
+
+
+\subsection*{(a) Boundedness of each \(a_n\)}
+\begin{solution}
+For \(m\ge 1\): \(0\le A_{n,m}=\dfrac{m^n}{1+m^n}<1\). For \(m=0\): \(A_{n,0}=0\). Hence
+\(\|a_n\|_\infty=\sup_{m\in\mathbb N}|A_{n,m}|\le 1<\infty\), so \(a_n\in\ell_\infty\) for all \(n\).
+\end{solution}
+
+\subsection*{(b) Cauchy property in \((\ell_\infty,\|\cdot\|_\infty)\)}
+\begin{solution}
+Let \(n>k\). Then for \(m\ge 2\)
+\[
+|A_{n,m}-A_{k,m}|
+= \Bigl|\frac{1}{1+m^k}-\frac{1}{1+m^n}\Bigr|
+\le \frac{1}{1+m^k}\le \frac{1}{1+2^k}.
+\]
+For \(m=0,1\) the difference is \(0\). Therefore
+\[
+\|a_n-a_k\|_\infty=\sup_{m\in\mathbb N}|A_{n,m}-A_{k,m}|\le \frac{1}{1+2^k}.
+\]
+Given \(\varepsilon>0\), choose \(N\) with \(1/(1+2^N)<\varepsilon\). Then for all \(n,k\ge N\),
+\(\|a_n-a_k\|_\infty<\varepsilon\). Thus \((a_n)\) is Cauchy in \(\ell_\infty\).
+\end{solution}
+
+\subsection*{(c) Componentwise limit and membership in \(\ell_\infty\)}
+\begin{solution}
+For \(m=0\): \(L_0=\lim_{n\to\infty}A_{n,0}=0\). For \(m=1\): \(L_1=\lim_{n\to\infty}\frac{1}{1+1}=1/2\).
+For \(m\ge 2\): \(L_m=\lim_{n\to\infty}\frac{m^n}{1+m^n}=1\). Hence
+\[
+L=(0,\tfrac12,1,1,1,\dots),\qquad \|L\|_\infty=\sup_m |L_m|=1<\infty,
+\]
+so \(L\in\ell_\infty\).
+\end{solution}
+
+\subsection*{(d) Convergence in the sup norm}
+\begin{solution}
+For \(m=0,1\) we have \(A_{n,m}=L_m\). For \(m\ge 2\),
+\[
+|A_{n,m}-L_m|=\Bigl|\frac{m^n}{1+m^n}-1\Bigr|=\frac{1}{1+m^n}\le \frac{1}{1+2^n}.
+\]
+Thus
+\[
+\|a_n-L\|_\infty=\sup_{m\in\mathbb N}|A_{n,m}-L_m|
+=\frac{1}{1+2^n}\xrightarrow[n\to\infty]{}0,
+\]
+so \(a_n\to L\) in \((\ell_\infty,\|\cdot\|_\infty)\).
+\end{solution}
+
+
+% ==========================================
+
+\section*{4}
+\begin{solution}
+Let \((x^{(k)})_{k\in\mathbb N}\) be a Cauchy sequence in \((\ell_\infty,\|\cdot\|_\infty)\).
+
+Pointwise limit: For each fixed index \(i\in\mathbb N\),
+\[
+|x^{(k)}_i-x^{(l)}_i|\le \|x^{(k)}-x^{(l)}\|_\infty,
+\]
+so \((x^{(k)}_i)_k\) is Cauchy in \(\mathbb K\) and hence convergent. Define
+\[
+x_i^*:=\lim_{k\to\infty} x^{(k)}_i,\qquad x^* := (x_i^*)_{i\in\mathbb N}.
+\]
+
+Uniform bound for \(x^*\): Since \((x^{(k)})\) is Cauchy, choose \(k_0\) with
+\(\|x^{(k)}-x^{(l)}\|_\infty<1\) for all \(k,l\ge k_0\). Then for \(k\ge k_0\),
+\(\|x^{(k)}\|_\infty \le \|x^{(k_0)}\|_\infty+1\).
+Set
+\[
+M:=\max\{\|x^{(1)}\|_\infty,\dots,\|x^{(k_0-1)}\|_\infty,\ \|x^{(k_0)}\|_\infty+1\}.
+\]
+For every \(i\),
+\(|x_i^*|=\lim_{k\to\infty}|x^{(k)}_i|\le M\). Hence \(x^*\in\ell_\infty\) and \(\|x^*\|_\infty\le M\).
+
+Convergence in the sup norm: Let \(\varepsilon>0\). Pick \(k_1\) such that
+\(\|x^{(k)}-x^{(l)}\|_\infty<\varepsilon\) for all \(k,l\ge k_1\).
+Fix \(k\ge k_1\) and let \(l\to\infty\). For every \(i\),
+\[
+|x^{(k)}_i-x_i^*|=\lim_{l\to\infty}|x^{(k)}_i-x^{(l)}_i|
+\le \varepsilon.
+\]
+Taking the supremum over \(i\) gives \(\|x^{(k)}-x^*\|_\infty\le \varepsilon\) for all \(k\ge k_1\).
+Thus \(x^{(k)}\to x^*\) in \(\ell_\infty\).
+
+Therefore every Cauchy sequence in \((\ell_\infty,\|\cdot\|_\infty)\) converges; the space is complete.
+\end{solution}
+
+\end{document}

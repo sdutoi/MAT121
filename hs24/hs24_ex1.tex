@@ -1,0 +1,648 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 1}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\textbf{Problem:} Let $A, B, C$ be sets. Show that:
+$$(A \setminus B) \cup (A \setminus C) = A \setminus (B \cap C)$$
+
+\textbf{Proof:}
+
+To prove set equality, we'll show both directions: every element of the left side is in the right side, and vice versa.
+
+Let $x$ be an arbitrary element. We'll show:
+$$x \in (A \setminus B) \cup (A \setminus C) \iff x \in A \setminus (B \cap C)$$
+
+\textbf{Direction 1: ($\Rightarrow$) If $x \in (A \setminus B) \cup (A \setminus C)$, then $x \in A \setminus (B \cap C)$}
+
+Assume $x \in (A \setminus B) \cup (A \setminus C)$.
+
+This means $x \in (A \setminus B)$ or $x \in (A \setminus C)$ (or both).
+
+\textbf{Case 1:} $x \in (A \setminus B)$
+
+Then $x \in A$ and $x \notin B$.
+Since $x \notin B$, we have $x \notin (B \cap C)$.
+Therefore $x \in A$ and $x \notin (B \cap C)$, so $x \in A \setminus (B \cap C)$.
+
+\textbf{Case 2:} $x \in (A \setminus C)$
+
+Then $x \in A$ and $x \notin C$.
+Since $x \notin C$, we have $x \notin (B \cap C)$.
+Therefore $x \in A$ and $x \notin (B \cap C)$, so $x \in A \setminus (B \cap C)$.
+
+In both cases, $x \in A \setminus (B \cap C)$.
+
+\textbf{Direction 2: ($\Leftarrow$) If $x \in A \setminus (B \cap C)$, then $x \in (A \setminus B) \cup (A \setminus C)$}
+
+Assume $x \in A \setminus (B \cap C)$.
+
+This means $x \in A$ and $x \notin (B \cap C)$.
+
+Since $x \notin (B \cap C)$, by De Morgan's law, we have $x \notin B$ or $x \notin C$ (or both).
+
+\textbf{Case 1:} $x \notin B$
+
+Since $x \in A$ and $x \notin B$, we have $x \in (A \setminus B)$.
+Therefore $x \in (A \setminus B) \cup (A \setminus C)$.
+
+\textbf{Case 2:} $x \notin C$
+
+Since $x \in A$ and $x \notin C$, we have $x \in (A \setminus C)$.
+Therefore $x \in (A \setminus B) \cup (A \setminus C)$.
+
+In both cases, $x \in (A \setminus B) \cup (A \setminus C)$.
+
+\textbf{Conclusion:}
+
+Since we've shown both directions, we have:
+$$(A \setminus B) \cup (A \setminus C) = A \setminus (B \cap C)$$
+
+This is a distributive law for set difference over intersection.
+
+\section*{2}
+
+
+\textbf{Problem:} Let $X$ and $Y$ be sets and $f : X \to Y$ be a function. Prove that:
+
+\begin{enumerate}
+\item[(a)] For every $A \subseteq X$, $f^{-1}(f(A)) \supseteq A$.
+\item[(b)] If $f$ is injective, then $f^{-1}(f(A)) = A$ also holds.
+\item[(c)] Is (b) true for all functions?
+\end{enumerate}
+
+\subsection*{(a)}
+
+\textbf{Statement:} For every $A \subseteq X$, $f^{-1}(f(A)) \supseteq A$.
+
+\textbf{Proof:}
+
+We need to show that $A \subseteq f^{-1}(f(A))$, which means every element of $A$ is also in $f^{-1}(f(A))$.
+
+Let $x$ be an arbitrary element of $A$. We need to show that $x \in f^{-1}(f(A))$.
+
+\textbf{Step 1:} Since $x \in A$ and $A \subseteq X$, we have $x \in X$.
+
+\textbf{Step 2:} Since $f : X \to Y$ and $x \in X$, we know that $f(x)$ is defined and $f(x) \in Y$.
+
+\textbf{Step 3:} Since $x \in A$, we have $f(x) \in f(A)$ by the definition of the image of a set.
+
+(Recall: $f(A) = \{f(a) : a \in A\}$)
+
+\textbf{Step 4:} Since $f(x) \in f(A)$, by the definition of preimage, we have $x \in f^{-1}(f(A))$.
+
+(Recall: $f^{-1}(f(A)) = \{z \in X : f(z) \in f(A)\}$)
+
+\textbf{Conclusion:} Since $x$ was arbitrary, we have shown that every element of $A$ is in $f^{-1}(f(A))$.
+
+Therefore: $A \subseteq f^{-1}(f(A))$, which means $f^{-1}(f(A)) \supseteq A$.
+
+
+
+\subsection*{(b)}
+
+\textbf{Statement:} If $f$ is injective, then $f^{-1}(f(A)) = A$ also holds.
+
+\textbf{Proof:}
+
+From part (a), we already know that $f^{-1}(f(A)) \supseteq A$ for any function $f$.
+
+To prove equality $f^{-1}(f(A)) = A$ when $f$ is injective, we need to show the reverse inclusion: $f^{-1}(f(A)) \subseteq A$.
+
+Let $x$ be an arbitrary element of $f^{-1}(f(A))$. We need to show that $x \in A$.
+
+\textbf{Step 1:} Since $x \in f^{-1}(f(A))$, by definition of preimage, we have:
+$$x \in X \text{ and } f(x) \in f(A)$$
+
+\textbf{Step 2:} Since $f(x) \in f(A)$, by definition of image, there exists some element $a \in A$ such that:
+$$f(x) = f(a)$$
+
+\textbf{Step 3:} Since $f$ is injective and $f(x) = f(a)$, we can conclude:
+$$x = a$$
+
+\textbf{Step 4:} Since $a \in A$ and $x = a$, we have:
+$$x \in A$$
+
+\textbf{Conclusion:} Since $x$ was arbitrary, we have shown that every element of $f^{-1}(f(A))$ is in $A$.
+
+Therefore: $f^{-1}(f(A)) \subseteq A$
+
+Combined with the result from part (a) that $f^{-1}(f(A)) \supseteq A$, we get:
+$$f^{-1}(f(A)) = A$$
+
+\textbf{Key insight:} The injectivity of $f$ is crucial in Step 3. Without injectivity, we couldn't conclude that $x = a$ from $f(x) = f(a)$.
+
+\subsection*{(c)}
+
+\textbf{Statement:} Is (b) true for all functions?
+
+\textbf{Answer:} No, part (b) is not true for all functions. The equality $f^{-1}(f(A)) = A$ requires $f$ to be injective.
+
+\textbf{Counterexample:}
+
+Let $X = \{1, 2, 3\}$, $Y = \{a, b\}$, and define $f : X \to Y$ by:
+\begin{align}
+f(1) &= a\\
+f(2) &= a\\
+f(3) &= b
+\end{align}
+
+This function is not injective since $f(1) = f(2) = a$.
+
+Let $A = \{1\}$. Then:
+
+\textbf{Step 1:} Calculate $f(A)$
+$$f(A) = f(\{1\}) = \{f(1)\} = \{a\}$$
+
+\textbf{Step 2:} Calculate $f^{-1}(f(A))$
+$$f^{-1}(f(A)) = f^{-1}(\{a\}) = \{x \in X : f(x) = a\} = \{1, 2\}$$
+
+\textbf{Step 3:} Compare $A$ and $f^{-1}(f(A))$
+\begin{itemize}
+\item $A = \{1\}$
+\item $f^{-1}(f(A)) = \{1, 2\}$
+\end{itemize}
+
+Clearly, $A \neq f^{-1}(f(A))$ since $\{1\} \neq \{1, 2\}$.
+
+We have $f^{-1}(f(A)) \supset A$ (proper superset), but not equality.
+
+\textbf{Explanation:} The element $2$ is in $f^{-1}(f(A))$ because $f(2) = a \in f(A)$, but $2 \notin A$. This happens precisely because $f$ is not injective -- both elements $1$ and $2$ map to the same value $a$, so when we take the preimage of $f(A) = \{a\}$, we get back both $1$ and $2$, not just the original element $1$.
+
+\textbf{Conclusion:} The equality $f^{-1}(f(A)) = A$ holds if and only if $f$ is injective. For non-injective functions, we only have the inclusion $f^{-1}(f(A)) \supseteq A$ from part (a).
+
+
+\section*{3}
+
+\textbf{Problem:} We consider the function $f : \mathbb{N} \to \mathbb{Q}$:
+
+$$f(n) = \frac{1 - (-1)^n(2n + 1)}{4}$$
+
+\begin{itemize}
+\item Investigate whether $f$ is injective.
+\item What is $f(\mathbb{N})$?
+\end{itemize}
+
+\textbf{Solution:}
+
+Let me first analyze what this function does by computing some values.
+
+\textbf{Step 1: Understanding the function}
+
+The key is the term $(-1)^n$:
+\begin{itemize}
+\item When $n$ is even: $(-1)^n = 1$
+\item When $n$ is odd: $(-1)^n = -1$
+\end{itemize}
+
+Let's compute $f(n)$ for both cases:
+
+\textbf{Case 1:} $n$ is even ($(-1)^n = 1$)
+\begin{align}
+f(n) &= \frac{1 - 1 \cdot (2n + 1)}{4}\\
+&= \frac{1 - 2n - 1}{4}\\
+&= \frac{-2n}{4}\\
+&= -\frac{n}{2}
+\end{align}
+
+\textbf{Case 2:} $n$ is odd ($(-1)^n = -1$)
+\begin{align}
+f(n) &= \frac{1 - (-1) \cdot (2n + 1)}{4}\\
+&= \frac{1 + 2n + 1}{4}\\
+&= \frac{2n + 2}{4}\\
+&= \frac{n + 1}{2}
+\end{align}
+
+\textbf{Step 2: Computing specific values}
+
+Let's compute the first few values:
+\begin{align}
+f(1) &= \frac{1 + 1}{2} = 1 \quad \text{(since 1 is odd)}\\
+f(2) &= -\frac{2}{2} = -1 \quad \text{(since 2 is even)}\\
+f(3) &= \frac{3 + 1}{2} = 2 \quad \text{(since 3 is odd)}\\
+f(4) &= -\frac{4}{2} = -2 \quad \text{(since 4 is even)}\\
+f(5) &= \frac{5 + 1}{2} = 3 \quad \text{(since 5 is odd)}\\
+f(6) &= -\frac{6}{2} = -3 \quad \text{(since 6 is even)}
+\end{align}
+
+\textbf{Part 1: Is $f$ injective?}
+
+From our analysis:
+\begin{itemize}
+\item For odd $n$: $f(n) = \frac{n + 1}{2}$, which gives values: $1, 2, 3, 4, \ldots$
+\item For even $n$: $f(n) = -\frac{n}{2}$, which gives values: $-1, -2, -3, -4, \ldots$
+\end{itemize}
+
+Since odd inputs map to positive values and even inputs map to negative values, and within each case the function is strictly monotonic:
+
+\begin{itemize}
+\item For odd inputs: If $n_1$ and $n_3$ are odd with $n_1 \neq n_3$, then $\frac{n_1 + 1}{2} \neq \frac{n_3 + 1}{2}$.
+\item For even inputs: If $n_2$ and $n_4$ are even with $n_2 \neq n_4$, then $-\frac{n_2}{2} \neq -\frac{n_4}{2}$.
+\end{itemize}
+
+Since odd inputs give positive values and even inputs give negative values, and within each case the values are distinct, $f$ is \textbf{injective}.
+
+\textbf{Part 2: What is $f(\mathbb{N})$?}
+
+From our analysis:
+\begin{itemize}
+\item Odd $n \in \mathbb{N}$: $f(n) = \frac{n + 1}{2}$ gives us $\{1, 2, 3, 4, \ldots\} = \mathbb{N}$
+\item Even $n \in \mathbb{N}$: $f(n) = -\frac{n}{2}$ gives us $\{-1, -2, -3, -4, \ldots\} = -\mathbb{N}$
+\end{itemize}
+
+Therefore: $f(\mathbb{N}) = \mathbb{N} \cup (-\mathbb{N}) = \mathbb{Z} \setminus \{0\}$
+
+\textbf{Summary:}
+\begin{itemize}
+\item $f$ is injective
+\item $f(\mathbb{N}) = \mathbb{Z} \setminus \{0\}$ (all non-zero integers)
+\end{itemize}
+
+
+\section*{4}
+
+\textbf{Problem:} Let $m, n \in \mathbb{N}$, $X = \{1, 2, \ldots, m\}$ and $Y = \{1, 2, \ldots, n\}$
+
+\begin{enumerate}
+\item[(a)] How many different functions $f : X \to Y$ are there?
+\item[(b)] How many different injective functions $f : X \to Y$ are there?
+\end{enumerate}
+
+\subsection*{(a)}
+
+\textbf{Statement:} How many different functions $f : X \to Y$ are there?
+
+\textbf{Solution:}
+
+To count the number of functions $f : X \to Y$, I need to determine how many choices we have for each element in the domain $X$.
+
+\textbf{Step 1: Understanding what defines a function}
+
+A function $f : X \to Y$ assigns to each element in $X$ exactly one element in $Y$.
+
+Since $X = \{1, 2, \ldots, m\}$, we need to specify:
+\begin{itemize}
+\item $f(1) \in Y$
+\item $f(2) \in Y$
+\item $\vdots$
+\item $f(m) \in Y$
+\end{itemize}
+
+\textbf{Step 2: Counting the choices}
+
+For each element in $X$, we can choose any element from $Y$ as its image:
+
+\begin{itemize}
+\item For $f(1)$: We have $n$ choices (any element from $Y = \{1, 2, \ldots, n\}$)
+\item For $f(2)$: We have $n$ choices (any element from $Y$)
+\item $\vdots$
+\item For $f(m)$: We have $n$ choices (any element from $Y$)
+\end{itemize}
+
+\textbf{Step 3: Applying the multiplication principle}
+
+Since these choices are independent, we multiply the number of choices:
+
+$$\text{Total number of functions} = \underbrace{n \times n \times \cdots \times n}_{m \text{ times}} = n^m$$
+
+\textbf{Answer:} There are $n^m$ different functions $f : X \to Y$.
+
+\subsection*{(b)}
+
+\textbf{Statement:} How many different injective functions $f : X \to Y$ are there?
+
+\textbf{Solution:}
+
+To count injective functions $f : X \to Y$, I need to ensure that no two elements in $X$ map to the same element in $Y$.
+
+\textbf{Step 1: Understanding injectivity constraint}
+
+A function $f : X \to Y$ is injective if $f(x_1) \neq f(x_2)$ whenever $x_1 \neq x_2$.
+
+This means each element in $Y$ can be the image of at most one element from $X$.
+
+\textbf{Step 2: Consider two cases}
+
+\textbf{Case 1:} $m > n$
+
+If $|X| = m > n = |Y|$, then by the pigeonhole principle, it's impossible to have an injective function from $X$ to $Y$.
+
+We have $m$ elements in $X$ that need distinct images, but only $n < m$ elements available in $Y$.
+
+Therefore, when $m > n$: Number of injective functions $= 0$
+
+\textbf{Case 2:} $m \leq n$
+
+When $m \leq n$, injective functions are possible.
+
+\textbf{Step 3: Counting for $m \leq n$}
+
+We need to assign distinct elements from $Y$ to each element in $X$:
+
+\begin{itemize}
+\item For $f(1)$: We have $n$ choices (any element from $Y$)
+\item For $f(2)$: We have $(n-1)$ choices (any element from $Y$ except $f(1)$)
+\item For $f(3)$: We have $(n-2)$ choices (any element from $Y$ except $f(1)$ and $f(2)$)
+\item $\vdots$
+\item For $f(m)$: We have $(n-m+1)$ choices
+\end{itemize}
+
+\textbf{Step 4: Applying the multiplication principle}
+
+$$\text{Total number of injective functions} = n \times (n-1) \times (n-2) \times \cdots \times (n-m+1)$$
+
+This is: $$\frac{n!}{(n-m)!}$$
+
+\textbf{Final Answer:}
+
+The number of different injective functions $f : X \to Y$ is:
+
+$$\begin{cases}
+0 & \text{if } m > n \\
+\frac{n!}{(n-m)!} & \text{if } m \leq n
+\end{cases}$$
+
+\textbf{Note:} When $m = n$, this gives $\frac{n!}{0!} = n!$, which is the number of bijective functions (permutations) from $X$ to $Y$.
+
+
+\section*{5}
+
+\textbf{Problem:} Prove that:
+$$1 + \frac{1}{\sqrt{2}} + \frac{1}{\sqrt{3}} + \cdots + \frac{1}{\sqrt{n}} > 2(\sqrt{n+1} - 1)$$
+for all $n \in \mathbb{N}$.
+
+\textbf{Solution:}
+
+I'll prove this inequality using the key insight that each term $\frac{1}{\sqrt{k}}$ can be bounded below by a telescoping sum.
+
+\textbf{Key Lemma:}
+
+For any $k \geq 1$, we have: $\frac{1}{\sqrt{k}} > 2(\sqrt{k+1} - \sqrt{k})$
+
+\textbf{Proof of Lemma:}
+
+We want to show $\frac{1}{\sqrt{k}} > 2(\sqrt{k+1} - \sqrt{k})$.
+
+Multiply both sides by $\sqrt{k}(\sqrt{k+1} + \sqrt{k})$:
+
+\textbf{Left side:} $\sqrt{k} \cdot (\sqrt{k+1} + \sqrt{k}) = \sqrt{k} \cdot \sqrt{k+1} + k$
+
+\textbf{Right side:} $2\sqrt{k}(\sqrt{k+1} - \sqrt{k})(\sqrt{k+1} + \sqrt{k}) = 2\sqrt{k}((k+1) - k) = 2\sqrt{k}$
+
+So we need to show: $\sqrt{k} \cdot \sqrt{k+1} + k > 2\sqrt{k}$
+
+Dividing by $\sqrt{k}$: $\sqrt{k+1} + \sqrt{k} > 2$
+
+This simplifies to: $\sqrt{k+1} > 2 - \sqrt{k}$
+
+Since $\sqrt{k} \geq 1$ for $k \geq 1$, we have $2 - \sqrt{k} \leq 1$.
+Since $\sqrt{k+1} > \sqrt{k} \geq 1$, the inequality holds.
+
+\textbf{Alternative approach:} We can show this more directly.
+
+Multiply both sides of $\frac{1}{\sqrt{k}} > 2(\sqrt{k+1} - \sqrt{k})$ by $\sqrt{k}(\sqrt{k+1} + \sqrt{k})$:
+
+\begin{itemize}
+\item Left: $\sqrt{k+1} + \sqrt{k}$
+\item Right: $2\sqrt{k}$
+\end{itemize}
+
+So we need: $\sqrt{k+1} + \sqrt{k} > 2\sqrt{k}$
+
+This gives: $\sqrt{k+1} > \sqrt{k}$ $\checkmark$
+
+\textbf{Main Proof:}
+
+Using the lemma, for each $k = 1, 2, \ldots, n$:
+$$\frac{1}{\sqrt{k}} > 2(\sqrt{k+1} - \sqrt{k})$$
+
+Summing from $k = 1$ to $n$:
+$$\sum_{k=1}^n \frac{1}{\sqrt{k}} > \sum_{k=1}^n 2(\sqrt{k+1} - \sqrt{k})$$
+
+The right side is a \textbf{telescoping sum}:
+\begin{align}
+\sum_{k=1}^n 2(\sqrt{k+1} - \sqrt{k}) &= 2[(\sqrt{2} - \sqrt{1}) + (\sqrt{3} - \sqrt{2}) + \cdots + (\sqrt{n+1} - \sqrt{n})]\\
+&= 2(\sqrt{n+1} - \sqrt{1})\\
+&= 2(\sqrt{n+1} - 1)
+\end{align}
+
+Therefore:
+$$1 + \frac{1}{\sqrt{2}} + \frac{1}{\sqrt{3}} + \cdots + \frac{1}{\sqrt{n}} > 2(\sqrt{n+1} - 1)$$
+
+\textbf{Intuitive Explanation:}
+
+The inequality works because:
+
+\begin{enumerate}
+\item Each term $\frac{1}{\sqrt{k}}$ on the left is strictly greater than the corresponding "increment" $2(\sqrt{k+1} - \sqrt{k})$ in the telescoping sum on the right
+
+\item When we sum all these strict inequalities, we get the desired result
+
+\item The geometric intuition is that the sum of reciprocals of square roots grows faster than twice the difference of consecutive square roots
+
+\item This reflects the fact that $\frac{1}{\sqrt{x}}$ decreases more slowly than the rate at which $\sqrt{x}$ increases
+\end{enumerate}
+
+The key insight is recognizing that $\frac{1}{\sqrt{k}}$ can be bounded below by the increment $2(\sqrt{k+1} - \sqrt{k})$, which allows us to use the powerful telescoping sum technique.
+
+\subsection*{Detailed Explanation: Alternative Proof Algebra}
+
+Let me break down the algebraic step more carefully.
+
+\textbf{Goal:} We want to prove $\frac{1}{\sqrt{k}} > 2(\sqrt{k+1} - \sqrt{k})$
+
+\textbf{Step 1:} Multiply both sides by $\sqrt{k}(\sqrt{k+1} + \sqrt{k})$
+
+This is a clever choice because $(\sqrt{k+1} + \sqrt{k})$ is the \textbf{conjugate} of $(\sqrt{k+1} - \sqrt{k})$.
+
+\textbf{Step 2:} Work out the Left Hand Side (LHS)
+
+\begin{align}
+\text{LHS} &= \frac{1}{\sqrt{k}} \times \sqrt{k}(\sqrt{k+1} + \sqrt{k})\\
+&= \frac{1}{\sqrt{k}} \times \sqrt{k} \times (\sqrt{k+1} + \sqrt{k})\\
+&= 1 \times (\sqrt{k+1} + \sqrt{k}) \quad \text{[since $\frac{1}{\sqrt{k}} \times \sqrt{k} = 1$]}\\
+&= \sqrt{k+1} + \sqrt{k}
+\end{align}
+
+\textbf{Step 3:} Work out the Right Hand Side (RHS) - The tricky part!
+
+\begin{align}
+\text{RHS} &= 2(\sqrt{k+1} - \sqrt{k}) \times \sqrt{k}(\sqrt{k+1} + \sqrt{k})\\
+&= 2\sqrt{k} \times (\sqrt{k+1} - \sqrt{k}) \times (\sqrt{k+1} + \sqrt{k})
+\end{align}
+
+Now I need to expand $(\sqrt{k+1} - \sqrt{k}) \times (\sqrt{k+1} + \sqrt{k})$
+
+This is a \textbf{difference of squares} pattern: $(a - b)(a + b) = a^2 - b^2$
+
+Where $a = \sqrt{k+1}$ and $b = \sqrt{k}$
+
+\begin{align}
+(\sqrt{k+1} - \sqrt{k})(\sqrt{k+1} + \sqrt{k}) &= (\sqrt{k+1})^2 - (\sqrt{k})^2\\
+&= (k+1) - k\\
+&= 1
+\end{align}
+
+\textbf{Step 4:} Complete the RHS calculation
+
+\begin{align}
+\text{RHS} &= 2\sqrt{k} \times (\sqrt{k+1} - \sqrt{k}) \times (\sqrt{k+1} + \sqrt{k})\\
+&= 2\sqrt{k} \times 1 \quad \text{[from Step 3]}\\
+&= 2\sqrt{k}
+\end{align}
+
+\textbf{Step 5:} Compare LHS and RHS
+
+We now need to show: $\sqrt{k+1} + \sqrt{k} > 2\sqrt{k}$
+
+Subtract $\sqrt{k}$ from both sides: $\sqrt{k+1} > \sqrt{k}$
+
+This is obviously true since $k+1 > k$.
+
+\textbf{The Key Insight}
+
+The magic was using the \textbf{conjugate multiplication} technique. When we have an expression like $(\sqrt{k+1} - \sqrt{k})$, multiplying by its conjugate $(\sqrt{k+1} + \sqrt{k})$ eliminates the square roots through the difference of squares formula:
+
+$$(\sqrt{k+1} - \sqrt{k})(\sqrt{k+1} + \sqrt{k}) = (k+1) - k = 1$$
+
+This is a standard technique for simplifying expressions involving square root differences!
+
+
+\section*{6}
+
+\textbf{Problem:} There are $3^n$ golden coins, but exactly one of them is a counterfeit and weighs known to be less than the other coins. A balance scale is available.
+
+Show using the principle of induction that one can find the counterfeit coin with $n$ weighings.
+
+\textbf{Solution:}
+
+This is a classic problem that demonstrates the power of divide-and-conquer strategies and mathematical induction.
+
+\textbf{Strategy Overview}
+
+The key insight is to divide the coins into three equal groups at each step, which allows us to eliminate $\frac{2}{3}$ of the coins with each weighing.
+
+\textbf{Proof by Mathematical Induction}
+
+\textbf{Base Case: $n = 1$}
+
+When $n = 1$, we have $3^1 = 3$ coins, with exactly one counterfeit.
+
+\textbf{Strategy:} Place one coin on each side of the balance scale, keeping the third coin aside.
+
+\textbf{Possible outcomes:}
+\begin{itemize}
+\item If the scales balance: The counterfeit coin is the one set aside
+\item If the scales don't balance: The counterfeit coin is on the lighter side
+\end{itemize}
+
+\textbf{Result:} We can identify the counterfeit coin with 1 weighing. $\checkmark$
+
+\textbf{Inductive Hypothesis}
+
+Assume that for some $k \geq 1$, we can find the counterfeit coin among $3^k$ coins using $k$ weighings.
+
+\textbf{Inductive Step: Prove for $n = k+1$}
+
+We now have $3^{k+1} = 3 \times 3^k$ coins.
+
+\textbf{Strategy:} Divide the $3^{k+1}$ coins into three equal groups of $3^k$ coins each.
+
+\textbf{Step 1:} Use the balance scale to compare two of these groups (each containing $3^k$ coins).
+
+\textbf{Possible outcomes:}
+
+\textbf{Case 1:} The scales balance
+\begin{itemize}
+\item This means both groups on the scale contain only genuine coins
+\item The counterfeit coin must be in the third group (the one not weighed)
+\item We now have $3^k$ coins containing exactly one counterfeit
+\end{itemize}
+
+\textbf{Case 2:} The scales don't balance
+\begin{itemize}
+\item The counterfeit coin is in the lighter group
+\item We now have $3^k$ coins containing exactly one counterfeit
+\end{itemize}
+
+\textbf{Step 2:} Apply the inductive hypothesis
+\begin{itemize}
+\item In both cases, we have reduced the problem to finding the counterfeit among $3^k$ coins
+\item By the inductive hypothesis, this can be done in $k$ additional weighings
+\end{itemize}
+
+\textbf{Total weighings:} $1$ (for the initial division) $+ k$ (by inductive hypothesis) $= k + 1$ weighings
+
+\textbf{Conclusion}
+
+By mathematical induction, we can find the counterfeit coin among $3^n$ coins using exactly $n$ weighings.
+
+\textbf{Why This Works}
+
+The algorithm works because:
+
+\begin{enumerate}
+\item \textbf{Information theory:} Each weighing gives us one of three outcomes (left heavier, right heavier, or balanced), providing $\log_3$ information
+\item \textbf{Optimal strategy:} With $3^n$ coins, we need exactly $n$ weighings because $\log_3(3^n) = n$
+\item \textbf{Divide and conquer:} By dividing into three equal groups, we eliminate the maximum number of possibilities with each weighing
+\end{enumerate}
+
+\textbf{Example for $n = 2$ (9 coins)}
+
+\textbf{Weighing 1:} Divide 9 coins into groups A, B, C (3 coins each). Compare A vs B.
+\begin{itemize}
+\item If balanced: counterfeit in C. Problem reduces to 3 coins $\rightarrow$ 1 more weighing needed
+\item If unbalanced: counterfeit in lighter group. Problem reduces to 3 coins $\rightarrow$ 1 more weighing needed
+\end{itemize}
+
+\textbf{Weighing 2:} Among the identified group of 3 coins, compare 2 coins.
+\begin{itemize}
+\item If balanced: third coin is counterfeit
+\item If unbalanced: lighter coin is counterfeit
+\end{itemize}
+
+\textbf{Total:} 2 weighings for $3^2 = 9$ coins $\checkmark$
+
+\end{document}
