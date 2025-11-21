@@ -1,0 +1,300 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{amssymb} % ensures \setminus is defined
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{graphicx} % Images
+\usepackage{hyperref} % Clickable references
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{hs23 Ex. 8}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\subsection*{(i)}
+
+\noindent \textbf{1 a) i)} \quad $\forall x \in \mathbb{R} \setminus \{1\}$ we have
+\[
+\frac{x^p - 1}{x^q - 1} 
+= \frac{(x-1)(x^{p-1} + x^{p-2} + \dots + x + 1)}{(x-1)(x^{q-1} + x^{q-2} + \dots + x + 1)} 
+= \frac{x^{p-1} + x^{p-2} + \dots + x + 1}{x^{q-1} + x^{q-2} + \dots + x + 1}
+\]
+
+\noindent Since the right-hand side is continuous at $x=1$, we conclude that
+\[
+\lim_{x \to 1} \frac{x^p - 1}{x^q - 1} = \frac{p}{q}.
+\]
+
+\subsection*{(ii)}
+
+\textbf{Problem:} Calculate $\lim_{x \to 0} x\left(1 + \frac{4}{x^2}\right)^{\frac{1}{2}}$.
+
+\subsection*{Step-by-Step Simplification}
+First, we rewrite the term inside the square root fraction using a common denominator:
+\[
+f(x) = x \sqrt{1 + \frac{4}{x^2}} = x \sqrt{\frac{x^2 + 4}{x^2}}
+\]
+
+Using the rule $\sqrt{\frac{a}{b}} = \frac{\sqrt{a}}{\sqrt{b}}$, we separate the numerator and denominator:
+\[
+f(x) = x \frac{\sqrt{x^2 + 4}}{\sqrt{x^2}}
+\]
+
+\noindent \textbf{Important:} Recall that $\sqrt{x^2} = |x|$. Therefore:
+\[
+f(x) = \frac{x}{|x|} \sqrt{x^2 + 4}
+\]
+
+\subsection*{Calculating One-Sided Limits}
+
+\subsubsection*{1. Right-hand limit ($x \to 0^+$)}
+For $x > 0$, we have $|x| = x$.
+\[
+\lim_{x \to 0^+} \frac{x}{x} \sqrt{x^2 + 4} = \lim_{x \to 0^+} 1 \cdot \sqrt{x^2 + 4} = \sqrt{4} = 2
+\]
+
+\subsubsection*{2. Left-hand limit ($x \to 0^-$)}
+For $x < 0$, we have $|x| = -x$.
+\[
+\lim_{x \to 0^-} \frac{x}{-x} \sqrt{x^2 + 4} = \lim_{x \to 0^-} (-1) \cdot \sqrt{x^2 + 4} = -\sqrt{4} = -2
+\]
+
+\subsection*{Conclusion}
+Since the left-hand limit ($-2$) and the right-hand limit ($2$) are not equal:
+\[
+\lim_{x \to 0^-} f(x) \neq \lim_{x \to 0^+} f(x)
+\]
+The limit $\lim_{x \to 0} x\left(1 + \frac{4}{x^2}\right)^{\frac{1}{2}}$ \textbf{does not exist}.
+
+\subsection*{(iii)}
+
+\textbf{Problem:} Calculate $\lim_{x \to \infty} \left( \sqrt{(x+a)(x+b)} - x \right)$.
+
+\subsection*{Step-by-Step Calculation}
+
+Direct substitution leads to the form $\infty - \infty$. We multiply and divide by the conjugate expression $\sqrt{(x+a)(x+b)} + x$.
+
+Let $L$ be the limit:
+\[
+L = \lim_{x \to \infty} \frac{\left(\sqrt{(x+a)(x+b)} - x\right)\left(\sqrt{(x+a)(x+b)} + x\right)}{\sqrt{(x+a)(x+b)} + x}
+\]
+
+Using the difference of squares formula $(A-B)(A+B) = A^2 - B^2$ in the numerator:
+\[
+L = \lim_{x \to \infty} \frac{(x+a)(x+b) - x^2}{\sqrt{(x+a)(x+b)} + x}
+\]
+
+Next, we expand the term $(x+a)(x+b)$ in the numerator:
+\[
+(x+a)(x+b) = x^2 + ax + bx + ab = x^2 + (a+b)x + ab
+\]
+
+Substitute this back into the limit and simplify the numerator:
+\begin{align*}
+L &= \lim_{x \to \infty} \frac{(x^2 + (a+b)x + ab) - x^2}{\sqrt{x^2 + (a+b)x + ab} + x} \\
+&= \lim_{x \to \infty} \frac{(a+b)x + ab}{\sqrt{x^2 + (a+b)x + ab} + x}
+\end{align*}
+
+To evaluate the limit at infinity, we factor out the dominant term $x$ from both the numerator and the denominator.
+Recall that for $x > 0$, $\sqrt{x^2} = x$. We factor $x^2$ out of the square root in the denominator:
+
+\begin{align*}
+L &= \lim_{x \to \infty} \frac{x(a+b + \frac{ab}{x})}{\sqrt{x^2(1 + \frac{a+b}{x} + \frac{ab}{x^2})} + x} \\
+&= \lim_{x \to \infty} \frac{x(a+b + \frac{ab}{x})}{x\sqrt{1 + \frac{a+b}{x} + \frac{ab}{x^2}} + x} \\
+&= \lim_{x \to \infty} \frac{x(a+b + \frac{ab}{x})}{x\left(\sqrt{1 + \frac{a+b}{x} + \frac{ab}{x^2}} + 1\right)}
+\end{align*}
+
+Cancel $x$ from the numerator and denominator:
+\[
+L = \lim_{x \to \infty} \frac{a+b + \frac{ab}{x}}{\sqrt{1 + \frac{a+b}{x} + \frac{ab}{x^2}} + 1}
+\]
+
+Now, we take the limit as $x \to \infty$. All terms with $x$ in the denominator approach $0$:
+\[
+L = \frac{a+b + 0}{\sqrt{1 + 0 + 0} + 1} = \frac{a+b}{1 + 1}
+\]
+
+\subsection*{Conclusion}
+\[
+\lim_{x \to \infty} \left( \sqrt{(x+a)(x+b)} - x \right) = \frac{a+b}{2}
+\]
+
+\subsection*{(b)}
+
+\textbf{Problem:} Determine $\alpha, \beta \in \mathbb{R}$ such that the function $f(x)$ is continuous on $\mathbb{R}$.
+\[
+f(x) = \begin{cases} 
+x^2 - \alpha x + \beta & \text{for } x \le -1 \\ 
+(\alpha + \beta)x & \text{for } -1 \le x \le 1 \\ 
+x^2 + \alpha x - \beta & \text{for } x \ge 1 
+\end{cases}
+\]
+
+\subsection*{Condition for Continuity}
+Since polynomials are continuous everywhere, we only need to ensure continuity at the transition points $x = -1$ and $x = 1$.
+For $f(x)$ to be continuous, the limit from the left must equal the limit from the right at these points.
+
+\subsection*{1. Continuity at $x = -1$}
+We equate the limit from the left ($x \le -1$) and the limit from the right ($x \ge -1$):
+\begin{align*}
+\lim_{x \to -1^-} f(x) &= \lim_{x \to -1^+} f(x) \\
+(-1)^2 - \alpha(-1) + \beta &= (\alpha + \beta)(-1) \\
+1 + \alpha + \beta &= -\alpha - \beta
+\end{align*}
+Rearranging terms to form an equation:
+\[
+2\alpha + 2\beta = -1 \quad \dots \text{(Equation I)}
+\]
+
+\subsection*{2. Continuity at $x = 1$}
+We equate the limit from the left ($x \le 1$) and the limit from the right ($x \ge 1$):
+\begin{align*}
+\lim_{x \to 1^-} f(x) &= \lim_{x \to 1^+} f(x) \\
+(\alpha + \beta)(1) &= (1)^2 + \alpha(1) - \beta \\
+\alpha + \beta &= 1 + \alpha - \beta
+\end{align*}
+Subtracting $\alpha$ from both sides:
+\[
+\beta = 1 - \beta
+\]
+\[
+2\beta = 1 \implies \beta = \frac{1}{2}
+\]
+
+\subsection*{3. Solving for $\alpha$}
+Substitute $\beta = \frac{1}{2}$ into (Equation I):
+\begin{align*}
+2\alpha + 2\left(\frac{1}{2}\right) &= -1 \\
+2\alpha + 1 &= -1 \\
+2\alpha &= -2 \\
+\alpha &= -1
+\end{align*}
+
+\subsection*{Conclusion}
+The function $f(x)$ is continuous on the entire real axis for the values:
+\[
+\alpha = -1, \quad \beta = \frac{1}{2}
+\]
+
+
+\section*{4}
+\subsection*{(a)}
+\begin{solution}
+Let $\epsilon > 0$. We aim to show that $(f(x_n))_{n \in \mathbb{N}}$ is a Cauchy sequence. That is, we must find an $N \in \mathbb{N}$ such that for all $n, m \geq N$, $|f(x_n) - f(x_m)| < \epsilon$.
+
+Since $f$ is uniformly continuous on $X$, there exists a $\delta > 0$ such that for all $x, y \in X$:
+\[
+|x - y| < \delta \implies |f(x) - f(y)| < \epsilon
+\]
+Since $(x_n)_{n \in \mathbb{N}}$ is a Cauchy sequence in $X$, there exists an $N \in \mathbb{N}$ such that for all $n, m \geq N$:
+\[
+|x_n - x_m| < \delta
+\]
+Now, consider arbitrary $n, m \geq N$. We have $|x_n - x_m| < \delta$. By the uniform continuity condition stated above, this implies:
+\[
+|f(x_n) - f(x_m)| < \epsilon
+\]
+Since this holds for any $\epsilon > 0$, the sequence $(f(x_n))_{n \in \mathbb{N}}$ is a Cauchy sequence.
+\end{solution}
+
+\subsection*{(b)}
+\begin{solution}
+Let $x_0$ be an accumulation point of the sequence $(x_n)_{n \in \mathbb{N}} \subset X$. By definition, there exists a subsequence $(x_{n_k})_{k \in \mathbb{N}}$ such that $\lim_{k \to \infty} x_{n_k} = x_0$.
+
+Since $(x_{n_k})$ is a convergent sequence in $\mathbb{R}$, it is a Cauchy sequence. From part (a), we know that since $f$ is uniformly continuous, the image sequence $(f(x_{n_k}))_{k \in \mathbb{N}}$ is also a Cauchy sequence in $\mathbb{R}$. Because $\mathbb{R}$ is complete, this sequence converges. Let $y = \lim_{k \to \infty} f(x_{n_k})$.
+
+We define the extension $g: X \cup \{x_0\} \to \mathbb{R}$ as:
+\[
+g(x) = \begin{cases} 
+f(x) & \text{if } x \in X \\
+y & \text{if } x = x_0 
+\end{cases}
+\]
+We now show that $g$ is continuous at $x_0$. (Note: Continuity on $X$ is inherited from $f$).
+Let $\epsilon > 0$. Since $f$ is uniformly continuous on $X$, there exists a $\delta > 0$ such that for all $u, v \in X$:
+\[
+|u - v| < \delta \implies |f(u) - f(v)| < \frac{\epsilon}{2}
+\]
+Since $x_{n_k} \to x_0$ and $f(x_{n_k}) \to y$, we can choose a sufficiently large index $K$ such that:
+\[
+|x_{n_K} - x_0| < \frac{\delta}{2} \quad \text{and} \quad |f(x_{n_K}) - y| < \frac{\epsilon}{2}
+\]
+Now, consider any $x \in X$ with $|x - x_0| < \frac{\delta}{2}$. By the triangle inequality:
+\[
+|x - x_{n_K}| \leq |x - x_0| + |x_0 - x_{n_K}| < \frac{\delta}{2} + \frac{\delta}{2} = \delta
+\]
+Using the uniform continuity condition, we have $|f(x) - f(x_{n_K})| < \frac{\epsilon}{2}$.
+Finally, we bound the distance from $g(x)$ to the limit $y$:
+\[
+|g(x) - g(x_0)| = |f(x) - y| \leq |f(x) - f(x_{n_K})| + |f(x_{n_K}) - y| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+\]
+Thus, $\lim_{x \to x_0} g(x) = g(x_0)$, which proves that $g$ is continuous at $x_0$.
+\end{solution}
+
+\subsection*{(b from handwritten solution)}
+\begin{solution}
+Let $(a_n)_{n \in \mathbb{N}} \subset X$ be a sequence such that $\lim_{n \to \infty} a_n = x_0$. Since $(a_n)$ converges, it is a Cauchy sequence. By part (a), $(f(a_n))_{n \in \mathbb{N}}$ is also a Cauchy sequence. Since $\mathbb{R}$ is complete, the limit $y := \lim_{n \to \infty} f(a_n)$ exists. We want to show that the extension
+\[
+\bar{f}(x) := \begin{cases} 
+f(x) & x \in X \\ 
+\lim_{n \to \infty} f(a_n) & x = x_0 
+\end{cases}
+\]
+is continuous on $X \cup \{x_0\}$.
+
+Let $(b_n)_{n \in \mathbb{N}} \subset X$ be another sequence such that $\lim_{n \to \infty} b_n = x_0$. We want to show that $\lim_{n \to \infty} f(b_n) = \lim_{n \to \infty} f(a_n)$. If this holds, then $f$ is continuous by the sequential criterion for continuity.
+
+Let $c_n$ be the interleaved sequence defined as:
+\[
+(c_n)_{n \in \mathbb{N}} := (a_1, b_1, a_2, b_2, \dots)
+\]
+For any $\epsilon > 0$, there exists $N \in \mathbb{N}$ such that $|a_n - x_0| < \epsilon$ and $|b_n - x_0| < \epsilon$ for all $n \geq N$.
+If we choose an index $n \geq 2N$, then the corresponding index for the original sequences is at least $N$ (specifically $n/2$ if even, or $(n+1)/2$ if odd).
+\begin{itemize}
+    \item For $n$ even, $|c_n - x_0| = |b_{n/2} - x_0| < \epsilon$.
+    \item For $n$ odd, $|c_n - x_0| = |a_{(n+1)/2} - x_0| < \epsilon$.
+\end{itemize}
+Therefore, $c_n \to x_0$. As shown in part (a), since $(c_n)$ converges, $\lim_{n \to \infty} f(c_n)$ exists.
+Since $(f(a_n))$ and $(f(b_n))$ are subsequences of $(f(c_n))$, they must converge to the same limit.
+\[
+\lim_{n \to \infty} f(a_n) = \lim_{n \to \infty} f(b_n) = \lim_{n \to \infty} f(c_n) = \bar{f}(x_0)
+\]
+Thus, the extension is continuous.
+\end{solution}
+\end{document}

@@ -1,0 +1,854 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\chead{Exercise sheet 4}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+\subsection*{(a)}
+
+\begin{solution}
+We are given
+\[
+a_n=\frac{n^3-7}{n^4+3}.
+\]
+
+Idea: Compare dominant powers. The numerator is order $n^3$ and the denominator is order $n^4$, so we expect $a_n \to 0$.
+
+Step 1: Divide by the highest power $n^4$
+\[
+a_n
+= \frac{n^3-7}{n^4+3}
+= \frac{n^3}{n^4}\cdot \frac{1-\frac{7}{n^3}}{1+\frac{3}{n^4}}
+= \frac{1}{n}\cdot \frac{1-\frac{7}{n^3}}{1+\frac{3}{n^4}}.
+\]
+
+Step 2: Take limits of each factor
+- $\frac{1}{n}\to 0$,
+- $1-\frac{7}{n^3}\to 1$,
+- $1+\frac{3}{n^4}\to 1$,
+so by limit laws,
+\[
+\frac{1-\frac{7}{n^3}}{1+\frac{3}{n^4}} \longrightarrow 1
+\quad\Longrightarrow\quad
+a_n \;=\; \frac{1}{n}\cdot \Biggl(\frac{1-\frac{7}{n^3}}{1+\frac{3}{n^4}}\Biggr)\;\longrightarrow\; 0\cdot 1 \;=\; 0.
+\]
+
+Optional $\varepsilon$-proof (quick bound)  
+For $n\ge 1$,
+\[
+\left|\frac{1-\frac{7}{n^3}}{1+\frac{3}{n^4}}\right|
+\le \frac{1+\frac{7}{n^3}}{1} \le 1+7 = 8,
+\]
+hence
+\[
+|a_n| \;=\; \frac{1}{n}\,\left|\frac{1-\frac{7}{n^3}}{1+\frac{3}{n^4}}\right|
+\;\le\; \frac{8}{n}.
+\]
+Given $\varepsilon>0$, choose $N>\frac{8}{\varepsilon}$. Then for all $n\ge N$,
+\[
+|a_n|\le \frac{8}{n}\le \frac{8}{N}<\varepsilon,
+\]
+so indeed $a_n\to 0$.
+
+Conclusion
+\[
+\boxed{\lim_{n\to\infty} a_n = 0.}
+\]
+\end{solution}
+
+
+%%%%%%%%
+\subsection*{(b)}
+\begin{solution}
+Let
+\[
+b_n:=\frac{2^n}{n!}\qquad(n\in\mathbb{N}).
+\]
+We show $b_n\to 0$.
+
+Ratio step and geometric domination. Compute
+\[
+\frac{b_{n+1}}{b_n}
+=\frac{2^{n+1}/(n+1)!}{2^n/n!}
+=\frac{2}{n+1}.
+\]
+For $n\ge 3$ we have $\dfrac{2}{n+1}\le \tfrac12$, hence
+\[
+b_{n+1}\le \tfrac12\,b_n\qquad(n\ge 3).
+\]
+Iterating yields, for every $m>n\ge 3$,
+\[
+b_m \le b_n\Bigl(\tfrac12\Bigr)^{m-n}.
+\]
+Taking $n=3$ (where $b_3=\dfrac{2^3}{3!}=\dfrac{4}{3}$) gives
+\[
+b_m \le \frac{4}{3}\Bigl(\tfrac12\Bigr)^{m-3}
+= \frac{32}{3}\Bigl(\tfrac12\Bigr)^m,
+\]
+so the sequence is eventually dominated by a geometric sequence with ratio $1/2$. Hence $b_n\to 0$.
+
+Epsilon proof from the bound. From the previous bound,
+\[
+0\le b_n \le \frac{32}{3}\Bigl(\tfrac12\Bigr)^n\qquad(n\ge 3).
+\]
+Given $\varepsilon>0$, choose $N$ with $\dfrac{32}{3}\bigl(\tfrac12\bigr)^N<\varepsilon$. Then for all $n\ge N$,
+\[
+|b_n-0|=b_n\le \frac{32}{3}\Bigl(\tfrac12\Bigr)^n\le \frac{32}{3}\Bigl(\tfrac12\Bigr)^N<\varepsilon,
+\]
+proving $b_n\to 0$.
+
+\textbf{Remarks.} The ratio $\dfrac{b_{n+1}}{b_n}=\dfrac{2}{n+1}\to 0$ encodes that $n!$ outgrows $2^n$. Alternatively, since $e^2=\sum_{k=0}^\infty\frac{2^k}{k!}$ converges, its terms satisfy $\dfrac{2^n}{n!}\to 0$.
+\end{solution}
+
+%%%%%%%%
+\subsection*{(c)}
+\begin{solution}
+Let
+\[
+c_n:=\frac{n^2}{2^n+3^n}.
+\]
+We show $c_n\to 0$ by bounding $c_n$ with a simpler sequence and applying geometric domination.
+
+\textbf{Step 1: Simplify using a lower bound on the denominator.}
+Since $3^n\le 2^n+3^n$, we have
+\[
+0\le c_n=\frac{n^2}{2^n+3^n}\le \frac{n^2}{3^n}.
+\]
+Thus it suffices to prove
+\[
+d_n:=\frac{n^2}{3^n}\longrightarrow 0.
+\]
+
+\textbf{Step 2: Compute the ratio $d_{n+1}/d_n$.}
+By definition,
+\[
+d_n=\frac{n^2}{3^n},\qquad d_{n+1}=\frac{(n+1)^2}{3^{n+1}}.
+\]
+Dividing yields
+\[
+\frac{d_{n+1}}{d_n}
+=\frac{(n+1)^2}{3^{n+1}}\cdot\frac{3^n}{n^2}
+=\frac{(n+1)^2}{n^2}\cdot\frac{1}{3}
+=\left(1+\frac{1}{n}\right)^2\cdot\frac{1}{3}.
+\]
+
+\textbf{Step 3: Bound the ratio for $n\ge 2$.}
+Expanding the square,
+\[
+\left(1+\frac{1}{n}\right)^2
+=1+\frac{2}{n}+\frac{1}{n^2}.
+\]
+For $n\ge 2$, we have $\dfrac{2}{n}\le 1$ and $\dfrac{1}{n^2}\le \dfrac{1}{4}$, so
+\[
+\left(1+\frac{1}{n}\right)^2
+\le 1+1+\frac{1}{4}=\frac{9}{4}.
+\]
+Hence
+\[
+\frac{d_{n+1}}{d_n}
+\le \frac{9}{4}\cdot\frac{1}{3}=\frac{3}{4}
+\qquad(n\ge 2),
+\]
+or equivalently,
+\[
+d_{n+1}\le \frac{3}{4}\,d_n\qquad(n\ge 2).
+\]
+
+\textbf{Step 4: Geometric domination by iteration.}
+Iterating the inequality for any $m>n\ge 2$ gives
+\[
+d_m \le d_n\left(\frac{3}{4}\right)^{m-n}.
+\]
+Taking $n=2$ (where $d_2=\dfrac{4}{9}$), we obtain for all $m\ge 2$,
+\[
+d_m \le \frac{4}{9}\left(\frac{3}{4}\right)^{m-2}
+= \frac{64}{9}\left(\frac{3}{4}\right)^{m}.
+\]
+Since $\left(\dfrac{3}{4}\right)^m\to 0$, we conclude $d_m\to 0$.
+
+\textbf{Step 5: Conclude $c_n\to 0$.}
+Since $0\le c_n\le d_n$ and $d_n\to 0$, by the squeeze theorem,
+\[
+\boxed{\lim_{n\to\infty} c_n=0.}
+\]
+
+\textbf{Optional $\varepsilon$-proof.}
+From the geometric bound,
+\[
+0\le c_n \le \frac{64}{9}\left(\frac{3}{4}\right)^n\qquad(n\ge 2).
+\]
+Given $\varepsilon>0$, choose $N$ such that $\dfrac{64}{9}\left(\dfrac{3}{4}\right)^N<\varepsilon$. Then for all $n\ge N$,
+\[
+|c_n-0|=c_n\le \frac{64}{9}\left(\frac{3}{4}\right)^n\le \frac{64}{9}\left(\frac{3}{4}\right)^N<\varepsilon,
+\]
+proving $c_n\to 0$.
+\end{solution}
+
+\subsection*{(d)}
+\begin{solution}
+Let
+\[
+d_n := \sqrt{n+1} - \sqrt{n}.
+\]
+We show step by step that $d_n \to 0$ and give a clean bound and an $\varepsilon$-proof.
+
+\textbf{1) Rationalize the difference.}
+
+Multiply by the conjugate:
+\[
+\begin{aligned}
+d_n
+&= \sqrt{n+1} - \sqrt{n} \\[2pt]
+&= \frac{(\sqrt{n+1} - \sqrt{n})(\sqrt{n+1} + \sqrt{n})}{\sqrt{n+1} + \sqrt{n}} \\[2pt]
+&= \frac{(\sqrt{n+1})^2 - (\sqrt{n})^2}{\sqrt{n+1} + \sqrt{n}} \\[2pt]
+&= \frac{(n+1) - n}{\sqrt{n+1} + \sqrt{n}} \\[2pt]
+&= \boxed{\frac{1}{\sqrt{n+1} + \sqrt{n}}}.
+\end{aligned}
+\]
+
+\textbf{2) Bound it between two simple expressions.}
+
+Since $\sqrt{n+1} \ge \sqrt{n}$,
+\[
+\sqrt{n+1} + \sqrt{n} \ge 2\sqrt{n}
+\implies
+d_n \le \frac{1}{2\sqrt{n}}.
+\]
+Also,
+\[
+\sqrt{n+1} + \sqrt{n} \le 2\sqrt{n+1}
+\implies
+d_n \ge \frac{1}{2\sqrt{n+1}}.
+\]
+So,
+\[
+\boxed{
+\frac{1}{2\sqrt{n+1}} \le d_n \le \frac{1}{2\sqrt{n}}
+}
+\]
+Both bounds tend to $0$, so by the squeeze theorem,
+\[
+\lim_{n\to\infty} d_n = 0.
+\]
+
+\textbf{3) $\varepsilon$-proof (from the bound).}
+
+From above,
+\[
+0 \le d_n \le \frac{1}{2\sqrt{n}}.
+\]
+Given $\varepsilon > 0$, choose $N$ such that
+\[
+\frac{1}{2\sqrt{N}} < \varepsilon
+\iff
+N > \frac{1}{4\varepsilon^2}.
+\]
+Then for all $n \ge N$,
+\[
+|d_n - 0| = d_n \le \frac{1}{2\sqrt{n}} \le \frac{1}{2\sqrt{N}} < \varepsilon,
+\]
+so $d_n \to 0$.
+
+\textbf{4) Optional: monotonicity.}
+
+Since
+\[
+d_n = \frac{1}{\sqrt{n+1} + \sqrt{n}},
+\]
+the denominator increases with $n$, so $d_{n+1} \le d_n$ for all $n$. Thus $(d_n)$ is positive, decreasing, and tends to $0$.
+\end{solution}
+
+\section*{2}
+\subsection*{(a)}
+\textbf{Given:} 
+\begin{itemize}
+    \item $(a_n)_{n\in\mathbb{N}}$ and $(b_n)_{n\in\mathbb{N}}$ are sequences of real numbers
+    \item $a_n \to \infty$
+    \item $b_n \to b \in \mathbb{R}$
+\end{itemize}
+
+\textbf{To prove:} $a_n + b_n \to \infty$
+
+\subsection*{Solution}
+
+\textbf{Step 1: Write out what we need to prove}
+
+By definition, we need to show that $a_n + b_n \to \infty$, which means:
+\[
+\forall M > 0, \exists N \in \mathbb{N} : \forall n \geq N, \quad a_n + b_n > M
+\]
+
+\textbf{Step 2: Use the given information}
+
+Since $a_n \to \infty$, we know:
+\[
+\forall M' > 0, \exists N_1 \in \mathbb{N} : \forall n \geq N_1, \quad a_n > M'
+\]
+
+Since $b_n \to b \in \mathbb{R}$, we know:
+\[
+\forall \varepsilon > 0, \exists N_2 \in \mathbb{N} : \forall n \geq N_2, \quad |b_n - b| < \varepsilon
+\]
+
+\textbf{Step 3: Unpack the convergence condition for $b_n$}
+
+From $|b_n - b| < \varepsilon$, we get:
+\[
+-\varepsilon < b_n - b < \varepsilon
+\]
+
+Adding $b$ to all parts:
+\[
+b - \varepsilon < b_n < b + \varepsilon
+\]
+
+In particular, we have:
+\[
+b_n > b - \varepsilon
+\]
+
+\textbf{Step 4: Combine the estimates}
+
+For $n \geq \max\{N_1, N_2\}$, we have both $a_n > M'$ and $b_n > b - \varepsilon$.
+
+Adding these inequalities:
+\[
+a_n + b_n > M' + (b - \varepsilon) = M' + b - \varepsilon
+\]
+
+\textbf{Step 5: Choose appropriate values}
+
+Let $M > 0$ be given (arbitrary).
+
+Choose $\varepsilon = 1$ (any positive constant works).
+
+Choose $M' = M - b + 1$.
+
+Then:
+\[
+a_n + b_n > M' + b - \varepsilon = (M - b + 1) + b - 1 = M
+\]
+
+\textbf{Step 6: Set $N$ and conclude}
+
+Let $N = \max\{N_1, N_2\}$, where:
+\begin{itemize}
+    \item $N_1$ is such that $a_n > M - b + 1$ for all $n \geq N_1$
+    \item $N_2$ is such that $|b_n - b| < 1$ for all $n \geq N_2$
+\end{itemize}
+Then for all $n \geq N$:
+\[
+a_n + b_n > M
+\]
+
+Since $M$ was arbitrary, this proves that $a_n + b_n \to \infty$. $\square$
+
+
+\subsection*{(b)}
+
+\textbf{Given:} 
+\begin{itemize}
+    \item $(a_n)_{n\in\mathbb{N}}$ and $(b_n)_{n\in\mathbb{N}}$ are sequences of real numbers
+    \item $a_n \to \infty$
+    \item $b_n \to b \in \mathbb{R}$
+\end{itemize}
+
+\textbf{To prove:} 
+\begin{itemize}
+    \item If $b > 0$, then $a_n b_n \to \infty$
+    \item If $b < 0$, then $a_n b_n \to -\infty$
+\end{itemize}
+
+\begin{solution}
+I'll prove both cases separately.
+
+\textbf{Case 1: $b > 0$}
+
+\textbf{Goal:} Show that $a_n b_n \to \infty$
+
+\textbf{Step 1: Write what we need to prove}
+
+We need to show:
+\[
+\forall M > 0, \exists N \in \mathbb{N} : \forall n \geq N, \quad a_n b_n > M
+\]
+
+\textbf{Step 2: Use the convergence of $b_n$}
+
+Since $b_n \to b$ and $b > 0$, we can choose $\varepsilon = \frac{b}{2} > 0$.
+
+Then $\exists N_1 \in \mathbb{N}$ such that $\forall n \geq N_1$:
+\[
+|b_n - b| < \frac{b}{2}
+\]
+
+\textbf{Step 3: Get a lower bound for $b_n$}
+
+From $|b_n - b| < \frac{b}{2}$:
+\[
+-\frac{b}{2} < b_n - b < \frac{b}{2}
+\]
+
+Adding $b$ to all parts:
+\[
+b - \frac{b}{2} < b_n < b + \frac{b}{2}
+\]
+
+Simplifying:
+\[
+\frac{b}{2} < b_n < \frac{3b}{2}
+\]
+
+In particular:
+\[
+b_n > \frac{b}{2} > 0
+\]
+
+\textbf{Step 4: Use the divergence of $a_n$}
+
+Since $a_n \to \infty$, for any $M' > 0$, $\exists N_2 \in \mathbb{N}$ such that $\forall n \geq N_2$:
+\[
+a_n > M'
+\]
+
+\textbf{Step 5: Combine the estimates}
+
+Let $M > 0$ be given (arbitrary).
+
+Choose $M' = \frac{2M}{b}$.
+
+Then $\exists N_2$ such that for $n \geq N_2$:
+\[
+a_n > \frac{2M}{b}
+\]
+
+For $n \geq \max\{N_1, N_2\}$, we have both $a_n > \frac{2M}{b}$ and $b_n > \frac{b}{2}$.
+
+Since both are positive, we can multiply:
+\[
+a_n b_n > \frac{2M}{b} \cdot \frac{b}{2} = M
+\]
+
+\textbf{Step 6: Conclude}
+
+Let $N = \max\{N_1, N_2\}$. Then for all $n \geq N$:
+\[
+a_n b_n > M
+\]
+
+Since $M$ was arbitrary, $a_n b_n \to \infty$. $\square$
+
+\bigskip
+
+\textbf{Case 2: $b < 0$}
+
+\textbf{Goal:} Show that $a_n b_n \to -\infty$
+
+\textbf{Step 1: Write what we need to prove}
+
+We need to show:
+\[
+\forall M > 0, \exists N \in \mathbb{N} : \forall n \geq N, \quad a_n b_n < -M
+\]
+
+(Note: For divergence to $-\infty$, we need the sequence to eventually be less than $-M$ for any positive $M$)
+
+\textbf{Step 2: Use the convergence of $b_n$}
+
+Since $b_n \to b$ and $b < 0$, we can choose $\varepsilon = \frac{|b|}{2} = -\frac{b}{2} > 0$.
+
+Then $\exists N_1 \in \mathbb{N}$ such that $\forall n \geq N_1$:
+\[
+|b_n - b| < -\frac{b}{2}
+\]
+
+\textbf{Step 3: Get an upper bound for $b_n$}
+
+From $|b_n - b| < -\frac{b}{2}$:
+\[
+\frac{b}{2} < b_n - b < -\frac{b}{2}
+\]
+
+Adding $b$ to all parts:
+\[
+b + \frac{b}{2} < b_n < b - \frac{b}{2}
+\]
+
+Simplifying:
+\[
+\frac{3b}{2} < b_n < \frac{b}{2}
+\]
+
+In particular:
+\[
+b_n < \frac{b}{2} < 0
+\]
+
+\textbf{Step 4: Use the divergence of $a_n$}
+
+Since $a_n \to \infty$, for any $M' > 0$, $\exists N_2 \in \mathbb{N}$ such that $\forall n \geq N_2$:
+\[
+a_n > M'
+\]
+
+\textbf{Step 5: Combine the estimates}
+
+Let $M > 0$ be given (arbitrary).
+
+Choose $M' = \frac{2M}{|b|} = -\frac{2M}{b}$ (note: this is positive since $b < 0$).
+
+Then $\exists N_2$ such that for $n \geq N_2$:
+\[
+a_n > -\frac{2M}{b}
+\]
+
+For $n \geq \max\{N_1, N_2\}$, we have $a_n > -\frac{2M}{b} > 0$ and $b_n < \frac{b}{2} < 0$.
+
+Multiplying (inequality reverses since $b_n < 0$):
+\[
+a_n b_n < -\frac{2M}{b} \cdot \frac{b}{2} = -M
+\]
+
+\textbf{Step 6: Conclude}
+
+Let $N = \max\{N_1, N_2\}$. Then for all $n \geq N$:
+\[
+a_n b_n < -M
+\]
+
+Since $M$ was arbitrary, $a_n b_n \to -\infty$. $\square$
+\end{solution}
+
+
+%%%%%%%%%%%
+
+\section*{3}
+\subsection*{(a)}
+\begin{solution}
+The statement is false. We will disprove it by providing a counterexample.
+
+Let
+\[
+a_n = \sum_{k=1}^n \frac{1}{k} = 1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n}.
+\]
+Then
+\[
+b_n = a_{n+1} - a_n = \frac{1}{n+1}.
+\]
+We will show that $b_n \to 0$ but $a_n$ does not converge.
+
+\textbf{Step 1: Show that $b_n \to 0$}
+
+We have
+\[
+\lim_{n\to\infty} b_n = \lim_{n\to\infty} \frac{1}{n+1} = 0.
+\]
+To prove this, let $\varepsilon > 0$ be given. We want to find $N \in \mathbb{N}$ such that for all $n \geq N$,
+\[
+\left|\frac{1}{n+1} - 0\right| < \varepsilon.
+\]
+This simplifies to
+\[
+\frac{1}{n+1} < \varepsilon,
+\]
+which is equivalent to
+\[
+n+1 > \frac{1}{\varepsilon},
+\]
+or
+\[
+n > \frac{1}{\varepsilon} - 1.
+\]
+Choose $N = \lceil \frac{1}{\varepsilon} \rceil$. Then for all $n \geq N$,
+\[
+n \geq N \geq \frac{1}{\varepsilon} - 1,
+\]
+so
+\[
+n+1 > \frac{1}{\varepsilon},
+\]
+and thus
+\[
+\frac{1}{n+1} < \varepsilon.
+\]
+Therefore, $b_n \to 0$.
+
+\textbf{Step 2: Show that $a_n$ does not converge}
+
+The sequence $a_n = \sum_{k=1}^n \frac{1}{k}$ is the harmonic series, which is known to diverge to infinity. We will show that $a_n \to \infty$.
+
+Write out the terms:
+\[
+a_n = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} + \dots + \frac{1}{n}.
+\]
+Group them as follows:
+\[
+a_n = 1 + \frac{1}{2} + \left(\frac{1}{3} + \frac{1}{4}\right) + \left(\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8}\right) + \dots
+\]
+Estimate each group from below:
+\begin{itemize}
+    \item First group: $1 = 1$
+    \item Second group: $\frac{1}{2} = \frac{1}{2}$
+    \item Third group: $\frac{1}{3} + \frac{1}{4} > \frac{1}{4} + \frac{1}{4} = \frac{2}{4} = \frac{1}{2}$
+    \item Fourth group: $\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} > \frac{1}{8} + \frac{1}{8} + \frac{1}{8} + \frac{1}{8} = \frac{4}{8} = \frac{1}{2}$
+\end{itemize}
+Each group (after the first) contributes more than $\frac{1}{2}$ to the sum.
+
+For $n = 2^k$, we have approximately $k$ groups, so
+\[
+a_{2^k} > 1 + \frac{k}{2}.
+\]
+As $k \to \infty$, we have $\frac{k}{2} \to \infty$, so $a_{2^k} \to \infty$.
+
+Since $(a_n)$ has a subsequence that diverges to infinity, the sequence $a_n$ itself diverges to infinity:
+\[
+a_n \to \infty.
+\]
+Therefore, $a_n$ does not converge to any finite limit.
+
+\textbf{Step 3: Conclusion}
+
+We have shown that $b_n = a_{n+1} - a_n = \frac{1}{n+1} \to 0$, but $a_n = \sum_{k=1}^n \frac{1}{k} \to \infty$ (does not converge). This provides a counterexample to the claim, proving that the statement is false.
+\end{solution}
+%%%%%%
+\textbf{Alternative 3a):}
+\begin{solution}
+\textbf{(a)} The statement is false. Consider the sequence $a_n = \sqrt{n}$. Then
+\[
+b_n = a_{n+1} - a_n = \sqrt{n+1} - \sqrt{n} = \frac{(\sqrt{n+1} - \sqrt{n})(\sqrt{n+1} + \sqrt{n})}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}.
+\]
+Since $\sqrt{n+1} + \sqrt{n} \to \infty$ as $n \to \infty$, we have $b_n \to 0$. However, $a_n = \sqrt{n} \to \infty$ as $n \to \infty$, so $a_n$ diverges.
+\end{solution}
+
+%%%%%%%
+\subsection*{(b)}
+\begin{solution}
+Assume $b_n := a_{n+1}-a_n \to 0$. We prove that $\dfrac{a_n}{n} \to 0$.
+
+\textbf{1) Telescoping representation and division by $n$.}
+For every $n\ge 2$,
+\[
+a_n-a_1 = \sum_{k=1}^{n-1}(a_{k+1}-a_k) = \sum_{k=1}^{n-1} b_k,
+\]
+hence
+\[
+\frac{a_n}{n} = \frac{a_1}{n} + \frac{1}{n}\sum_{k=1}^{n-1} b_k.
+\]
+Clearly $\dfrac{a_1}{n}\to 0$, so it remains to show $\dfrac{1}{n}\sum_{k=1}^{n-1} b_k\to 0$.
+
+\textbf{2) $\varepsilon$-step and definition of $C$.}
+Let $\varepsilon>0$. Since $b_k\to 0$, there exists $N\in\mathbb{N}$ such that for all $k\ge N$, $|b_k|\le \varepsilon$. Define the finite constant
+\[
+C := \sum_{k=1}^{N-1} |b_k|.
+\]
+
+\textbf{3) Split the sum and bound via triangle inequality.}
+For $n\ge N+1$,
+\[
+\begin{aligned}
+\left|\frac{1}{n}\sum_{k=1}^{n-1} b_k\right|
+&= \frac{1}{n}\left|\sum_{k=1}^{N-1} b_k + \sum_{k=N}^{n-1} b_k\right| \\
+&\le \frac{1}{n}\left(\left|\sum_{k=1}^{N-1} b_k\right| + \left|\sum_{k=N}^{n-1} b_k\right|\right) && \text{triangle inequality} \\
+&\le \frac{1}{n}\left(\sum_{k=1}^{N-1} |b_k| + \sum_{k=N}^{n-1} |b_k|\right) && \text{triangle inequality on sums} \\
+&\le \frac{1}{n}\left(C + \sum_{k=N}^{n-1} \varepsilon\right) && (|b_k|\le \varepsilon\text{ for }k\ge N) \\
+&= \frac{1}{n}\left(C + \varepsilon\,(n-1-N+1)\right) \\
+&= \frac{C}{n} + \varepsilon\,\frac{n-N}{n} \\
+&= \frac{C}{n} + \varepsilon\Bigl(1-\frac{N}{n}\Bigr).
+\end{aligned}
+\]
+
+\textbf{4) Final simplification of the factor $\boldsymbol{1-\frac{N}{n}}$.}
+For $n\ge N$ we have $0\le \tfrac{N}{n}\le 1$, hence $0\le 1-\tfrac{N}{n}\le 1$. Since $\varepsilon>0$, multiplying preserves the inequalities:
+\[
+0\le \varepsilon\Bigl(1-\tfrac{N}{n}\Bigr)\le \varepsilon.
+\]
+Therefore,
+\[
+\left|\frac{1}{n}\sum_{k=1}^{n-1} b_k\right| \le \frac{C}{n} + \varepsilon.
+\]
+
+\textbf{5) Passage to the limit.}
+Taking $\limsup$ and using $\tfrac{C}{n}\to 0$ gives
+\[
+\limsup_{n\to\infty}\left|\frac{1}{n}\sum_{k=1}^{n-1} b_k\right| \le \varepsilon.
+\]
+Because $\varepsilon>0$ is arbitrary, we conclude $\dfrac{1}{n}\sum_{k=1}^{n-1} b_k\to 0$. Combining with $\dfrac{a_1}{n}\to 0$ yields
+\[
+\boxed{\displaystyle \lim_{n\to\infty}\frac{a_n}{n} = 0}.
+\]
+
+\textbf{Optional one-liner (Stolz--Ces\`aro).} With $c_n=n$ (strictly increasing, $c_n\to\infty$),
+\[
+\lim_{n\to\infty}\frac{a_n}{n} = \lim_{n\to\infty}\frac{a_{n+1}-a_n}{(n+1)-n} = \lim_{n\to\infty} b_n = 0.
+\]
+\end{solution}
+
+% ===============================
+\section*{4}
+\subsection*{(a)}
+\begin{solution}
+\textbf{Goal.} Show that $(0,1)$ and $\mathbb{R}$ have the same cardinality by constructing an explicit bijection.
+
+\textbf{Definition of the map.} Define
+\[
+f:(0,1)\to\mathbb{R},\qquad f(x)=\tan\!\bigl(\pi(x-\tfrac{1}{2})\bigr).
+\]
+
+\textbf{Step 1: Well-definedness.} For $x\in(0,1)$ we have $\theta(x):=\pi(x-\tfrac{1}{2})\in(-\tfrac{\pi}{2},\tfrac{\pi}{2})$, where $\tan$ is finite and continuous. Hence $f(x)\in\mathbb{R}$ for all $x\in(0,1)$.
+
+\textbf{Step 2: Injectivity (strictly increasing).} Differentiate:
+\[
+f'(x)=\pi\,\sec^2\!\bigl(\pi(x-\tfrac{1}{2})\bigr)=\pi\bigl(1+\tan^2(\pi(x-\tfrac{1}{2}))\bigr)>0,
+\]
+so $f$ is strictly increasing on $(0,1)$ and therefore injective.
+
+\textbf{Step 3: Surjectivity (endpoint limits).} As $x\to 0^+$, $\theta(x)\to(-\tfrac{\pi}{2})^+$ and $\tan\theta\to-\infty$. As $x\to 1^-$, $\theta(x)\to(\tfrac{\pi}{2})^-$ and $\tan\theta\to+\infty$. Because $f$ is continuous and strictly increasing on $(0,1)$ and its image runs from $-\infty$ to $+\infty$, $f$ hits every real value exactly once; thus $f$ is surjective.
+
+\textbf{Step 4: Explicit inverse and two-sided verification.} Define
+\[
+f^{-1}:\mathbb{R}\to(0,1),\qquad f^{-1}(y)=\frac{1}{\pi}\Bigl(\arctan(y)+\frac{\pi}{2}\Bigr).
+\]
+Since $\arctan:\mathbb{R}\to(-\tfrac{\pi}{2},\tfrac{\pi}{2})$, we have $\arctan(y)+\tfrac{\pi}{2}\in(0,\pi)$ and hence $f^{-1}(y)\in(0,1)$. Moreover, for $x\in(0,1)$, $\theta(x)=\pi(x-\tfrac{1}{2})\in(-\tfrac{\pi}{2},\tfrac{\pi}{2})$, so
+\[
+f^{-1}(f(x))=\frac{1}{\pi}\bigl(\arctan(\tan\theta(x))+\tfrac{\pi}{2}\bigr)=\frac{1}{\pi}(\theta(x)+\tfrac{\pi}{2})=x,
+\]
+and for all $y\in\mathbb{R}$,
+\[
+f(f^{-1}(y))=\tan\!\Bigl(\arctan(y)\Bigr)=y.
+\]
+Thus $f$ is a bijection with inverse $f^{-1}$.
+
+\textbf{Trig identities/facts used.}
+\begin{itemize}[nosep]
+    \item $\tan:(-\tfrac{\pi}{2},\tfrac{\pi}{2})\to\mathbb{R}$ is bijective with inverse $\arctan:\mathbb{R}\to(-\tfrac{\pi}{2},\tfrac{\pi}{2})$; consequently $\tan(\arctan y)=y$ for all $y\in\mathbb{R}$ and $\arctan(\tan\theta)=\theta$ for $\theta\in(-\tfrac{\pi}{2},\tfrac{\pi}{2})$.
+    \item Monotonicity: $\dfrac{d}{d\theta}\tan\theta=\sec^2\theta=1+\tan^2\theta>0$ on $(-\tfrac{\pi}{2},\tfrac{\pi}{2})$.
+    \item Endpoint limits: $\lim_{\theta\to(\pi/2)^-}\tan\theta=+\infty$ and $\lim_{\theta\to(-\pi/2)^+}\tan\theta=-\infty$ (since $\tan=\sin/\cos$ with $\cos\to 0^\pm$).
+\end{itemize}
+\[
+\boxed{\,f(x)=\tan\bigl(\pi(x-\tfrac{1}{2})\bigr)\text{ is a bijection }(0,1)\leftrightarrow\mathbb{R},\ f^{-1}(y)=\tfrac{1}{\pi}(\arctan y+\tfrac{\pi}{2})\,}\,.
+\]
+
+\textbf{Optional alternative.} The map $h(x)=\ln\!\bigl(\tfrac{x}{1-x}\bigr)$ also defines a bijection $(0,1)\to\mathbb{R}$ with inverse $h^{-1}(t)=\dfrac{e^t}{1+e^t}$.
+\end{solution}
+
+% ===============================
+\section*{5}
+\subsection*{(a)}
+\begin{solution}
+\textbf{What "algebraic" means.} A real number $x$ is called \emph{algebraic} if there exist integers $a_0,\dots,a_n$, not all zero, such that
+\[
+ a_0 + a_1 x + \cdots + a_n x^n = 0.
+\]
+Equivalently, $x$ is a root of some nonzero polynomial with integer (or rational) coefficients. If a polynomial with rational coefficients vanishes at $x$, clearing denominators yields an integer-coefficient polynomial that also vanishes at $x$.
+
+\medskip
+\textbf{Claim.} The set $\mathcal P$ of polynomials with integer coefficients is countable.
+
+\textbf{Facts used about countability.}
+\begin{enumerate}[label=\arabic*)]
+    \item $\mathbb Z$ is countable.
+    \item A finite Cartesian product of countable sets is countable.
+    \item A countable union of countable sets is countable.
+\end{enumerate}
+
+\textbf{Step 1: Fix the degree.} For a fixed $n\in\mathbb N$, the set of coefficient tuples
+\[
+ \mathbb Z^{\,n+1} = \{(a_0,\dots,a_n): a_i\in\mathbb Z\}
+\]
+is countable by 1) and 2). Define the surjection
+\[
+ \Phi_n: \mathbb Z^{\,n+1} \to \{\text{polynomials with integer coefficients of degree }\le n\},
+\]
+\[ \quad
+ (a_0,\dots,a_n)\mapsto a_0 + a_1 X + \cdots + a_n X^n.
+\]
+The image of a countable set is countable, so the set of polynomials of degree $\le n$ is countable.
+
+\textbf{Step 2: Union over all degrees.} Let $\mathcal P_{\le n}$ denote the set of integer-coefficient polynomials of degree $\le n$. Then
+\[
+ \mathcal P = \bigcup_{n=0}^{\infty} \mathcal P_{\le n}
+\]
+is a countable union of countable sets, hence countable by 3).
+
+\textbf{Optional.} Excluding the zero polynomial merely removes one element and preserves countability.
+
+\textbf{Conclusion.}
+\[
+ \boxed{\text{The set of polynomials with integer coefficients is countable.}}
+\]
+\end{solution}
+%%%%%%%
+
+\subsection*{(b)}
+\begin{solution}
+\textbf{Claim.} The set $\mathcal A$ of algebraic real numbers is countable.
+
+\textbf{Reasoning.} For each nonzero polynomial $p\in\mathcal P$ with integer coefficients, the set of its real roots is finite (in fact of size at most $\deg p$ by the fundamental theorem of algebra and the nonzero-derivative/root isolation fact that a nonzero real polynomial of degree $n$ has at most $n$ real roots). Let
+\[
+ R(p) := \{ x\in\mathbb R : p(x)=0 \}.
+\]
+Then $R(p)$ is finite for each $p\ne 0$; hence $R(p)$ is countable. From part (a), the index set $\mathcal P\setminus\{0\}$ is countable. Therefore
+\[
+ \mathcal A \,=\, \bigcup_{p\in \mathcal P\setminus\{0\}} R(p)
+\]
+is a countable union of countable (indeed finite) sets, so $\mathcal A$ is countable.
+
+\[
+ \boxed{\text{The set of algebraic real numbers is countable.}}
+\]
+\end{solution}
+
+\subsection*{(c)}
+\begin{solution}
+Since $\mathbb R$ is uncountable (Cantor's diagonal argument) while the set of algebraic reals $\mathcal A$ is countable by part (b), the complement
+\[
+ \mathbb R\setminus \mathcal A
+\]
+is nonempty (indeed uncountable). Any element of this complement is a real number that is not algebraic, i.e., a transcendental real.
+
+\[
+ \boxed{\text{There exists a real number that is not algebraic (transcendental).}}
+\]
+\end{solution}
+
+\end{document}

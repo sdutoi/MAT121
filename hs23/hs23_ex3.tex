@@ -1,0 +1,310 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------- Packages -----------
+\usepackage{amsmath, amssymb, amsthm} % Math symbols & theorems
+\usepackage{enumitem} % Better lists
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header/footer
+\usepackage{tikz}     % Diagrams
+\usepackage{hyperref} % Clickable references
+\usepackage{mathrsfs} % Fancy math fonts
+
+% ----------- Page Setup -----------
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+% ----------- Header/Footer -----------
+\lhead{MAT121 -- Analysis I}
+\rhead{Stefan du Toit}
+\rfoot{\thepage}
+
+% ----------- Theorem Environments -----------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ----------- Custom Environments -----------
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+% ==========================================
+\begin{document}
+
+\section*{1}
+
+\subsection*{(a)}
+Let \(x_n = \dfrac{(-1)^n}{n}\). We prove \(x_n \to 0\) as \(n\to\infty\) directly from the \(\varepsilon\)-definition, using the Archimedean property.
+
+\paragraph{Claim.} \(\displaystyle \lim_{n\to\infty} x_n = 0.\)
+
+\paragraph{Proof.}
+Let \(\varepsilon>0\) be arbitrary. We must find \(N\in\mathbb{N}\) such that for all \(n\ge N\),
+\[
+|x_n - 0| < \varepsilon.
+\]
+Compute
+\[
+|x_n - 0| = \left|\frac{(-1)^n}{n}\right| = \frac{1}{n}.
+\]
+So we need \(1/n < \varepsilon\). By the Archimedean property of \(\mathbb{R}\), there exists \(N\in\mathbb{N}\) with \(N > 1/\varepsilon\). Then for every \(n\ge N\),
+\[
+|x_n| = \frac{1}{n} \le \frac{1}{N} < \varepsilon.
+\]
+Hence the definition of convergence is satisfied, and \(x_n \to 0\).
+
+\paragraph{Explicit choice.} One may take \(N = \left\lceil \frac{1}{\varepsilon} \right\rceil + 1\).
+
+\paragraph{Conclusion.} The alternating signs do not affect the limit because the magnitudes \(1/n\) tend to \(0\). Thus
+\[
+\boxed{\lim_{n\to\infty} \frac{(-1)^n}{n} = 0.}
+\]
+
+
+\subsection*{(b)}
+Let \(x_n = \dfrac{n}{n+1}\). We prove that \(\displaystyle \lim_{n\to\infty} x_n = 1\) directly from the \(\varepsilon\)-definition, using the Archimedean property.
+
+\paragraph{Claim.} \(\displaystyle \lim_{n\to\infty} \frac{n}{n+1} = 1.\)
+
+\paragraph{Proof.}
+Let \(\varepsilon>0\) be arbitrary. We must find \(N\in\mathbb{N}\) such that for all \(n\ge N\),
+\[
+\left| x_n - 1 \right| < \varepsilon.
+\]
+Rewrite
+\[
+x_n = \frac{n}{n+1} = 1 - \frac{1}{n+1}.
+\]
+Then
+\[
+|x_n-1| = \left|1 - \frac{1}{n+1} - 1\right| = \left|-\frac{1}{n+1}\right| = \frac{1}{n+1}.
+\]
+So we need \(1/(n+1) < \varepsilon\), i.e., \(n+1 > 1/\varepsilon\). By the Archimedean property, there exists \(N\in\mathbb{N}\) with \(N+1 > 1/\varepsilon\). Then for every \(n\ge N\),
+\[
+\left| x_n - 1 \right| = \frac{1}{n+1} \le \frac{1}{N+1} < \varepsilon.
+\]
+Hence the definition of convergence is satisfied, and \(x_n \to 1\).
+
+\paragraph{Explicit choice.} One may take
+\[
+N = \left\lceil \frac{1}{\varepsilon} \right\rceil
+\quad\text{since then}\quad
+N+1 > \frac{1}{\varepsilon}.
+\]
+
+\paragraph{Conclusion.}
+\[
+\boxed{\lim_{n\to\infty} \frac{n}{n+1} = 1.}
+\]
+
+
+\subsection*{(c)}
+Let \(x_n = n^{(-1)^n}\). We show the sequence does not converge.
+
+\paragraph{Observation (two subsequences).}
+For even and odd indices,
+\[
+x_{2k} = (2k)^{(-1)^{2k}} = (2k)^1 = 2k \longrightarrow +\infty,
+\qquad
+x_{2k+1} = (2k+1)^{(-1)^{2k+1}} = (2k+1)^{-1} = \frac{1}{2k+1} \longrightarrow 0.
+\]
+Hence one subsequence diverges to $+\infty$ while the other converges to $0$.
+
+\paragraph{Conclusion (no finite limit).}
+If a sequence converges to a real limit $L$, then every subsequence also converges to $L$. Here the even subsequence does not have a finite limit and the odd subsequence tends to $0$, so there is no common limit. Therefore $(x_n)$ does not converge in $\mathbb{R}$.
+
+\paragraph{Alternative (unboundedness).}
+Since $x_{2k}=2k\to +\infty$, the sequence is unbounded above. Every convergent real sequence is bounded, so $(x_n)$ is divergent.
+
+\paragraph{Result.}
+\[
+\boxed{\text{The sequence } x_n = n^{(-1)^n} \text{ diverges (no real limit).}}
+\]
+
+\subsection*{(d)}
+Let \(x_n = \dfrac{\sin n}{\sqrt{n}}\). We prove \(x_n \to 0\).
+
+\paragraph{Bound.}
+For all real \(n\),
+\[
+|\sin n| \le 1 \quad \Longrightarrow\quad |x_n| = \frac{|\sin n|}{\sqrt{n}} \le \frac{1}{\sqrt{n}}.
+\]
+
+\paragraph{Epsilon proof.}
+Let \(\varepsilon>0\). We want \(N\) so that for all \(n\ge N\), \( |x_n| < \varepsilon\).
+It suffices to ensure \(1/\sqrt{n} < \varepsilon\), i.e.\ \(\sqrt{n} > 1/\varepsilon\), i.e.\ \(n > 1/\varepsilon^{2}\).
+
+By the Archimedean property, choose \(N\in\mathbb{N}\) with \(N > 1/\varepsilon^{2}\).
+Then for all \(n\ge N\),
+\[
+|x_n| \le \frac{1}{\sqrt{n}} \le \frac{1}{\sqrt{N}} < \varepsilon.
+\]
+
+\paragraph{Conclusion.}
+\[
+\lim_{n\to\infty} \frac{\sin n}{\sqrt{n}} = 0.
+\]
+
+\paragraph{Summary.}
+\[
+\boxed{x_n = \frac{\sin n}{\sqrt{n}} \longrightarrow 0.}
+\]
+
+%%%%%%%%%
+\section*{2}
+\subsection*{2 (a)}
+Let \((a_n)_{n\in\mathbb{N}}\) and \((b_n)_{n\in\mathbb{N}}\) be real sequences. Assume \((a_n)\) is bounded and \(b_n \to 0\). We prove \(a_n b_n \to 0\).
+
+\paragraph{Boundedness.}
+There exists \(M>0\) such that \(|a_n| \le M\) for all \(n\).
+
+\paragraph{Given \(\varepsilon>0\).}
+Since \(b_n \to 0\), there exists \(N\in\mathbb{N}\) such that for all \(n\ge N\),
+\[
+|b_n| < \frac{\varepsilon}{M}.
+\]
+
+\paragraph{Estimate.}
+For \(n\ge N\),
+\[
+|a_n b_n - 0| = |a_n|\,|b_n| \le M \cdot \frac{\varepsilon}{M} = \varepsilon.
+\]
+
+\paragraph{Conclusion.}
+By the \(\varepsilon\)-definition of convergence, \(a_n b_n \to 0\).
+
+\[
+\boxed{\lim_{n\to\infty} a_n b_n = 0.}
+\]
+
+\subsection*{2 (b)}
+Let \((x_n)_{n\in\mathbb{N}}\subset \mathbb{R}\) be a convergent sequence with limit \(L\). We prove \(x_{n+1} - x_n \to 0\).
+
+\paragraph{Idea.}
+Both \(x_{n+1}\) and \(x_n\) approach the same limit \(L\); their difference must vanish.
+
+\paragraph{Formal proof.}
+Fix \(\varepsilon>0\). Since \(x_n \to L\), there exists \(N\in\mathbb{N}\) such that for all \(m\ge N\),
+\[
+ |x_m - L| < \frac{\varepsilon}{2}.
+\]
+Now let \(n\ge N\). Then both indices \(n\) and \(n+1\) satisfy the tail condition (since \(n\ge N\Rightarrow n+1\ge N\)), hence
+\[
+ |x_n - L| < \frac{\varepsilon}{2}
+ \quad\text{and}\quad
+ |x_{n+1} - L| < \frac{\varepsilon}{2}.
+\]
+By the triangle inequality,
+\[
+ |x_{n+1} - x_n|
+ = |(x_{n+1}-L) - (x_n - L)|
+ \le |x_{n+1} - L| + |x_n - L|
+ < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+\]
+
+\paragraph{Conclusion.}
+Thus \(x_{n+1} - x_n \to 0\).
+
+\[
+\boxed{\lim_{n\to\infty} (x_{n+1} - x_n) = 0.}
+\]
+%%%%%%%%%
+
+\subsection*{3(a)}
+Solve \(|x+1| + |x-1| < 3\).
+
+Break at the points \(-1\) and \(1\).
+
+\[
+|x+1| + |x-1| =
+\begin{cases}
+-(x+1) + (1 - x) = -2x, & x \le -1,\\[4pt]
+(x+1) + (1 - x) = 2, & -1 \le x \le 1,\\[4pt]
+(x+1) + (x-1) = 2x, & x \ge 1.
+\end{cases}
+\]
+
+Inequalities:
+\begin{enumerate}
+    \item For \(x \le -1\): \(-2x < 3 \;\Longrightarrow\; x > -\tfrac{3}{2}\). Combine with \(x\le -1\): interval \((-3/2,-1]\).
+    \item For \(-1 \le x \le 1\): value \(2<3\), whole interval included.
+    \item For \(x \ge 1\): \(2x < 3 \;\Longrightarrow\; x < \tfrac{3}{2}\). Combine with \(x\ge 1\): interval \([1,3/2)\).
+\end{enumerate}
+
+Since the middle expression also holds at the endpoints, the union is
+\[
+(-3/2,3/2).
+\]
+
+\[
+\boxed{\{x\in\mathbb{R} : |x+1| + |x-1| < 3\} = (-3/2,\,3/2)}
+\]
+
+\subsection*{3(b)}
+For \(A \subset \mathbb{R}\) and \(\varepsilon>0\), the \(\varepsilon\)-thickening (open \(\varepsilon\)-neighborhood) is
+\[
+A_\varepsilon := \{x\in\mathbb{R} : \exists y\in A \text{ with } |x-y|<\varepsilon\}.
+\]
+Here \(\varepsilon = \frac{1}{24}\).
+
+\paragraph{(i) \(X=[1,2)\).}
+Any point within distance \(<\varepsilon\) of \([1,2)\) lies in the open interval extending \(\varepsilon\) to the left of \(1\) and \(\varepsilon\) to the right of \(2\) (note \(2\) itself is a limit point, so its neighborhood is included).
+Thus
+\[
+X_\varepsilon = (1-\varepsilon,\,2+\varepsilon) = \Bigl(1-\frac{1}{24},\,2+\frac{1}{24}\Bigr) = \left(\frac{23}{24},\,\frac{49}{24}\right).
+\]
+
+\paragraph{(ii) \(X = \{1/n : n\in\mathbb{N}_{>0}\}\).}
+We take the union of intervals
+\[
+\bigcup_{n\ge 1} \left( \frac{1}{n} - \varepsilon,\; \frac{1}{n} + \varepsilon \right).
+\]
+Successive points satisfy
+\[
+\frac{1}{n} - \frac{1}{n+1} = \frac{1}{n(n+1)}.
+\]
+Intervals for \(n\) and \(n+1\) overlap or touch when \(\frac{1}{n(n+1)} \le 2\varepsilon = \frac{1}{12}\), i.e. \(n(n+1)\ge 12\), first true at \(n=3\).
+Hence:
+- For \(n\ge 3\) the intervals form a connected block accumulating at \(0\). Since for large \(n\), \(1/n < \varepsilon\), the left endpoints become negative and approach \(-\varepsilon\). Thus the union over \(n\ge 3\) is \((- \varepsilon,\, 1/3 + \varepsilon)\) (left endpoint open, right open because distance strict).
+- The \(n=2\) interval is \(\left(\frac{1}{2}-\varepsilon,\frac{1}{2}+\varepsilon\right) = \left(\frac{11}{24},\frac{13}{24}\right)\), disjoint from the block \((-1/24, 3/8)\).
+- The \(n=1\) interval is \(\left(1-\varepsilon,1+\varepsilon\right) = \left(\frac{23}{24},\frac{25}{24}\right)\), disjoint from the others.
+
+Therefore
+\[
+X_\varepsilon = \left(-\frac{1}{24},\,\frac{3}{8}\right) \;\cup\; \left(\frac{11}{24},\,\frac{13}{24}\right) \;\cup\; \left(\frac{23}{24},\,\frac{25}{24}\right).
+\]
+
+\subsection*{3(c)}
+Assume \(A_\varepsilon \cap B_\varepsilon \neq \varnothing\). Then there exists \(x\) with
+\[
+x \in A_\varepsilon \cap B_\varepsilon.
+\]
+So \(\exists a\in A\) and \(b\in B\) such that \(|x-a|<\varepsilon\) and \(|x-b|<\varepsilon\). By the triangle inequality,
+\[
+|a-b| \le |a-x| + |x-b| < 2\varepsilon.
+\]
+Let \(m = \frac{a+b}{2}\). Then
+\[
+|a-m| = |b-m| = \frac{|a-b|}{2} < \varepsilon.
+\]
+Hence \(a,b \in (m-\varepsilon,\, m+\varepsilon)\). Define the open interval
+\[
+I := (m-\varepsilon,\, m+\varepsilon),
+\]
+whose length is \(2\varepsilon\). This interval satisfies \(I \cap A \neq \varnothing\) (contains \(a\)) and \(I \cap B \neq \varnothing\) (contains \(b\)).
+
+\[
+\boxed{\text{From } A_\varepsilon \cap B_\varepsilon \neq \varnothing \text{ it follows that an open interval of length } 2\varepsilon \text{ meets both } A \text{ and } B.}
+\]
+\end{document}
