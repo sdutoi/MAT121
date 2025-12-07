@@ -1,0 +1,605 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+% This chapter translation: Original German "Die Exponentialfunktion" (The Exponential Function)
+% Numbering (Definition/Satz) preserved exactly as in source. Do NOT renumber.
+
+\begin{document}
+
+\section*{4.5 The Exponential Function}
+
+\paragraph{Definition 4.5.1} By
+\[
+	\exp(z) := e^{z} := \sum_{n=0}^{\infty} \frac{z^{n}}{n!},\quad
+	\cos(z) := \sum_{n=0}^{\infty} (-1)^n \frac{z^{2n}}{(2n)!},\quad
+	\sin(z) := \sum_{n=0}^{\infty} (-1)^n \frac{z^{2n+1}}{(2n+1)!}
+\]
+we define three functions from $\mathbb C$ to $\mathbb C$, called the exponential, cosine, and sine.
+
+\paragraph{Theorem 4.5.2}
+\begin{enumerate}[label=({\arabic*})]
+	\item The power series in Def.~4.5.1 all have radius of convergence $+\infty$.
+	\item $\exp$, $\sin$, $\cos$ are real-valued on $\mathbb R$.
+	\item $e^{z_1 + z_2} = e^{z_1}\cdot e^{z_2}$.
+	\item $e^{z} \ne 0$ for all $z \in \mathbb C$, and $e^{-z} = \dfrac{1}{e^{z}}$.
+	\item $e^{iz} = \cos(z) + i\,\sin(z)$.
+	\item $\cos$ is an even function, i.e. $\cos(-z) = \cos(z)$ for all $z \in \mathbb C$; $\sin$ is an odd function, i.e. $\sin(-z) = -\sin(z)$ for all $z \in \mathbb C$.
+	\item For all $z \in \mathbb C$,
+	\[
+		\cos(z) = \tfrac{1}{2}\bigl(e^{iz} + e^{-iz}\bigr),\qquad
+		\sin(z) = \tfrac{1}{2i}\bigl(e^{iz} - e^{-iz}\bigr).
+	\]
+	\item For all $x \in \mathbb R$,
+	\[
+		\cos(x) = \operatorname{Re}(e^{ix}),\qquad \sin(x) = \operatorname{Im}(e^{ix}).
+	\]
+	\item $\exp$, $\cos$, and $\sin$ are continuous.
+\end{enumerate}
+
+\emph{Proof.}
+\begin{enumerate}[label=({\arabic*})]
+	\item Use the root test for the exponential series\footnote{For the exponential series one can also use the ratio test more directly; the root test applies analogously, and the same argument works for $\sin$ and $\cos$.}:
+	For a power series $\sum_{n=0}^{\infty} a_n z^n$ the radius of convergence is
+	\[
+		\rho 
+		:= \frac{1}{\limsup\limits_{n\to\infty} \sqrt[n]{|a_n|}}
+		= \lim_{n\to\infty} \sqrt[n]{\,n!\,}
+	\]
+	here with $a_n = 1/n!$. Using $n! \ge (n/2)^{\,n/2}$ we get
+	\[
+		\rho \ge \lim_{n\to\infty} \sqrt{\tfrac{n}{2}} = +\infty.
+	\]
+	Hence the radius of convergence is infinite.
+		\item Clear.
+		\item See Example 3.5.15.
+		\item See Example 3.5.15.
+		\item We have
+		\[
+			e^{iz} = \sum_{n=0}^{\infty} \frac{(iz)^n}{n!}
+			= \sum_{k=0}^{\infty} (-1)^k \frac{z^{2k}}{(2k)!}
+				+ i \sum_{k=0}^{\infty} (-1)^k \frac{z^{2k+1}}{(2k+1)!}
+			= \cos(z) + i\,\sin(z),
+		\]
+		where we separated even and odd powers (the exponential series converges absolutely, so terms may be regrouped).
+		\item Trivial (consider the terms $z^{2n}$ and $z^{2n+1}$).
+		\item Using (5) and (6),
+		\[
+				\frac{1}{2}\bigl(e^{iz}+e^{-iz}\bigr)
+				\stackrel{(5)}{=} \tfrac{1}{2}\bigl(\cos(z)+i\sin(z) + \cos(-z)+i\sin(-z)\bigr)
+				\stackrel{(6)}{=} \cos z,
+		\]
+		and similarly
+		\[
+				\frac{1}{2i}\bigl(e^{iz}-e^{-iz}\bigr)
+				\stackrel{(5)}{=} \tfrac{1}{2i}\bigl(\cos(z)+i\sin(z) - \cos(-z)-i\sin(-z)\bigr)
+				\stackrel{(6)}{=} \sin z.
+		\]
+		\item Follows from (2) and (5).
+		\item Use (cf. Example 4.3.14): there exists $\rho>0$ small enough such that
+		\[
+			\left|\frac{e^{z}-1}{z}\right| < 2 \qquad \text{for all } |z|<\rho.
+		\]
+		Let $z_0\in\mathbb C$ and $\varepsilon>0$. Choose $\delta := \min\{\rho, \tfrac{\varepsilon}{2|e^{z_0}|}\}$. Then for $|z-z_0|<\delta$ we have
+		\[
+			|e^{z} - e^{z_0}| = |e^{z_0}(e^{z-z_0}-1)| \le |e^{z_0}|\,\left|\frac{e^{z-z_0}-1}{z-z_0}\right|\,|z-z_0|
+			\le |e^{z_0}|\cdot 2\delta \le \varepsilon.
+		\]
+		Hence $e^{z}$ is continuous. For $\cos$ use $\cos(z)=\tfrac{1}{2}(e^{iz}+e^{-iz})$ and the fact that the compositions of continuous functions $e^{z}$ and $z\mapsto\pm i z$ are continuous. The same argument yields continuity of $\sin$.
+\end{enumerate}
+
+	\hfill$\blacksquare$
+
+	\paragraph{Theorem 4.5.3 (Addition theorems)} For all $z,w\in\mathbb C$ it holds:
+	\begin{enumerate}[label=({\arabic*})]
+		\item $\cos(z\pm w) = \cos z\,\cos w \mp \sin z\,\sin w$\\
+					$\sin(z\pm w) = \sin z\,\cos w \pm \cos z\,\sin w$.
+		\item $\sin z - \sin w = 2\cos\bigl(\tfrac{z+w}{2}\bigr)\,\sin\bigl(\tfrac{z-w}{2}\bigr)$\\
+					$\cos z - \cos w = -2\sin\bigl(\tfrac{z+w}{2}\bigr)\,\sin\bigl(\tfrac{z-w}{2}\bigr)$.
+		\item $\cos^{2}z + \sin^{2}z = 1$.
+	\end{enumerate}
+
+	\emph{Proof.}
+	\begin{enumerate}[label=({\arabic*})]
+		\item Express $\cos,\sin$ via the exponential function:
+		\begin{align*}
+			\cos z\,\cos w \mp \sin z\,\sin w
+			&= \tfrac{1}{4}\Bigl\{(e^{iz}+e^{-iz})(e^{iw}+e^{-iw}) \\
+			&\qquad \mp \tfrac{1}{i}(e^{iz}-e^{-iz})\,\tfrac{1}{i}(e^{iw}-e^{-iw})\Bigr\} \\
+			&= \tfrac{1}{4}\bigl\{2e^{i(z+w)} + 2e^{-i(z+w)}\bigr\}.
+		\end{align*}
+		The remaining identities in (1) are obtained analogously.
+		\item Set $u = \tfrac{z+w}{2}$ and $v = \tfrac{z-w}{2}$. Using (1) we get
+		\begin{align*}
+			\sin(u+v) - \sin(u-v)
+			&= (\sin u\,\cos v + \cos u\,\sin v) - (\sin u\,\cos v - \cos u\,\sin v) \\
+			&= 2\cos u\,\sin v.
+		\end{align*}
+		\item Put $w = z$ in (1). Then
+		\[
+			\cos^{2}z + \sin^{2}z = \cos(z-z) = \cos(0) = 1.
+		\]
+	\end{enumerate}
+	\hfill $\blacksquare$
+
+	Let $z \in \C$, $z = x + iy$, $x, y \in \R$. Then:
+\[
+    e^z = e^{x+iy} = e^x \cdot e^{iy}
+\]
+and the behavior of $\exp$ is determined by the behavior of $\exp : \R \to \R$ and $\exp : i\R \to \R$.
+Consider first the real exp. function.
+
+
+	\paragraph{Theorem 4.5.4}
+	\begin{enumerate}[label=({\arabic*})]
+		\item $0 < e^{x} < 1$ for all $x<0$; $\ e^{x} > 1$ for all $x>0$; and $e^{0} = 1$.
+		\item $\exp : \mathbb R \to \mathbb R_{>0}$ is strictly monotonically increasing.
+		\item $\displaystyle\lim_{x\to\infty} x^{-n} e^{x} = \infty$ for every $n\in\mathbb N$. Moreover, $\displaystyle\lim_{x\to -\infty} e^{x} = 0$.
+	\end{enumerate}
+
+	\emph{Proof.}
+	\begin{enumerate}[label=({\arabic*})]
+		\item We have, for $x>0$,
+		\[
+			e^{x} = \sum_{n=0}^{\infty} \frac{1}{n!} x^{n} = 1 + \sum_{n=1}^{\infty} \frac{1}{n!} x^{n} > 1,
+		\]
+		and for $x<0$,
+		\[
+			e^{x} = e^{-(-x)} = \frac{1}{e^{-x}} \in (0,1).
+		\]
+		\item For $y>x$ it holds
+		\[
+			e^{y} = e^{x}\,e^{y-x} > e^{x},
+		\]
+		because $y-x>0$ and (1) implies $e^{y-x}>1$.
+		\item For $n\in\mathbb N$ and $x>0$,
+		\[
+			x^{-n} e^{x} \ge x^{-n}\,\frac{x^{n+1}}{(n+1)!} = \frac{x}{(n+1)!} \xrightarrow[x\to\infty]{} \infty.
+		\]
+		Finally,
+		\[
+			\lim_{x\to-\infty} e^{x} = \lim_{y=-x\to\infty} e^{-y} = \lim_{y\to\infty} \frac{1}{e^{y}} = 0.
+		\]
+	\end{enumerate}
+	\hfill $\blacksquare$
+
+
+
+	\paragraph{Definition 4.5.5} The inverse function of the real exponential function is called the (natural) logarithm and is denoted by $\ln$.
+	\[
+		\ln := (\exp|_{\mathbb R})^{-1} : ]0,\infty[\ \to\ \mathbb R.
+	\]
+
+	\paragraph{Theorem 4.5.6}
+	\begin{enumerate}[label=({\arabic*})]
+		\item The logarithm is continuous and strictly increasing, with
+		\[
+			\lim_{x\to\infty} \ln(x) = +\infty,\qquad
+			\lim_{x\to 0^{+}} \ln(x) = -\infty.
+		\]
+		\item For all $x,y \in \mathbb R_{>0}$ it holds
+		\[
+			\ln(x\cdot y) = \ln(x) + \ln(y),\qquad
+			\ln\!\left(\frac{x}{y}\right) = \ln(x) - \ln(y).
+		\]
+	\end{enumerate}
+
+	\emph{Proof.}
+	\begin{enumerate}[label=({\arabic*})]
+		\item Follows from Theorem 4.4.8.
+		\item Set $a := \ln(x)$ and $b := \ln(y)$. Then
+		\[
+			x\cdot y = e^{a} \cdot e^{b} = e^{a+b} \implies \ln(x\cdot y) = a+b = \ln(x) + \ln(y).
+		\]
+		The quotient rule follows analogously: $\ln\bigl(\tfrac{x}{y}\bigr) = \ln(x) - \ln(y)$.
+	\end{enumerate}
+	\hfill $\blacksquare$
+
+	\paragraph{Extension of the power function}
+	Let $a>0$. Up to now $a^{x}$ was defined for $x = \tfrac{p}{q}$ with $p\in\mathbb Z$, $q\in\mathbb N_{\ge 1}$.\\
+	Goal: Define $a^{x}$ for all $x\in\mathbb R$ so that the definition agrees with the previous one for $x\in\mathbb Q$.
+
+	Write $a = e^{\ln a}$. Then:
+	\begin{enumerate}[label=({\arabic*})]
+		\item For $x\in\mathbb N$ it holds
+		\[
+			a^{x} = (e^{\ln a})^{x} = e^{\underbrace{\ln a + \cdots + \ln a}_{x\text{-times}}} = e^{x\,\ln a}.
+		\]
+		\item For $x\in\mathbb N$ it holds
+		\[
+			a^{-x} = \frac{1}{a^{x}} = \frac{1}{e^{x\ln a}} = e^{-x\ln a}.
+		\]
+		\item For $x\in\mathbb N_{\ge 1}$ set $y := e^{\frac{1}{x}\ln a}$. Then
+		\[
+			y^{x} = \Bigl(e^{\frac{1}{x}\ln a}\Bigr)^{x} = e^{\ln a} = a,\quad\text{i.e.}\quad a^{1/x} = \sqrt[x]{a} = e^{\frac{1}{x}\ln a}.
+		\]
+		Let $x = \tfrac{p}{q}$ with $p\in\mathbb Z$, $q\in\mathbb N_{\ge 1}$. Then
+		\[
+			a^{x} = \Bigl(e^{\frac{1}{q}\ln a}\Bigr)^{p} = e^{\frac{p}{q}\,\ln a}.
+		\]
+	\end{enumerate}
+	In summary, with the “previous” definition we have for all $x\in\mathbb Q$:
+	\[
+		a^{x} = e^{x\,\ln a}.
+	\]
+
+	\paragraph{Definition 4.5.7} For $a>0$ and $x\in\mathbb R$, set
+	\[
+		a^{x} := e^{x\ln a}.
+	\]
+
+	\paragraph{Theorem 4.5.8} Let $a,b\in\mathbb R_{>0}$ and $x,y\in\mathbb R$. Then:
+	\begin{enumerate}[label=({\arabic*})]
+		\item $a^{x} a^{y} = a^{x+y}$, and $\displaystyle \frac{a^{x}}{a^{y}} = a^{x-y}$.
+		\item $a^{x} b^{x} = (ab)^{x}$.
+		\item $(a^{x})^{y} = a^{xy}$.
+		\item $\ln(a^{x}) = x\,\ln(a)$.
+	\end{enumerate}
+
+	\emph{Proof.} Exercise.\hfill $\blacksquare$
+
+	\paragraph{Theorem 4.5.9} For $\alpha\in\mathbb R_{>0}$ it holds:
+	\[
+		\lim_{x\to\infty} x^{-\alpha}\,\ln(x) = 0,\qquad
+		\lim_{x\to 0^{+}} x^{\alpha}\,\ln(x) = 0.
+	\]
+
+	\emph{Proof.} As $x\to\infty$ we set $y := \ln x \to \infty$. Then
+	\[
+		\lim_{x\to\infty} x^{-\alpha}\,\ln(x)
+		 = \frac{1}{\alpha} \lim_{y\to\infty} \frac{\alpha y}{e^{\alpha y}}
+		 = \frac{1}{\alpha} \lim_{z\to\infty} \frac{z}{e^{z}} = 0
+	\]
+	by Theorem~4.5.4(3). Similarly,
+	\[
+		\lim_{x\to 0^{+}} x^{\alpha}\,\ln(x)
+		 = \lim_{x\to 0^{+}} \Bigl(\frac{1}{x}\Bigr)^{-\alpha} \ln\!\Bigl(\frac{1}{x}\Bigr)
+		 = - \lim_{y\to\infty} y^{-\alpha}\,\ln y = 0.
+	\]
+	\hfill $\blacksquare$
+
+	Next we investigate the behavior of the exponential function on $i\mathbb R \subset \mathbb C$ and, for brevity, introduce the notation
+	\[
+		\operatorname{ixp} : \mathbb R \to \mathbb C,\qquad \operatorname{ixp}(x) := e^{ix}.
+	\]
+
+	\paragraph{Theorem 4.5.10} $\operatorname{ixp}(\mathbb R) = S^{1} := \{ z\in\mathbb C : |z| = 1\}$.
+
+	\emph{Proof.}
+	\begin{enumerate}[label=({\arabic*})]
+		\item The inclusion $\operatorname{ixp}(\mathbb R) \subset S^{1}$ follows from
+		\[
+			|\operatorname{ixp}(x)| = |e^{ix}| = |\cos x + i\sin x| = \sqrt{\cos^{2}x + \sin^{2}x} = 1.
+		\]
+		\item Let $I := (-1,1)$. We show: the function $\sin : I \to \mathbb R$ is strictly increasing.
+
+		Using the power series of $\sin$ we obtain for $u,v\in I$:
+		\[
+			\sin(u) - \sin(v)
+				= \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!}\,(u^{2n+1}-v^{2n+1})
+				= \sum_{n=0}^{\infty} (u-v)\,\frac{(-1)^n}{(2n+1)!}\,\sum_{j=0}^{2n} u^{j} v^{2n-j} \]
+		\[		=: (u-v)\,(1+R(u,v)). \tag{$*$}
+		\]
+		For $u,v\in I$ we have the bound
+		\[
+			|R(u,v)| \le \sum_{n=1}^{\infty} \frac{1}{(2n+1)!(2n+1)}
+				\le \sum_{n=1}^{\infty} \frac{1}{(2n)!}
+				< \sum_{n=0}^{\infty} \frac{1}{2^{2n+1}}
+				= \tfrac{1}{2} \sum_{n=0}^{\infty} \Bigl(\tfrac{1}{4}\Bigr)^{n}
+				= \tfrac{1}{2}\,\frac{1}{1-1/4} = \tfrac{2}{3}.
+		\]
+		Hence $|1+R(u,v)| > 1/3$, and by ($*$) the sign of $\sin(u)-\sin(v)$ equals the sign of $u-v$. Thus $\sin$ is strictly increasing on $I$.
+
+		\item We now show that from (2) it follows that $I$ is mapped injectively by $\operatorname{ixp}$ onto an arc $\tilde y \subset S^{1}$ that passes through $1$ from below to above.
+
+		Since $\sin$ is strictly increasing and continuous on $I$, its image $J := \sin(I)$ is an open interval. Clearly $\operatorname{ixp}(0) = e^{0} = 1 \in \tilde y$. Because $\sin(-x) = -\sin(x)$ and $I$ is symmetric, we have
+		\[
+			J = (-\alpha,\alpha) \quad \text{for some } \alpha \in (0,1).
+		\]
+		For $0<x<1$, the series of $\sin$ and $\cos$ are alternating; as in the proof of Theorem 3.4.8 (Leibniz criterion) this yields
+		\[
+			\cos(x) > 1 - \frac{x^{2}}{2} > 0,
+			\qquad 0 < x\Bigl(1 - \frac{x^{2}}{6}\Bigr) < \sin(x) < x, \quad x\in(0,1). \tag{$**$}
+		\]
+		Hence $\cos x>0$ and $\sin x$ changes sign only at $0$, so $\operatorname{ixp}$ maps $I$ injectively onto an open arc of $S^{1}$ going from below to above through $1$.
+
+		\item We show that $I$ can be shrunk to a symmetric interval $[-\lambda,\lambda]$ such that $\operatorname{ixp}:[-\lambda,\lambda]$ traces exactly a quarter-circle arc with apex at $1$.
+
+		From ($**$) we get
+		\[
+			\sin\!\Bigl(\tfrac{1}{\sqrt{2}}\Bigr) < \tfrac{1}{\sqrt{2}},
+			\qquad
+			\sin\!\Bigl(\tfrac{4}{5}\Bigr) > \tfrac{4}{5}\Bigl(1 - \tfrac{16}{6\cdot 25}\Bigr)
+				> \tfrac{4}{5}\Bigl(1 - \tfrac{16}{144}\Bigr) = \tfrac{32}{45}
+				= \frac{\sqrt{1024}}{\sqrt{2025}} > \sqrt{\tfrac{1}{2}}.
+		\]
+		By monotonicity and continuity of $\sin$ on $I$ there exists a unique $\lambda\in(1/\sqrt{2},\,4/5)$ with $\sin \lambda = 1/\sqrt{2}$. Thus $\operatorname{ixp}([ -\lambda,\lambda])$ is precisely the quarter-arc of $S^{1}$ centered at $1$.
+		From ($**$) we also get
+		\[
+			\cos\lambda = +\sqrt{1-\sin^{2}\!\lambda} = \sqrt{\tfrac{1}{2}},
+		\]
+		hence
+		\[
+			e^{\pm i\lambda} = \cos\lambda \pm i\sin\lambda = \tfrac{1}{\sqrt{2}}(1 \pm i).
+		\]
+		\item We show: The ixp-function maps the interval $[0, 8\lambda]$ bijectively onto $S^1$ (up to $\operatorname{ixp}(0) = \operatorname{ixp}(8\lambda) = 1$).
+
+		Preparation:
+		\[
+			e^{i2\lambda} = (e^{i\lambda})^2 = (\cos \lambda + i \sin \lambda)^2 = \left(\frac{1}{\sqrt{2}}(1+i)\right)^2 = \frac{1}{2}(1 - 1 + 2i) = i \quad \text{and}
+		\]
+		\[
+			e^{i4\lambda} = -1, \quad e^{i8\lambda} = 1
+		\]
+		Already shown: $\operatorname{ixp} : [-\lambda, \lambda] \to y$ (:= quarter circle on $S^1$ with vertex 1) is bijective.
+		Determine $\operatorname{ixp}([\lambda, 3\lambda])$.
+		\[
+			\operatorname{ixp}(t + 2\lambda) = e^{i(t+2\lambda)} = e^{it} \cdot e^{i2\lambda} = i \cdot \operatorname{ixp}(t).
+		\]
+		It holds:
+		\[
+			i(x + iy) = -y + ix \leftrightarrow \binom{-y}{x}.
+		\]
+		Thus it holds:
+		\[
+			\operatorname{ixp}(t + 2\lambda) = T(\operatorname{ixp}(t)) \qquad T(z) = iz.
+		\]
+		$T$ is a quarter rotation of the complex plane about zero counterclockwise. From this follows:
+		\[
+			\operatorname{ixp}([\alpha + 2\lambda, \beta + 2\lambda])
+		\]
+		is obtained by rotating the image $\operatorname{ixp}([\alpha, \beta])$ by 90 degrees counterclockwise about zero. From this follows that the ixp-function maps the intervals
+		\[
+			[-\lambda, \lambda], \quad [\lambda, 3\lambda], \quad [3\lambda, 5\lambda], \quad [5\lambda, 7\lambda], \quad [7\lambda, 9\lambda]
+		\]
+		bijectively onto quarter circles with vertices $1, i, -1, -i, 1$. In particular the interval $[0, 8\lambda]$ is mapped bijectively onto $S^1$ (exception $\operatorname{ixp}(0) = \operatorname{ixp}(8\lambda) = 1$).
+	\end{enumerate}
+
+	\paragraph{Theorem 4.5.11} The set
+	\[
+		M := \{\, x \in \mathbb R_{>0} : \operatorname{ixp}(x) = 1 \,\}
+	\]
+	has a positive minimum. We define
+	\[
+		\pi := \tfrac{1}{2}\,\min M.
+	\]
+
+	\emph{Proof.} In the proof of Theorem 4.5.10 (part (5)) we showed that the map
+	\[
+		\operatorname{ixp} : ]0,8\lambda] \to S^{1}
+	\]
+	is bijective. Hence there exists an inverse
+	\[
+		\phi := (\operatorname{ixp}|_{]0,8\lambda]})^{-1} : S^{1} \to ]0,8\lambda].
+	\]
+	It follows that $x := \phi(1)$ lies in $]0,8\lambda]$ and is uniquely determined. Consequently there is no smaller $y\in\mathbb R_{>0}$ with $\operatorname{ixp}(y)=1$. We denote this value by
+	\[
+		x = 2\pi.
+	\]
+	Since $1 = e^{i2\pi} = \operatorname{ixp}(8\lambda)$ (by part (5) of the proof of Theorem 4.5.10) and $8\lambda \in ]0,8\lambda]$, we have $\phi(1) = 8\lambda$ and therefore
+	\[
+		\pi = 4\lambda,\qquad \lambda = \tfrac{\pi}{4}.
+	\]
+
+		\hfill $\blacksquare$
+
+		
+	It holds:
+\[
+    e^{i \frac{\pi}{2}} = i, \qquad e^{i\pi} = -1, \qquad e^{2i\pi} = 1.
+\]
+
+\paragraph{Theorem 4.5.12}
+(1) $e^z = 1 \iff z \in 2\pi i\Z$, i.e. $z = 2\pi i \cdot k, k \in \Z$.
+
+(2) $e^z = -1 \iff z \in \pi i + 2\pi i\Z$, i.e. $z = (2k+1)\pi i, k \in \Z$.
+
+\paragraph*{Proof.}
+
+(1) "$\Longleftarrow$":
+\[
+    e^{2\pi i k} = (e^{2\pi i})^k = 1^k = 1.
+\]
+"$\Longrightarrow$":\\
+Let $z = x + iy, x, y \in \R, e^z = 1$
+\begin{align*}
+    1 &= |e^z| = |e^{x+iy}| = |e^x| \underbrace{|e^{iy}|}_{\text{ixp}(y)\in S^1} = e^x \implies x = 0 \\
+    y &= 2k\pi + r, r \in [0, 2\pi[ \quad \implies 1 = \underbrace{e^{i2\pi k}}_{=1} e^{ir} \implies r = 0
+\end{align*}
+
+(2) "$\Longleftarrow$":
+\[
+    e^{(2k+1)\pi i} = \underbrace{e^{\pi i}}_{=-1} \underbrace{e^{2k\pi i}}_{=1} = -1
+\]
+"$\Longrightarrow$":
+\[
+    -1 = e^z \implies 1 = e^{2z} \xrightarrow{(1)} 2z = 2k\pi i \implies z = k\pi i.
+\]
+\begin{itemize}
+    \item[(a)] $k$: multiple of $2 \implies z = k\pi i$ does not solve $e^z = -1$.
+    \item[(b)] $z = (2l + 1)\pi i, l \in \Z \implies e^z = -1$. \hfill $\blacksquare$
+\end{itemize}
+\bigskip
+From Theorem 4.5.12 follows:
+\[
+    e^z = e^{z+2k\pi i}, \quad k \in \Z.
+\]
+If for a function $f : \K \to \K$ there exists a $p \in \K \setminus \{0\}$ with
+\[
+    f(x+p) = f(x) \quad \forall x \in \K
+\]
+one calls $f$ $p$-periodic. I.e., the exp-function is $2\pi i$-periodic.
+
+\NumberedTheorem{4.5.13}{}{For every $a \in \R$ the function $\operatorname{ixp} : [a, a + 2\pi[ \to S^1$ is bijective.}
+
+\paragraph*{Proof.}
+
+(1) \textbf{Injectivity:}
+\[
+\operatorname{ixp}(x) = \operatorname{ixp}(y) \iff e^{ix} = e^{iy} \iff e^{i(x-y)} = 1 \iff x - y = 2\pi k, \quad k \in \Z
+\]
+For all $x, y \in [a, a + 2\pi[$ holds:
+\[
+|x - y| < 2\pi.
+\]
+It follows that: $x = y$.
+
+(2) \textbf{Surjectivity:}
+\par\medskip
+Let $z \in S^1$. Then, according to Theorem 4.5.10, there exists an $x \in \R$:
+\[
+\operatorname{ixp}(x) = z.
+\]
+$x$ can be represented in the form
+\[
+x = a + 2k\pi + r \quad r \in [0, 2\pi[
+\]
+It holds:
+\[
+z = \operatorname{ixp}(x) = \underbrace{e^{i2k\pi}}_{=1} \cdot e^{i(a+r)} = \operatorname{ixp}(a+r),
+\]
+thus:
+\[
+a + r \in [a, a + 2\pi[.
+\]
+\hfill $\blacksquare$
+
+\NumberedTheorem{4.5.14}{}{
+(1) $\cos(z + 2k\pi) = \cos(z), \qquad \text{Cosine is } 2\pi\text{-periodic,}$ \\
+\phantom{(1)} $\sin(z + 2k\pi) = \sin(z), \qquad \text{Sine is } 2\pi\text{-periodic.}$
+\par\medskip
+(2) $\cos z = 0 \iff z = \frac{\pi}{2} + k\pi, \, k \in \Z,$ \\
+\phantom{(2)} $\sin z = 0 \iff z = k\pi, \, k \in \Z.$
+\par\medskip
+(3) $\sin(x) > 0 \quad \forall x \in ]0, \pi[,$ \\
+\phantom{(3)} $\sin(x) \text{ is strictly monotonically increasing in } [0, \frac{\pi}{2}].$
+\par\medskip
+(4) $\cos(z + \pi) = -\cos(z), \, \sin(z + \pi) = -\sin(z) \quad \forall z \in \C.$
+\par\medskip
+(5) $\sin(\frac{\pi}{2} - z) = \cos(z) \qquad \forall z \in \C,$ \\
+\phantom{(5)} $\cos(\frac{\pi}{2} - z) = \sin(z) \qquad \forall z \in \C.$
+\par\medskip
+(6) $\cos(\R) = \sin(\R) = [-1, 1].$
+}
+
+\paragraph*{Proof.} 1, 2, 4, 5, 6: Exercise. \\
+\textbf{@ (3):} \\
+From the proof of Theorem 4.5.10, Part (3), it follows:
+\[
+\sin(x) > 0 \quad \forall x \in ]0, 1[.
+\]
+From Part 2 of this theorem it follows: $\sin(x) \neq 0$ for all $x \in ]0, \pi[$. Since it is continuous, $\sin(x) > 0$ follows with the help of the Intermediate Value Theorem (Theorem 4.4.7) (indirect proof).
+
+Regarding Monotonicity: \\
+With the same arguments it follows from $\cos(0) = 1$:
+\[
+\cos x > 0 \quad \forall x \in \left]0, \frac{\pi}{2}\right[.
+\]
+Let now $0 \le x < y \le \pi/2$. Then it follows from Theorem 4.5.3 (Addition Theorems)
+\[
+\sin y - \sin x = 2 \cos \frac{x+y}{2} \sin \frac{y-x}{2} > 0.
+\]
+\hfill $\blacksquare$
+
+\NumberedTheorem{4.5.15}{}{For every $a \in \R$ holds:
+\[
+\exp : \R + i[a, a + 2\pi[ \to \C \setminus \{0\} \qquad \text{is bijective}
+\]
+}
+
+\paragraph*{Proof.}
+
+(1) \textbf{Injectivity:}
+\par\medskip
+Let $z = x + iy, \, w = u + iv, \, x, y, u, v \in \R$. Then holds:
+\begin{align*}
+e^z = e^w \iff e^{x+iy} = e^{u+iv} &\iff e^{x-u} = e^{i(v-y)} \implies e^{x-u} = |e^{i(v-y)}| = 1 \iff x - u = 0 \\
+&\implies e^{i(y-v)} = 1 \implies y - v = 2\pi k, \qquad k \in \Z.
+\end{align*}
+From $|y - v| < 2\pi$ follows $y = v$.
+
+(2) \textbf{Surjectivity:}
+\par\medskip
+Let $z \in \C \setminus \{0\}$. Then holds: $|z| > 0$. Use
+\[
+z = |z| \cdot \underbrace{\frac{z}{|z|}}_{\in S^1}.
+\]
+Theorem 4.5.13 implies that exactly one $y \in [a, a + 2\pi[$ exists with
+\[
+e^{iy} = \frac{z}{|z|}.
+\]
+Furthermore, there exists exactly one $x \in \R$ ($\exp : \R \to \R_{>0}$ is bijective) with
+\[
+e^x = |z|.
+\]
+From this follows
+\[
+e^{x+iy} = e^x \cdot e^{iy} = |z| \cdot \frac{z}{|z|} = z.
+\]
+\hfill $\blacksquare$
+
+\paragraph*{}
+From this follows the polar coordinate representation of complex numbers.
+
+\NumberedTheorem{4.5.16}{}{For every $z \in \C \setminus \{0\}$ there exists exactly one $\alpha \in [0, 2\pi[$ with
+\[
+z = |z|e^{i\alpha}.
+\]
+$\alpha$ is called the \textit{Argument} of $z$; $\alpha := \arg(z)$.}
+
+\NumberedTheorem{4.5.17}{}{For every $a \in \C \setminus \{0\}$ the equation $z^n = a$ possesses exactly $n$ distinct solutions:
+\[
+z_k = |a|^{\frac{1}{n}} e^{\frac{i(\arg(a)+2\pi k)}{n}}
+\]
+}
+
+\paragraph*{Proof.} Let $z$ be a solution of the equation $z^n = a$. (Obviously $z \neq 0$). Use polar coordinates:
+\[
+a = |a|e^{i \arg(a)}, \qquad z = r \cdot e^{i\phi}, \quad r \in \R_{>0} \qquad \text{and} \qquad \phi \in [0, 2\pi[.
+\]
+From this follows:
+\[
+z^n = r^n e^{in\phi} = |a|e^{i \arg(a)} \iff
+\left\{
+\begin{aligned}
+r^n &= |a| & \iff & r = |a|^{1/n} \\
+&\text{and} & & \\
+e^{in\phi} &= e^{i \arg(a)} & \iff & e^{i(n\phi - \arg(a))} = 1 \\
+& & \iff & n\phi - \arg(a) = 2\pi k \\
+& & \iff & \phi = \tfrac{1}{n}(2\pi k + \arg(a)).
+\end{aligned}
+\right.
+\]
+Distinct solutions $z$ only for $k = 0, 1, \dots, n-1$. \hfill $\blacksquare$
+
+\end{document}

@@ -1,0 +1,645 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+% This chapter translation: Original German "Die Exponentialfunktion" (The Exponential Function)
+% Numbering (Definition/Satz) preserved exactly as in source. Do NOT renumber.
+
+\begin{document}
+\section*{Chapter 5 \\ Differential Calculus of One Variable}
+
+\subsection*{5.1 Differentiability}
+
+In the following, unless otherwise stated, let the underlying field $\K$ be either $\R$ or $\C$ and $(Y, \|\cdot\|_Y)$ a normed $\K$-vector space, $M \subset \K$, $M \neq \emptyset$, $x_0 \in M$ be an accumulation point (HP)\footnotemark[1] of $M$ and $f : M \to Y$ a function.
+
+\footnotetext[1]{For $M \subset Y$ a point $y \in Y$ is called \textit{accumulation point} of $M$, if for every neighborhood $U$ of $y$ in $Y$ holds $(M \cap U) \setminus \{y\} \neq \emptyset$.}
+
+\NumberedDefinition{5.1.1}{}{The function $f : M \to Y$ is called \textit{differentiable} at the point $x_0 \in M$, if the limit\footnotemark[2]
+\[
+\lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+\]
+exists in $Y$. If $f$ is differentiable in $x_0$, we use the notations
+\[
+f'(x_0) := Df(x_0) := \frac{df}{dx}(x_0) := \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} := \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}
+\]
+and call all these quantities \textit{derivative} of $f$ in $x_0$.}
+
+\footnotetext[2]{Let $x_0 \in \K$ and assume there exists a sequence $(x_n)_n \subset M$ with $\lim_{n \to \infty} x_n = x_0$. Then we define:
+\[
+y := \lim_{x \to x_0} f(x),
+\]
+if for every sequence $(x_n)_n \subset M$ with $x_n \to x_0$ for $n \to \infty$ holds:
+\[
+f(x_n) \xrightarrow{n\to\infty} y.
+\]}
+
+\NumberedExample{5.1.2}{}{
+(1) $f : \C \to \C$, $f(z) = z^n$, $n \in \N_{\ge 1}$ is differentiable for all $z \in \C$ and it holds:
+\[
+f'(z) = nz^{n-1}
+\]
+(2) $f : \C \to \C, f(z) := e^z$ is differentiable for all $z \in \C$ and $f'(z) = e^z$.
+\par
+(3) $f : \R \setminus \{0\} \to \R, f(x) = \frac{1}{x}$ is differentiable for every $x \in \R \setminus \{0\}$ and $f'(x) = -\frac{1}{x^2}$.
+\par
+(4) $f : \R \to \R^2, f(x) = (x, x^2)^\mathsf{T}$ is differentiable for $x \in \R$ and $f'(x) = (1, 2x)^T$.
+\par
+(5) $f : \R \to \R_{\ge 0}, f(x) = |x|$ is not differentiable in $x_0 = 0$.
+\par
+(6) $f : \C \to \R, f(z) = \operatorname{Re}(z)$ is not differentiable in any point $z \in \C$.
+}
+
+\paragraph*{Proof.}
+(1)
+\[
+\frac{z^n - z_0^n}{z - z_0} = \sum_{j=0}^{n-1} z^j z_0^{n-1-j} \xrightarrow{z \to z_0} \sum_{j=0}^{n-1} z_0^j z_0^{n-1-j} = z_0^{n-1} \sum_{j=0}^{n-1} 1 = n z_0^{n-1}
+\]
+
+(2)
+\[
+\frac{e^z - e^{z_0}}{z - z_0} = e^{z_0} \frac{e^{z-z_0} - 1}{z - z_0}.
+\]
+In [8, Ex. 4.3.14(2)] it was shown that the fraction on the right-hand side converges to 1 for $z \to z_0$, so that the assertion follows.
+
+(3)
+\[
+\frac{\frac{1}{x_0+h} - \frac{1}{x_0}}{h} = \frac{-h}{x_0(x_0+h)h} = -\frac{1}{x_0(x_0+h)} \xrightarrow{h \to 0} -\frac{1}{x_0^2}
+\]
+
+(4)
+\begin{align*}
+\frac{f(x_0+h) - f(x_0)}{h} &= \frac{(x_0+h, x_0^2 + 2x_0h + h^2)^\mathsf{T} - (x_0, x_0^2)^\mathsf{T}}{h} = \frac{(h, 2x_0h + h^2)^\mathsf{T}}{h} \\
+&= (1, 2x_0+h)^\mathsf{T} \xrightarrow{h \to 0} (1, 2x_0)^\mathsf{T}
+\end{align*}
+
+(5)
+\[
+\lim_{\substack{n \to \infty \\ n \in \N}} \frac{f(\frac{1}{n}) - f(0)}{\frac{1}{n}} = \frac{\frac{1}{n}}{\frac{1}{n}} = 1; \qquad \lim_{\substack{n \to \infty \\ n \in \N}} \frac{f(-\frac{1}{n}) - f(0)}{-\frac{1}{n}} = \frac{\frac{1}{n}}{-\frac{1}{n}} = -1.
+\]
+More precisely:
+\[
+f'(x) = \begin{cases} 1 & \text{for } x > 0 \\ -1 & \text{for } x < 0 \end{cases}
+\]
+
+(6) Let $z = x + iy$ with $x, y \in \R$. Then holds:
+\[
+\frac{f(z+\frac{1}{n}) - f(z)}{\frac{1}{n}} = \frac{x+\frac{1}{n} - x}{\frac{1}{n}} = 1 \quad n \in \N
+\]
+but:
+\[
+\frac{f(z+i\frac{1}{n}) - f(z)}{i\frac{1}{n}} = \frac{x - x}{i\frac{1}{n}} = 0.
+\]
+\hfill $\blacksquare$
+
+\NumberedTheorem{5.1.3}{}{The following statements are equivalent:
+\par\medskip
+(1) $f$ is differentiable at $x_0$.
+\par\medskip
+(2) There exists a $c \in Y$ with
+\[
+\lim_{x \to x_0} \frac{f(x) - f(x_0) - c \cdot (x - x_0)}{x - x_0} = 0.
+\]
+\par
+(3) There exists a $c \in Y$ and a map $r : M \to Y$, which is continuous at $x_0$ and satisfies $r(x_0) = 0$, such that
+\[
+f(x) = f(x_0) + c(x - x_0) + r(x)(x - x_0) \qquad \forall x \in M
+\]
+holds.
+\par\medskip
+In cases (2) and (3), $c$ is the derivative of $f$ at $x_0$.}
+
+\paragraph*{Proof.}
+\textbf{(1) $\implies$ (2):} Trivial (Set $c = f'(x_0)$) \\
+\textbf{(2) $\implies$ (3):} Define $r$ by
+\[
+r(x) := \begin{cases} \frac{f(x)-f(x_0)-c(x-x_0)}{x-x_0} & x \neq x_0 \\ 0 & x = x_0 \end{cases}
+\]
+\[
+c := f'(x_0)
+\]
+\textit{Continuity:} Use (2) and the definition of continuity of its limits. \\
+\textbf{(3) $\implies$ (1):} Solve the equation in (3) for $\frac{f(x)-f(x_0)}{x-x_0}$ and use $r(x) \xrightarrow{x \to x_0} 0$. Taking the limit $x \to x_0$ yields $c = f'(x_0)$.
+\hfill $\blacksquare$
+
+\NumberedTheorem{5.1.4}{}{If $f$ is differentiable in $x_0$, then $f$ is continuous in $x_0$.}
+
+\paragraph*{Proof.} Use Theorem 5.1.3(3):
+\[
+f(x) = f(x_0) + \underbrace{c(x - x_0)}_{\xrightarrow{x \to x_0} 0} + \underbrace{r(x)}_{\xrightarrow{x \to x_0} 0} \underbrace{(x - x_0)}_{\xrightarrow{x \to x_0} 0}
+\]
+From this follows:
+\[
+\lim_{x \to x_0} f(x) = f(x_0).
+\]
+\hfill $\blacksquare$
+
+\NumberedRemark{5.1.5}{}{
+(1) Ex. 5.1.2(5), (6) show that the converse of Theorem 5.1.4 is generally false.
+\par\medskip
+(2) A function of the form $x \mapsto A + cx$ is called \textit{affine}. Its graph is a straight line. Theorem 5.1.3(2), (3) states that a function $f$, which is differentiable at $x_0$, can be approximated near $x_0$ by an affine function up to an error $R(x)$ with
+\[
+\lim_{x \to x_0} \frac{R(x)}{x - x_0} = 0 \qquad (*)
+\]
+\textbf{Converse:} Let $h : M \to Y$ be an affine function and $R : M \to Y$ a function satisfying $(*)$, as well as
+\[
+f(x) = h(x) + R(x) \quad \forall x \in M.
+\]
+Since $h$ is affine, there exists a $c \in Y$ with $h(x) = h(0) + cx$. Then holds:
+\[
+f(x) - f(x_0) = h(x) + R(x) - h(x_0) - \underbrace{R(x_0)}_{=0} = h(0) + cx + R(x) - h(0) - cx_0 = c(x - x_0) + R(x).
+\]
+From this follows:
+\[
+\frac{f(x) - f(x_0)}{x - x_0} = c + \frac{R(x)}{x - x_0} \xrightarrow{x \to x_0} c \qquad \text{because of } (*)
+\]
+and therefore $f$ is differentiable.
+}
+
+\NumberedTheorem{5.1.6}{}{$f = (f_1, \dots, f_m)^T : M \to \K^m$ is differentiable at $x_0 \in M$ if and only if every component function is differentiable at $x_0$. In this case holds:
+\[
+f'(x_0) = (f_1'(x_0), \dots, f_m'(x_0))^T
+\]
+}
+
+\paragraph*{Proof.} It holds
+\[
+\frac{f(x) - f(x_0)}{x - x_0} = \left( \frac{f_1(x) - f_1(x_0)}{x - x_0}, \dots, \frac{f_m(x) - f_m(x_0)}{x - x_0} \right)^T.
+\]
+A function $f$ is differentiable if the difference quotients $\frac{f(x)-f(x_0)}{x-x_0}$ can be continuously extended for $x \to x_0$. The assertion follows therefore from [8, Theorem 4.3.10] ($g = (g_1, \dots, g_m)^T$ continuous iff all $g_i$ continuous) and [8, Rem. 4.3.13] (continuous extendability). \hfill $\blacksquare$
+
+\NumberedTheorem{5.1.7}{}{Let $f : M \to Y, g : M \to Y$ be differentiable in $x_0$ and $\alpha, \beta \in \K$. Then holds:
+\par\medskip
+(1) $\alpha f + \beta g$ is differentiable in $x_0$ and it holds
+\[
+(\alpha f + \beta g)'(x_0) = \alpha f'(x_0) + \beta g'(x_0)
+\]
+(2) Let $Y = \K$. Then $f \cdot g$ is differentiable in $x_0$ and it holds
+\[
+(f \cdot g)'(x_0) = f'(x_0)g(x_0) + f(x_0)g'(x_0)
+\]
+(3) Let $Y = \K$ and $g(x_0) \neq 0$. Then $\frac{f}{g}$ is differentiable in $x_0$ and it holds
+\[
+\left(\frac{f}{g}\right)'(x_0) = \frac{f'(x_0)g(x_0) - f(x_0)g'(x_0)}{g^2(x_0)}
+\]
+}
+
+\paragraph*{Proof.}
+(1) trivial (Use calculation rules with limits)
+
+(2)
+\begin{align*}
+\frac{(f \cdot g)(x) - (f \cdot g)(x_0)}{x - x_0} &= \frac{f(x) \cdot g(x) - f(x_0) \cdot g(x_0)}{x - x_0} \\
+&= \frac{f(x) - f(x_0)}{x - x_0}g(x) + f(x_0)\frac{g(x) - g(x_0)}{x - x_0} \xrightarrow{x \to x_0} f'(x_0)g(x_0) + f(x_0)g'(x_0).
+\end{align*}
+
+(3) Use Theorem 5.1.4. Since therefore $g$ is continuous, there exists a neighborhood $U$ of $x_0$ with $g(x) \neq 0$ for all $x \in U$.
+\begin{align*}
+\frac{\frac{f(x)}{g(x)} - \frac{f(x_0)}{g(x_0)}}{x - x_0} &= \frac{f(x)g(x_0) - f(x_0)g(x)}{g(x)g(x_0)(x - x_0)} \\
+&= \frac{1}{g(x)g(x_0)} \left[ \frac{f(x) - f(x_0)}{x - x_0}g(x_0) - f(x_0)\frac{g(x) - g(x_0)}{x - x_0} \right] \\
+&\xrightarrow{x \to x_0, x \in U} \frac{1}{g^2(x_0)} [f'(x_0)g(x_0) - f(x_0)g'(x_0)]
+\end{align*}
+\hfill $\blacksquare$
+
+\NumberedTheorem{5.1.8}{(Chain Rule)}{Let $f : M \to \K$ be differentiable at $x_0$, $y_0 = f(x_0)$ be an accumulation point of $N = f(M)$ and $g : N \to Y$ be differentiable at $y_0$. Then $g \circ f$ is differentiable at $x_0$ and it holds:
+\[
+(g \circ f)'(x_0) = g'(f(x_0)) \cdot f'(x_0).
+\]
+}
+
+\paragraph*{Proof.} Use Theorem 5.1.3 for the characterization of differentiability:
+
+\[
+(*) \quad
+\begin{aligned}
+f(x) &= f(x_0) + f'(x_0)(x - x_0) + r(x)(x - x_0) \\
+g(y) &= g(y_0) + g'(y_0)(y - y_0) + s(y)(y - y_0)
+\end{aligned}
+\qquad r, s \text{ continuous}, r(x_0) = 0, s(y_0) = 0.
+\]
+
+\begin{align*}
+(g \circ f)(x) &= (g \circ f)(x_0) + g'(f(x_0))(f(x) - f(x_0)) + s(f(x))(f(x) - f(x_0)) \\
+&= (g \circ f)(x_0) + g'(f(x_0))f'(x_0)(x - x_0) \\
+&\quad + \underbrace{(g'(f(x_0))r(x) + s(f(x))(f'(x_0) + r(x)))}_{=: t(x)}(x - x_0)
+\end{align*}
+
+Use [8, Theorem 4.3.5] (Sums, products etc. of continuous functions are continuous) and [8, Theorem 4.3.8] (Composition of two continuous functions is continuous), to show the continuity of $t$. Obviously $t(x_0) = 0$ holds and therefore:
+\[
+(g \circ f)'(x_0) = g'(f(x_0)) \cdot f(x_0).
+\]
+\hfill $\blacksquare$
+
+\NumberedTheorem{5.1.9}{(Differentiability of the Inverse Function)}{Let $f : M \to \K$ be injective and differentiable at $x_0$. Let $N = f(M)$. Let $f^{-1} : N \to M$ be continuous at $y_0 := f(x_0)$. Then $f^{-1}$ is differentiable at $y_0$ if and only if $f'(x_0) \neq 0$ holds. In this case:
+\[
+(f^{-1})'(y_0) = \frac{1}{f'(x_0)}.
+\]
+}
+
+\paragraph*{Proof.}
+
+(1) Show: $y_0$ is an accumulation point in $N$. $f$ is continuous at $x_0$ (Theorem 5.1.4). Choose $(x_n)$ with $x_n \to x_0, x_n \neq x_0$. Then holds:
+\[
+f(x_n) \xrightarrow{x_n \to x_0} f(x_0) = y_0
+\]
+i.e., $y_0$ is an accumulation point.
+
+(2) "$\implies$": For all $x \in M$ holds:
+\[
+x = f^{-1} \circ f(x)
+\]
+Differentiating this equation yields:
+\[
+1 = (f^{-1} \circ f)'(x_0) = (f^{-1})'(f(x_0)) \cdot f'(x_0)
+\]
+This means: $f'(x_0) \neq 0$ and further:
+\[
+(f^{-1})'(y_0) = \frac{1}{f'(x_0)}.
+\]
+
+"$\Longleftarrow$":
+\[
+\frac{f^{-1}(y) - f^{-1}(y_0)}{y - y_0} \stackrel{y=f(x), y_0=f(x_0)}{=} \frac{x - x_0}{f(x) - f(x_0)} = \left( \frac{f(x) - f(x_0)}{x - x_0} \right)^{-1} \xrightarrow{x \to x_0} \frac{1}{f'(x_0)}.
+\]
+Here it was used: $y \neq y_0 \iff x \neq x_0$ (Injectivity of $f$).
+\[
+y \to y_0 \implies f^{-1}(y) \to f^{-1}(y_0), \quad \text{i.e. } x \to x_0.
+\]
+\hfill $\blacksquare$
+
+\NumberedRemark{5.1.10}{}{Let $M \subset \R$ be an interval, $M \neq \{x_0\}$. Let $f : M \to \R$ be strictly monotonic, continuous and $f$ differentiable at $x_0$ and $f'(x_0) \neq 0$. Then there exists $f^{-1}$ and is differentiable at $y_0 = f(x_0)$. It holds:
+\[
+(f^{-1})'(y_0) = \frac{1}{f'(x_0)}
+\]
+}
+
+\paragraph*{Proof.} Combine Theorem [8, Theorem 4.4.8] with Theorem 5.1.9. \hfill $\blacksquare$
+
+\NumberedExample{5.1.11}{}{$\ln : \R_{>0} \to \R$ is differentiable for all $y_0 \in \R_{>0}$ and it holds:
+\[
+\ln'(y_0) = \frac{1}{y_0}
+\]
+}
+
+\paragraph*{Proof.} Set $f : \R \to \R_{>0}, f(x) = e^x$. Then holds:
+\[
+\ln = f^{-1}.
+\]
+$f$ satisfies the assumption of Rem. 5.1.10. Then holds:
+\[
+\ln'(y_0) = (f^{-1})'(y_0) = \frac{1}{f'(x_0)} = \frac{1}{e^{x_0}} = \frac{1}{e^{\ln(y_0)}} = \frac{1}{y_0}, \quad
+\left\{
+\begin{aligned}
+y_0 &= f(x_0), \\
+x_0 &= f^{-1}(y_0) = \ln(y_0).
+\end{aligned}
+\right.
+\]
+\hfill $\blacksquare$
+
+\NumberedDefinition{5.1.12}{}{A subset $M$ of a normed vector space is called \textit{perfect}, if every point in $M$ is an accumulation point.}
+
+\NumberedExample{5.1.13}{}{
+(1) $M$ open $\implies M$ perfect.
+\par
+(2) $M \subset \R$ interval, $M \neq \emptyset, M \neq \{x_0\}$ is perfect.
+\par
+(3) $M = \{x_0\}$ is not perfect.
+}
+
+\NumberedDefinition{5.1.14}{}{
+(1) $f : M \to Y$ is called \textit{differentiable (in $M$)}, if $f$ is differentiable at every point.
+\par
+(2) $f : M \to Y$ is called \textit{continuously differentiable (in $M$)}, if $f$ is differentiable at every point and $f'$ is continuous in $M$.
+\par
+(3) $f^{(0)} = f, \, f^{(1)} := Df = f'$, recursively $f^{(n+1)} = (f^{(n)})'$, if $f^{(n)}$ exists and is differentiable.
+\par
+(4) $f : M \to Y$ is called \textit{$n$-times continuously differentiable}, if $f^{(n)}$ exists and is continuous.
+\par
+(5) $C^n(M, Y) := \{ f \in C(M, Y) : f \text{ is } n\text{-times continuously differentiable} \}$,
+\[
+C^\infty(M, Y) := \bigcap_{n \in \N} C^n(M, Y).
+\]
+}
+
+We now turn to the question, under which conditions a continuous function possesses a maximum and a minimum on its domain.
+
+\NumberedExample{5.1.15}{}{Let $I = ]-1, 1[$ and $f : I \to \R$ be given by $f(x) = x$. Then there exists \textbf{no} $\xi \in I$ and \textbf{no} $\zeta \in I$ with
+\[
+\forall x \in I : f(x) \le f(\xi),
+\]
+\[
+\forall x \in I : f(x) \ge f(\zeta).
+\]
+In this example the function $f$ was continuous but the interval open. As we will see in the following, every continuous function on closed intervals assumes its maximum and minimum.
+\par
+In the following let $(X, \|\cdot\|_X), (Y, \|\cdot\|_Y)$ be normed vector spaces. The set consisting of all subsets of $X$ is called Power set of $X$ and denoted by $\mathcal{P}(X)$.}
+
+\NumberedDefinition{5.1.16}{}{Let $M \subset X$. A set $\{O_\alpha, \alpha \in A\} \subset \mathcal{P}(X)$, consisting of subsets $O_\alpha$ of $X$, is called (open) \textit{Cover} of $M$, if holds:
+\[
+M \subset \bigcup_{\alpha \in A} O_\alpha \qquad (\text{and } O_\alpha \text{ is open for all } \alpha \in A).
+\]
+$M$ is called \textit{compact}, if every open cover of $M$ contains a finite subcover, i.e., if there exist an $n \in \N$ and $\alpha_1, \alpha_2, \dots, \alpha_n \in A$ with
+\[
+M \subset \bigcup_{i=1}^n O_{\alpha_i}.
+\]
+}
+
+\NumberedExample{5.1.17}{}{
+(1) $\emptyset$ is compact.
+\par
+(2) $\{0\} \cup \{\frac{1}{n} : n \in \N\} \subset \R$ is compact.
+\par
+(3) $\{\frac{1}{n} : n \in \N\} \subset \R$ is not compact.
+}
+
+\NumberedTheorem{5.1.18}{}{Let $M \subset X$ be compact. Then holds:
+\par\medskip
+(1) $M$ is bounded, i.e. there exists an $R > 0$ with $M \subset B(0, R)$.
+\par\medskip
+(2) $M$ is closed.
+}
+
+\paragraph*{Proof.}
+(1) $\{B(0, r) : r \in \R_{\ge 0}\}$ is an open cover of $M$. Using Definition 5.1.16 shows the existence of a finite subcover and therefore an $R > 0$ with $M \subset B(0, R)$.
+\par
+(2) Show $M^c$ is open. Choose $x \in M^c$ and show: There ex. $r > 0$ with $B(x, r) \subset M^c$.
+\par
+The system
+\[
+\left\{ B\left(y, \frac{1}{2}\|y - x\|_X\right) : y \in M \right\}
+\]
+is an open cover of $M$. Let
+\[
+\left\{ B\left(y_i, \frac{1}{2}\|y_i - x\|_X\right) : 1 \le i \le n \right\}
+\]
+be a finite subcover. Define
+\[
+r := \min_{1 \le i \le n} \frac{1}{2} \|y_i - x\|_X > 0.
+\]
+Then holds:
+\[
+B(x, r) \cap B(y_i, r) = \emptyset \quad \forall 1 \le i \le n \implies B(x, r) \cap \bigcup_{i=1}^n B(y_i, r) = \emptyset \implies B(x, r) \cap M = \emptyset.
+\]
+\hfill $\blacksquare$
+
+\NumberedTheorem{5.1.19}{}{The following statements are equivalent:
+\par\medskip
+(1) $M \subset X$ is compact.
+\par\medskip
+(2) Every sequence in $M$ possesses an accumulation point (HP) in $M$.
+}
+
+\paragraph*{Proof. $1 \implies 2$:}
+Assume (2) were false. Then there exists a sequence $(x_n)_{n \in \N} \subset M$, which possesses no HP in $M$. That is, for every $x \in M$, there is an $\eps(x) > 0$, such that $B(x, \eps(x))$ contains only finitely many sequence terms. $\{B(x, \eps(x)) : x \in M\}$ is an open cover of $M$. Let $\{B(y_i, \eps(y_i)) : 1 \le i \le n\}$ be a finite subcover. Since every $B(y_i, \eps(y_i))$ contains only finitely many sequence terms,
+\[
+\bigcup_{1 \le i \le n} B(y_i, \eps(y_i))
+\]
+also contains only finitely many sequence terms and this is a contradiction.
+
+\paragraph*{$2 \implies 1$:}
+We show first, that for every $r \in \R_{>0}$ the open cover
+\[
+B_r := \{B(x, r) : x \in M\}
+\]
+of $M$ contains a finite subcover.
+Assume this is not the case. Then there is an $R > 0$, so that every finite subset of $B_R$ does not cover the set $M$. Let $x_1 \in M$ be arbitrary. Then there is an $x_2 \in M \setminus B(x_1, R)$. Further there is an $x_3 \in M \setminus [B(x_1, R) \cup B(x_2, R)]$. By induction one shows, that there is a sequence $(x_n)_{n \in \N} \subset M$ with
+\[
+x_{n+1} \in M \setminus \bigcup_{1 \le i \le n} B(x_i, R).
+\]
+According to (2), $(x_n)_{n \in \N}$ possesses an HP $x^* \in M$. Then $B(x^*, \frac{R}{2})$ contains infinitely many sequence terms $(x_{n_i})_{i \in \N}$. For any two such sequence terms $x_{n_1}$ and $x_{n_2}$ holds
+\[
+\|x_{n_1} - x_{n_2}\|_X \le \|x_{n_1} - x^*\|_X + \|x_{n_2} - x^*\|_X < R
+\]
+in contradiction to the construction.
+
+Now let $\{O_\alpha : \alpha \in A\}$ be an arbitrary open cover of $M$. We assume, that it contains no finite subcover. As we have shown above, $B_{\frac{1}{n}}$ contains for every $n \in \N$ a finite subcover. Since $\{O_\alpha : \alpha \in A\}$ contains no finite subcover, there is thus for every $n \in \N$ an $x_n \in M$, so that $B(x_n, \frac{1}{n}) \cap M$ cannot be covered by finitely many $O_\alpha$'s. The sequence $(x_n)_{n \in \N}$ possesses according to (2) an HP $x^*$ in $M$. Then there is an $\alpha^* \in A$ and an $\eps^* \in \R_{>0}$ with
+\[
+x^* \in O_{\alpha^*} \text{ and } B(x^*, \eps^*) \subset O_{\alpha^*}.
+\]
+Since $x^*$ is an HP of $(x_n)_{n \in \N}$, there is $N > (\frac{\eps^*}{2})^{-1}$ a $m \ge N$ with
+\[
+\|x_m - x^*\|_X < \frac{\eps^*}{2}.
+\]
+For $x \in B(x_m, \frac{1}{m})$ follows
+\[
+\|x - x^*\|_X \le \|x - x_m\|_X + \|x_m - x^*\| < \frac{1}{m} + \frac{\eps^*}{2} \le \frac{1}{N} + \frac{\eps^*}{2} < \eps^*.
+\]
+Thus is
+\[
+B\left(x_m, \frac{1}{m}\right) \subset B(x^*, \eps^*) \subset O_{\alpha^*}
+\]
+and this is a contradiction. \hfill $\blacksquare$
+
+\NumberedRemark{5.1.20}{}{A set $M$ with property (2) is called \textit{sequentially compact}. Theorem 5.1.19: $X$ norm. VR $\implies$ (``compact'' $\iff$ ``sequentially compact''). But there exist topological VR, for which ``$\iff$'' does not hold.}
+
+\NumberedTheorem{5.1.21}{(Heine-Borel)}{A subset $M \subset \K^m$ is compact if and only if it is bounded and closed.}
+
+\paragraph*{Proof.}
+``$\implies$'': Theorem 5.1.18.
+\par
+``$\Longleftarrow$'':
+Let $M \subset \K^m$ be bounded and closed. Let $(x_n)$ be a sequence in $M$. According to Theorem 3.1.15 and Theorem 3.2.5 there exists an $x^* \in \K^m$ and a subsequence $(x_{n_k})_{k \in \N}$ of $(x_n)$ with
+\[
+(x_{n_k})_i \longrightarrow x^*_i \qquad \text{for } k \to \infty, 1 \le i \le m.
+\]
+Since $M$ is closed, $x^* \in M$, see Theorem 4.2.14. Therefore $M$ is sequentially compact and because of Theorem 5.1.19 compact.
+\hfill $\blacksquare$
+
+\NumberedRemark{5.1.22}{}{The theorem of Heine-Borel does not hold for infinite-dimensional vector spaces. (Ex. $\ell_\infty, \ell_1, \ell_2$)}
+
+\NumberedTheorem{5.1.23}{}{Let $M \subset X, M \neq \emptyset$, compact and $f \in C(M, \R)$. Then $f$ assumes its Maximum and Minimum on $M$, i.e. there exist $\underline{x} \in M$ and $\bar{x} \in M$ with:
+\[
+f(\underline{x}) \le f(x) \le f(\bar{x}) \qquad \forall x \in M
+\]
+}
+
+\paragraph*{Proof.} We show first: $M$ compact, $f$ continuous $\implies f(M)$ compact in $\R$. Let $\{O_\alpha : \alpha \in A\}$ be an open cover of $f(M)$. Since $f$ is continuous, we know that $f^{-1}(O_\alpha)$ is relatively open and therefore $\{f^{-1}(O_\alpha) : \alpha \in A\}$ is a relatively open cover of $M$. This possesses a finite subcover $\{f^{-1}(O_{\alpha_i}) : 1 \le i \le n\}$. Therefore $\{O_{\alpha_i} : 1 \le i \le n\}$ is a finite subcover of $f(M)$ and therefore $f(M)$ compact.
+\par
+Because of Theorem 5.1.18 $f(M)$ is bounded and closed. Thus holds:
+\[
+-\infty < \rho := \inf f(M) \le \sup f(M) =: R < \infty, \qquad \rho, R \in \R.
+\]
+From the Def. of the Supremum follows, that there is a sequence $(x_n)$ in $M$ with
+\[
+\lim_{n \to \infty} f(x_n) = R.
+\]
+Since $M$ compact, $(x_n)$ possesses an HP $\bar{x}$ in $M$ (Theorem 5.1.19). Since $f$ is continuous, holds
+\[
+f(\bar{x}) = f(\lim_{k \to \infty} x_{n_k}) = \lim_{k \to \infty} f(x_{n_k}) = R.
+\]
+The proof of the existence of $\underline{x} \in M$ is analogous. \hfill $\blacksquare$
+
+\NumberedRemark{5.1.24}{}{
+(1) $C^n(M, Y)$ is a $\K$-vector space.
+\par
+(2) $C(M, Y) \supsetneq C^1(M, Y) \supsetneq C^2(M, Y) \supsetneq \dots$
+\par
+(3) If $M$ is perfect and compact, a norm on $C^n(M, Y)$ is defined by
+\[
+\|f\|_{C^n(M, Y)} := \max_{0 \le k \le n} \|f^{(k)}\|_{C(M, Y)} = \max_{0 \le k \le n} \max_{x \in M} \|f^{(k)}(x)\|
+\]
+}
+
+\paragraph*{Proof.}
+
+(1) Follows by induction (analogous to Theorem 4.3.5 ($C(M, Y)$ is a $\K$-VS)) with the help of Theorem 5.1.7(1) ($(\alpha f + \beta g)' = \alpha f' + \beta g'$).
+\par
+(2) $C^n(M, Y) \subset C^{n-1}(M, Y)$ for all $n \in \N$ follows by induction from Theorem 5.1.3 ($C^1(M, Y) \subset C(M, Y)$).
+\par
+For $n \ge 1$, $|x|x^{n-1}$ is in $C^{n-1}(\R, \R)$ but not in $C^n(\R, \R)$.
+\par
+(3) By induction in Exercise.
+\hfill $\blacksquare$
+
+\NumberedTheorem{5.1.25}{(Leibniz Rule)}{Let $n \in \N$ and $f, g \in C^n(M, \K)$ with $M \subset \K$ perfect. Then $f \cdot g \in C^n(M, \K)$ and it holds:
+\[
+(f \cdot g)^{(n)} = \sum_{k=0}^n \binom{n}{k} f^{(k)} \cdot g^{(n-k)}.
+\]
+}
+
+\paragraph*{Proof.} By induction on $n$. \\
+$\mathbf{n = 1}:$ Theorem 5.1.7(2) Product Rule. \\
+$\mathbf{n \to n+1}:$
+\begin{align*}
+(f \cdot g)^{(n+1)} &= ((f \cdot g)^{(n)})' = \sum_{k=0}^n \binom{n}{k} (f^{(k)} \cdot g^{(n-k)})' \\
+&= \sum_{k=0}^n \binom{n}{k} (f^{(k+1)} \cdot g^{(n-k)} + f^{(k)} \cdot g^{(n+1-k)}) \\
+&= \sum_{l=1}^{n+1} \binom{n}{l-1} f^{(l)} g^{(n+1-l)} + \sum_{k=0}^n \binom{n}{k} f^{(k)} g^{(n+1-k)} \\
+&= f^{(n+1)}g + fg^{(n+1)} + \sum_{k=1}^n \underbrace{\left( \binom{n}{k-1} + \binom{n}{k} \right)}_{= \binom{n+1}{k}} f^{(k)} g^{(n+1-k)} \\
+&= \sum_{k=0}^{n+1} \binom{n+1}{k} f^{(k)} g^{(n+1-k)}
+\end{align*}
+\hfill $\blacksquare$
+
+\NumberedExample{5.1.26}{}{
+(1) $M \subset \R$, $f : M \to \C$. Then $f = g + ih$, $g : M \to \R$, $h : M \to \R$.
+It holds: $f$ differentiable in $x_0 \in M \iff g, h$ differentiable in $x_0$.
+\par\medskip
+(2) $p(x) = \sum_{k=0}^n a_k x^k, \, a_k \in \K$. Then $p \in C^\infty(\K, \K)$ with
+\[
+p'(x) = \sum_{k=1}^n k a_k x^{k-1} = \sum_{l=0}^{n-1} (l+1) a_{l+1} x^l
+\]
+and $p^{(m)}(x) = 0 \quad \forall x \in \K$ for $m > n$.
+\par\medskip
+(3) $p(x) = \sum_{k=0}^n a_k x^k, \, q(x) = \sum_{k=0}^m b_k x^k$ with $a_k, b_k \in \K$ and $q(x) \neq 0$ for all $x \in M$, $M$ perfect. Then is $\frac{p}{q} \in C^\infty(M, \K)$.
+\par\medskip
+(4) $\exp \in C^\infty(\K, \K), \, \exp' = \exp$.
+\par\medskip
+(5) $\sin, \cos \in C^\infty(\K, \K), \, \sin' = \cos, \, \cos' = -\sin$.
+\par\medskip
+(6) $\ln \in C^\infty(\R_{>0}, \R), \, \ln^{(k)}(x) = \frac{(-1)^{k+1}(k-1)!}{x^k}$ for $k \ge 1$.
+\par\medskip
+(7) $a > 0$. Then is $x \mapsto a^x \in C^\infty(\R, \R)$ and $(a^x)' = a^x \cdot \ln(a)$.
+\par\medskip
+(8) $f(x) = \begin{cases} x^2 \cdot \sin \frac{1}{x} & x \in \R_{\neq 0} \\ 0 & x = 0 \end{cases}$ is differentiable on $\R$. The derivative is not continuous in 0.
+}
+
+\paragraph*{Proof.}
+
+(1) Follows from differentiability properties of multi-component functions and identification of $\C$ with $\R^2$.
+\par
+(2) Follows from derivative rules for sums and powers (Theorem 5.1.7, Ex. 5.1.2(1)).
+\par
+(3) By induction via quotient rule.
+\par
+(4) Ex. 5.1.2(2).
+\par
+(5) Use exponential representation of $\sin, \cos$ (Theorem 4.5.2(7)) and (4).
+\par
+(6) Use $\ln'(x) = \frac{1}{x}$ and complete induction.
+\par
+(7) Use $a^x = e^{x \cdot \ln a}$, (4), Chain rule.
+\par
+(8) From $\left| \frac{f(x)-f(0)}{x-0} \right| = \left| \frac{f(x)}{x} \right| = |x| \cdot \underbrace{|\sin \frac{1}{x}|}_{\le 1} \le |x| \xrightarrow{x \to 0} 0$ follows the differentiability in $x = 0$.
+\par
+For $x \neq 0$ follows from Theorem 5.1.7, 5.1.8 (Chain, Quotient rule) and Part (5)
+\[
+f'(x) = 2x \sin \frac{1}{x} + x^2 \left( \cos\left(\frac{1}{x}\right) \right) \left(-\frac{1}{x^2}\right) = 2x \sin \frac{1}{x} - \cos \frac{1}{x}.
+\]
+Thus follows:
+\[
+f'\left(\frac{1}{2\pi n}\right) = \underbrace{\frac{1}{\pi n} \sin(2\pi n)}_{=0} - \cos(2\pi n) = -1.
+\]
+\hfill $\blacksquare$
+
+\NumberedDefinition{5.1.27}{}{Let $M \subset \R$ and $x_0$ be an accumulation point of $M$. Then $f$ is called \textit{left-sided} (resp. \textit{right-sided}) \textit{differentiable} at $x_0$, if the limit
+\[
+(D_-f)(x_0) = \lim_{\substack{x \to x_0 - 0 \\ x \neq x_0}} \frac{f(x) - f(x_0)}{x - x_0} \qquad \left( \text{resp. } (D_+f)(x_0) = \lim_{x \to x_0 + 0} \frac{f(x) - f(x_0)}{x - x_0} \right)
+\]
+exists.}
+
+\NumberedExample{5.1.28}{}{Let $f(x) = |x|$. Then holds $(D_+f)(0) = 1$ and $(D_-f)(0) = -1$.}
+
+\NumberedTheorem{5.1.29}{}{Let $M \subset \R$. Then $f : M \to Y$ is differentiable at $x_0$ if and only if the left- and right-sided derivatives exist and coincide:
+\[
+(D_+f)(x_0) = (D_-f)(x_0)
+\]
+}
+
+\paragraph*{Proof.}
+``$\implies$'' trivial. \\
+``$\Longleftarrow$'' Define $\phi : M \to Y$ by
+\[
+\phi(x) := \begin{cases} \frac{f(x)-f(x_0)}{x-x_0} & x \neq x_0 \\ (D_+f)(x_0) & x = x_0 \end{cases}.
+\]
+$f$ is differentiable at $x_0$ exactly when $\phi$ is continuous at $x_0$. Since $\phi$ is one-sided continuous and $(D_-f)(x_0) = (D_+f)(x_0)$ holds, the assertion follows from Theorem 4.3.17. \hfill $\blacksquare$
+
+\NumberedExample{5.1.30}{}{The function
+\[
+f(x) := \begin{cases} 0 & x \le 0 \\ e^{-\frac{1}{x}} & x > 0 \end{cases}
+\]
+is infinitely differentiable and it holds:
+\[
+f^{(n)}(0) = 0 \qquad \forall n \in \N.
+\]
+}
+
+\paragraph*{Proof.} Obviously $f \in C^\infty(]-\infty, 0[, \R)$ and $f^{(n)}(x) = 0 \quad \forall n \in \N, x \le 0$. \\
+\textbf{Intermediate claim:} $\forall n \in \N \, \exists p_{2n}$ Polynomial of degree $\le 2n$:
+\[
+f^{(n)}(x) = p_{2n}\left(\frac{1}{x}\right) e^{-\frac{1}{x}} \quad \forall x > 0
+\]
+\textbf{Proof of the intermediate claim:} $n=0: p_0(y) := 1$. \quad $n \to n+1$:
+\[
+\left( p_{2n}\left(\frac{1}{x}\right) e^{-\frac{1}{x}} \right)' = \left[ \left( \left(\frac{1}{x^2}\right) p'_{2n}\left(\frac{1}{x}\right) \right) + p_{2n}\left(\frac{1}{x}\right) \left(\frac{1}{x^2}\right) \right] e^{-\frac{1}{x}} =: p_{2n+2}\left(\frac{1}{x}\right) e^{-\frac{1}{x}}.
+\]
+From this follows $f \in C^\infty(\R_{>0}, \R)$. Because of Theorem 5.1.29 it remains to be shown, that for $n \in \N$ holds:
+\[
+\lim_{x \to 0+0} f^{(n)}(x) = 0.
+\]
+From Theorem 4.5.4 ($\frac{y^k}{e^y} \xrightarrow{y \to +\infty} 0$) follows:
+\begin{align*}
+\lim_{x \to 0+0} f^{(n)}(x) &= \lim_{x \to 0+0} \left( p_{2n}\left(\frac{1}{x}\right) e^{-\frac{1}{x}} \right) = \lim_{x \to 0+0} \sum_{k=0}^{2n} a_k x^{-k} e^{-\frac{1}{x}} \\
+&= \sum_{k=0}^{2n} a_k \lim_{x \to 0+0} (x^{-k} e^{-\frac{1}{x}}) = \sum_{k=0}^{2n} a_k \underbrace{\lim_{y \to +\infty} (y^k e^{-y})}_{\to 0} = 0.
+\end{align*}
+\hfill $\blacksquare$
+
+\end{document}

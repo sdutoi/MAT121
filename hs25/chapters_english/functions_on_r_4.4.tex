@@ -1,0 +1,252 @@
+\documentclass[12pt]{article}
+% -------------------- Packages --------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[unicode]{hyperref}
+\hypersetup{unicode=true,hypertexnames=false}
+% Avoid enumitem negative labelwidth warnings by setting a safe leftmargin
+\setlist[enumerate]{leftmargin=*,labelsep=0.5em}
+% Soften line-breaking to avoid overfull hboxes in long headings/paragraphs
+\emergencystretch=2em
+\usepackage{microtype}
+
+\geometry{margin=2.5cm}
+
+% -------------------- Metadata --------------------
+\iffalse
+		itle{Analysis I \& II \newline\small (English Translation Draft)}
+\fi
+% (replaced malformed title line below)
+\csname title\endcsname{Analysis I \& II \newline\small (English Translation Draft)}
+\author{Based on original German script (private use)}
+\date{\today}
+
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+% Some earlier notes used \odo by mistake; keep it compiling by aliasing:
+\newcommand{\odo}[1]{\todo{#1}}
+
+% -------------------- Manual Numbering Helpers --------------------
+% Use these when you want to preserve the original numbering from the German
+% script. They deliberately avoid coupling to LaTeX's counters.
+% Pattern:
+%   \NumberedDefinition{<chapter.section.item>}{<Title>}{<Body>}
+% If you later want cross-references, add an explicit \label inside #3 and
+% reference it normally with \ref. The visual number won't auto-sync if you
+% renumber—update the macro argument manually.
+% Translator note: Keep using numbered theorems/remarks/examples exactly as in
+% the German script (e.g., 4.1.1, 4.1.2, ...). Prefer these helpers where you
+% need to mirror source numbering during translation.
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+\begin{document}
+
+
+\subsection{Functions on \texorpdfstring{$\R$}{R} (Funktionen in \texorpdfstring{$\R$}{R})}
+
+In the following, let $I\subset\R$ always be a nonempty interval.
+
+\NumberedDefinition{4.4.1}{Monotonicity}{A function $f:I\to\R$ is called
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item monotone increasing,
+	\item monotone decreasing,
+	\item strictly increasing,
+	\item strictly decreasing,
+\end{enumerate}
+if for all $x,y\in I$ with $x<y$ we have, respectively,
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f(x)\le f(y)$,
+	\item $f(x)\ge f(y)$,
+	\item $f(x)< f(y)$,
+	\item $f(x)> f(y)$.
+\end{enumerate}
+A function that is either (strictly) decreasing or (strictly) increasing is called (strictly) monotone.}
+
+\NumberedExample{4.4.2}{}{{\leavevmode}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $f(x):=x^{2}$ is strictly decreasing on $(-\infty,0]$ and strictly increasing on $[0,\infty)$. If $0\in \mathring I$ (i.e. $0$ is an interior point of $I$), then $f$ is not monotone on $I$.
+	\item The floor function $f(x):=\lfloor x\rfloor$ is monotone increasing.
+	\item The function
+		\[
+			f(x):=\begin{cases}
+				1, & x\in\Q,\\
+				0, & x\in\R\setminus\Q,
+			\end{cases}
+		\]
+		is not monotone.
+\end{enumerate}}
+
+\NumberedTheorem{4.4.3}{One-sided limits of monotone functions}{Let $f:I\to\R$ be monotone and set $\alpha:=\inf I$, $\beta:=\sup I$ (possibly infinite). Then the one-sided limits
+\[
+	f(\alpha+0):=\lim_{x\to\alpha+0} f(x)=\lim_{\substack{x\to\alpha\\ x>\alpha}} f(x),
+	\qquad
+	f(\beta-0):=\lim_{x\to\beta-0} f(x)=\lim_{\substack{x\to\beta\\ x<\beta}} f(x)
+\]
+exist in $\R$, and we have
+\[
+	f(\alpha+0)=
+	\begin{cases}
+		\inf\{f(x): x\in I\setminus\{\alpha\}\}, & \text{if $f$ is increasing},\\[0.3em]
+		\sup\{f(x): x\in I\setminus\{\alpha\}\}, & \text{if $f$ is decreasing},
+	\end{cases}
+\]
+and
+\[
+	f(\beta-0)=
+	\begin{cases}
+		\sup\{f(x): x\in I\setminus\{\beta\}\}, & \text{if $f$ is increasing},\\[0.3em]
+		\inf\{f(x): x\in I\setminus\{\beta\}\}, & \text{if $f$ is decreasing}.
+	\end{cases}
+\]
+}
+\paragraph{Proof.} Consider the increasing case and set
+\[
+	b:=\sup\{f(x): x\in I\setminus\{\beta\}\}\in\overline{\R}.
+\]
+Let $(x_n)\subset [\alpha,\beta)$ with $x_n\to\beta$ and $x_n<\beta$ for all $n\in\N$. Since $b$ is the supremum, for every $\eta<b$ there exists $\xi\in[\alpha,\beta)$ with $f(\xi)\ge\eta$ and an index $n_{\xi}$ such that $x_n\ge\xi$ for all $n\ge n_{\xi}$. Because $f$ is increasing,
+\[
+	\eta\le f(\xi)\le f(x_n)\le b \qquad (n\ge n_{\xi}).
+\]
+As $\eta<b$ was arbitrary, it follows that $\lim_{n\to\infty} f(x_n)=b$. Hence $f(\beta-0)$ exists and equals $b$. The remaining statements are shown analogously. \qed
+
+\NumberedDefinition{4.4.4}{Jump discontinuity}{Let $D\subset\R$, $D\ne\emptyset$, and let $Y$ be a normed vector space. A function $f:D\to Y$ is said to have a jump at a point $x_0\in\R$ with
+\[
+	x_0\in \overline{D\cap(-\infty,x_0)}\ \cap\ \overline{D\cap(x_0,\infty)}
+\]
+if the one-sided limits
+\[
+	\lim_{x\to x_0\pm 0} f(x) = f(x_0\pm 0)
+\]
+exist and are different.}
+
+\NumberedExample{4.4.5}{}{For the function $f(x):=\lfloor x\rfloor$, every $k\in\Z$ is a jump point, since
+\[
+	f(k+0)-f(k-0)=1.
+\]
+}
+
+Theorem~4.4.3 shows that for every monotone function $f:I\to\R$ and every $x_0$ in the interior of $I$, the one-sided limits $f(x_0\pm 0)$ exist. Example~4.4.5 shows that there are functions with countably many jump discontinuities. The next theorem shows that monotone functions can have at most countably many jumps.
+
+\NumberedTheorem{4.4.6}{}{Let $f:I\to\R$ be monotone. Then $f$ is continuous except at countably many jump points at most.}
+\paragraph{Proof.} Assume $f$ is increasing. Define the set of jump points
+\[
+	M := \{\, x\in \mathring I : f(x+0)\ne f(x-0)\,\}.
+\]
+We claim that $M$ is countable. Idea: construct an injective map $q:M\to\Q$. For $x\in M$ we have $f(x-0)<f(x+0)$, so by density of $\Q$ there exists $z\in\Q$ with
+\[
+	z\in\bigl( f(x-0),\, f(x+0) \bigr).
+\]
+Define $q(x):=z$. We show $q$ is injective. If $x,y\in M$ with $x<y$, then by monotonicity
+\[
+	q(x) < f(x+0) \le f(y-0) < q(y).
+\]
+Hence $q(x)\ne q(y)$ whenever $x\ne y$, so $q$ is injective. Since $\Q$ is countable, $M$ is countable. \qed
+
+\NumberedTheorem{4.4.7}{Intermediate Value Theorem}{Let $f:[a,b]\to\R$ be continuous with $f(a)<0<f(b)$. Then $f$ has a zero $\xi\in(a,b)$, i.e. $f(\xi)=0$.}
+\paragraph{Proof.} (Interval bisection.) Construct a sequence of nested intervals $[a_k,b_k]$ recursively by
+\[
+	[a_0,b_0]:=[a,b], \qquad
+	[a_{k+1},b_{k+1}]:=
+	\begin{cases}
+		\bigl[a_k,\, \tfrac{a_k+b_k}{2}\bigr], & \text{if } f\bigl( \tfrac{a_k+b_k}{2} \bigr) > 0,\\[0.4em]
+		\bigl[ \tfrac{a_k+b_k}{2},\, b_k \bigr], & \text{if } f\bigl( \tfrac{a_k+b_k}{2} \bigr) \le 0,
+	\end{cases}
+	\qquad k\ge 0.
+\]
+Then: (1) $(a_k)$ is monotonically increasing and bounded above by $b$; (2) $(b_k)$ is monotonically decreasing and bounded below by $a$; (3) for all $k\in\N$, $b_k-a_k=2^{-k}(b-a)$. By the nested-interval argument (cf. Bolzano–Weierstrass, Theorem~3.2.5), there exists a common limit $\xi\in[a,b]$. By construction, for all $k\ge0$ we have
+\[
+	f(a_k) \le 0 \le f(b_k).
+\]
+By continuity of $f$,
+\[
+	f(\xi) = \lim_{k\to\infty} f(a_k) \le 0 \le \lim_{k\to\infty} f(b_k) = f(\xi),
+\]
+hence $f(\xi)=0$ and $\xi\in(a,b)$ since $f(a)<0<f(b)$. \qed
+
+
+\vspace{1cm}
+
+We distinguish three types of intervals: closed $I=[a,b]$, open $I=(a,b)$, and half-open $I=(a,b]$ or $I=[a,b)$.
+
+\NumberedTheorem{4.4.8}{}{Let $f:I\to\R$ be a continuous and strictly monotone increasing (decreasing) function. Then $f(I)$ is an interval of the same type (as $I$) and $f$ maps $I$ bijectively onto $f(I)$. The inverse map $f^{-1}:f(I)\to I$ is continuous and strictly monotone increasing (decreasing).}
+
+\paragraph{Proof.} We consider here the case that $f$ is strictly monotone increasing. The proof for strictly monotone decreasing sequences is completely analogous.
+Set $\alpha := \inf I$, $\beta := \sup I$, $\alpha, \beta \in \overline{\R}$. Since $f$ is strictly monotone, there exist $b := f(\beta - 0)$, $a := f(\alpha + 0)$. We show first:
+\[
+	]a, b[ \subset J := f(I) \subset [a, b].
+\]
+Choose $a < \eta < b$. Since $b$ can be characterized as $\sup J$, there exists
+\begin{align*}
+	t_2 &\in ]\alpha, \beta[ \quad \text{with} \quad f(t_2) > \eta \quad \text{and} \\
+	t_1 &\in ]\alpha, \beta[ \quad \text{with} \quad f(t_1) < \eta.
+\end{align*}
+$f$ is strictly monotone, i.e. $t_1 < t_2$ and therefore $f(t_1) < \eta < f(t_2)$. Since $f$ is continuous, there exists an intermediate value (Theorem 4.4.7)
+\[
+	\tau \in [t_1, t_2] \subset ]\alpha, \beta[ \quad \text{with} \quad f(\tau) = \eta.
+\]
+i.e. $J$ is an interval.
+The strict monotonicity of $f$ implies that the interval contains its supremum/infimum exactly when $J$ possesses this property (Proof indirect).
+
+\textbf{Regarding the inverse map:}
+We show: $f: I \to J$ is surjective and injective: Consider $x < y$ with $x, y \in I$. Then $f(x) < f(y)$, i.e. $f$ is injective. The surjectivity follows from the definition $J = f(I)$. Thus $f$ is bijective.
+
+\textbf{Regarding the strict monotonicity of $g := f^{-1}: J \to I$:}
+Consider $y_1, y_2 \in J$ with $y_1 < y_2$. Assumption: $x_1 = g(y_1) \ge g(y_2) = x_2$. From this follows
+\[
+	y_1 = f(g(y_1)) \ge f(g(y_2)) = y_2, \quad \text{i.e. } y_1 \ge y_2 \quad \text{Contradiction.}
+\]
+
+\textbf{Regarding Continuity:}
+Let $y_0 \in \mathring{J}$. Then $g(y_0 - 0)$, $g(y_0)$, $g(y_0 + 0)$ exist. We show that these values coincide. Let $(y_n)_{n\in\N}$ be a sequence in $J$ with limit $y_0$, which is monotonically increasing and for which $y_n < y_0$ holds. Set
+\[
+    x_n := g(y_n) \qquad \forall n \in \N.
+\]
+Then $x_n$ is monotonically increasing and bounded by $g(y_0)$. Therefore $(x_n)$ converges to an $\bar{x} \leq g(y_0) = x_0$. Show $\bar{x} = x_0$ indirectly. Assumption: $\bar{x} < x_0$.
+\[
+    y_0 = \lim_{n\to\infty} y_n = \lim_{n\to\infty} f(x_n) \overset{f \text{ continuous}}{=} f(\bar{x}) < f(x_0) = y_0 \qquad \text{Contradiction.}
+\]
+Analogously, one shows $g(y_0 + 0) = g(y_0)$.
+\qed
+
+
+% ===================================================
+\paragraph{Application: \texorpdfstring{$n$}{n}-th roots}
+\NumberedExample{4.4.9}{}{Let $n\ge 2$ and define $f: \R_{\ge0}\to\R_{\ge0}$ by $f(x):=x^{n}$. We show $f$ is strictly increasing. For $0\le x<y$,
+\[
+	f(y)-f(x)=y^{n}-x^{n}=y^{n}\Bigl(1-\bigl(\tfrac{x}{y}\bigr)^{n}\Bigr)
+	= y^{n}\Bigl(1-\tfrac{x}{y}\Bigr)\sum_{j=0}^{n-1} \Bigl(\tfrac{x}{y}\Bigr)^{\,n-1-j} > 0,
+\]
+since $y>0$, $0\le x/y<1$, and the sum is positive. Moreover, because $0\le f(x)=x^{n}\le x$ for $x<1$, we have $f(0+0)=0$, and since $f(x)=x^{n}\ge x$ for $x>1$, we have $f(+\infty-0)=+\infty$.
+
+Thus $f:\R_{\ge0}\to\R_{\ge0}$ is bijective, continuous, and strictly increasing. By Theorem~4.4.8 it has a continuous, strictly increasing inverse $g: \R_{\ge0}\to\R_{\ge0}$. We write
+\[
+	\sqrt[n]{\,x\,} := g(x) := f^{-1}(x).
+\]
+}
+\end{document}

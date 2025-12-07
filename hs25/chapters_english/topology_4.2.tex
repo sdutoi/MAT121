@@ -1,0 +1,285 @@
+\documentclass[12pt]{article}
+% -------------------- Packages --------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[unicode]{hyperref}
+\hypersetup{unicode=true,hypertexnames=false}
+% Avoid enumitem negative labelwidth warnings by setting a safe leftmargin
+\setlist[enumerate]{leftmargin=*,labelsep=0.5em}
+% Soften line-breaking to avoid overfull hboxes in long headings/paragraphs
+\emergencystretch=2em
+\usepackage{microtype}
+
+\geometry{margin=2.5cm}
+
+% -------------------- Metadata --------------------
+\iffalse
+		itle{Analysis I \& II \newline\small (English Translation Draft)}
+\fi
+% (replaced malformed title line below)
+\csname title\endcsname{Analysis I \& II \newline\small (English Translation Draft)}
+\author{Based on original German script (private use)}
+\date{\today}
+
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+% Some earlier notes used \odo by mistake; keep it compiling by aliasing:
+\newcommand{\odo}[1]{\todo{#1}}
+
+% -------------------- Manual Numbering Helpers --------------------
+% Use these when you want to preserve the original numbering from the German
+% script. They deliberately avoid coupling to LaTeX's counters.
+% Pattern:
+%   \NumberedDefinition{<chapter.section.item>}{<Title>}{<Body>}
+% If you later want cross-references, add an explicit \label inside #3 and
+% reference it normally with \ref. The visual number won't auto-sync if you
+% renumber—update the macro argument manually.
+% Translator note: Keep using numbered theorems/remarks/examples exactly as in
+% the German script (e.g., 4.1.1, 4.1.2, ...). Prefer these helpers where you
+% need to mirror source numbering during translation.
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+\begin{document}
+
+\subsection{Basic Topological Concepts (Topologische Grundbegriffe)}
+
+In the following, $(X,\|\cdot\|)$ is a normed $\K$-vector space.
+
+\NumberedDefinition{4.2.1}{Interior point, open set, neighborhood}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $\emptyset\ne M\subset X$. A point $x\in M$ is called an \emph{interior point} of $M$ if there exists $\eps>0$ with $B(x,\eps)\subset M$.
+	\item A set $M\subset X$ is called \emph{open} if every $x\in M$ is an interior point.
+	\item Let $x\in X$ and let $U\subset X$ be open with $x\in U$. Then $U$ is called a \emph{neighborhood} of $x$. The collection of all neighborhoods is denoted by $\mathcal U(x)$.
+\end{enumerate}}
+
+\NumberedExample{4.2.2}{Open balls are open}{$B(x_0,r)$ with $x_0\in X$ and $r>0$ is open.
+
+\emph{Proof.} Let $x\in B(x_0,r)$. To show: $x$ is an interior point. Set $\eps := \tfrac{1}{2}(r-\|x-x_0\|)$. Let $y\in B(x,\eps)$. We show: $\|y-x_0\|<r$.
+\[
+	\ \|y-x_0\| \le \|y-x\| + \|x-x_0\| \le \tfrac{1}{2}(r-\|x-x_0\|) + \|x-x_0\|
+		 = \tfrac{1}{2}(r+\|x-x_0\|) < \tfrac{1}{2}(2r) = r.
+\]
+\qed}
+	
+% (Removed misplaced subsection header; 4.2 continues here. Proper 4.3 Continuity starts later under Section 4.)
+
+\NumberedRemark{4.2.3}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item The notion of "open" depends on the ambient vector space. For instance, the interval $(0,1)$ is open in $\R$, but the set $(0,1)\times\{0\}$ is not open in $\R^{2}$.
+	\item If $\|\cdot\|_{a}$ and $\|\cdot\|_{b}$ are equivalent norms on $X$, then a subset $O\subset X$ is open with respect to $\|\cdot\|_{a}$ if and only if it is open with respect to $\|\cdot\|_{b}$. In general, however, the open balls differ as sets:
+	\[
+		B(x,r)_{\|\cdot\|_{a}} \ne B(x,r)_{\|\cdot\|_{b}}.
+	\]
+\end{enumerate}}
+
+\NumberedTheorem{4.2.4}{Basic closure properties of open sets}{Let $\mathcal O\subset \mathcal P(X)$ denote the collection of all open subsets of $X$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\emptyset\in\mathcal O$ and $X\in\mathcal O$.
+	\item If $\{O_\alpha\}_{\alpha\in A}$ is any family of sets in $\mathcal O$ (with arbitrary index set $A$), then $\displaystyle \bigcup_{\alpha\in A} O_\alpha \in\mathcal O$.
+	\item If $O_1,O_2\in\mathcal O$, then $O_1\cap O_2\in\mathcal O$. In particular, finite intersections of open sets are open.
+\end{enumerate}}
+\paragraph{Proof.}
+1) Trivial.
+
+2) Let $x\in \bigcup_{\alpha\in A} O_\alpha$. Then $x\in O_{\alpha_0}$ for some $\alpha_0\in A$. Since $O_{\alpha_0}$ is open, there exists $\eps>0$ with
+\[
+	B(x,\eps) \subset O_{\alpha_0} \subset \bigcup_{\alpha\in A} O_\alpha.
+\]
+Thus the union is open.
+
+3) Let $x\in O_1\cap O_2$. Since $O_i$ is open, there exists $\eps_i>0$ with $B(x,\eps_i)\subset O_i$ for $i=1,2$. With $\eps:=\min\{\eps_1,\eps_2\}$ we have $B(x,\eps)\subset O_1\cap O_2$. Hence $O_1\cap O_2$ is open. \qed
+
+\NumberedRemark{4.2.5}{}{Let $X\ne\emptyset$ and let $\mathcal T\subset \mathcal P(X)$ be a family of subsets satisfying properties (1)--(3) of Theorem~4.2.4. Then $\mathcal T$ is called a topology on $X$, and $(X,\mathcal T)$ is a topological space. Many statements proved below for normed vector spaces remain valid verbatim for general topological spaces.}
+
+\NumberedRemark{4.2.6}{}{A countable intersection of open sets need not be open in general. Moreover, singletons $\{x\}$ are never open in a normed vector space.}
+
+\NumberedDefinition{4.2.7}{Closed set}{A subset $M\subset X$ is called \emph{closed} if and only if its complement $M^{c}:=X\setminus M$ is open.}
+
+\NumberedTheorem{4.2.8}{Basic closure properties of closed sets}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\emptyset$ and $X$ are closed.
+	\item Arbitrary intersections of closed sets are closed.
+	\item Finite unions of closed sets are closed.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) Since $X^{c}=\emptyset$ and $\emptyset^{c}=X$ are open, by definition both $X$ and $\emptyset$ are closed.
+
+(2),(3) Follow from De Morgan's laws together with Theorem~4.2.4: for a family $\{M_\alpha\}_{\alpha\in A}$ one has
+\[
+	\Big( \bigcap_{\alpha\in A} M_\alpha \Big)^{c} = \bigcup_{\alpha\in A} (M_\alpha)^{c},
+	\qquad
+	(M_1\cup M_2)^{c} = M_1^{c}\cap M_2^{c}.
+\]
+Since arbitrary unions of open sets are open and finite intersections of open sets are open, the complements above are open, hence the original sets are closed. \qed
+
+\NumberedRemark{4.2.9}{}{Arbitrary unions of closed sets need not be closed in general.}
+
+\NumberedDefinition{4.2.10}{Contact and accumulation points; closure}{Let $M\subset X$.
+\begin{itemize}[leftmargin=*]
+	\item A point $x\in X$ is called a \emph{contact point} of $M$ if for every neighborhood $U\in\mathcal U(x)$ we have $U\cap M\ne\emptyset$.
+	\item A point $x\in X$ is called an \emph{accumulation point} of $M$ if for every $U\in\mathcal U(x)$ we have $M\cap (U\setminus\{x\})\ne\emptyset$.
+\end{itemize}
+The \emph{closure} of $M$ is
+\[
+	\overline{M} := \{\, x\in X : x \text{ is a contact point of } M \,\}.
+\]
+}
+
+\NumberedExample{4.2.11}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M=\{\tfrac{1}{n} : n\in\N\}$. Then $0\in X$ is a contact point and is the unique accumulation point of $M$.
+	\item $M=B(0,1)$. Then $\overline{M}=\{x\in X : \|x\|\le 1\}$, and every contact point is also an accumulation point.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) Clear: every ball around $0$ contains some $1/n$, and every other point either belongs to $M$ or has a neighborhood disjoint from $M$. Moreover, if $a\ne 0$, then for sufficiently small $\eps>0$ the punctured ball $B(a,\eps)\setminus\{a\}$ contains no points of $M$; hence $0$ is the only accumulation point.
+
+(2) Let $x\in X$.
+\begin{enumerate}[label={(\alph*)}, leftmargin=2em]
+	\item If $\|x\|<1$, then $x\in M$, so for every $U\in\mathcal U(x)$ we have $U\cap M\ne\emptyset$; thus $x$ is a contact point.
+	\item If $\|x\|=1$, fix $0<\eps<1$ and set $x_{\eps}:=(1-\tfrac{\eps}{2})x\in M$. Then $\|x-x_{\eps}\|=\tfrac{\eps}{2}\,\|x\|=\tfrac{\eps}{2}<\eps$, hence $x_{\eps}\in B(x,\eps)\cap M\ne\emptyset$. Thus $x$ is a contact point.
+	\item If $\|x\|>1$, let $\eps:=\tfrac{1}{2}(\|x\|-1)>0$ and take any $y\in B(x,\eps)$. Then
+	\[
+		\|y\| = \|(-x) - (y-x)\| \ge \|x\| - \|y-x\| > \|x\| - \tfrac{1}{2}(\|x\|-1) = \tfrac{1}{2}\,\|x\| + \tfrac{1}{2} > 1,
+	\]
+	so $y\notin B(0,1)$. Hence $B(x,\eps)\cap M=\emptyset$ and $x$ is not a contact point.
+\end{enumerate}
+Consequently $\overline{M}=\{x: \|x\|\le 1\}$. At boundary points with $\|x\|=1$ the construction in (b) moreover shows there are infinitely many points of $M$ in every punctured neighborhood of $x$, so every contact point is an accumulation point. \qed
+
+\NumberedTheorem{4.2.12}{Elementary properties of the closure}{Let $M\subset X$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M\subset \overline{M}$.
+	\item $M=\overline{M}$ if and only if $M$ is closed.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) Immediate from the definitions of contact point and $\overline{M}$.
+
+(2) ("$\Rightarrow$") Suppose $M=\overline{M}$. If $x\in M^{c}=(\overline{M})^{c}$, then $x$ is not a contact point of $M$, hence there exists some $U\in\mathcal U(x)$ with $U\cap M=\emptyset$. Thus $U\subset M^{c}$ and $M^{c}$ is open. Therefore $M$ is closed.
+
+("$\Leftarrow$") If $M$ is closed, then $M^{c}$ is open. Hence for every $x\in M^{c}$ there exists $U\in\mathcal U(x)$ with $U\subset M^{c}$, i.e. $U\cap M=\emptyset$. Thus $x$ is not a contact point of $M$, so $x\notin \overline{M}$, which shows $M^{c}\subset (\overline{M})^{c}$. Taking complements yields $\overline{M}\subset M$. Together with (1) we obtain $M=\overline{M}$. \qed
+
+\NumberedTheorem{4.2.13}{Sequential characterization}{Let $M\subset X$ and $x\in X$.
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $x$ is an accumulation point of $M$ if and only if there exists a sequence $(x_n)_{n\in\N}\subset M$ with $x_n\ne x$ for all $n$ and $x_n\to x$.
+	\item $x$ is a contact point of $M$ if and only if there exists a sequence $(x_n)_{n\in\N}\subset M$ with $x_n\to x$.
+\end{enumerate}}
+\paragraph{Proof.}
+(1) ("$\Rightarrow$") If $x$ is an accumulation point, then for each $n\in\N$ we can choose $x_n\in B(x,1/n)\cap M\setminus\{x\}$. By construction $x_n\to x$ and $x_n\ne x$.
+
+("$\Leftarrow$") Let $U\in\mathcal U(x)$. Since $x_n\to x$, there exists $k\in\N$ with $x_k\in U$. If additionally $x_k\ne x$ for all $k$, then $U\cap (M\setminus\{x\})\ne\emptyset$, proving that $x$ is an accumulation point.
+
+(2) Analogous to (1), omitting the constraint $x_n\ne x$. \qed
+
+\NumberedTheorem{4.2.14}{Closedness via accumulation points and sequences}{For $M\subset X$ the following are equivalent:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M$ is closed.
+	\item $M$ contains all its accumulation points.
+	\item For every convergent sequence $(x_n)_{n\in\N}\subset M$ one has $\displaystyle\lim_{n\to\infty} x_n \in M$.
+\end{enumerate}}
+\paragraph{Proof.} (1)$\Leftrightarrow$(2) follows from Theorems~4.2.12 and 4.2.13. Equivalence with (3) is standard and left as an exercise. \qed
+
+\NumberedTheorem{4.2.15}{Closure as the smallest closed superset}{The closure is the smallest closed set containing $M$, i.e.
+\[
+	\overline{M} = \bigcap\{ A : A\supset M,\ A \text{ closed}\}.
+\]}
+\paragraph{Proof.}
+Let $B := \bigcap\{ A : A\supset M,\ A \text{ closed}\}$. By Theorem~4.2.8, $B$ is closed. Also $M\subset B$. If $x\in B^{c}$, then there exists $U\in\mathcal U(x)$ with $U\subset B^{c}$ (since $B^{c}$ is open as the union of the opens $A^{c}$). Thus $U\cap M=\emptyset$, hence $x\notin \overline{M}$. Therefore $B^{c}\subset (\overline{M})^{c}$ and $\overline{M}\subset B$.
+
+Conversely, if $x\in (\overline{M})^{c}$ then there exists $U\in\mathcal U(x)$ with $U\cap M=\emptyset$. The set $U^{c}$ is closed and contains $M$, hence $B\subset U^{c}$ and so $x\notin B$. Thus $(\overline{M})^{c}\subset B^{c}$ and $B\subset \overline{M}$. Hence $B=\overline{M}$. \qed
+
+\NumberedTheorem{4.2.16}{Elementary rules for closures}{For $A,B\subset X$:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $A\subset B$, then $\overline{A}\subset \overline{B}$.
+	\item $\overline{\,\overline{A}\,}=\overline{A}$.
+	\item $\overline{A\cup B} = \overline{A}\cup \overline{B}$.
+\end{enumerate}}
+\paragraph{Proof.} Exercise. \qed
+
+\NumberedDefinition{4.2.17}{Interior}{For $M\subset X$ define the interior of $M$ by
+\[
+	M^{\circ} := \{\, x\in X : x \text{ is an interior point of } M \,\}.
+\]}
+
+From Definition~4.2.1 of “open” it follows immediately:
+
+\NumberedTheorem{4.2.18}{Basic facts about the interior}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $M^{\circ}\subset M$.
+	\item $M^{\circ} = M$ if and only if $M$ is open.
+\end{enumerate}}
+
+Analogous to 4.2.15 and 4.2.16 we obtain:
+
+\NumberedTheorem{4.2.19}{Interior as the largest open subset}{The interior is the largest open subset of $M$, i.e.
+\[
+	M^{\circ} = \bigcup\{ O : O\subset M,\ O \text{ open}\}.
+\]}
+\paragraph{Proof.} Analogous to the proof of Theorem~4.2.15. \qed
+
+\NumberedTheorem{4.2.20}{Elementary rules for interiors}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $A\subset B$, then $A^{\circ}\subset B^{\circ}$.
+	\item $(A^{\circ})^{\circ} = A^{\circ}$.
+	\item $(A\cap B)^{\circ} = A^{\circ}\cap B^{\circ}$.
+\end{enumerate}}
+\paragraph{Proof.} Exercise. \qed
+
+\NumberedDefinition{4.2.21}{Boundary}{The boundary of a set $M$ is defined by
+\[
+	\partial M := \overline{M} \setminus M^{\circ} .
+\]}
+
+\NumberedExample{4.2.22}{Boundaries of basic balls}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $M=B(0,1)$, then $M^{\circ}=M$, $\overline{M}=\{x\in X: \|x\|\le 1\}$ and $\partial M = \{x\in X: \|x\|=1\}$.
+	\item If $M=B(0,1)\setminus\{0\}$, then $M^{\circ}=M$, $\overline{M}=\{x\in X: \|x\|\le 1\}$ and $\partial M = \{x\in X: \|x\|=1\}\cup\{0\}$.
+\end{enumerate}}
+
+The following Hausdorff separation axiom is easy to verify for normed vector spaces. For general topological spaces it must be imposed as a separate axiom; without it many essential theorems are false.
+
+\NumberedTheorem{4.2.23}{Hausdorff property in normed spaces}{Let $x,y\in X$ with $x\ne y$. Then there exist neighborhoods $U_x\in\mathcal U(x)$ and $U_y\in\mathcal U(y)$ with $U_x\cap U_y=\emptyset$.}
+\paragraph{Proof.} Let $r:=\|x-y\|>0$. Set $U_x:=B(x,\tfrac r2)$ and $U_y:=B(y,\tfrac r2)$. For $z\in U_y$ we have
+\[\|x-z\|\ge \|x-y\|-\|y-z\|> \|x-y\|-\tfrac r2 = \tfrac r2,\]
+so $z\notin U_x$. Hence $U_x\cap U_y=\emptyset$. \qed
+
+An easy consequence of Theorem~4.2.14 is:
+
+\NumberedTheorem{4.2.24}{Singletons are closed}{For $x\in X$, the set $\{x\}$ is closed.}
+
+\NumberedDefinition{4.2.25}{Relative topology}{Let $M\subset X$, $M\ne\emptyset$. The relative (subspace) topology on $M$ is defined by
+\[
+	\mathcal T_M := \{\, U\cap M : U \text{ open in } X \,\}.
+\]
+We call $A\subset M$ relatively open in $M$ if $A\in\mathcal T_M$. For $x\in M$ define the system of relative neighborhoods by $\mathcal U_M(x):=\{\, U\cap M : U\in\mathcal U(x) \,\}$. A point $x\in A\subset M$ is a relative interior point of $A$ if there exists $V\in\mathcal U_M(x)$ with $x\in V\subset A$. We call $A\subset M$ relatively closed in $M$ if $A\in\{\, B\cap M : B \text{ closed in } X \,\}$.}
+
+Obviously, $A\subset M$ is relatively open (resp. relatively closed) if and only if there exists an open (resp. closed) set $B\subset X$ with $A = B\cap M$.
+
+\NumberedExample{4.2.26}{Relatively open/closed subsets of a half-closed interval}{Let $X=\R$ and $M=[0,1)$. Then $[0,\tfrac12)$ is relatively open in $M$ and $[\tfrac12,1)$ is relatively closed in $M$. Indeed,
+\[
+	[0,\tfrac12) = \big((-\tfrac12,\tfrac12)\big) \cap M =: B_o\cap M,\qquad
+	[\tfrac12,1) = \big([\tfrac12,1]\big) \cap M =: B_a\cap M,
+\]
+where $B_o\subset\R$ is open and $B_a\subset\R$ is closed.}
+
+\end{document}
