@@ -1,0 +1,282 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+\linespread{1.1} % Slightly increased line spacing for better readability
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+% This chapter translation: Original German "Die Exponentialfunktion" (The Exponential Function)
+% Numbering (Definition/Satz) preserved exactly as in source. Do NOT renumber.
+
+
+% ============================================================================
+% 3 Sequences and Series (Folgen und Reihen) -- Original start p.31
+% ============================================================================
+
+\begin{document}
+\section*{3. Sequences and Series (Folgen und Reihen)}
+
+\subsection*{3.1. Convergence of Sequences (Konvergenz von Folgen)}
+
+In this chapter we study sequences and series in the set of real (and complex) numbers—abstractly we will sometimes write $\K\in\{\R,\C\}$. We will frequently need to estimate absolute values of products, sums, and differences and recall the rules from Section 2.5, in particular $|x|=|-x|$ for all $x\in\K$ and the triangle / reverse triangle inequalities
+\[
+	|x+y|\le |x|+|y|,\qquad |x-y|\ge |x|-|y|,\qquad |x-y|\ge |y|-|x|,\qquad \forall x,y\in\K.
+\]
+
+\NumberedDefinition{3.1.1}{Sequence}{A (scalar) \emph{sequence} (in $\K$) is a map $x: \N\to\K$ (``enumeration''). Each natural number $n$ is assigned a value $x_n\in\K$. We write $(x_0,x_1,\dots)$ or more briefly $(x_n)_{n\in\N}$.}
+
+\NumberedRemark{3.1.2}{Set of values vs. sequence}{The sequence $(x_n)_{n\in\N}$ is not the same thing as the set $\{x_n: n\in\N\}$—the order and multiplicities matter for the sequence.}
+
+\NumberedDefinition{3.1.3}{Accumulation point (cluster point)}{Let $(x_n)_{n\in\N}$ be a sequence in $\K$ and $a\in\K$. We call $a$ an \emph{accumulation point} (cluster point) of $(x_n)$ if for every $\eps>0$ there exists an infinite subset $N_\eps\subset \N$ with
+\begin{equation}\label{eq:3.1.1}\tag{3.1.1}
+	|x_n-a| < \eps \qquad \forall n\in N_\eps.
+\end{equation}}
+
+\NumberedTheorem{3.1.4}{Equivalent characterization of cluster points}{For a sequence $(x_n)$ and $a\in\K$ the following are equivalent:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $a$ is a cluster point of $(x_n)_{n\in\N}$.
+	\item For every $\eps>0$ and every $N\in\N$ there exists $m\ge N$ with $|x_m-a|<\eps$.
+\end{enumerate}}
+
+\paragraph{Proof.} (1)$\Rightarrow$(2). Let $a$ be a cluster point and $\eps>0$, $N\in\N$. By definition there is an infinite set $N_\eps$ with \eqref{eq:3.1.1}. Since $N_\eps$ is infinite it contains some $m\ge N$. Then $|x_m-a|<\eps$.
+
+(2)$\Rightarrow$(1). Fix $\eps>0$. Construct inductively an increasing sequence of indices in which the values lie within $\eps$ of $a$. Set $n_0:=0$. Given $n_k$, apply (2) with $N=n_k+1$ to find $n_{k+1}\ge n_k+1$ such that $|x_{n_{k+1}}-a|<\eps$. The set $N_\eps:=\{ n_k : k\in\N\}$ is infinite and satisfies \eqref{eq:3.1.1}. Hence $a$ is a cluster point. \qed
+
+\NumberedExample{3.1.5}{Examples of cluster points}{Let $\K\in\{\R,\C\}$.
+\begin{enumerate}[label={({\arabic*})}, leftmargin=*]
+	\item If $x_n\equiv a$ for all $n\in\N$, then $a$ is a cluster point.
+	\item The sequence $x_n=1/n$ has $0$ as a cluster point.
+	\item $((-1)^n)_{n\in\N}$ has precisely the cluster points $1$ and $-1$.
+	\item $(i^n)_{n\in\N}$ has the cluster points $1,-1,i,-i$.
+	\item The sequence $x_n=n$ has no cluster point.
+	\item The sequence defined by $x_0=x_1=1$ and $x_n=x_{n-1}+x_{n-2}$ for $n\ge2$ (Fibonacci numbers) has no cluster point.
+	\item If $(x_n)$ is an enumeration of $\Q$, then \emph{every} $a\in\R$ is a cluster point of $(x_n)$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item[1.] Trivial.
+	\item[2.] From the Archimedean Principle (Theorem~2.3.8): for any $\eps>0$ choose $n>1/\eps$, then $|x_n-0|=1/n<\eps$; in fact the tail provides infinitely many such indices.
+	\item[3.-5.] Trivial: the values visit finitely many points infinitely often.
+	\item[6.] Exercise: the Fibonacci sequence is strictly increasing and unbounded, hence has no cluster point.
+	\item[7.] Indirect argument. Fix $a\in\R$. For each $k\in\N$ choose $n_k>k$ and set $m_k:=\lfloor n_k a\rfloor$. Then $\big| a - m_k/n_k\big|<1/n_k$ by construction. Thus for any $\eps>0$ and all sufficiently large $k$ we have $\big| m_k/n_k - a\big|<\eps$. The rationals $m_k/n_k$ are pairwise distinct (denominators increase), hence there are infinitely many rationals within any neighborhood of $a$. Since $(x_n)$ lists each rational exactly once, there are infinitely many indices $n$ with $|x_n-a|<\eps$, so $a$ is a cluster point. \qed
+\end{enumerate}
+
+\NumberedDefinition{3.1.6}{Convergent sequence}{A sequence $(x_n)_{n\in\N}$ is said to \emph{converge} if there exists $a\in\K$ such that
+\[
+	\forall\,\eps>0\ \exists\, n_\eps\in\N\ \forall\, n\ge n_\eps:\ |x_n-a|<\eps.
+\]
+The number $a$ is called the \emph{limit} of $(x_n)$. We write $x_n\to a$ as $n\to\infty$ or $a=\lim_{n\to\infty} x_n$. A sequence that has no limit is called \emph{divergent}.}
+
+\paragraph{Continuation of Example~3.1.5.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\lim_{n\to\infty} x_n=a$.
+	\item $\lim_{n\to\infty} x_n=0$.
+	\item--(7) The remaining sequences are divergent.
+\end{enumerate}
+
+\NumberedDefinition{3.1.7}{Bounded sequence}{A sequence $(x_n)_{n\in\N}$ is called \emph{bounded} if there exists a constant $c\in\R_{\ge 0}$ such that
+\[
+	|x_n|\le c \qquad \text{for all } n\in\N.
+\]}
+
+\NumberedTheorem{3.1.8}{Convergent sequences are bounded}{Every convergent sequence is bounded.}
+
+\paragraph{Proof.} Let $a:=\lim_{n\to\infty} x_n$. Then there exists $n_1\in\N$ with $|x_n-a|<1$ for all $n\ge n_1$. Hence for $n\ge n_1$,
+\[
+	|x_n| = |x_n-a+a| \le |x_n-a| + |a| < |a|+1.
+\]
+Set
+\[
+	c := \max\big\{\, |a|+1,\ \max\{ |x_n| : n<n_1\}\big\}.
+\]
+Then $|x_n|\le c$ for all $n\in\N$. \qed
+
+\NumberedRemark{3.1.9}{Converse fails}{Items (3) and (4) of Example~3.1.5 show that the converse of Theorem~3.1.8 is false: a bounded sequence need not converge.}
+
+\NumberedTheorem{3.1.10}{Uniqueness of the limit}{If $\lim_{n\to\infty} x_n = a$, then $a$ is the only cluster point of $(x_n)_{n\in\N}$. In particular, the limit of a convergent sequence is unique.}
+
+\paragraph{Proof.} By Definitions~3.1.3 and 3.1.6 the limit $a$ is a cluster point. Let $b\in\K\setminus\{a\}$ and set $\eps := \tfrac12 |b-a|>0$. Then there exists $n_0\in\N$ with $|x_n-a|<\eps$ for all $n\ge n_0$. For such $n$ we have
+\[
+	|x_n-b| = |b-x_n| = |(b-a)+(a-x_n)| \ge |b-a| - |a-x_n| > |b-a|-\eps = \eps.
+\]
+Thus there are only finitely many indices with $|x_n-b|<\eps$, so $b$ is not a cluster point. Hence $a$ is the unique cluster point and therefore the unique limit. \qed
+
+For the next remark we will need the following definition.
+
+\NumberedDefinition{3.1.11}{Monotone and strictly monotone maps}{Let $(M,\preceq_M)$ and $(N,\preceq_N)$ be totally ordered sets, and let $\phi: M\to N$.
+\begin{itemize}[leftmargin=*]
+	\item $\phi$ is called \emph{monotone increasing} if $\phi(x)\preceq_N \phi(y)$ for all $x,y\in M$ with $x\preceq_M y$.
+	\item $\phi$ is called \emph{strictly} monotone increasing if $\phi(x)\prec_N \phi(y)$ for all $x,y\in M$ with $x\prec_M y$.
+	\item $\phi$ is called \emph{monotone decreasing} if $\phi(y)\preceq_N \phi(x)$ for all $x,y\in M$ with $x\preceq_M y$.
+	\item $\phi$ is called \emph{strictly} monotone decreasing if $\phi(y)\prec_N \phi(x)$ for all $x,y\in M$ with $x\prec_M y$.
+\end{itemize}
+Here $x\prec_M y$ means $x\preceq_M y$ and $x\ne y$ (similarly for $\prec_N$).}
+
+\NumberedRemark{3.1.12}{A nonconvergent bounded example}{The sequence $\{\tfrac12,1,\tfrac13,3,\tfrac14,4,\dots\}$ has exactly one cluster point ($0$) but does not converge.}
+
+\NumberedDefinition{3.1.13}{Subsequence}{Let $(x_n)_{n\in\N}$ be a sequence and let $\phi: \N\to\N$ be a strictly monotone increasing map. Then $(x_{n_k})_{k\in\N}:=(x_{\phi(k)})_{k\in\N}$ is called a \emph{subsequence} of $(x_n)_{n\in\N}$.}
+
+\NumberedExample{3.1.14}{Constant subsequences of $((-1)^n)$}{The sequence $((-1)^n)_{n\in\N}$ has the constant subsequences $((-1)^{2k})_{k\in\N}$ and $((-1)^{2k+1})_{k\in\N}$, i.e. the constant sequences $(1,1,\dots)$ and $(-1,-1,\dots)$.}
+
+\NumberedTheorem{3.1.15}{Convergence via subsequences}{The following are equivalent for a sequence $(x_n)$ and $a\in\K$:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $x_n\to a$ as $n\to\infty$.
+	\item $x_{n_k}\to a$ for every subsequence $(x_{n_k})_{k\in\N}$ of $(x_n)_{n\in\N}$.
+\end{enumerate}}
+
+\paragraph{Proof.} (1)$\Rightarrow$(2). Let $(x_{n_k})$ be any subsequence and let $\eps>0$. Then there exists $n_\eps$ such that $|x_n-a|<\eps$ for all $n\ge n_\eps$. Since the index map $\phi$ of a subsequence is strictly increasing, there exists $k_\eps$ with $\phi(k)\ge n_\eps$ for all $k\ge k_\eps$, hence $|x_{n_k}-a|<\eps$ for all $k\ge k_\eps$.
+
+(2)$\Rightarrow$(1). Take the identity subsequence $\phi(n)=n$. \qed
+
+\NumberedTheorem{3.1.16}{Cluster points and convergent subsequences}{The following are equivalent for a sequence $(x_n)$ and $a\in\K$:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $a$ is a cluster point of $(x_n)_{n\in\N}$.
+	\item There exists a subsequence $(x_{n_k})_{k\in\N}$ of $(x_n)_{n\in\N}$ with $x_{n_k}\to a$ as $k\to\infty$.
+\end{enumerate}}
+
+\paragraph{Proof.} (1)$\Rightarrow$(2). Construct the subsequence recursively. Set $n_0:=0$. Suppose $0<n_1<\dots<n_{k-1}$ have been chosen. Since $a$ is a cluster point, by Theorem~3.1.4(2) there exists $m\ge n_{k-1}+1$ with $|x_m-a|<1/k$. Define
+\[
+	n_k := \min\{ m : m>n_{k-1} \text{ and } |x_m-a|< 1/k\}.
+\]
+Then $k\mapsto n_k$ is strictly increasing. Given $\eps>0$, choose $k_\eps$ with $1/k_\eps<\eps$. By construction, for all $k\ge k_\eps$ we have $|x_{n_k}-a|<1/k\le 1/k_\eps<\eps$, hence $x_{n_k}\to a$.
+
+(2)$\Rightarrow$(1). If a subsequence converges to $a$, then by Theorem~3.1.4(2) (characterization of cluster points) $a$ is a cluster point; this uses Definition~3.1.6 of convergence. \qed
+
+\NumberedDefinition{3.1.17}{Null sequence}{A sequence $(x_n)_{n\in\N}$ is called a \emph{null sequence} if $\lim_{n\to\infty} x_n=0$.}
+
+\NumberedLemma{3.1.18}{Basic facts about null sequences}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $(x_n)$ is a null sequence, then $(|x_n|)$ is also a null sequence.
+	\item If $x_n\to a$, then $(x_n-a)$ is a null sequence.
+	\item Let $(x_n)$ be a sequence in $\K$ and let $(r_n)$ be a null sequence in $\R_{\ge0}$. Suppose there exists $n_0\in\N$ such that $|x_n|\le r_n$ for all $n\ge n_0$. Then $(x_n)$ is a null sequence.
+\end{enumerate}}
+
+\paragraph{Proof.} (1) and (2) are immediate. For (3): let $\eps>0$. Choose $n'_\eps$ such that $r_n<\eps$ for all $n\ge n'_\eps$. Set $n_\eps:=\max\{n_0,n'_\eps\}$. Then for all $n\ge n_\eps$ we have $|x_n-0|=|x_n|\le r_n<\eps$, proving $x_n\to0$. \qed
+
+\NumberedTheorem{3.1.19}{Algebra of limits}{Let $(x_n)$ and $(y_n)$ be sequences and let $\alpha\in\K$ be a scalar. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $x_n\to a$, then $\alpha x_n\to \alpha a$.
+	\item If $x_n\to a$ and $y_n\to b$, then $x_n+y_n\to a+b$.
+	\item If $x_n\to 0$ and $(y_n)$ is bounded, then $x_n y_n\to 0$.
+	\item If $x_n\to a$ and $y_n\to b$, then $x_n\,y_n\to a\,b$.
+	\item If $x_n\to a$ and $a\ne0$, then there exists $n_0$ with $x_n\ne0$ for all $n\ge n_0$ and $\dfrac{1}{x_n}\to \dfrac{1}{a}$.
+	\item If $x_n\to a$, then $|x_n|\to |a|$.
+\end{enumerate}
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $\alpha=0$ the claim is trivial. Assume $\alpha\ne0$ and let $\eps>0$. Choose $n_\eps$ with $|x_n-a|<\eps/|\alpha|$ for all $n\ge n_\eps$. Then
+	\[
+		|\alpha x_n-\alpha a| = |\alpha|\,|x_n-a| < |\alpha|\,\frac{\eps}{|\alpha|} = \eps
+		\qquad (n\ge n_\eps),
+	\]
+	hence $\alpha x_n\to \alpha a$.
+	\item Let $\eps>0$. Choose $n_1$ with $|x_n-a|<\eps/2$ for $n\ge n_1$ and $n_2$ with $|y_n-b|<\eps/2$ for $n\ge n_2$. For $n\ge n_\eps:=\max\{n_1,n_2\}$ we have
+	\[
+		|(x_n+y_n)-(a+b)| \le |x_n-a|+|y_n-b| < \eps/2+\eps/2 = \eps,
+	\]
+	so $x_n+y_n\to a+b$.
+	\item Suppose $|y_n|\le c$ for all $n$ with some $c>0$. Given $\eps>0$, choose $n_\eps$ with $|x_n|<\eps/c$ for all $n\ge n_\eps$. Then for $n\ge n_\eps$,
+	\[
+		|x_n y_n| \le |x_n|\,|y_n| \le (\eps/c)\,c = \eps,
+	\]
+	hence $x_n y_n\to 0$.
+	\item Use the identity
+	\[
+		 x_n y_n - ab = (x_n-a)\,y_n + a\,(y_n-b).
+	\]
+	Since $y_n\to b$, the sequence $(y_n)$ is bounded; by (3) the product $(x_n-a)\,y_n$ is a null sequence. Also $y_n-b\to0$ and (1) with $\alpha=a$ gives $a\,(y_n-b)\to0$. Therefore $x_n y_n - ab\to0$, i.e. $x_n y_n\to ab$.
+	\item Since $x_n\to a$ with $a\ne0$, there exists $n_0$ with $|x_n-a|<|a|/2$ for all $n\ge n_0$, hence $|x_n|\ge |a|-|x_n-a| > |a|/2>0$. For $n\ge n_0$ we obtain
+	\[
+		\Big|\frac{1}{x_n}-\frac{1}{a}\Big| = \frac{|a-x_n|}{|a|\,|x_n|}
+		\le \frac{|x_n-a|}{|a|\,(|a|/2)} = \frac{2}{|a|^2}\,|x_n-a|.
+	\]
+	Since $|x_n-a|\to0$, Lemma~3.1.18(3) implies $\frac{1}{x_n}-\frac{1}{a}\to0$; thus $1/x_n\to 1/a$.
+	\item From the reverse triangle inequality $\big||x_n|-|a|\big|\le |x_n-a|$ and $|x_n-a|\to0$ we conclude $|x_n|\to |a|$; equivalently, apply Lemma~3.1.18(3) with $r_n:=|x_n-a|$.
+\end{enumerate}
+\qed}
+
+\NumberedTheorem{3.1.20}{Order of limits and squeeze principle}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $(x_n)_{n\in\N}$ and $(y_n)_{n\in\N}$ be convergent sequences in $\R$ with
+	\[
+		a := \lim_{n\to\infty} x_n,\qquad b := \lim_{n\to\infty} y_n.
+	\]
+	Suppose that $x_n\le y_n$ holds for infinitely many $n\in\N$. Then $a\le b$.
+
+	\item Let $(x_n)_{n\in\N}$ and $(y_n)_{n\in\N}$ be convergent sequences in $\R$ with
+	\[
+		a := \lim_{n\to\infty} x_n = \lim_{n\to\infty} y_n.
+	\]
+	Let $(z_n)_{n\in\N}$ be a third sequence in $\R$. Assume there exists $n_0\in\N$ such that
+	\[
+		x_n \le z_n \le y_n \qquad \forall n\ge n_0.
+	\]
+	Then $(z_n)$ is convergent and $\lim_{n\to\infty} z_n = a$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Let $\eps>0$. Since $x_n\to a$ and $y_n\to b$, there exist indices $n_1,n_2\in\N$ such that
+	\[
+		|x_n-a|<\eps \quad (n\ge n_1), \qquad |y_n-b|<\eps \quad (n\ge n_2).
+	\]
+	Hence for all $n\ge n_\ast:=\max\{n_1,n_2\}$ we have
+	\[
+		a-\eps < x_n, \qquad y_n < b+\eps.
+	\]
+	If $x_n\le y_n$ for some $n\ge n_\ast$, then
+	\[
+		a-\eps < x_n \le y_n < b+\eps \quad \Longrightarrow \quad a-b \le 2\eps.
+	\]
+	By hypothesis, there are infinitely many indices with $x_n\le y_n$, hence (in particular) such indices exist beyond $n_\ast$, so the above estimate holds. Since $\eps>0$ is arbitrary, it follows that $a\le b$.
+
+	\item Let $\eps>0$. There exist $n_1,n_2\in\N$ such that
+	\[
+		|x_n-a|<\eps \quad (n\ge n_1),\qquad |y_n-a|<\eps \quad (n\ge n_2).
+	\]
+	For all $n\ge n_\eps:=\max\{n_0,n_1,n_2\}$ we obtain
+	\[
+		a-\eps < x_n \le z_n \le y_n < a+\eps,
+	\]
+	which implies $|z_n-a|<\eps$. Thus $z_n\to a$, proving both convergence and identification of the limit.
+\end{enumerate}
+\qed
+
+\NumberedRemark{3.1.21}{Order of limits is not inherited from pointwise inequalities}{The sequences $x_n:=\tfrac{1}{n}$ and $y_n:=-\tfrac{1}{n}$ show that from $x_n>y_n$ for all $n\in\N$ it does \emph{not} follow that
+\[
+	\lim_{n\to\infty} x_n > \lim_{n\to\infty} y_n.
+\]
+Indeed $x_n>y_n$ holds for every $n$, yet $\lim x_n = 0 = \lim y_n$.}
+
+
+
+\end{document}

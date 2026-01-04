@@ -1,0 +1,187 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+\linespread{1.1} % Slightly increased line spacing for better readability
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+
+\begin{document}
+\subsection*{3.3. Improper Convergence (Uneigentliche Konvergenz)}
+\NumberedDefinition{3.3.1}{Extended reals and improper limits}{Let $\overline{\R}:=\R\cup\{-\infty,+\infty\}$ be the set of \emph{extended real numbers}, ordered by
+\[
+	-\infty < x < +\infty \quad (\forall x\in\R).
+\]
+For a sequence $(x_n)$ in $\R$ we define:
+\begin{itemize}[leftmargin=*]
+	\item $x_n \to +\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\ge M$ for all $n\ge n_0$.
+	\item $x_n \to -\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\le -M$ for all $n\ge n_0$ (equivalently: $(-x_n)\to +\infty$).
+	\item We say $x_n$ \emph{diverges to infinity} and write $x_n\to \infty$ if either $x_n\to +\infty$ or $x_n\to -\infty$; when the sign matters we specify $+\infty$ or $-\infty$.
+\end{itemize}
+Thus a (properly) convergent sequence in $\R$ is one that converges in the usual sense to a point of $\R$; an \emph{improperly convergent} sequence is one that converges in $\overline{\R}$ to $\pm\infty$.
+}
+
+\paragraph{Remarks and basic facts.}
+\begin{itemize}[leftmargin=*]
+	\item If $(x_n)$ is monotone increasing and unbounded above, then $x_n\to +\infty$. If it is monotone decreasing and unbounded below, then $x_n\to -\infty$.
+	\item If $x_n\to +\infty$ and $a>0$, then $a\,x_n\to +\infty$. If $x_n\to +\infty$ and $y_n\ge c>0$ eventually, then $x_n y_n\to +\infty$.
+	\item If $x_n\to a\in\R$ and $y_n\to +\infty$, then $x_n+y_n\to +\infty$.
+	\item Improper limits obey the same order rule as in Theorem~3.1.20(1): if $x_n\le y_n$ for infinitely many $n$ and $x_n\to +\infty$, then $y_n\to +\infty$.
+\end{itemize}
+
+\NumberedDefinition{3.3.2}{Arithmetic in $\overline{\R}$}{We extend the usual operations on $\R$ to the extended reals $\overline{\R}=\R\cup\{-\infty,+\infty\}$ by the following rules (whenever the expressions make sense): for $x\in\R$,
+\[
+	x + (+\infty) := +\infty \ (\forall x> -\infty),\qquad x + (-\infty) := -\infty \ (\forall x< +\infty),
+\]
+\[
+	x - (+\infty) := -\infty \ (\forall x< +\infty),\qquad x - (-\infty) := +\infty \ (\forall x> -\infty),
+\]
+\[
+	x\cdot (+\infty) := \begin{cases}
+		+\infty,& x>0,\\[-2pt]
+		-\infty,& x<0,
+	\end{cases}
+	\qquad
+	x\cdot (-\infty) := -\,x\cdot(+\infty),
+\]
+\[
+	\frac{x}{+\infty} := 0,\quad \frac{x}{-\infty} := 0 \qquad (\forall x\in\R),
+\]
+\[
+	\frac{+\infty}{x} := \begin{cases}
+		+\infty,& x>0,\\[-2pt]
+		-\infty,& x<0,
+	\end{cases}
+	\qquad
+	\frac{-\infty}{x} := -\,\frac{+\infty}{x},
+\]
+\[
+	\frac{x}{0} := \begin{cases}
+		+\infty,& x>0,\\[-2pt]
+		-\infty,& x<0.
+	\end{cases}
+\]
+Undefined expressions (such as $\infty-\infty$, $0\cdot\infty$, $\tfrac{\infty}{\infty}$, $\tfrac{0}{0}$, etc.) are intentionally left without a value.}
+
+\NumberedRemark{3.3.3}{Suprema/infima in $\overline{\R}$}{Every subset of $\R$ has both an infimum and a supremum \emph{in} $\overline{\R}$. For example, if $A\subset\R$ is unbounded above, then $\sup_{\overline{\R}} A=+\infty$; if $A$ is unbounded below, then $\inf_{\overline{\R}} A=-\infty$.}
+
+\NumberedDefinition{3.3.4}{Limits and cluster points at $\pm\infty$}{Let $(x_n)$ be a sequence in $\R$. We say
+\begin{itemize}[leftmargin=*]
+	\item $x_n\to +\infty$ (resp. $x_n\to -\infty$) if for every $R\in\R_{\ge0}$ there exists $n_R\in\N$ such that $x_n>R$ (resp. $x_n<-R$) for all $n\ge n_R$.
+	\item $a=+\infty$ (resp. $a=-\infty$) is a \emph{cluster point} of $(x_n)$ if for every $R\ge 0$ and every $n\in\N$ there exists $n_R\ge n$ with $x_{n_R}>R$ (resp. $x_{n_R}< -R$).
+\end{itemize}}
+
+\NumberedExample{3.3.5}{Improper limits and cluster points}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \lim_{n\to\infty} n = +\infty$.
+	\item $\displaystyle \lim_{n\to\infty} (-2n) = -\infty$.
+	\item The sequence $x_n:=(-1)^n n$ does not converge in $\overline{\R}$, but it has the two cluster points $+\infty$ and $-\infty$ (even indices $\to +\infty$, odd indices $\to -\infty$).
+\end{enumerate}}
+
+\NumberedTheorem{3.3.6}{Reciprocals and improper limits}{Let $(x_n)$ be a sequence in $\R$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If $x_n\to +\infty$ or $x_n\to -\infty$, then $\dfrac{1}{x_n}\to 0$.
+	\item If $x_n\to 0$ and $x_n>0$ for all but finitely many $n$, then $\dfrac{1}{x_n}\to +\infty$. If $x_n\to 0$ and $x_n<0$ for all but finitely many $n$, then $\dfrac{1}{x_n}\to -\infty$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Suppose $x_n\to +\infty$. Let $\eps>0$. Choose $n_\eps$ with $x_n>1/\eps$ for all $n\ge n_\eps$. Then $0<\tfrac{1}{x_n}<\eps$ for all $n\ge n_\eps$, hence $\tfrac{1}{x_n}\to 0$. The case $x_n\to -\infty$ is analogous using $|1/x_n|$.
+	\item Assume $x_n\to 0$ and $x_n>0$ for all but finitely many $n$. Let $R>0$. There exists $n_R$ such that $|x_n|<1/R$ for all $n\ge n_R$. Possibly increasing $n_R$ we may assume $x_n>0$ for all $n\ge n_R$. Then $\tfrac{1}{x_n}>R$ for all $n\ge n_R$, proving $\tfrac{1}{x_n}\to +\infty$. The case with $x_n<0$ eventually is analogous and yields $\tfrac{1}{x_n}\to -\infty$.
+\end{enumerate}\qed
+
+\NumberedRemark{3.3.7}{Undefined forms in $\overline{\R}$ and caution}{Using the symbols $+\infty$ and $-\infty$ is often practical, but $\overline{\R}$ is not a field, so several algebraic rules from $\R$ no longer hold. In particular, the following combinations are \emph{not defined}:
+\[
+	\frac{\infty}{\infty},\ \frac{-\infty}{-\infty},\ \frac{-\infty}{\infty},\ \frac{\infty}{-\infty},\quad
+	-\infty + \infty,\ \infty + (-\infty),\quad 0\cdot(+\infty),\ 0\cdot(-\infty).
+\]
+If such expressions arise during manipulations, one has reached a dead end and should reformulate to avoid them. Moreover, some rules for limits fail in the improper setting. For example, with $a_n=n$ and $b_n=-2n$ we have $a_n\to +\infty$ and $b_n\to -\infty$, but the sum sequence $c_n=a_n+b_n=-n$ converges to $-\infty$, while the `sum of limits' $+\infty+(-\infty)$ is not defined. Similar issues occur for quotients of sequences that tend to $\pm\infty$.}
+
+\NumberedTheorem{3.3.8}{Monotone sequences converge in $\overline{\R}$}{Every monotone increasing (resp. monotone decreasing) sequence $(x_n)_{n\in\N}$ in $\R$ converges in $\overline{\R}$, and
+\[
+	\lim_{n\to\infty} x_n = \sup\{x_n: n\in\N\}\quad \big(\text{resp. }\ \lim_{n\to\infty} x_n = \inf\{x_n: n\in\N\}\big).
+\]
+\paragraph{Proof.} Consider the increasing case; the decreasing case is analogous. If $x_n=-\infty$ for all $n$, then clearly $\lim x_n=-\infty$ and $\sup\{x_n:n\in\N\}=-\infty$. Otherwise, choose $n_0\in\N$ with $x_{n_0}>-\infty$ and examine the tail $(x_n)_{n\ge n_0}$. If it is bounded above in $\R$, then by Theorem~3.2.2 it converges in $\R$ to its supremum. If it is not bounded above, then for every $R>0$ there exists $n_R\ge n_0$ with $x_{n_R}>R$, and monotonicity gives $x_n>R$ for all $n\ge n_R$, hence $x_n\to +\infty$. In either case the limit in $\overline{\R}$ equals the supremum. \qed}
+
+\paragraph{Tail suprema and infima.} Let $(x_n)_{n\in\N}$ be a sequence in $\R$ and define, for $n\in\N$,
+\[
+	y_n := \sup\{ x_k : k\ge n\}, \qquad z_n := \inf\{ x_k : k\ge n\}.
+\]
+Then $(y_n)$ is monotone decreasing in $\overline{\R}$ and $(z_n)$ is monotone increasing in $\overline{\R}$. By Theorem~3.3.8, both $(y_n)$ and $(z_n)$ converge in $\overline{\R}$.
+
+\NumberedDefinition{3.3.9}{Limsup and liminf}{Let $(x_n)_{n\in\N}$ be a sequence in $\R$. Then
+\[
+	\limsup_{n\to\infty} x_n := \lim_{n\to\infty} \sup\{x_k : k\ge n\},
+	\qquad
+	\liminf_{n\to\infty} x_n := \lim_{n\to\infty} \inf\{x_k : k\ge n\}.
+\]}
+
+\NumberedRemark{3.3.10}{}{Because $\sup\{x_k : k\ge n\} \ge \inf\{x_k : k\ge n\}$ holds for every $n$, we always have
+\[
+	\limsup_{n\to\infty} x_n \;\ge\; \liminf_{n\to\infty} x_n.
+\]}
+
+\NumberedTheorem{3.3.11}{Limsup/liminf and cluster points}{Let $(x_n)_{n\in\N}$ be a sequence in $\R$. Then $\limsup_{n\to\infty} x_n$ (resp. $\liminf_{n\to\infty} x_n$) is the greatest (resp. smallest) cluster point in $\overline{\R}$ of $(x_n)$.}
+
+\paragraph{Proof.} Set $x := \limsup_{n\to\infty} x_n$ and define $y_n := \sup\{x_k : k\ge n\}$. Then $(y_n)$ is monotone decreasing and $y_n\to x$.
+
+\emph{Case 1: $x=+\infty$.} Since $y_n\to +\infty$ and $(y_n)$ is decreasing, we have $\forall R>0\ \forall n\in\N\ \exists k>n:\ x_k>R$ (because $+\infty$ is the least upper bound of the tail sets $\{x_k:k\ge n\}$). Thus $+\infty$ is a cluster point of $(x_n)$ in $\overline{\R}$, and evidently there is no larger cluster point.
+
+\emph{Case 2: $x\in\R$.} First we show that no cluster point $z$ of $(x_n)$ is greater than $x$. Let $\eps>0$. Since $y_n\downarrow x$, there exists $n_\eps$ with $x\le y_n < x+\eps$ for all $n\ge n_\eps$. Hence
+\[
+	\#\{k\in\N : x_k \ge x+\eps\} \le n_\eps < \infty.
+\]
+Therefore every cluster point $z$ satisfies $z\le x+\eps$, and since $\eps>0$ is arbitrary, $z\le x$.
+
+Next we show that $x$ is a cluster point of $(x_n)$. Let $\eps>0$ and $n\in\N$. Since $x\le y_n < x+\eps$ and $y_n$ is the least upper bound of $\{x_k:k\ge n\}$, there exists $k\ge n$ with
+\[
+	x \le x_k < x+\eps.
+\]
+Thus $x$ is indeed a cluster point. Hence $x$ is the greatest cluster point.
+
+\emph{Case 3: $x=-\infty$.} Let $R\in\R_{\ge0}$. Then there exists $n_R\in\N$ such that $y_n<-R$ for all $n\ge n_R$. It follows that
+\[
+	\#\{k\in\N : x_k \ge -R\} \le n_R < \infty.
+\]
+Therefore any cluster point $z$ must satisfy $z\le -\infty$, i.e. $z=-\infty$. Moreover, for every $R\in\R_{\ge0}$ and every $n\in\N$ there exists $k\ge n$ with $x_k<-R$, proving that $-\infty$ is a cluster point. This shows that the smallest cluster point equals $-\infty$ in this case.
+
+The proof for $\liminf_{n\to\infty} x_n$ is analogous. \qed
+
+\NumberedExample{3.3.12}{}{Let $x_n := (-1)^n\,\dfrac{n}{n+1}$. Then
+\[
+	\limsup_{n\to\infty} x_n = 1
+	\qquad\text{and}\qquad
+	\liminf_{n\to\infty} x_n = -1.
+\]
+Indeed, with $y_n := \sup\{x_k:k\ge n\}$ and $z_n := \inf\{x_k:k\ge n\}$ we have $y_n=1$ for all $n\in\N$ and $z_n=-1$ for all $n\in\N$.}
+
+
+\end{document}

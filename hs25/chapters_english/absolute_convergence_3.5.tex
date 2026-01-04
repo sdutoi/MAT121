@@ -1,0 +1,279 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+\linespread{1.1} % Slightly increased line spacing for better readability
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+% This chapter translation: Original German "Die Exponentialfunktion" (The Exponential Function)
+% Numbering (Definition/Satz) preserved exactly as in source. Do NOT renumber.
+
+\begin{document}
+
+\subsection*{3.5. Absolute Convergence (Absolute Konvergenz)}
+
+\NumberedDefinition{3.5.1}{Absolute convergence}{A series $\sum x_n$ is called \emph{absolutely convergent} if the series $\sum |x_n|$ is convergent. A convergent series that is not absolutely convergent is called \emph{conditionally convergent}.}
+
+\NumberedTheorem{3.5.2}{Absolutely convergent implies convergent}{Every absolutely convergent series converges.}
+\paragraph{Proof.}
+Suppose $\sum x_n$ is absolutely convergent and let $\eps>0$. The series $\sum |x_n|$ satisfies the Cauchy criterion: there exists $n_\eps\in\N$ such that for all $n>m\ge n_\eps$,
+\[
+	\sum_{k=m+1}^{n} |x_k| < \eps.
+\]
+By the triangle inequality,
+\[
+	\Bigg|\sum_{k=m+1}^{n} x_k\Bigg| \le \sum_{k=m+1}^{n} |x_k| < \eps.
+\]
+Thus $\sum x_k$ also satisfies the Cauchy criterion and is therefore convergent. \qed
+
+\NumberedRemark{3.5.3}{}{The converse of Theorem~3.5.2 is, in general, false. Example: $x_n := (-1)^{n+1}\,\tfrac{1}{n}$. Then $\sum x_n$ is the alternating harmonic series and convergent, but $\sum |x_n|$ is the harmonic series and divergent.}
+
+\paragraph{Criteria for absolutely convergent series.}
+
+\NumberedTheorem{3.5.4}{Comparison (majorant) test}{Let $(x_n)_{n\in\N}$ be a sequence in $\K$. Suppose there exists a sequence $(\alpha_n)_{n\in\N}$ in $\R_{\ge0}$ with the properties
+\begin{itemize}
+	\item $\sum \alpha_n$ is convergent,
+	\item there exists $n_0\in\N$ such that $|x_n|\le \alpha_n$ for all $n\ge n_0$.
+\end{itemize}
+Then the series $\sum x_n$ is absolutely convergent.}
+\paragraph{Proof.}
+Let $\eps>0$. Then there exists $n_\eps\in\N$ with
+\[
+	\sum_{k=m+1}^{n} \alpha_k < \eps \qquad (\forall\, n>m\ge n_\eps).
+\]
+Set $n'_\eps := \max\{n_\eps, n_0\}$. For $n>m\ge n'_\eps$ we obtain
+\[
+	\sum_{k=m+1}^{n} |x_k| \le \sum_{k=m+1}^{n} \alpha_k < \eps.
+\]
+Hence $\sum |x_k|$ satisfies the Cauchy criterion and is therefore convergent; i.e. $\sum x_n$ is absolutely convergent. \qed
+
+\NumberedExample{3.5.5}{}{Let $k\ge2$. From Example~3.4.2(2) and the comparison test it follows that $\sum_{n\ge1} \dfrac{1}{n^k}$ is absolutely convergent.}
+
+\NumberedTheorem{3.5.6}{Root test}{Let
+\[
+	\alpha := \limsup_{n\to\infty} \sqrt[n]{|x_n|}.
+\]
+If $\alpha<1$, then $\sum x_n$ is absolutely convergent. If $\alpha>1$, then $\sum x_n$ is divergent. If $\alpha=1$, no conclusion is possible in general.}
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Assume $\alpha<1$ and choose $q$ with $\alpha<q<1$. By the definition of $\limsup$ there exists $n_q\in\N$ such that $\sqrt[n]{|x_n|}\le q$ for all $n\ge n_q$. Thus $|x_n|\le q^n$ for $n\ge n_q$, so $\sum |x_n|$ has a convergent geometric majorant $\sum q^n$ and is therefore absolutely convergent.
+	\item Assume $\alpha>1$. Then for some $\delta>0$ there are infinitely many $n$ with $\sqrt[n]{|x_n|}\ge 1+\delta \ge 1$, hence $|x_n|\ge1$ for infinitely many $n$. Therefore $(x_n)$ is not a null sequence and by Theorem~3.4.3 the series $\sum x_n$ diverges.
+\end{enumerate}
+\qed
+
+\NumberedTheorem{3.5.7}{Ratio test}{Assume there exists $k_0\in\N$ such that $x_n\ne0$ for all $n\ge k_0$.
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item If
+	\[
+		\limsup_{n\to\infty,\, n\ge k_0} \Bigg|\frac{x_{n+1}}{x_n}\Bigg| < 1,
+	\]
+	then $\sum x_n$ is absolutely convergent.
+	\item If there exists $k_1\ge k_0$ with
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| > 1 \qquad \forall\, n\ge k_1,
+	\]
+	then $\sum x_n$ is divergent.
+\end{enumerate}}
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item Since the limsup of $\big|\tfrac{x_{n+1}}{x_n}\big|$ is smaller than $1$, choose $q\in(0,1)$ and $n_q\ge k_0$ with
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| \le q \qquad (n\ge n_q)
+	\]
+	(cf. Theorem~3.3.11 on limsup). Then $|x_{n_q+1}|\le q|x_{n_q}|$, and by induction one shows
+	\[
+		|x_n| \le q^{\,n-n_q}\,|x_{n_q}| = \underbrace{\frac{|x_{n_q}|}{q^{n_q}}}_{=:c}\, q^{\,n} = c\,q^{\,n} \qquad (n\ge n_q).
+	\]
+	Since $\sum c\,q^{\,n}$ converges for $q<1$, we have found a convergent majorant; hence $\sum x_n$ is absolutely convergent.
+	\item If $\big|\tfrac{x_{n+1}}{x_n}\big|>1$ for all $n\ge k_1$, then $|x_n|\ge |x_{k_1}|>0$ for all $n\ge k_1$. Thus $(x_n)$ is not a null sequence and $\sum x_n$ diverges by Theorem~3.4.3.
+\end{enumerate}
+\qed
+
+
+\NumberedExample{3.5.8}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \sum \frac{n^2}{2^n} = 0 + \frac12 + \frac14 + \frac{4}{8} + \frac{9}{16} + \frac{16}{16} + \frac{25}{32} + \frac{36}{64} + \cdots$ is absolutely convergent (sum equal to $6$).
+	\item $\displaystyle \sum_{n=0}^{\infty} \Big(\tfrac12\Big)^{n+(-1)^n} = \tfrac12 + 1 + \tfrac18 + \tfrac14 + \tfrac{1}{32} + \tfrac{1}{16} + \cdots$ is absolutely convergent.
+	\item $\displaystyle \sum \frac{z^n}{n!}$ is absolutely convergent for every $z\in\C$. The function $\exp:\C\to\C$ that assigns to each $z\in\C$ the value $\sum \tfrac{z^n}{n!}$ is called the exponential function; in particular $\exp: \R\to\R$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item For $x_n=\tfrac{n^2}{2^n}$,
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| = \frac{(n+1)^2}{2^{n+1}}\,\frac{2^n}{n^2} = \frac12\Big(1+\frac{1}{n}\Big)^2 \longrightarrow \frac12.
+	\]
+	By the ratio test, the series is absolutely convergent.
+	\item For $x_n = 2^{-(n+(-1)^n)}$, the successive ratio equals
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| = 2^{-1 - (-1)^{n+1} + (-1)^n} = 2^{\,2(-1)^n-1} =
+		\begin{cases}
+			2, & n \text{ even},\\[2pt]
+				\frac{1}{8}, & n \text{ odd}.
+		\end{cases}
+	\]
+	Hence the ratio test is inconclusive. However,
+	\[
+		\sqrt[n]{|x_n|} = 2^{-(n+(-1)^n)/n} = 2^{-1 - (-1)^n/n} \longrightarrow \tfrac12,
+	\]
+	so the root test yields absolute convergence.
+	\item For $x_n = \tfrac{z^n}{n!}$ we have
+	\[
+		\Bigg|\frac{x_{n+1}}{x_n}\Bigg| = \frac{|z|}{n+1} \longrightarrow 0,
+	\]
+	hence the ratio test shows absolute convergence for all $z\in\C$.
+\end{enumerate}
+
+	\NumberedDefinition{3.5.9}{Rearrangements of a series}{Let $\sigma:\N\to\N$ be a bijection and let $\sum x_n$ be a series. Then the series $\sum x_{\sigma(n)}$ is called a \emph{rearrangement} of $\sum x_n$.}
+
+	\NumberedExample{3.5.10}{}{Let $s := \sum_{n=1}^{\infty} (-1)^{n+1}\,\tfrac{1}{n} = 1 - \tfrac12 + \tfrac13 - \tfrac14 + \tfrac15 - \cdots$. Consider the rearrangement obtained by listing terms in the order $k,\ 2k,\ 2(k+1)$ for $k=1,3,5,\dots$; this produces the series
+	\[
+		1 - \frac12 - \frac14 + \frac13 - \frac16 - \frac18 + \frac15 - \frac1{10} - \frac1{12} + \frac17 - \frac1{14} - \frac1{16} + \cdots
+	\]
+	which can be grouped as
+	\[
+		\frac12 \Big\{ 1 - \frac12 + \frac13 - \frac14 + \frac15 - \frac16 + \frac17 - \frac18 + \cdots \Big\} = \frac{s}{2}.
+	\]
+	Thus addition with infinitely many summands is, in general, not commutative.}
+
+	\NumberedTheorem{3.5.11}{Rearrangements of absolutely convergent series}{If $\sum x_n$ is absolutely convergent, then every rearrangement is also absolutely convergent and, for every bijection $\sigma:\N\to\N$, one has
+	\[
+		\sum_{n=0}^{\infty} x_n = \sum_{n=0}^{\infty} x_{\sigma(n)}.
+	\]}
+	\paragraph{Proof.}
+	Let $\sigma:\N\to\N$ be a bijection and $\eps>0$. Then there exists $n_\eps\in\N$ such that for all $n>m\ge n_\eps$,
+	\[
+		\sum_{k=m+1}^{n} |x_k| < \frac{\eps}{2}.
+	\]
+	Choose $r_\eps$ large enough so that
+	\[
+		\{0,1,2,\dots,n_\eps\} \subset \{ \sigma(1),\sigma(2),\sigma(3),\dots,\sigma(r_\eps) \}.
+	\]
+	For every $r\ge r_\eps$ and every $n\ge n_\eps$, setting $N := \max\{n,\sigma(0),\sigma(1),\dots,\sigma(r)\}$, we get
+	\[
+		\Bigg| \sum_{k=0}^{r} x_{\sigma(k)} - \sum_{k=0}^{n} x_k \Bigg| \le \sum_{k=n_\eps+1}^{N} |x_k| < \frac{\eps}{2}.
+	\]
+	Hence, for all $r\ge r_\eps$,
+	\[
+		\Bigg| \sum_{k=0}^{r} x_{\sigma(k)} - \sum_{k=0}^{\infty} x_k \Bigg| \le \frac{\eps}{2} < \eps.
+	\]
+	Therefore $\sum x_{\sigma(k)}$ converges to $\sum_{k=0}^{\infty} x_k$. Applying the same argument to $\sum |x_{\sigma(k)}|$ and $\sum |x_k|$ shows absolute convergence of the rearranged series as well. \qed
+
+	\NumberedRemark{3.5.12}{Riemann rearrangement theorem}{Let $\sum x_n$ be conditionally convergent in $\R$ and let $z\in\R$ be arbitrary. One can show that there exists a rearrangement of $\sum x_n$ with sum equal to $z$, i.e. there is a bijection $\sigma$ of $\N$ such that $\sum x_{\sigma(n)} = z$.}
+
+	Next we turn to the problem of computing the product of two convergent series. For the partial sums we obtain
+	\[
+		\Bigg( \sum_{k=0}^{n} x_k \Bigg) \Bigg( \sum_{\ell=0}^{n} y_\ell \Bigg)
+			= \sum_{k=0}^{n} \sum_{\ell=0}^{n} (x_k y_\ell)
+			= \sum_{m=0}^{2n} \Bigg( \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} x_k y_\ell \Bigg)
+	\]
+	\[
+			= \sum_{m=0}^{n} \Bigg( \sum_{k=0}^{m} x_k y_{m-k} \Bigg)
+				+ \sum_{m=n+1}^{2n} \Bigg( \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} x_k y_\ell \Bigg) \tag{$\ast$}
+	\]
+	Formally, this suggests
+	\[
+		\Big( \sum x_n \Big) \Big( \sum y_n \Big) = \sum z_n, \qquad
+		z_n := \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = n}} x_k y_\ell = \sum_{k=0}^{n} x_k y_{n-k} = \sum_{k=0}^{n} x_{n-k} y_k.
+	\]
+	The sequence $(z_n)$ is called the \emph{Cauchy product}. The following result makes this formal argument precise.
+
+	\NumberedTheorem{3.5.13}{Cauchy product of absolutely convergent series}{If $\sum x_n$ and $\sum y_n$ are absolutely convergent, then the series $\sum z_n$ with
+	\[
+		z_n := \sum_{k=0}^{n} x_k y_{n-k}
+	\]
+	is also absolutely convergent and
+	\[
+		\Big( \sum_{n=0}^{\infty} x_n \Big) \Big( \sum_{n=0}^{\infty} y_n \Big) = \sum_{n=0}^{\infty} z_n.
+	\]
+}
+\paragraph{Proof.}
+	Applying ($\ast$) to $\sum |x_n|$ and $\sum |y_n|$ we obtain the bound
+	\[
+		\sum_{m=0}^{n} |z_m|
+			\le \sum_{m=0}^{n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} |x_k|\,|y_\ell|
+			\le \sum_{m=0}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell = m}} |x_k|\,|y_\ell|
+			= \Big( \sum_{k=0}^{n} |x_k| \Big) \Big( \sum_{\ell=0}^{n} |y_\ell| \Big)
+			\le \Big( \sum_{k=0}^{\infty} |x_k| \Big) \Big( \sum_{\ell=0}^{\infty} |y_\ell| \Big).
+	\]
+	From this and Theorem~3.2.2 it follows that $\sum z_n$ is absolutely convergent. Let $a := \sum_{k=0}^{\infty} |x_k|$ and $b := \sum_{\ell=0}^{\infty} |y_\ell|$ (so $a>0$ and $b>0$). Given $\eps>0$, there exist $n_1,n_2\in\N$ such that
+	\[
+		\sum_{k=m+1}^{n} |x_k| < \frac{\eps}{2b} \quad (\forall\, n>m\ge n_1),
+		\qquad
+		\sum_{\ell=m+1}^{n} |y_\ell| < \frac{\eps}{2a} \quad (\forall\, n>m\ge n_2).
+	\]
+	Set $n_\eps := 2\max\{n_1,n_2\}+2$. Using the auxiliary computation
+	\[
+		\Big(\sum_{k=0}^{n} x_k\Big)\Big(\sum_{k=0}^{n} y_k\Big)
+		\overset{(\ast)}{=} \sum_{k=0}^{n} z_k 
+				+ \sum_{m=n+1}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell=m}} x_k y_\ell,
+	\]
+	we obtain for all $n\ge n_\eps$:
+	\begin{align*}
+		\Bigg| \sum_{k=0}^{n} z_k - \Big(\sum_{k=0}^{n} x_k\Big)\Big(\sum_{k=0}^{n} y_k\Big) \Bigg|
+		 &= \Bigg| \sum_{m=n+1}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell=m}} x_k y_\ell \Bigg|
+			\le \sum_{m=n+1}^{2n} \sum_{\substack{0\le k,\,\ell\le n\\ k+\ell=m}} |x_k|\,|y_\ell| \\
+		 &= \sum_{k=0}^{n} |x_k| \sum_{\ell=n+1-k}^{n} |y_\ell|
+			\le \sum_{k=0}^{n} |x_k| \sum_{\ell=\lceil n/2\rceil}^{n} |y_\ell| 
+			 + \sum_{\ell=0}^{n} |y_\ell| \sum_{k=\lceil n/2\rceil}^{n} |x_k| \\
+		 &\le a\, \sum_{\ell=n_2+1}^{2n} |y_\ell| 
+			 + b\, \sum_{k=n_1+1}^{2n} |x_k| \\
+		 &< a\,\frac{\eps}{2a} + b\,\frac{\eps}{2b}
+			= \eps.
+	\end{align*}
+	Hence $\big(\sum_{k=0}^{n} z_k - (\sum_{k=0}^{n} x_k)(\sum_{k=0}^{n} y_k)\big)_{n\in\N}$ is a null sequence. By Lemma~3.1.18 and Theorem~3.1.19 the claim follows. \qed
+
+	\NumberedRemark{3.5.14}{}{If $\sum x_n$ and $\sum y_n$ are only conditionally convergent, the assertion of Theorem~3.5.13 is in general false.}
+	\paragraph{Proof.}
+	Choose $x_n=y_n:=(-1)^n/\sqrt{n}$, $n\in\N$. By the Leibniz criterion (Theorem~3.4.8), $\sum x_n = \sum y_n$ converges. Since $1/\sqrt{n} \ge 1/n$ for all $n\in\N$ and Example~3.4.2(3) (harmonic series) diverges, $\sum (-1)^n/\sqrt{n}$ is only conditionally convergent. We show that $z_n := \sum_{k=0}^{n} x_k y_{n-k}$ is not a null sequence:
+	\[
+		|z_n| = \Bigg| \sum_{k=1}^{n-1} x_k y_{n-k} \Bigg| = \sum_{k=1}^{n-1} \frac{1}{\sqrt{k}\,\sqrt{n-k}} 
+			\ge \sum_{k=1}^{n-1} \frac{2}{k+(n-k)} = \frac{2}{n}(n-1) = 2\Big(1-\frac{1}{n}\Big) \ge 1 \quad (n\ge2),
+	\]
+	where we used $\sqrt{a\,b} \le (a+b)/2$. Hence $(z_n)$ is not a null sequence and $\sum z_n$ diverges. One can show that Theorem~3.5.13 remains valid if one of the series $\sum x_n$, $\sum y_n$ is absolutely convergent and the other merely conditionally convergent. \qed
+
+	\NumberedExample{3.5.15}{}{For the exponential function of Example~3.5.8(3) and for $z_1,z_2\in\C$ we have
+	\[
+		e^{z_1+z_2} := \exp(z_1+z_2) = (\exp(z_1))\,(\exp(z_2)) = e^{z_1}\,e^{z_2}.
+	\]}
+	\paragraph{Proof.}
+	By Theorem~3.5.13 and the binomial theorem,
+	\begin{align*}
+		e^{z_1}\,e^{z_2}
+			&= \Big( \sum_{n=0}^{\infty} \frac{z_1^{n}}{n!} \Big)
+				 \Big( \sum_{n=0}^{\infty} \frac{z_2^{n}}{n!} \Big)
+			 = \sum_{n=0}^{\infty} \Big( \sum_{k=0}^{n} \frac{z_1^{k}}{k!}\,\frac{z_2^{n-k}}{(n-k)!} \Big) \\
+			&= \sum_{n=0}^{\infty} \frac{1}{n!} \Big( \sum_{k=0}^{n} \binom{n}{k} z_1^{k} z_2^{n-k} \Big)
+			 = \sum_{n=0}^{\infty} \frac{(z_1+z_2)^n}{n!}
+			 = \exp(z_1+z_2) = e^{z_1+z_2}.
+	\end{align*}
+	In particular, for $z\in\C$ we get $1 = e^{0} = e^{z}\,e^{-z}$, hence $e^{z}\ne0$ and therefore $e^{-z} = 1/e^{z}$. \qed
+	
+\end{document}

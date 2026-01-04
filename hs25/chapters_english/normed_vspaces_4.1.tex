@@ -1,0 +1,404 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+\linespread{1.1} % Slightly increased line spacing for better readability
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+
+\begin{document}
+
+	
+% ============================================================================
+% 4 Continuous Functions (Stetige Funktionen) -- Original start p.57
+% ============================================================================
+\section*{4 Continuous Functions (Stetige Funktionen)}
+
+\subsection*{4.1. Normed Vector Spaces (Normierte Vektorräume)}
+
+In this section we assume the notion of a vector space from linear algebra is known and briefly recall the basic definitions and properties.
+
+\NumberedDefinition{4.1.1}{$\K$-vector space}{A set $X$ is called a $\K$-vector space if there are two maps
+\[
+\begin{aligned}
+ &+ : X\times X \to X &&\text{(called addition)},\\
+ &\cdot : \K\times X \to X &&\text{(called scalar multiplication)},
+\end{aligned}
+\]
+with the following properties:
+\begin{description}[leftmargin=*]
+	\item[VR1] $(X,+)$ is an abelian group with neutral element $0$.
+	\item[VR2] For all $\alpha,\beta\in\K$ and all $x,y\in X$ (distributive/associative laws):
+	\[
+		\alpha\cdot(x+y)=\alpha\cdot x+\alpha\cdot y,\qquad
+		(\alpha+\beta)\cdot x = \alpha\cdot x + \beta\cdot x,\qquad
+		\alpha\cdot(\beta\cdot x)=(\alpha\beta)\cdot x.
+	\]
+	\item[VR3] $1\cdot x = x$ for all $x\in X$.
+\end{description}}
+
+\NumberedExample{4.1.2}{}{
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \K^m := \underbrace{\K\times\K\times\cdots\times\K}_{m\text{-fold}} = \{(x_1,\dots,x_m):\ 1\le i\le m:\ x_i\in\K\}$ is a $\K$-vector space.
+
+	VR: \quad “$+$”:
+	\[
+		(x_1,\dots,x_m) + (y_1,\dots,y_m) = (x_1+y_1,\ x_2+y_2,\ \dots,\ x_m+y_m) \in \K^m,
+	\]
+	“$\cdot$”:
+	\[
+		t\cdot(x_1,\dots,x_m) = (t\,x_1,\ \dots,\ t\,x_m) \in \K^m \qquad (t\in\K).
+	\]
+	Null element: $0=(0,0,\dots,0)$.
+
+	\item $\displaystyle \K^{\N} := \{(a_n)_{n\in\N}:\ \forall n\in\N:\ a_n\in\K\}$ is a $\K$-vector space.
+
+	“$+$”:
+	\[
+		(a_n)_{n\in\N} + (b_n)_{n\in\N} := (a_n+b_n)_{n\in\N} \in \K^{\N},
+	\]
+	“$\cdot$”:
+	\[
+		t\cdot(a_n)_{n\in\N} := (t\cdot a_n)_{n\in\N} \in \K^{\N} \qquad (t\in\K).
+	\]
+	Null element: $0 := (0,0,\dots)$.
+
+	\item $\ell_\infty$ is the space of all bounded sequences in $\K$,
+	\[
+		\ell_\infty := \{ (a_n)_{n\in\N} : \sup_{n\in\N} |a_n| < \infty \},
+	\]
+	and a $\K$-vector space, with “$+$” as in $\K^{\N}$. Let $(a_n)_{n\in\N}, (b_n)_{n\in\N}\in \ell_\infty$. Then there exist $\alpha,\beta\in\R$ with
+	\[
+		|a_n| \le \alpha,\qquad |b_n| \le \beta, \qquad \forall n\in\N.
+	\]
+	Then for $(c_n)_{n\in\N} := (a_n+b_n)_{n\in\N}$ we have
+	\[
+		|c_n| = |a_n+b_n| \le |a_n| + |b_n| \le \alpha + \beta.
+	\]
+
+	\item The space
+	\[
+		\ell_1 := \{ (a_n)_{n\in\N} \subset \K : \sum_{n=0}^{\infty} |a_n| < \infty \}
+	\]
+	is a $\K$-vector space. Let $(a_n)_{n\in\N}, (b_n)_{n\in\N}\in \ell_1$ and $(c_n)_{n\in\N} := (a_n+b_n)_{n\in\N}$. Then
+	\[
+		\sum_{n=0}^{\infty} |c_n| = \sum_{n=0}^{\infty} |a_n+b_n| \le \sum_{n=0}^{\infty} (|a_n|+|b_n|) = \sum_{n=0}^{\infty} |a_n| + \sum_{n=0}^{\infty} |b_n|.
+	\]
+	By the comparison test it follows: $\sum |c_n|$ convergent.
+
+	\item The space $\ell_2$ of all $(x_n)_{n\in\N}\in \K^{\N}$ such that
+	\[
+		\sqrt{\sum_{n=0}^{\infty} |x_n|^2} < \infty
+	\]
+	is a $\K$-vector space. “$+$” and “$\cdot$” as in $\K^{\N}$. For “$+\colon \ell_2\times\ell_2\to\ell_2$”: let $x_n, y_n\in \ell_2$. Then
+	\[
+		\sqrt{\sum_{n=0}^{\infty} |x_n+y_n|^2}
+		\;\overset{(*)}{\le}\;
+		\sqrt{\sum_{n=0}^{\infty} \big(2|x_n|^2 + 2|y_n|^2\big)}
+		= \sqrt{\,2\sum_{n=0}^{\infty} |x_n|^2\, + \,2\sum_{n=0}^{\infty} |y_n|^2\,} 
+		< \infty.
+	\]
+	The estimate $(*)$ follows from
+	\[
+		|x+y|^2 \le (|x|+|y|)^2 = |x|^2 + 2|x|\,|y| + |y|^2,
+	\]
+	\[
+		0 \le (|x|-|y|)^2 = |x|^2 - 2|x|\,|y| + |y|^2.
+	\]
+\end{enumerate}}
+
+
+
+\NumberedDefinition{4.1.3}{Norm}{Let $X$ be a $\K$-vector space. A map $\|\,\cdot\,\| : X\to\R$ is called a norm if the following hold:
+\begin{description}[leftmargin=*]
+	\item[N1] $\|x\|\ge 0$ for all $x\in X$, \quad and \quad $\|x\|=0 \iff x=0$,
+	\item[N2] $\|\alpha x\| = |\alpha|\,\|x\|$ for all $x\in X$, $\alpha\in\K$,
+	\item[N3] $\|x+y\| \le \|x\| + \|y\|$ for all $x,y\in X$ (triangle inequality).
+\end{description}
+The pair $(X,\|\cdot\|)$ is called a normed vector space.}
+
+\NumberedRemark{4.1.4}{}{From the triangle inequality one obtains the reverse triangle inequality
+\[
+	\|x\| - \|y\| \le \|x-y\|,
+\]
+since: $\|x\| = \|y + (x-y)\| \le \|y\| + \|x-y\| \ \Rightarrow\ \|x\| - \|y\| \le \|x-y\|$; analogously $\|y\| - \|x\| \le \|x-y\|$. Hence
+\[
+	\big|\,\|x\| - \|y\|\,\big| = \max\{\,\|x\| - \|y\|,\ \|y\| - \|x\|\,\} \le \|x-y\|.
+\]}
+
+\NumberedExample{4.1.5}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $|\,\cdot\,|$ is a norm on $\R$ and on $\C$.
+
+	\item For $x\in\K^{m}$ the following define three norms:
+	\[
+		\|x\|_{\infty} := \max_{1\le k\le m} |x_k|, \qquad
+		\|x\|_{1} := \sum_{k=1}^{m} |x_k|, \qquad
+		\|x\|_{2} := \sqrt{\sum_{k=1}^{m} |x_k|^{2}}.
+	\]
+	Moreover:
+	\begin{enumerate}[label=\roman*.), leftmargin=2em]
+		\item $\|x\|_{\infty} \le \|x\|_{1} \le m\,\|x\|_{\infty}$,
+		\item $\|x\|_{\infty} \le \|x\|_{2} \le \sqrt{m}\,\|x\|_{\infty}$,
+		\item $\tfrac{1}{\sqrt{m}}\,\|x\|_{1} \le \|x\|_{2} \le \sqrt{m}\,\|x\|_{1}$.
+	\end{enumerate}
+
+	\item $\displaystyle \|x\|_{\infty} := \sup_{n\in\N} |x_n|$ is a norm on $\ell_{\infty}$.
+
+	\item $\displaystyle \|x\|_{1} := \sum_{k=0}^{\infty} |x_k|$ is a norm on $\ell_{1}$.
+
+	\item $\displaystyle \|x\|_{2} := \sqrt{\sum_{k=0}^{\infty} |x_k|^{2}}$ is a norm on $\ell_{2}$.
+\end{enumerate}}
+
+	\paragraph{Proof.}
+	@2: The norm properties for $\|\cdot\|_1$, $\|\cdot\|_\infty$ follow from the norm properties of $|\cdot|$ on $\R$ and $\C$. For $\|\cdot\|_2$, (N1) and (N2) likewise follow from the norm properties of $|\cdot|$ on $\R$ and $\C$. For (N3): let $(x_n),(y_n)\in \ell_2$. Then
+	\[
+		\sum_{n=1}^{m} |x_n+y_n|^2 \le \sum_{n=1}^{m} (|x_n|^2 + |y_n|^2 + 2|x_n|\,|y_n|)
+		\;\overset{(*)}{\le}\; \|x\|_2^2 + \|y\|_2^2 + 2\,\|x\|_2\,\|y\|_2 = (\|x\|_2 + \|y\|_2)^2.
+	\]
+	($*$ follows from the Cauchy--Schwarz inequality: $\sum_{i=1}^{n} a_i b_i \le \sqrt{\sum_{i=1}^{n} a_i^2}\,\sqrt{\sum_{i=1}^{n} b_i^2}$.)
+	It follows that $\|x+y\|_2 \le \|x\|_2 + \|y\|_2$.
+
+	\noindent i. Follows from the definitions of $\|\cdot\|_\infty := \max_{1\le i\le m} |x_i|$ and $\|\cdot\|_1 := \sum_{i=1}^{m} |x_i|$.
+
+	\noindent ii. Follows likewise from the definition of $\|\cdot\|_2 := \sqrt{\sum_{i=1}^{m} |x_i|^2}$.
+
+	\noindent iii. One has
+	\[
+		\Big(\sum_{i=1}^{m} |x_i|\Big)^2 = \Big(\sum_{i=1}^{m} |x_i|\Big)\Big(\sum_{j=1}^{m} |x_j|\Big)
+		\;\le\; \Big(\sum_{i=1}^{m} |x_i|^2\Big)^{1/2}\,\Big(\sum_{i=1}^{m} 1^2\Big)^{1/2}\,\Big(\sum_{j=1}^{m} |x_j|\Big)
+		= \|x\|_2\,\sqrt{m}\,\|x\|_1.
+	\]
+	Hence $\tfrac{1}{\sqrt{m}}\,\|x\|_1 \le \|x\|_2$. Together with ii. (and i.) this yields the stated inequalities.
+
+	@3: The norm properties for $\|\cdot\|_\infty$ follow from the norm properties of $|\cdot|$ on $\K$.
+
+	@4, 5: (N1) and (N2) follow from property (N1), (N2) on $\K$ and the usual rules for series. For (N3) use the definition $\|x\|_2 := \sqrt{\sum_{n=0}^{\infty} |x_n|^2}$. Since $\sum_{k=0}^{n} |x_k|^2$ is a norm on $\K^{n+1}$ (see (2)), it follows (see (2)) that
+	\[
+		\sum_{k=0}^{n} |x_k + y_k|^2 \le \sum_{k=0}^{n} |x_k|^2 + \sum_{k=0}^{n} |y_k|^2.
+	\]
+	The sequences $ (a_n), (b_n)$ with $a_n := \sum_{k=0}^{n} |x_k|^2$ and $b_n := \sum_{k=0}^{n} |x_k|^2 + \sum_{k=0}^{n} |y_k|^2$ are convergent and satisfy $a_n \le b_n$ for all $n\in\N$. Therefore
+	\[
+		\sum_{k=0}^{\infty} |x_k + y_k|^2 \le \sum_{k=0}^{\infty} |x_k|^2 + \sum_{k=0}^{\infty} |y_k|^2.
+	\]
+	\qed
+
+	\NumberedRemark{4.1.6}{Convention}{In the following, $(X,\|\cdot\|)$ will always denote a normed vector space.}
+
+	\NumberedDefinition{4.1.7}{Open ball}{For $x_0\in X$ and $r\in\R$ set
+	\[
+		B(x_0,r) := \{\, x\in X : \|x - x_0\| < r \,\}.
+	\]
+	This is the (open) ball around $x_0$ with radius $r$.\footnote{The scan shows an illustrative figure of unit balls; omitted here.}}
+
+	\NumberedRemark{4.1.8}{}{In a normed vector space one defines the concepts of sequence, convergent sequence, accumulation point, Cauchy sequence, and series analogously by replacing the absolute value $|\cdot|$ everywhere by the norm $\|\cdot\|$.
+
+	Convergence: Let $(x_n)_{n\in\N}\subset X$ be a sequence with elements $x_n\in X$. Then $(x_n)$ converges to $x\in X$ precisely when
+	\[
+		\forall\,\eps>0\ \exists\, n_\eps\in\N\ \forall\, n\ge n_\eps:\ \|x - x_n\| < \eps.
+	\]
+	The sequence $(x_n)$ is a Cauchy sequence precisely when
+	\[
+		\forall\,\eps>0\ \exists\, n_\eps\in\N\ \forall\, n,m\ge n_\eps:\ \|x_n - x_m\| < \eps.
+	\]
+	Example~4.1.5 shows that one can define different norms on a given vector space. We will discuss whether a sequence that converges with respect to one norm also converges with respect to all other possible norms. This is certainly the case if the different norms can be estimated against each other.}
+
+	\NumberedDefinition{4.1.9}{Equivalent norms}{Let $X$ be a $\K$-vector space and let $\|\cdot\|_a,\ \|\cdot\|_b$ be two norms on $X$. They are called \emph{equivalent} if there exist positive constants $c$ and $\bar c$ such that
+	\[
+		c\,\|x\|_a \le \|x\|_b \le \bar c\,\|x\|_a \qquad \forall\, x\in X.
+	\]}
+
+	\NumberedRemark{4.1.10}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+		\item Example~4.1.5(2) shows that the norms $\|\cdot\|_1$, $\|\cdot\|_2$, $\|\cdot\|_\infty$ on $\K^{m}$ are equivalent.
+		\item If $\|\cdot\|_a$ and $\|\cdot\|_b$ are equivalent on a $\K$-vector space $X$, then a sequence $(x_n)_{n\in\N}$ in $X$ converges with respect to $\|\cdot\|_a$ if and only if it converges with respect to $\|\cdot\|_b$.
+		\item The same holds for Cauchy sequences.
+	\end{enumerate}}
+
+	\NumberedTheorem{4.1.11}{On $\K^{n}$ all norms are equivalent}{Let $n\in\N$. On $\K^{n}$ all norms are equivalent.}
+	\paragraph{Proof.}
+	It suffices to show that every norm $\|\cdot\|$ on $\K^{n}$ is equivalent to the $\|\cdot\|_{1}$-norm. For $1\le i\le n$ let
+	\[
+		e_i := (0,\dots,0,\underset{\text{$i$-th component}}{1},0,\dots,0)\in\K^{n}
+	\]
+	be the $i$-th canonical unit vector. Then for $x=(x_1,\dots,x_n)=\sum_{i=1}^{n} x_i e_i$ we have
+	\[
+		\|x\| = \bigg\|\sum_{i=1}^{n} x_i e_i\bigg\| \le \sum_{i=1}^{n} |x_i|\,\|e_i\|.
+	\]
+	Define $\|e_i\| =: C_i$ and let $C := \max_{1\le i\le n} C_i$. Then
+	\[
+		\|x\| \le \sum_{i=1}^{n} |x_i|\,\|e_i\| \le C\, \sum_{i=1}^{n} |x_i| = C\,\|x\|_{1}.
+	\]
+	Thus we may choose the upper constant $\bar c=C$.
+
+	Now set
+	\[
+		M := \{\, \|x\| : x\in\K^{n},\ \|x\|_{1}=1\,\}.
+	\]
+	The set $M$ is nonempty (since $e_i\in M$ for $1\le i\le n$) and bounded below by $0$. Hence
+	\[
+		\rho := \inf M \ge 0.
+	\]
+	We show $\rho\ne0$ by contradiction. Suppose $\rho=0$. Then there exists a sequence $(x_k)_{k\in\N}$, $x_k\in\K^{n}$, with
+	\[
+		\|x_k\| \le \frac{1}{k}, \qquad \|x_k\|_{1} = 1 \quad (\forall k\in\N).
+	\]
+	For the $i$-th component $x_{k,i}$ of $x_k$ we have $|x_{k,i}| \le \|x_k\|_{1} = 1$. Thus $(x_{k,i})_{k\in\N}$ is a bounded sequence in $\K$, and by Bolzano--Weierstrass it has a convergent subsequence. Applying the same argument successively to the remaining coordinates, we obtain (by a diagonal extraction) a subsequence $(x_{k_\ell})_{\ell\in\N}$ such that each coordinate converges:
+	\[
+		x_{k_\ell,i} \to x_i^{*} \in \K, \qquad 1\le i\le n.
+	\]
+	Set $x^{*} := (x_1^{*},\dots,x_n^{*})\in\K^{n}$. Then
+	\[
+		\|x^{*}\| \le \|x_{k_\ell}\| + \|x^{*}-x_{k_\ell}\| \le \frac{1}{k_\ell} + C\,\|x^{*}-x_{k_\ell}\|_{1} \xrightarrow[\ell\to\infty]{} 0,
+	\]
+	hence $\|x^{*}\|=0$ and therefore $x^{*}=0$. On the other hand,
+	\[
+		\|x^{*}\|_{1} = \lim_{\ell\to\infty} \|x_{k_\ell}\|_{1} = 1,
+	\]
+	which is a contradiction. Thus $\rho>0$.
+
+	Finally, for arbitrary $x\in\K^{n}$ with $\|x\|_{1}\ne0$, set $y:=x/\|x\|_{1}$. Then $\|y\|_{1}=1$ and so $\|y\|\ge\rho$, i.e.
+	\[
+		\|x\| \ge \rho\,\|x\|_{1}.
+	\]
+	Together with the estimate $\|x\|\le C\,\|x\|_{1}$ this shows that $\|\cdot\|$ and $\|\cdot\|_{1}$ are equivalent. Since any two norms are both equivalent to $\|\cdot\|_{1}$, all norms on $\K^{n}$ are equivalent. \qed
+
+	\NumberedRemark{4.1.12}{}{Theorem~4.1.11 does not hold in infinite-dimensional vector spaces in general. For example, the norms $\|\cdot\|_\infty$ and $\|\cdot\|_1$ on $\ell_1$ are not equivalent.}
+	\paragraph{Proof.}
+	Indirect proof: assume there exists $\bar c>0$ with
+	\[
+		\|x\|_{1} \le \bar c\,\|x\|_{\infty} \qquad \forall x\in\ell_{1}.\tag{$*$}
+	\]
+	Let $m\in\N$ with $m>\bar c$. Choose $x\in\ell_{1}$ by
+	\[
+		x_i := \begin{cases} 1,& 0\le i\le m,\\ 0,& \text{otherwise.} \end{cases}
+	\]
+	Then $\|x\|_{1}=m+1$ and $\|x\|_{\infty}=1$, contradicting $(*)$. \qed
+
+	\paragraph{Recall.} In $\K$ the statements
+	\begin{itemize}[leftmargin=*]
+		\item $(x_n)$ is convergent,
+		\item $(x_n)$ is a Cauchy sequence
+	\end{itemize}
+	are equivalent.
+
+	\NumberedDefinition{4.1.13}{Complete (Banach) space}{A normed $\K$-vector space $(X,\|\cdot\|)$ is called \emph{complete} or a \emph{Banach space} if every Cauchy sequence in $X$ converges.}
+
+	\NumberedTheorem{4.1.14}{The following normed $\K$-vector spaces are complete}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+		\item $\K$,
+		\item $\K^{n}$ for $n\in\N$,
+		\item $(\ell_{1},\,\|\cdot\|_{1})$,
+		\item $(\ell_{\infty},\,\|\cdot\|_{\infty})$,
+		\item $(\ell_{2},\,\|\cdot\|_{2})$.
+\end{enumerate}}
+
+\paragraph{Proof.}
+@ 1: Theorem 3.2.9.
+
+@ 2: By Theorem 4.1.11 it suffices to prove the claim for the norm $\|\cdot\|_\infty$. Let $(x_k)_{k\in\N}$ be a Cauchy sequence in $(\K^{n},\|\cdot\|_{\infty})$, where $x_k\in\K^n$ and $x_{k,i}\in\K$. Then for each $1\le i\le n$ the sequence of coordinates $(x_{k,i})_{k\in\N}$ is a Cauchy sequence in $\K$, hence convergent (Theorem 3.2.9), say to $x_i^{\ast}\in\K$. Set
+\[
+	\ x^{\ast} := (x_1^{\ast},x_2^{\ast},\dots,x_n^{\ast}) \in \K^{n},
+\]
+the candidate for the limit of $(x_k)_{k\in\N}$. Let $\eps>0$. Then there exist indices $k_{\eps,i}\in\N$ such that
+\[
+	\ |x_i^{\ast}-x_{k,i}| < \eps \qquad \forall k\ge k_{\eps,i},\ 1\le i\le n.
+\]
+Set $k_{\eps} := \max_{1\le i\le n} k_{\eps,i}$. Then for all $k\ge k_{\eps}$ we have
+\[
+	\ \|x^{\ast}-x_k\|_{\infty} 
+		 = \max_{1\le i\le n} |x_i^{\ast}-x_{k,i}| 
+		 < \eps.
+\]
+Thus $x_k\to x^{\ast}$ in $\|\cdot\|_{\infty}$.
+
+@ 3:
+
+i. Construct the limit.
+
+Let $(x_k)_{k\in\N}$ be a Cauchy sequence with respect to $\|\cdot\|_{1}$ in $\ell_{1}$, i.e. $x_k\in\ell_{1}$, $x_{k,i}\in\K$, $i\in\N$, and
+\[
+	\ \forall\,\eps>0\ \exists\,k_{\eps}\in\N\ \forall\,k,l\ge k_{\eps} :\ \eps > \|x_k-x_l\|_{1} 
+		\ = \sum_{i=0}^{\infty} |x_{k,i}-x_{l,i}|.
+\]
+In particular, for each fixed $i\in\N$ we obtain
+\[
+	\ \forall\,\eps>0\ \exists\,k_{\eps}\in\N\ \forall\,k,l\ge k_{\eps} :\ |x_{k,i}-x_{l,i}|<\eps.
+\]
+By Theorem 3.2.9 there exists for each $i$ a limit $x_i^{\ast}\in\K$ with $x_{k,i}\to x_i^{\ast}$ as $k\to\infty$. Set $x^{\ast}:=(x_i^{\ast})_{i\in\N}\in\K^{\N}$.
+
+ii. Show: $x^{\ast}\in \ell_{1}$, i.e. $\sum_{i=0}^{\infty} |x_i^{\ast}| < \infty$.
+
+By Remark 4.1.4 we know that $(\|x_k\|_{1})_{k\in\N}$ is a Cauchy sequence in $\R$. Hence
+\[
+	\ c := \sup_{k\in\N} \|x_k\|_{1} < \infty.
+\]
+Fix $N\in\N$. For $\eps=\tfrac{1}{N}$ choose indices $k_{\eps,1},\dots,k_{\eps,N}$ with $|x_i^{\ast}-x_{k,i}|<\eps$ for all $\,k\ge k_{\eps,i}$ and $1\le i\le N$. Let $k_{\eps}:=\max_{1\le i\le N} k_{\eps,i}$. Then
+\[
+	\ \sum_{i=0}^{N} |x_i^{\ast}|
+		\ \le \underbrace{\sum_{i=0}^{N} |x_i^{\ast}-x_{k_{\eps},i}|}_{<\,N\cdot(1/N)=1}
+		\ \ + \underbrace{\sum_{i=0}^{N} |x_{k_{\eps},i}|}_{\le\,\|x_{k_{\eps}}\|_{1}\,\le\,c}
+		\ < 1 + c.
+\]
+Thus the sequence of partial sums $\big(S_N:=\sum_{i=0}^{N} |x_i^{\ast}|\big)_{N\in\N}$ is monotone increasing and bounded, hence the series $\sum_{i=0}^{\infty} |x_i^{\ast}|$ is convergent. Therefore $x^{\ast}\in\ell_{1}$.
+
+iii. It remains to show: $\|x^{\ast} - x_{k}\|_{1} \to 0$ as $k\to\infty$.
+
+Assume this is not the case. Then there exists $\varepsilon_{0} > 0$ such that for all $k \in \N$ there is an $m \ge k$ with
+\[
+	\ \|x^{\ast} - x_{m}\|_{1} \ge \varepsilon_{0}.\tag{$*$}
+\]
+Since $(x_{k})_{k\in\N}$ is a Cauchy sequence, there exists $k_{0} \in \N$ such that
+\[
+	\ \|x_{k} - x_{l}\|_{1} < \frac{\varepsilon_{0}}{4} \qquad \forall\, k,l \ge k_{0}.
+\]
+For this $k_{0}$ there is, by $(*)$, an $m_{0} \ge k_{0}$ with $\|x^{\ast} - x_{m_{0}}\|_{1} \ge \varepsilon_{0}$. The series $\sum_{i=n_{0}}^{\infty} |x^{\ast}_{i} - x_{m_{0},i}|$ is convergent; hence, by Theorem~3.4.6, there exists $n_{0} \in \N$ with
+\[
+	\ \sum_{i=n_{0}}^{\infty} |x^{\ast}_{i} - x_{m_{0},i}| < \frac{\varepsilon_{0}}{4}.
+\]
+Since $x_{k,i} \to x^{\ast}_{i}$ as $k \to \infty$, there exists $l_{0} \ge k_{0}$ with
+\[
+	\ |x_{l_{0},i} - x^{\ast}_{i}| < \frac{\varepsilon_{0}}{4 n_{0}} \qquad \text{for } 1 \le i \le n_{0}.
+\]
+Therefore
+\[
+\begin{aligned}
+\varepsilon_{0}
+&\le \|x^{\ast} - x_{m_{0}}\|_{1}
+ = \sum_{i=0}^{\infty} |x^{\ast}_{i} - x_{m_{0},i}|
+ \\&\le \sum_{i=0}^{n_{0}-1} |x^{\ast}_{i} - x_{m_{0},i}| + \frac{\varepsilon_{0}}{4}
+ \le \sum_{i=0}^{n_{0}-1} |x^{\ast}_{i} - x_{l_{0},i}| + \sum_{i=0}^{n_{0}-1} |x_{l_{0},i} - x_{m_{0},i}| + \frac{\varepsilon_{0}}{4} \\
+&< n_{0}\,\frac{\varepsilon_{0}}{4 n_{0}} + \|x_{l_{0}} - x_{m_{0}}\|_{1} + \frac{\varepsilon_{0}}{4}
+ < \frac{3}{4}\,\varepsilon_{0},
+\end{aligned}
+\]
+which is a contradiction. Hence $\|x^{\ast}-x_k\|_{1}\to 0$ and $(\ell_1,\|\cdot\|_1)$ is complete.
+
+@ 4 and 5: exercises. \qed
+
+\end{document}

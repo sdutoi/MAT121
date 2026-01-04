@@ -268,25 +268,28 @@ Consider first the real exp. function.
 
 	\emph{Proof.} Exercise.\hfill $\blacksquare$
 
-	\paragraph{Theorem 4.5.9} For $\alpha\in\mathbb R_{>0}$ it holds:
-	\[
-		\lim_{x\to\infty} x^{-\alpha}\,\ln(x) = 0,\qquad
-		\lim_{x\to 0^{+}} x^{\alpha}\,\ln(x) = 0.
-	\]
+\paragraph*{Theorem 4.5.9} For $\alpha \in \mathbb{R}_{>0}$ holds:
+\begin{align*}
+    \lim_{x \to \infty} x^{-\alpha} \ln(x) &= 0 \\
+    \lim_{x \to +0} x^{\alpha} \ln(x) &= 0.
+\end{align*}
 
-	\emph{Proof.} As $x\to\infty$ we set $y := \ln x \to \infty$. Then
-	\[
-		\lim_{x\to\infty} x^{-\alpha}\,\ln(x)
-		 = \frac{1}{\alpha} \lim_{y\to\infty} \frac{\alpha y}{e^{\alpha y}}
-		 = \frac{1}{\alpha} \lim_{z\to\infty} \frac{z}{e^{z}} = 0
-	\]
-	by Theorem~4.5.4(3). Similarly,
-	\[
-		\lim_{x\to 0^{+}} x^{\alpha}\,\ln(x)
-		 = \lim_{x\to 0^{+}} \Bigl(\frac{1}{x}\Bigr)^{-\alpha} \ln\!\Bigl(\frac{1}{x}\Bigr)
-		 = - \lim_{y\to\infty} y^{-\alpha}\,\ln y = 0.
-	\]
-	\hfill $\blacksquare$
+\textbf{Proof.} From $x \to +\infty$ follows $y := \ln x \xrightarrow{x \to \infty} \infty$. Then
+\[
+\lim_{x \to +\infty} x^{-\alpha} \ln(x) 
+\stackrel{x=e^y}{=} \frac{1}{\alpha} \lim_{y \to \infty} \frac{\alpha y}{e^{\alpha y}} 
+\stackrel{z=\alpha y > 0}{=} \frac{1}{\alpha} \lim_{z \to \infty} \frac{z}{e^z} 
+\stackrel{\text{Thm 4.5.4(3)}}{=} 0.
+\]
+
+Similarly follows:
+\[
+\lim_{x \to +0} x^{\alpha} \ln(x) 
+\stackrel{x=\frac{1}{y}}{=} \lim_{y \to +\infty} y^{-\alpha} \ln \frac{1}{y} 
+= - \lim_{y \to \infty} y^{-\alpha} \ln y = 0.
+\]
+\hfill $\blacksquare$
+
 
 	Next we investigate the behavior of the exponential function on $i\mathbb R \subset \mathbb C$ and, for brevity, introduce the notation
 	\[

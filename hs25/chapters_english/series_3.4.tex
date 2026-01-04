@@ -1,0 +1,189 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\setlist{nosep}
+
+\linespread{1.1} % Slightly increased line spacing for better readability
+% -------------------- Macros --------------------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}} % used to denote either R or C
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\newcommand{\NumberedDefinition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Definition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedTheorem}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Theorem #1 ( #2 ).} #3\par}
+\newcommand{\NumberedProposition}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Proposition #1 ( #2 ).} #3\par}
+\newcommand{\NumberedLemma}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Lemma #1 ( #2 ).} #3\par}
+\newcommand{\NumberedCorollary}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Corollary #1 ( #2 ).} #3\par}
+\newcommand{\NumberedRemark}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Remark #1 ( #2 ).} #3\par}
+\newcommand{\NumberedExample}[3]{% #1 number, #2 title, #3 body
+\paragraph*{Example #1 ( #2 ).} #3\par}
+
+
+\begin{document}
+\subsection*{3.4. Series (Reihen)}
+
+\NumberedDefinition{3.4.1}{Series and partial sums}{Let $(x_n)_{n\in\N}$ be a sequence in $\K$. We define the $n$th partial sum $s_n$ by
+\[
+	s_n := \sum_{k=0}^{n} x_k.
+\]
+The sequence $(s_n)_{n\in\N}$ is called the \emph{series} associated to $(x_n)$ and is denoted for short by the symbol
+\[
+	\sum_{k} x_k.
+\]
+The series is called \emph{convergent} (resp. \emph{divergent}) if the sequence $(s_n)_{n\in\N}$ is convergent (resp. divergent) in $\K$.\footnote{In this chapter we consider convergent sequences and series in $\K$, not improper convergence.}
+If $s_n \to s\in\K$, we write
+\[
+	s = \sum_{n=0}^{\infty} x_n.
+\]}
+
+\NumberedExample{3.4.2}{}{\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\displaystyle \sum_{n\ge 1} \frac{1}{n!}$ is convergent; in fact $e = 1 + 1 + \tfrac12 + \tfrac16 + \tfrac{1}{24} + \tfrac{1}{120} + \tfrac{1}{720} + \cdots$.
+
+	\item $\displaystyle \sum_{n\ge 1} \frac{1}{n^2} = \Big(1 + \tfrac{1}{4} + \tfrac{1}{9} + \tfrac{1}{16} + \tfrac{1}{25} + \cdots\Big)$ is convergent (indeed to $\pi^2/6$).
+
+	\item $\displaystyle \sum_{n\ge 1} \frac{1}{n} = \big(1 + \tfrac{1}{2} + \tfrac{1}{3} + \tfrac{1}{4} + \tfrac{1}{5} + \cdots\big)$ is divergent (the harmonic series).
+
+	\item The geometric series $\sum a^n = (1 + a + a^2 + a^3 + \cdots)$ is convergent exactly when $|a|<1$. In that case
+	\[
+		\sum_{n=0}^{\infty} a^n = \frac{1}{1-a}.
+	\]
+\end{enumerate}}
+
+\paragraph{Proof.}
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item See Example~3.2.4(6).
+
+	\item Let $(s_n)_{n\in\N}$ with $s_n := \sum_{k=1}^{n} \tfrac{1}{k^2}$. Then $(s_n)$ is monotone increasing. Moreover, for $n\ge2$,
+	\begin{align*}
+		s_n &= 1 + \sum_{k=2}^{n} \frac{1}{k^2}
+			\;\le\; 1 + \sum_{k=2}^{n} \frac{1}{k(k-1)}
+			\;=\; 1 + \sum_{k=2}^{n} \Big( \frac{1}{k-1} - \frac{1}{k} \Big) \\
+			&= 1 + \sum_{k=2}^{n} \frac{1}{k-1} - \sum_{k=2}^{n} \frac{1}{k}
+			\;=\; 1 + \sum_{\ell=1}^{n-1} \frac{1}{\ell} - \sum_{\ell=2}^{n} \frac{1}{\ell}
+			\;=\; 1 + 1 - \frac{1}{n}
+			\;\le\; 2.
+	\end{align*}
+	Thus $(s_n)$ is monotone increasing and bounded, hence convergent.
+
+	\item For $n\in\N$ one has
+	\[
+		s_{2n} - s_n 
+			= \sum_{k=n+1}^{2n} \frac{1}{k}
+			\;\ge\; \sum_{k=n+1}^{2n} \frac{1}{2n}
+			= n\cdot\frac{1}{2n}
+			= \frac{1}{2}.
+	\]
+	Hence $(s_n)_{n\in\N}$ is not a Cauchy sequence and therefore, by Theorem~3.2.7, not convergent.
+
+	\item For $a=1$ we have $s_n = \sum_{k=0}^{n} 1^k = n+1$, which diverges. For $a\ne1$, by Lemma~3.2.3(3),
+	\[
+		s_n = \sum_{k=0}^{n} a^k = \frac{1-a^{n+1}}{1-a}.
+	\]
+	Since for $a\ne1$ the sequence $a^{n+1}$ converges if and only if $|a|<1$ (Example~3.2.4(1)), the claim follows.
+\end{enumerate}
+\qed
+
+
+\NumberedTheorem{3.4.3}{Necessary condition for convergence}{If the series $\sum x_n$ is convergent, then $(x_n)_{n\in\N}$ is a null sequence.}
+\paragraph{Proof.}
+$(s_n)_{n\in\N}$ is convergent and hence a Cauchy sequence. Thus, for every $\eps>0$ there exists $n_\eps\in\N$ such that for all $n\ge n_\eps$ one has
+\[
+	|x_n| = |s_n - s_{n-1}| < \eps.
+\]
+\qed
+
+
+\NumberedRemark{3.4.4}{}{Example~3.4.2(3) shows that the converse of Theorem~3.4.3 is, in general, false.}
+
+\NumberedRemark{3.4.4}{}{Example~3.4.2(3) shows that the converse of Theorem~3.4.3 is, in general, false.}
+
+\paragraph{Rules for series.}
+
+\NumberedTheorem{3.4.5}{Linearity}{Let $\sum x_n$ and $\sum y_n$ be two convergent series and let $\alpha\in\K$. Then:
+\begin{enumerate}[label={(\arabic*)}, leftmargin=*]
+	\item $\sum \alpha x_n$ is convergent with sum $\alpha\sum x_n$.
+	\item $\sum (x_n+y_n)$ is convergent with sum $(\sum x_n) + (\sum y_n)$.
+\end{enumerate}}
+
+\paragraph{Convergence criteria for series.}
+
+\NumberedTheorem{3.4.6}{Cauchy criterion for series}{$\sum x_n$ is convergent if and only if for every $\eps>0$ there exists $n_\eps\in\N$ such that
+\[
+	\Bigg|\sum_{k=m+1}^{n} x_k\Bigg| < \eps \qquad \text{for all } n>m\ge n_\eps.
+\]}
+\paragraph{Proof.}
+Note that $|s_n-s_m| = \big|\sum_{k=m+1}^{n} x_k\big|$. The claim is therefore exactly the Cauchy criterion for the sequence of partial sums $(s_n)$ (Theorems~3.2.7 and~3.2.9). \qed
+
+\NumberedTheorem{3.4.7}{Series with nonnegative terms}{Let $\sum x_n$ be a series in $\R$ with $x_n\ge0$ for all $n\in\N$. Then the series is convergent if and only if the sequence $(s_n)$ of partial sums is bounded.}
+\paragraph{Proof.}
+Since $x_n\ge0$ for all $n\in\N$, the sequence $(s_n)_{n\in\N}$ is monotone increasing. The assertion follows from Theorems~3.1.8 and~3.2.2. \qed
+
+\NumberedTheorem{3.4.8}{Leibniz criterion}{Let $(x_n)_{n\in\N}$ be a monotone decreasing sequence with $x_n\ge0$. Then the series $\sum (-1)^n x_n$ is convergent if and only if $(x_n)_{n\in\N}$ is a null sequence.}
+\paragraph{Proof.}
+From Theorem~3.4.3 we get: if $\sum (-1)^n x_n$ converges, then $((-1)^n x_n)$ is a null sequence, hence $x_n$ is a null sequence.
+
+For the converse direction, assume $(x_n)$ is monotone decreasing with $x_n\ge0$ and $(x_n)$ is a null sequence. Let $(s_n)$ be the partial sums of $\sum (-1)^n x_n$.
+\begin{enumerate}[label=\roman*. , leftmargin=*]
+	\item Show that $(s_{2n})_{n\in\N}$ is monotone decreasing:
+	\[
+		s_{2n+2} - s_{2n} = x_{2n+2} - x_{2n+1} \le 0.
+	\]
+	\item Show that $(s_{2n+1})_{n\in\N}$ is monotone increasing:
+	\[
+		s_{2n+3} - s_{2n+1} = -x_{2n+2} + x_{2n+3} \ge 0.
+	\]
+\end{enumerate}
+	\begin{enumerate}[label=\roman*. , leftmargin=*]
+		\setcounter{enumi}{2}
+		\item We have the chain of inequalities
+		\[
+			s_1 \;\le\; s_{2n+1} \;\le\; s_{2n} \;\le\; s_0.\footnote{An exclamation mark placed over an equality/inequality in the original text indicates that the equality/estimate is still to be shown.}
+		\]
+		Indeed, (ii) shows $(s_{2n+1})$ is increasing, hence $s_1\le s_{2n+1}$, and (i) shows $(s_{2n})$ is decreasing, hence $s_{2n}\le s_0$. Moreover,
+		\[
+			s_{2n+1}-s_{2n} = -x_{2n+1} \le 0,
+		\]
+		so $s_{2n+1}\le s_{2n}$.
+
+		\item Show that the two limits coincide. From Theorem~3.1.19 (algebra of limits for sequences) we get
+		\[
+			s-t = \lim_{n\to\infty} s_{2n} - \lim_{n\to\infty} s_{2n+1}
+					= \lim_{n\to\infty} (s_{2n}-s_{2n+1})
+					= \lim_{n\to\infty} x_{2n+1} = 0.
+		\]
+		Let $\eps>0$. Then there exist $n_1,n_2\in\N$ such that
+		\[
+			|s_{2n}-s|<\eps \quad (n\ge n_1), \qquad |s_{2n+1}-s|<\eps \quad (n\ge n_2).
+		\]
+		With $n_\eps := \max\{2n_1,\,2n_2+1\}$ we obtain $|s_n-s|<\eps$ for all $n\ge n_\eps$. Hence $(s_n)$ converges. \qed
+	\end{enumerate}
+
+	\NumberedExample{3.4.9}{Alternating harmonic series}{
+	\[
+		\sum_{n=1}^{\infty} (-1)^{n+1}\,\frac{1}{n}
+			= 1 - \frac12 + \frac13 - \frac14 + \frac15 - \cdots \quad (=\; \log 2),
+	\]
+	and
+	\[
+		\sum_{n=0}^{\infty} (-1)^n \, \frac{1}{2n+1}
+			= 1 - \frac13 + \frac15 - \frac17 + \cdots \quad\Big(=\; \frac{\pi}{4}\Big).
+	\]}
+
+ 
+
+\end{document}
