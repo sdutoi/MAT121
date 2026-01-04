@@ -310,6 +310,51 @@ The sequences $(e_n)$ and $(y_n)$ converge, and $e_n > y_n$. Hence $e \ge x_m$ f
 \end{enumerate}
 \qed
 
+\begin{center}
+\textit{Central theorem of this section}
+\end{center}
+
+\NumberedTheorem{3.2.5}{Bolzano-Weierstrass}{
+Every bounded sequence in $\K$ possesses at least one accumulation point.}
+
+\noindent\textbf{Proof.} Let first $\K = \R$ and $(x_k)_{k \in \N}$ be a bounded sequence in $\R$. Then there exist $A_0 < B_0$ with $A_0 \le x_k \le B_0 \quad \forall k \in \N$.
+
+Starting from $A_0$ and $B_0$, we construct two sequences $(A_n)_{n \in \N}, (B_n)_{n \in \N}$ recursively. Let $A_n, B_n$ already be constructed.
+
+\textbf{Case 1:} There are infinitely many $k \in \N$ with $x_k = \frac{1}{2}(A_n + B_n)$. Then $c := \frac{1}{2}(A_n + B_n)$ is obviously an accumulation point of $(x_k)_{k \in \N}$.
+
+\textbf{Case 2:} Infinitely many sequence terms of $(x_k)_{k \in \N}$ lie in $[A_n, \frac{1}{2}(A_n + B_n)]$. Then we set $A_{n+1} = A_n$ and $B_{n+1} = \frac{1}{2}(A_n + B_n)$.
+
+\textbf{Case 3:} Infinitely many sequence terms of $(x_k)_{k \in \N}$ lie in $]\frac{1}{2}(A_n + B_n), B_n]$. Then we set $A_{n+1} = \frac{1}{2}(A_n + B_n)$ and $B_{n+1} = B_n$.
+
+Obviously: $A_n$ is monotonically increasing and $B_n$ monotonically decreasing and bounded:
+\[
+A_n, B_n \in [A_0, B_0] \quad \forall n \in \N
+\]
+Therefore $(A_n)_{n \in \N}, (B_n)_{n \in \N}$ converge. Because $B_n - A_n \le 2^{-n}(B_0 - A_0) \quad \forall n \in \N$ the limits coincide.
+
+Set $c := \lim_{n \to \infty} A_n (= \lim_{n \to \infty} B_n)$. We still show: $c$ is an accumulation point.
+Let $\eps > 0$. Then there exists an $n_{\eps_1} \in \N$ and $n_{\eps_2} \in \N$ with
+\[
+c - \eps < A_n \le c \quad \forall n \ge n_{\eps_1}, \qquad c + \eps > B_n \ge c \quad \forall n \ge n_{\eps_2}
+\]
+Set $n_\eps = \max\{n_{\eps_1}, n_{\eps_2}\}$. By construction, there are infinitely many $k \in \N$ with
+\[
+c - \eps < A_{n_\eps} < B_{n_\eps} < c + \eps, \qquad x_k \in [A_{n_\eps}, B_{n_\eps}].
+\]
+Therefore $c$ is an accumulation point.
+
+Let now $\K = \C$ and $(x_k)_{k \in \N}$ be a bounded sequence in $\C$. Define real sequences:
+\[
+u_k := \text{Re}(x_k) \quad , \quad v_k := \text{Im}(x_k), \qquad k \in \N.
+\]
+Because $|\text{Re}(z)| \le |z|, |\text{Im}(z)| \le |z|$, the sequences $(u_k)_{k \in \N}, (v_k)_{k \in \N}$ are bounded. According to Part 1 of the proof, there exists an accumulation point $a \in \R$ of $(u_k)$, i.e., there ex. subsequence $(u_{k_l})_{l \in \N}$ with $u_{k_l} \xrightarrow{l \to \infty} a$.
+
+\textit{Consider:} $(v_{k_l})_{l \in \N}$. $(v_{k_l})$ is bounded, i.e., there ex. accumulation point $b$, i.e., there ex. further subsequence $(v_{k_{l_m}})_{m \in \N}$ with $b = \lim_{m \to \infty} v_{k_{l_m}}$. Because $|z| \le |\text{Re}[z]| + |\text{Im}[z]|$ holds:
+\[
+\left| x_{k_{l_m}} - (a + ib) \right| \le \underbrace{\left| u_{k_{l_m}} - a \right|}_{\text{null seq.}} + \underbrace{\left| v_{k_{l_m}} - b \right|}_{\text{null seq.}} \xrightarrow{m \to \infty} 0
+\]
+and $a + ib$ is an accumulation point of $(x_k)_{k \in \N}$. \qed
 
 \NumberedDefinition{3.2.6}{Cauchy sequence}{A sequence $(x_n)_{n\in\N}$ in $\K$ is called a \emph{Cauchy sequence} (abbrev. C.S.) if for every $\eps>0$ there exists $n_0\in\N$ such that
 \[
@@ -358,27 +403,5 @@ Then $a_n,b_n\in\Q$, $I_{n+1}\subset I_n$, and $|I_n|=b_n-a_n=2^{-n}(b_0-a_0)=2^
 However, in $\Q$ the sequence cannot converge, because its (real) limit must be the unique number $c\in[1,2]$ with $c^2=2$, namely $c=\sqrt{2}\notin\Q$ (cf. Remark~2.3.3). Thus $(x_n)$ is Cauchy in $\Q$ but has no limit in $\Q$; viewed in $\R$ it converges to $\sqrt{2}$.}
 
 \NumberedRemark{3.2.11}{Completion viewpoint}{The real numbers $\R$ can be obtained from $\Q$ by \emph{completion}: one considers the set of Cauchy sequences in $\Q$ and identifies two such sequences if their difference is a null sequence; the resulting equivalence classes form an ordered field that is order complete and isomorphic to $\R$ (Theorem~2.3.4). Under this identification, a rational $q\in\Q$ corresponds to the constant sequence $(q,q,\dots)$, while an irrational such as $\sqrt{2}$ is represented by any rational Cauchy sequence that converges to it in $\R$ (e.g. the bisection sequence above).}
-
-\subsection{Improper Convergence (Uneigentliche Konvergenz)}
-\NumberedDefinition{3.3.1}{Extended reals and improper limits}{Let $\overline{\R}:=\R\cup\{-\infty,+\infty\}$ be the set of \emph{extended real numbers}, ordered by
-\[
-	-\infty < x < +\infty \quad (\forall x\in\R).
-\]
-For a sequence $(x_n)$ in $\R$ we define:
-\begin{itemize}[leftmargin=*]
-	\item $x_n \to +\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\ge M$ for all $n\ge n_0$.
-	\item $x_n \to -\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\le -M$ for all $n\ge n_0$ (equivalently: $(-x_n)\to +\infty$).
-	\item We say $x_n$ \emph{diverges to infinity} and write $x_n\to \infty$ if either $x_n\to +\infty$ or $x_n\to -\infty$; when the sign matters we specify $+\infty$ or $-\infty$.
-\end{itemize}
-Thus a (properly) convergent sequence in $\R$ is one that converges in the usual sense to a point of $\R$; an \emph{improperly convergent} sequence is one that converges in $\overline{\R}$ to $\pm\infty$.
-}
-
-\paragraph{Remarks and basic facts.}
-\begin{itemize}[leftmargin=*]
-	\item If $(x_n)$ is monotone increasing and unbounded above, then $x_n\to +\infty$. If it is monotone decreasing and unbounded below, then $x_n\to -\infty$.
-	\item If $x_n\to +\infty$ and $a>0$, then $a\,x_n\to +\infty$. If $x_n\to +\infty$ and $y_n\ge c>0$ eventually, then $x_n y_n\to +\infty$.
-	\item If $x_n\to a\in\R$ and $y_n\to +\infty$, then $x_n+y_n\to +\infty$.
-	\item Improper limits obey the same order rule as in Theorem~3.1.20(1): if $x_n\le y_n$ for infinitely many $n$ and $x_n\to +\infty$, then $y_n\to +\infty$.
-\end{itemize}
 
 \end{document}

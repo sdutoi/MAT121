@@ -35,61 +35,39 @@
 
 
 \begin{document}
-\subsection*{3.3. Improper Convergence (Uneigentliche Konvergenz)}
-\NumberedDefinition{3.3.1}{Extended reals and improper limits}{Let $\overline{\R}:=\R\cup\{-\infty,+\infty\}$ be the set of \emph{extended real numbers}, ordered by
+\section*{3.3. Improper Convergence (Uneigentliche Konvergenz)}
+
+In many cases, it is convenient to extend the set of real numbers by two symbols $+\infty$ (read: plus infinity) and $-\infty$ (read: minus infinity).
+
+\NumberedDefinition{3.3.1}{}{
+(1) \textit{We define two symbols $-\infty$ and $+\infty$ and characterize these by the property}
 \[
-	-\infty < x < +\infty \quad (\forall x\in\R).
+-\infty < x < +\infty \quad \forall x \in \R.
 \]
-For a sequence $(x_n)$ in $\R$ we define:
-\begin{itemize}[leftmargin=*]
-	\item $x_n \to +\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\ge M$ for all $n\ge n_0$.
-	\item $x_n \to -\infty$ if for every $M\in\R$ there exists $n_0\in\N$ such that $x_n\le -M$ for all $n\ge n_0$ (equivalently: $(-x_n)\to +\infty$).
-	\item We say $x_n$ \emph{diverges to infinity} and write $x_n\to \infty$ if either $x_n\to +\infty$ or $x_n\to -\infty$; when the sign matters we specify $+\infty$ or $-\infty$.
-\end{itemize}
-Thus a (properly) convergent sequence in $\R$ is one that converges in the usual sense to a point of $\R$; an \emph{improperly convergent} sequence is one that converges in $\overline{\R}$ to $\pm\infty$.
+(2) $\sup \emptyset := -\infty$, \textit{with} $\inf \emptyset := +\infty$.
+
+(3) \textit{Let $M \subset \R$ be non-empty. Then we set}
+\begin{align*}
+\inf M := -\infty \quad &\Leftrightarrow \quad M \textit{ is not bounded below} \\
+\sup M := +\infty \quad &\Leftrightarrow \quad M \textit{ is not bounded above.}
+\end{align*}
 }
 
-\paragraph{Remarks and basic facts.}
-\begin{itemize}[leftmargin=*]
-	\item If $(x_n)$ is monotone increasing and unbounded above, then $x_n\to +\infty$. If it is monotone decreasing and unbounded below, then $x_n\to -\infty$.
-	\item If $x_n\to +\infty$ and $a>0$, then $a\,x_n\to +\infty$. If $x_n\to +\infty$ and $y_n\ge c>0$ eventually, then $x_n y_n\to +\infty$.
-	\item If $x_n\to a\in\R$ and $y_n\to +\infty$, then $x_n+y_n\to +\infty$.
-	\item Improper limits obey the same order rule as in Theorem~3.1.20(1): if $x_n\le y_n$ for infinitely many $n$ and $x_n\to +\infty$, then $y_n\to +\infty$.
-\end{itemize}
-
-\NumberedDefinition{3.3.2}{Arithmetic in $\overline{\R}$}{We extend the usual operations on $\R$ to the extended reals $\overline{\R}=\R\cup\{-\infty,+\infty\}$ by the following rules (whenever the expressions make sense): for $x\in\R$,
+\NumberedDefinition{3.3.2}{}{
+\textit{We define}
 \[
-	x + (+\infty) := +\infty \ (\forall x> -\infty),\qquad x + (-\infty) := -\infty \ (\forall x< +\infty),
+\bar{\R} := \R \cup \{-\infty, \infty\}
 \]
-\[
-	x - (+\infty) := -\infty \ (\forall x< +\infty),\qquad x - (-\infty) := +\infty \ (\forall x> -\infty),
-\]
-\[
-	x\cdot (+\infty) := \begin{cases}
-		+\infty,& x>0,\\[-2pt]
-		-\infty,& x<0,
-	\end{cases}
-	\qquad
-	x\cdot (-\infty) := -\,x\cdot(+\infty),
-\]
-\[
-	\frac{x}{+\infty} := 0,\quad \frac{x}{-\infty} := 0 \qquad (\forall x\in\R),
-\]
-\[
-	\frac{+\infty}{x} := \begin{cases}
-		+\infty,& x>0,\\[-2pt]
-		-\infty,& x<0,
-	\end{cases}
-	\qquad
-	\frac{-\infty}{x} := -\,\frac{+\infty}{x},
-\]
-\[
-	\frac{x}{0} := \begin{cases}
-		+\infty,& x>0,\\[-2pt]
-		-\infty,& x<0.
-	\end{cases}
-\]
-Undefined expressions (such as $\infty-\infty$, $0\cdot\infty$, $\tfrac{\infty}{\infty}$, $\tfrac{0}{0}$, etc.) are intentionally left without a value.}
+\textit{and extend the arithmetic operations on $\bar{\R}$ by}
+\begin{align*}
+x + \infty &:= +\infty & \forall x &> -\infty \\
+x - \infty &:= -\infty & \forall x &< \infty \\
+x \cdot (+\infty) &:= \begin{cases} +\infty & x > 0 \\ -\infty & x < 0 \end{cases} \\
+x \cdot (-\infty) &:= -x(+\infty) \\
+\frac{x}{+\infty} &:= \frac{x}{-\infty} := 0 & \forall x &\in \R \\
+\frac{x}{0} &:= \begin{cases} +\infty & x > 0 \\ -\infty & x < 0 \end{cases}
+\end{align*}
+}
 
 \NumberedRemark{3.3.3}{Suprema/infima in $\overline{\R}$}{Every subset of $\R$ has both an infimum and a supremum \emph{in} $\overline{\R}$. For example, if $A\subset\R$ is unbounded above, then $\sup_{\overline{\R}} A=+\infty$; if $A$ is unbounded below, then $\inf_{\overline{\R}} A=-\infty$.}
 
