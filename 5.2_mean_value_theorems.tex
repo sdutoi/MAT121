@@ -1,0 +1,399 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Simple manual environments - no amsthm numbering involved
+\newenvironment{satz}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Theorem #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{definition}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Definition #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{bemerkung}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Remark #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\setcounter{secnumdepth}{0}
+
+\title{\textbf{Beginn} Analysis 2, FS 2026}
+\date{}
+
+\begin{document}
+\maketitle
+
+\subsection{5.2 Mean Value Theorems}
+
+
+\begin{definition}{5.2.1}
+Let $f : M \to \mathbb{R}$ be a function from a nonempty subset $M$ of a normed vector
+space $(X, \|\cdot\|)$ to the real numbers. Then $f$ has a \emph{local minimum} at
+$x_0 \in M$ (resp.\ a \emph{local maximum}), if there exists a neighbourhood
+$U \in \mathcal{U}(x_0)$ such that
+\begin{align*}
+    f(x) &\geq f(x_0) \qquad \forall x \in U \cap M. \\
+    (\text{resp.} \quad f(x) &\leq f(x_0) \qquad \forall x \in U \cap M.)
+\end{align*}
+A local minimum or local maximum is called a \emph{local extremum}.
+\end{definition}
+
+\begin{satz}{5.2.2}
+Let $M \subset \mathbb{R}$ and $x_0 \in \mathring{M}$. Suppose $f : M \to \mathbb{R}$
+has a local extremum at $x_0$ and is differentiable. Then:
+\[
+    f'(x_0) = 0.
+\]
+\end{satz}
+
+\begin{proof}
+We consider the case of a minimum. Then there exists an $\epsilon > 0$ such that
+\[
+    f(x) \geq f(x_0) \quad \forall x \in \left]x_0 - \epsilon;\, x_0 + \epsilon\right[.
+\]
+Therefore:
+\[
+    D_+f(x_0) = \lim_{x \to x_0+0} \frac{f(x) - f(x_0)}{x - x_0} \geq 0
+\]
+and
+\[
+    D_-f(x_0) = \lim_{x \to x_0-0} \frac{f(x) - f(x_0)}{x - x_0} \leq 0.
+\]
+Since $D_+f(x_0) = D_-f(x_0) = f'(x_0)$, it follows that:
+\[
+    f'(x_0) = 0.
+\]
+\end{proof}
+
+In what follows, the assumption
+\[
+    -\infty < a < b < +\infty, \quad f \in C([a,b], \mathbb{R})
+    \quad \text{and } f \text{ differentiable on } \left]a, b\right[
+    \tag{V}
+\]
+will frequently be used.
+
+\begin{bemerkung}{5.2.3}
+\hfill
+\begin{enumerate}
+    \item If $(V)$ holds, then
+    \[
+        \max_{a \leq x \leq b} f(x) = \max\{f(a),\, f(b),\, f(x) : f'(x) = 0 \wedge x \in \left]a,b\right[\}
+    \]
+    \[
+        \min_{a \leq x \leq b} f(x) = \min\{f(a),\, f(b),\, f(x) : f'(x) = 0 \wedge x \in \left]a,b\right[\}
+    \]
+
+    \item If $x_0 \notin \mathring{M}$, the statement in Theorem 5.2.2 does not generally
+    hold. E.g.\ $f(x) = x$, $M = [0,1]$, $x_0 = 1$.
+\end{enumerate}
+\end{bemerkung}
+
+
+\begin{satz}{5.2.4 (Rolle's Theorem)}
+Suppose $(V)$ holds and $f(a) = f(b)$. Then there exists $\xi \in \left]a, b\right[$ with $f'(\xi) = 0$.
+\end{satz}
+
+\begin{proof}
+Suppose $f$ is not constant. Since $[a,b]$ is compact, there exist points $x_m, x_M \in [a,b]$ with $f(x_m)$ a minimum and $f(x_M)$ a maximum. Since $f$ is not constant, at least one of $x_m, x_M$ lies in $\left]a, b\right[$. Theorem 5.2.2 implies that $f'$ is zero there.
+\end{proof}
+
+\begin{satz}{5.2.5 (Mean Value Theorem)}
+Suppose $(V)$ holds. Then there exists $\xi \in \left]a, b\right[$ with
+\[
+    f(b) = f(a) + f'(\xi)(b-a) \qquad \left(\iff \frac{f(b)-f(a)}{b-a} = f'(\xi)\right).
+\]
+\end{satz}
+
+\begin{proof}
+Define $g \in C([a,b], \mathbb{R})$ by
+\[
+    g(x) := f(x) - \frac{f(b)-f(a)}{b-a}(x-a).
+\]
+Then $g$ is differentiable on $\left]a,b\right[$ and satisfies:
+\[
+    g(a) = f(a) = g(b).
+\]
+Rolle's Theorem gives the existence of $\xi \in \left]a,b\right[$ with $g'(\xi) = 0$:
+\[
+    g'(\xi) = f'(\xi) - \frac{f(b)-f(a)}{b-a} = 0.
+\]
+\end{proof}
+
+\begin{satz}{5.2.6}
+Let $I \subset \mathbb{R}$ be a perfect interval, $f \in C(I, \mathbb{R})$, differentiable on $\mathring{I}$, and $f'(x) = 0$ for all $x \in \mathring{I}$. Then $f$ is constant.
+\end{satz}
+
+\begin{proof}
+Let $a, b \in I$, $a < b$. Then $\left]a,b\right[ \subset \mathring{I}$. The claim follows from the Mean Value Theorem.
+\end{proof}
+
+\begin{satz}{5.2.7}
+Let $I \subset \mathbb{R}$ be a perfect interval and $f \in C(I, \mathbb{R})$, differentiable on $\mathring{I}$. Then:
+\begin{enumerate}
+    \item $f$ is monotonically increasing (decreasing) if and only if $f'(x) \geq 0$ ($f'(x) \leq 0$) for all $x \in \mathring{I}$.
+    \item If $f'(x) < 0$ ($f'(x) > 0$) on $I$, then $f$ is strictly monotonically decreasing (increasing).
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+\item ``$\Rightarrow$'' Suppose $f$ is monotonically decreasing (in the other case consider $-f$). Let $x_0 \in \mathring{I}$ and $x \in I$. Then:
+\[
+\left.
+\begin{array}{lll}
+x > x_0 & \Rightarrow & \dfrac{f(x)-f(x_0)}{x-x_0} \leq 0 \quad \Rightarrow \quad D_+f(x_0) \leq 0 \\[8pt]
+x < x_0 & \Rightarrow & \dfrac{f(x)-f(x_0)}{x-x_0} \leq 0 \quad \Rightarrow \quad D_-f(x_0) \leq 0
+\end{array}
+\right\} \Rightarrow f'(x_0) = (D_+f(x_0)) \leq 0
+\]
+
+''$\Leftarrow$'' Let $x, y \in I$, $x < y$. Then $\left]x, y\right[ \subset \mathring{I}$. Apply the Mean Value Theorem:
+\begin{align*}
+    f(y) &= f(x) + f'(\xi)(y-x) \leq f(x), \quad f' \leq 0,\ \xi \in \left]x,y\right[ \quad (f \text{ monotonically decreasing})\\
+    f(y) &= f(x) + f'(\xi)(y-x) \geq f(x), \quad f' \geq 0,\ \xi \in \left]x,y\right[ \quad (f \text{ monotonically increasing})
+\end{align*}
+
+\item Proof as in case 1 ``$\Leftarrow$''.
+\end{enumerate}
+\end{proof}
+
+\begin{bemerkung}{5.2.8}
+$f : [-1,1] \to \mathbb{R}$, $f(x) := x^3$ is strictly monotonically increasing, but $f'(0) = 0$, i.e.\ the converse of Theorem 5.2.7(2) is false in general.
+\end{bemerkung}
+
+\begin{satz}{5.2.9}
+Let $I \subset \mathbb{R}$ be a perfect interval, $f \in C(I,\mathbb{R})$ and differentiable on $\mathring{I}$. Suppose $f'(x) \neq 0$, $\forall x \in \mathring{I}$. Then $f$ is injective (and invertible on $f(I)$).
+\end{satz}
+
+\begin{proof}
+Indirect. Suppose $f$ is not injective. Then there exist $a, b \in I$ with $f(a) = f(b)$ and $a < b$. Then $\left]a,b\right[ \subset \mathring{I}$ and Rolle's Theorem implies the existence of $\xi \in \left]a,b\right[$ with $f'(\xi) = 0$. This is a contradiction.
+\end{proof}
+
+\begin{satz}{5.2.10}
+Let $I \subset \mathbb{R}$ be a perfect interval and $f \in C(I,\mathbb{R})$ and differentiable on $\mathring{I}$ with $f'(x) \neq 0$ for all $x \in \mathring{I}$. Then:
+\begin{enumerate}
+    \item $f$ is strictly monotone.
+    \item $J := f(I)$ is a perfect interval.
+    \item $f^{-1} : J \to I$ is differentiable, and
+    \[
+        (f^{-1})'(y) = \frac{1}{f'(x)} \qquad \forall y = f(x).
+    \]
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+Theorem 5.2.9 shows that $f$ is injective. Theorem 4.4.7 implies that $J$ is an interval.
+
+(1): Indirect: $f$ is not strictly monotone. Then there exist $x, y, z \in I$ with $x < y < z$ and
+\[
+    f(x) < f(y) > f(z) \qquad \text{or} \qquad f(x) > f(y) < f(z)
+\]
+(Equality cannot hold by injectivity). The Intermediate Value Theorem implies the existence of $\epsilon > 0$ and
+\[
+    \xi \in \left]x,y\right[,\ \eta \in \left]y,z\right[ \quad \text{with} \quad
+    f(\xi) = f(y) - \epsilon = f(\eta)
+\]
+\[
+    \text{resp.} \quad f(\xi) = f(y) + \epsilon = f(\eta)
+\]
+Rolle's Theorem gives the existence of $\zeta \in \left]\xi,\eta\right[$ with $f'(\zeta) = 0$, which is a contradiction.
+
+Hence $f$ is strictly monotone. It follows that $J$ consists of more than one point and is therefore perfect.
+
+(3) follows from Remark 5.1.10. (Formula for inverse function.)
+\end{proof}
+
+
+\begin{bemerkung}{5.2.11}
+The following holds:
+\begin{align*}
+    \cos'(x) &= -\sin(x) \neq 0 \qquad \text{on } \left]0, \pi\right[ \\
+    \sin'(x) &= \cos(x) \neq 0 \qquad \text{on } \left]-\tfrac{\pi}{2}, \tfrac{\pi}{2}\right[
+\end{align*}
+Hence the inverse functions exist:
+\begin{align*}
+    \arccos &:= \left(\cos\big|_{[0,\pi]}\right)^{-1} : \left]-1,1\right[ \;\to\; \left]0,\pi\right[ \\
+    \arcsin &:= \left(\sin\big|_{[-\frac{\pi}{2},\frac{\pi}{2}]}\right)^{-1} : \left]-1,1\right[ \;\to\; \left]-\tfrac{\pi}{2},\tfrac{\pi}{2}\right[
+\end{align*}
+It holds that:
+\begin{align*}
+    \arccos'(y) &\overset{y=\cos(x)}{=} \frac{1}{\cos'(x)} = \frac{1}{-\sin(x)} = \frac{1}{-\sqrt{1-\cos^2 x}} = -\frac{1}{\sqrt{1-y^2}} \\
+    \arcsin'(y) &\overset{y=\sin(x)}{=} \frac{1}{\sin'(x)} = \frac{1}{\cos(x)} = \frac{1}{\sqrt{1-\sin^2 x}} = \frac{1}{\sqrt{1-y^2}}
+\end{align*}
+By induction it follows that:
+\begin{align*}
+    \arccos &\in C^\infty(\left]-1,+1\right[, \left]0,\pi\right[), \\
+    \arcsin &\in C^\infty\!\left(\left]-1,+1\right[, \left]-\tfrac{\pi}{2},\tfrac{\pi}{2}\right[\right).
+\end{align*}
+\end{bemerkung}
+
+\begin{satz}{5.2.12}
+Let $I \subset \mathbb{R}$ be a perfect interval and $f$ continuous on $I$ and differentiable on $\mathring{I}$. Further suppose $f'$ is strictly monotonically decreasing (increasing). Then for all $x, y \in I$, $x < y$ and all $t \in \left]0,1\right[$:
+\[
+    z := (1-t)x + ty \qquad \in \left]x,y\right[
+\]
+\[
+    f(z) \underset{(<)}{>} (1-t)f(x) + tf(y)
+\]
+\end{satz}
+
+\begin{proof}
+We have $z \in \left]x,y\right[$. The Mean Value Theorem (5.2.5) implies the existence of $\xi \in \left]x,z\right[$, $\eta \in \left]z,y\right[$ with
+\[
+    \frac{f(z)-f(x)}{z-x} = f'(\xi) \qquad \frac{f(y)-f(z)}{y-z} = f'(\eta)
+\]
+If $f'$ is strictly monotonically decreasing, then $f'(\eta) < f'(\xi)$:
+\[
+    \frac{f(z)-f(x)}{z-x} > \frac{f(y)-f(z)}{y-z}
+    \iff f(z)\{\overbrace{y-z+z-x}^{=y-x}\} > f(x)(y-z) + f(y)(z-x)
+\]
+\[
+    \iff f(z) > f(x)(1-t) + f(y)t \qquad (*)
+\]
+The proof for strictly monotonically increasing $f'$ is analogous.
+\end{proof}
+
+
+\begin{definition}{5.2.13}
+Let $I \subset \mathbb{R}$ be a perfect interval and $f : I \to \mathbb{R}$ a function. Then $f$ is:
+\begin{enumerate}
+    \item (strictly) convex, if for all $x, y \in I$, $x < y$ and all $t \in \left]0,1\right[$ for $z = (1-t)x + ty$:
+    \[
+        f(z) \underset{(<)}{\leq} (1-t)f(x) + tf(y),
+    \]
+    \item (strictly) concave, if for all $x, y \in I$, $x < y$ and all $t \in \left]0,1\right[$ for $z = (1-t)x + ty$:
+    \[
+        f(z) \underset{(>)}{\geq} (1-t)f(x) + tf(y).
+    \]
+\end{enumerate}
+\end{definition}
+
+\begin{bemerkung}{5.2.14}
+\hfill
+\begin{enumerate}
+    \item $\ln : \mathbb{R}_{>0} \to \mathbb{R}$ is strictly monotonically increasing and satisfies the estimate $(*)$.
+
+    \item Young's Inequality: Let $1 < p < \infty$ and
+    \[
+        \frac{1}{p'} + \frac{1}{p} = 1, \qquad p' = \frac{1}{1 - \frac{1}{p}} = \frac{p}{p-1}.
+    \]
+    Then for all $x, y \in \mathbb{R}_{\geq 0}$:
+    \[
+        x \cdot y \leq \frac{1}{p}x^p + \frac{1}{p'}y^{p'}.
+    \]
+    For $x \neq y$ the $\leq$ relation may be replaced by $<$.
+
+    \item Let $p, p'$ be as in (2). For $x = (x_1, \ldots, x_n) \in \mathbb{K}^n$, define
+    \[
+        \|x\|_p := \left\{\sum_{k=1}^{n} |x_k|^p\right\}^{\frac{1}{p}}.
+    \]
+    Then the H\"{o}lder inequality holds:
+    \[
+        \sum_{k=1}^{n} |x_k|\,|y_k| \leq \|x\|_p\,\|y\|_{p'}.
+    \]
+    In particular, $\|\cdot\|_p$ is a norm on $\mathbb{K}^n$.
+\end{enumerate}
+\end{bemerkung}
+
+
+\begin{proof}
+\begin{enumerate}
+\item It holds that:
+\[
+    \ln'(x) = \frac{1}{x} > 0 \quad \forall x \in \mathbb{R}_{>0}
+\]
+and hence ``$\ln$'' is strictly monotonically increasing (Theorem 5.2.7(8)).
+\[
+    \ln''(x) = -\frac{1}{x^2} < 0 \quad \forall x \in \mathbb{R}_{>0}
+\]
+and hence ``($\ln'$)'' is strictly monotonically decreasing. By Theorem 5.2.12 the estimate $(*)$ follows.
+
+\item From (1) it follows:
+\[
+    \ln\!\left(\frac{1}{p}x^p + \frac{1}{p'}y^{p'}\right) \overset{(*)}{\geq} \frac{1}{p}\ln(x^p) + \frac{1}{p'}\ln(y^{p'}) = \ln(x) + \ln(y)
+\]
+The exponential function is strictly monotonically increasing:
+\[
+    \frac{1}{p}x^p + \frac{1}{p'}y^{p'} \geq e^{\ln(x)+\ln(y)} = x \cdot y.
+\]
+
+\item Suppose $\|x\|_p \neq 0$, $\|y\|_{p'} \neq 0$:
+\begin{align*}
+    \sum_{k=1}^{n} \frac{|x_k|}{\|x\|_p} \frac{|y_k|}{\|y\|_{p'}}
+    &\overset{(2)}{\leq} \sum_{k=1}^{n} \left(\frac{1}{p}\frac{|x_k|^p}{\|x\|_p^p} + \frac{1}{p'}\frac{|y_k|^{p'}}{\|y\|_{p'}^{p'}}\right) \\
+    &= \frac{1}{p\|x\|_p^p}\|x\|_p^p + \frac{1}{p'\|y\|_{p'}^{p'}}\|y\|_{p'}^{p'} = \frac{1}{p} + \frac{1}{p'} = 1.
+\end{align*}
+Multiplying by $\|x\|_p\|y\|_{p'}$ gives the claim.
+
+It remains to show the triangle inequality ($\|x+y\|_p \leq \|x\|_p + \|y\|_p$). For $x, y \in \mathbb{K}^n$:
+\begin{align*}
+    \|x+y\|_p^p &= \sum_{k=1}^n |x_k+y_k|^p \leq \sum_{k=1}^n \left(|x_k+y_k|^{p-1}|x_k| + |x_k+y_k|^{p-1}|y_k|\right) \\
+    &\leq \|x\|_p \cdot \left\{\sum_{k=1}^n |x_k+y_k|^{\overbrace{(p-1)p'}^{=p}}\right\}^{\frac{1}{p'}}
+    + \|y\|_p \cdot \left\{\sum_{k=1}^n |x_k+y_k|^{(p-1)p'}\right\}^{\frac{1}{p'}} \\
+    &= \|x\|_p\|x+y\|_p^{\frac{p}{p'}} + \|y\|_p\|x+y\|_p^{\frac{p}{p'}}
+    = (\|x\|_p + \|y\|_p)\|x+y\|_p^{p-1}.
+\end{align*}
+Dividing by $\|x+y\|_p^{p-1}$ gives the claim.
+\end{enumerate}
+\end{proof}
+
+
+To conclude this chapter we prove a variant of the Mean Value Theorem with useful consequences for limit calculations.
+
+\begin{satz}{5.2.15}
+Let $I \subset \mathbb{R}$ be a perfect interval and $f, g \in C(I, \mathbb{R})$ differentiable on $\mathring{I}$. Further suppose $g'(x) \neq 0$, $\forall x \in \mathring{I}$. Then for all $a, b \in I$, $a < b$ there exists a $\xi \in \left]a,b\right[$ with
+\[
+    \frac{f(b)-f(a)}{g(b)-g(a)} = \frac{f'(\xi)}{g'(\xi)}.
+\]
+\end{satz}
+
+\begin{proof}
+By Theorem 5.2.4, $g(b) \neq g(a)$. Define:
+\[
+    h(x) := f(x) - \frac{f(b)-f(a)}{g(b)-g(a)}(g(x)-g(a)).
+\]
+This is continuous on $[a,b]$ and differentiable on $\left]a,b\right[$. Since
+\[
+    h(a) = f(a) = h(b)
+\]
+Rolle's Theorem can be applied:
+\[
+    0 = h'(\xi) = f'(\xi) - \frac{f(b)-f(a)}{g(b)-g(a)}g'(\xi).
+\]
+\end{proof}
+
+\begin{satz}{5.2.16 (L'H\^{o}pital's Rule)}
+Let $a, b \in \mathbb{R}$ with $a < b$. Let $f, g \in C([a,b], \mathbb{R})$, differentiable on $\left]a,b\right[$ and $g'(x) \neq 0$, $\forall x \in \left]a,b\right[$. Suppose $f(a) = g(a) = 0$. If $\lim_{x \to a+0} \frac{f'(x)}{g'(x)}$ exists, then:
+\[
+    \lim_{x \to a+0} \frac{f(x)}{g(x)} = \lim_{x \to a+0} \frac{f'(x)}{g'(x)}.
+\]
+\end{satz}
+
+\begin{proof}
+The conditions of Theorem 5.2.15 are satisfied. Hence there exists $\xi \in \left]a,x\right[$ with
+\[
+    \frac{f'(\xi)}{g'(\xi)} = \frac{f(x)-f(a)}{g(x)-g(a)} = \frac{f(x)}{g(x)} \qquad (*)
+\]
+The intermediate value $\xi$ depends on $a, x$. As $x \to a+0$ we also have $\xi \to a+0$ for $x \to a+0$. Taking the limit $x \to a+0$ in $(*)$ gives the claim.
+\end{proof}
+
+\begin{bemerkung}{5.2.17}
+Let $m \geq n$. Then:
+\[
+    \lim_{x \to a+0} \frac{x^m - a^m}{x^n - a^n}
+    = \lim_{x \to a+0} \frac{mx^{m-1}}{nx^{n-1}}
+    = \lim_{x \to a+0} \frac{m}{n}x^{m-n}
+    = \frac{m}{n}a^{m-n}.
+\]
+\end{bemerkung}
+
+\end{document}
