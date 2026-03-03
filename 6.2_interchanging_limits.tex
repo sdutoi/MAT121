@@ -1,0 +1,309 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{centernot}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Simple manual environments - no amsthm numbering involved
+\newenvironment{satz}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Theorem #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{definition}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Definition #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{bemerkung}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Remark #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\setcounter{secnumdepth}{0}
+
+\title{6.2 Interchanging Limits}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{satz}{6.2.1}
+Let $f,f_n$ be functions from $M\subset X$, $M\neq\emptyset$, into $Y$, and let $x_0\in M$.
+Assume:
+\begin{enumerate}
+    \item $f_n \xrightarrow[n\to\infty]{\mathrm{glm}} f$,
+    \item $f_n$ is continuous at $x_0$ for every $n\in\mathbb N_0$.
+\end{enumerate}
+Then $f$ is continuous at $x_0$.
+\end{satz}
+
+\begin{proof}
+Let $\epsilon>0$ be arbitrary. By Remark 6.1.5 there is $N_\epsilon\in\mathbb N$ such that
+\[
+\|f_{N_\epsilon}-f\|_\infty<\frac{\epsilon}{3}.
+\]
+For $f_{N_\epsilon}$ there exists a neighborhood $U\in\mathcal U(x_0)$ with
+\[
+\|f_{N_\epsilon}(x)-f_{N_\epsilon}(x_0)\|_Y<\frac{\epsilon}{3}
+\qquad \forall x\in U\cap M.
+\]
+Hence for all $x\in U\cap M$:
+\[
+\|f(x)-f(x_0)\|_Y
+\le
+\|f(x)-f_{N_\epsilon}(x)\|_Y
++\|f_{N_\epsilon}(x)-f_{N_\epsilon}(x_0)\|_Y
++\|f_{N_\epsilon}(x_0)-f(x_0)\|_Y
+<
+\frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{3}
+=\epsilon.
+\]
+\end{proof}
+
+\begin{bemerkung}{6.2.2}
+Example 6.1.3(1) shows that the statement of Theorem 6.2.1 is false in general if $f_n$ converges to $f$ only pointwise.
+\end{bemerkung}
+
+\begin{definition}{6.2.3}
+We say that $f_n$ converges \emph{locally uniformly} to $f$ if for every point $x\in M$ there is a neighborhood $U\in\mathcal U(x)$ such that
+\[
+f_n|_{U\cap M}\xrightarrow[n\to\infty]{\mathrm{glm}} f.
+\]
+\end{definition}
+
+\begin{bemerkung}{6.2.4}
+\hfill
+\begin{enumerate}
+    \item $f_n \xrightarrow[n\to\infty]{\mathrm{glm}} f
+    \Longrightarrow
+    f_n \xrightarrow[n\to\infty]{\mathrm{lok.glm}} f$.
+    \item $f_n \xrightarrow[n\to\infty]{\mathrm{lok.glm}} f$ and $M$ compact
+    $\Longrightarrow
+    f_n \xrightarrow[n\to\infty]{\mathrm{glm}} f$.
+\end{enumerate}
+\end{bemerkung}
+
+\begin{proof}
+\begin{enumerate}
+    \item Clear.
+    \item Let $\epsilon>0$ be arbitrary. For each $x\in M$ there exists $U_x\in\mathcal U(x)$ and $N_x$ such that
+    \[
+    \|f_n(y)-f(y)\|_Y<\epsilon
+    \qquad
+    \forall n\ge N_x,\ \forall y\in U_x\cap M.
+    \]
+    Since $\{U_x:x\in M\}$ is an open cover of the compact set $M$, there exists a finite subcover
+    $\{U_{x_i}:1\le i\le k\}\supset M$. Set
+    \[
+    N:=\max_{1\le i\le k}N_{x_i}.
+    \]
+    Then:
+    \[
+    \|f_n(y)-f(y)\|_Y<\epsilon
+    \qquad
+    \forall n>N,\ \forall y\in M.
+    \]
+\end{enumerate}
+\end{proof}
+
+\begin{satz}{6.2.5}
+Assume $(f_n)_{n\in\mathbb N_0}\subset C(M,Y)$ converges locally uniformly to $f$.
+Then $f\in C(M,Y)$.
+\end{satz}
+
+\begin{proof}
+This follows from Theorem 6.2.1, since continuity is a local property.
+\end{proof}
+
+\begin{bemerkung}{6.2.6}
+\hfill
+\begin{enumerate}
+    \item Let $f$ and $f_n$ be as in Example 6.1.3(2). Then $f_n,f\in C(M,Y)$ and
+    \[
+    f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f,
+    \]
+    but $f_n$ converges in no neighborhood of $0$ uniformly to the zero function.
+
+    \item $f_n\in C(M,Y)$, and $\sum f_n$ converges locally uniformly. Then $\sum f_n$ is continuous.
+
+    \item $f_n\in C(M,Y)$, $\sum f_n$ converges locally uniformly, and $x_0\in M$. Then:
+    \[
+    \lim_{x\to x_0}\left(\sum_{n=0}^{\infty} f_n(x)\right)=\sum_{n=0}^{\infty} f_n(x_0).
+    \]
+
+    \item Every power series represents a continuous function in the interior of its disk of convergence.
+\end{enumerate}
+\end{bemerkung}
+
+\begin{proof}
+\begin{enumerate}
+    \item Clear.
+    \item Theorem 6.2.5.
+    \item $f=\sum_{n=0}^{\infty} f_n$ is continuous, and $\sum f_n$ converges pointwise $\Rightarrow f(x_0)=\sum f_n(x_0)$. Hence
+    \[
+    \lim_{x\to x_0} f(x)=f(x_0)=\sum f_n(x_0).
+    \]
+    \item By Theorem 6.1.10, every power series converges (locally) uniformly in the interior of the disk of convergence. Therefore the statement follows from (2).
+\end{enumerate}
+\end{proof}
+
+\begin{definition}{6.2.7}
+\[
+BC(M,Y):=B(M,Y)\cap C(M,Y)
+\qquad\text{and}\qquad
+\|\cdot\|_{BC(M,Y)}:=\|\cdot\|_\infty.
+\]
+\end{definition}
+
+From Theorem 6.2.5 we obtain:
+
+\begin{satz}{6.2.8}
+\hfill
+\begin{enumerate}
+    \item $BC(M,Y)$ is a closed subspace of $B(M,Y)$.
+    \item If $M$ is compact, then $BC(M,Y)=C(M,Y)$.
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+    \item $BC(M,Y)$ is a subspace (this is immediate from the vector space properties of
+    $B(M,Y)$ and $C(M,Y)$).  
+    $BC(M,Y)$ is closed in $B(M,Y)$ by Theorem 6.2.5 (limit w.r.t.\ $\|\cdot\|_\infty$ of continuous functions is continuous) and Theorem 6.1.6 (limit w.r.t.\ $\|\cdot\|_\infty$ of bounded functions is bounded).
+
+    \item From Theorem 5.1.23 (continuous functions on compact sets are bounded) it follows:
+    \[
+    C(M,Y)\subset B(M,Y).
+    \]
+\end{enumerate}
+\end{proof}
+
+\noindent For differentiability of the limit function:
+
+\par\vspace{6pt}\noindent\textbf{Hilfssatz 6.2.9.}\itshape\space
+Let $-\infty<a<b<\infty$ and $\phi:[a,b]\to Y$ be differentiable. Then:
+\[
+\|\phi(b)-(\phi(a)+\phi'(a)(b-a))\|_Y
+\le
+\sup_{a\le x\le b}\|\phi'(x)-\phi'(a)\|_Y\,|b-a|.
+\]
+\upshape
+
+\begin{proof}
+Set
+\[
+\psi(x):=\phi(x)-\phi'(a)(x-a).
+\]
+Then:
+\[
+\psi'(x)=\phi'(x)-\phi'(a),
+\qquad
+\psi(b)-\psi(a)=\phi(b)-\phi'(a)(b-a)-\phi(a).
+\]
+Hence the claim follows from Remark 5.3.5(b) (Taylor expansion up to degree $0$ for $\psi$).
+\end{proof}
+
+\begin{satz}{6.2.10}
+Let $M\subset \mathbb K$ be open and $(f_n)_{n\in\mathbb N_0}\subset C^1(M,Y)$. Assume:
+\begin{enumerate}
+    \item[\textit{i.}] $f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f$,
+    \item[\textit{ii.}] $f_n' \xrightarrow[n\to\infty]{\mathrm{lok.glm}} g$.
+\end{enumerate}
+Then:
+\begin{enumerate}
+    \item $f\in C^1(M,Y)$,
+    \item $f'=g$,
+    \item $f_n' \xrightarrow[n\to\infty]{\mathrm{lok.glm}} f'$.
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+Let $x_0\in M$ and choose $r>0$ such that $B(x_0,r)\subset M$ and
+$f_n' \xrightarrow[n\to\infty]{\mathrm{glm}} g$ on $B(x_0,r)$.
+Let $x\in B(x_0,r)$ be arbitrary and define
+\[
+\phi_n(t):=f_n\bigl(x_0+t(x-x_0)\bigr).
+\]
+Then:
+\[
+\phi_n\in C^1([0,1],Y),\qquad
+\phi_n(0)=f_n(x_0),\qquad
+\phi_n(1)=f_n(x),\qquad
+\phi_n'(t)=f_n'\bigl(x_0+t(x-x_0)\bigr)(x-x_0).
+\]
+Apply Hilfssatz 6.2.9 with $\phi\leftarrow\phi_n$, $a\leftarrow0$, $b\leftarrow1$:
+\[
+\|f_n(x)-f_n(x_0)-f_n'(x_0)(x-x_0)\|_Y
+\le
+\sup_{0\le t\le1}\|f_n'(x_0+t(x-x_0))-f_n'(x_0)\|_Y\,|x-x_0|.
+\]
+Passing to the limit $n\to\infty$ (by (i), (ii)) yields:
+\[
+\|f(x)-f(x_0)-g(x_0)(x-x_0)\|_Y
+\le
+\sup_{0\le t\le1}\|g(x_0+t(x-x_0))-g(x_0)\|_Y\,|x-x_0|.
+\]
+Since $f_n'\in C(M,Y)$ and $f_n' \xrightarrow[n\to\infty]{\mathrm{lok.glm}} g$, Theorem 6.2.5 implies
+$g\in C(M,Y)$. Hence
+\[
+\lim_{\substack{x\to x_0\\x\neq x_0}}
+\frac{\|f(x)-f(x_0)-g(x_0)(x-x_0)\|_Y}{|x-x_0|}
+\le
+\lim_{x\to x_0}\sup_{0\le t\le1}\|g(x_0+t(x-x_0))-g(x_0)\|_Y
+=0.
+\]
+Thus $f$ is differentiable at $x_0$ and $f'(x_0)=g(x_0)$, so (1),(2) are proved.
+
+Let $B(x_0,r)$ be chosen as above and $x\in B(x_0,r)$. Then:
+\[
+\|f_n(x)-f(x)\|_Y
+\le
+\underbrace{\|(f_n(x)-f(x))-(f_n(x_0)-f(x_0))\|_Y}_{h(x)}
++\underbrace{\|f_n(x_0)-f(x_0)\|_Y}_{h(x_0)}
+\]
+\[
+\le
+\sup_{0\le t\le1}\|f_n'(x_0+t(x-x_0))-f'(x_0+t(x-x_0))\|_Y\,|x-x_0|
++\|f_n(x_0)-f(x_0)\|_Y
+\]
+\[
+\le
+r\,\|f_n'-f'\|_{\infty,B(x_0,r)}+\|f_n(x_0)-f(x_0)\|_Y.
+\]
+From $f_n' \xrightarrow[n\to\infty]{\mathrm{lok.glm}} g=f'$ and
+$f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f$, (3) follows.
+\end{proof}
+
+\begin{satz}{6.2.11}
+Let $M\subset\mathbb K$ be open and $f_n\in C^1(M,Y)$. Assume:
+\[
+\sum f_n \text{ converges pointwise},
+\qquad
+\sum f_n' \text{ converges locally uniformly}.
+\]
+Then:
+\[
+\sum f_n \text{ converges locally uniformly}.
+\]
+Moreover, with
+\[
+f:=\sum f_n,
+\]
+we have $f\in C^1(M,Y)$ and
+\[
+f'=\sum f_n'.
+\]
+\end{satz}
+
+\begin{proof}
+Apply Theorem 6.2.10 to the sequence of partial sums.
+\end{proof}
+
+\end{document}

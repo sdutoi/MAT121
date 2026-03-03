@@ -1,0 +1,265 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Simple manual environments - no amsthm numbering involved
+\newenvironment{satz}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Theorem #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{definition}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Definition #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{bemerkung}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Remark #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\setcounter{secnumdepth}{0}
+
+\title{5.3 Taylor's Formula}
+\date{}
+
+\begin{document}
+\maketitle
+
+Let $I \subset \mathbb{R}$ be a perfect interval, $f \in C^n(I, \mathbb{R})$ and $x_0 \in \mathring{I}$.
+
+\textbf{Goal:} Approximate $f$ ``as well as possible'' by a polynomial of the form
+\[
+    p(x) = \sum_{k=0}^{n} c_k(x-x_0)^k.
+\]
+
+\textbf{Question:} How do the coefficients $c_k$ depend on $f$?
+
+\textbf{Idea:} Choose $c_k$ so that $p$ agrees with $f$ in as many derivatives as possible at $x_0$. It follows:
+\begin{align*}
+    f(x_0) = p(x_0) \quad &\text{d.h.} \quad c_0 = f(x_0), \\
+    f'(x_0) = p'(x_0) \quad &\text{d.h.} \quad c_1 = f'(x_0), \\
+    &\vdots \quad \vdots \quad \vdots \\
+    f^{(k)}(x_0) = p^{(k)}(x_0) \quad &\text{d.h.} \quad c_k = \frac{f^{(k)}(x_0)}{k!}.
+\end{align*}
+
+Subsequent analysis applies itself unproblematically to the following general situation:
+
+\begin{enumerate}
+    \item $I$ is a convex, perfect subset of $\mathbb{K}$; hereby a subset $M \subset X$ ($X$ a normed vector space) is called convex if for all $x, y \in M$ the connecting line segment
+    \[
+        \{(1-t)x + ty : 0 \leq t \leq 1\} \subset M.
+    \]
+
+    \item $f$ is a mapping with values in a normed vector space $(Y, \|\cdot\|_Y)$.
+\end{enumerate}
+
+\begin{definition}{5.3.1}
+Let $M \subset \mathbb{K}$ be convex and perfect and let $(Y, \|\cdot\|_Y)$ be a normed VR.
+
+\begin{enumerate}
+    \item Let $f \in C^n(M, Y)$, $n \in \mathbb{N}_0$. Then we call
+    \[
+        T_n(f, x_0)(x) := \sum_{k=0}^{n} \frac{1}{k!}f^{(k)}(x_0)(x-x_0)^k
+    \]
+    the $n$-th Taylor polynomial of $f$ with expansion point $x_0$.
+
+    \item Let $f \in C^\infty(M, Y)$. Then we call
+    \[
+        T(f, x_0) = \sum_{k=0}^{\infty} \frac{1}{k!}f^{(k)}(x_0)(x-x_0)^k
+    \]
+    the Taylor series of $f$ with expansion point $x_0$.
+\end{enumerate}
+\end{definition}
+
+% ...existing code...
+
+\begin{satz}{5.3.2 (Taylor's Formula)}
+\begin{enumerate}
+    \item Let $I \subset \mathbb{R}$ be a perfect interval and $f \in C^n(I,\mathbb{R})$, with $f^{(n)}$ differentiable on $\mathring I$. Then for every $x,x_0\in I$ there exists $\xi\in\mathring I$ such that
+    \[
+        f(x)=\sum_{k=0}^{n}\frac{1}{k!}f^{(k)}(x_0)(x-x_0)^k
+        +\frac{1}{(n+1)!}f^{(n+1)}(\xi)(x-x_0)^{n+1}.
+    \]
+
+    \item Let $M\subset\mathbb K$ be convex and perfect. Let $f\in C^n(M,\mathbb K^m)$ and let $f^{(n)}$ be differentiable on $\mathring M$. Then for every $x,x_0\in M$ there exists $\Theta\in\left]0,1\right[$ such that
+    \[
+        \left\|f(x)-\sum_{k=0}^{n}\frac{1}{k!}f^{(k)}(x_0)(x-x_0)^k\right\|_2
+        \le
+        \frac{1}{(n+1)!}\left\|f^{(n+1)}\!\big(x_0+\Theta(x-x_0)\big)(x-x_0)^{n+1}\right\|_2.
+    \]
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $x,x_0\in I$. W.l.o.g.\ $x\neq x_0$. Set
+\[
+\rho:=\big[f(x)-T_n(f,x_0)(x)\big]\frac{(n+1)!}{(x-x_0)^{n+1}},
+\]
+and
+\[
+\phi(t):=
+f(x)-\sum_{k=0}^{n}\frac{1}{k!}f^{(k)}\!\big(x_0+t(x-x_0)\big)(x-x_0)^k(1-t)^k
+-\rho(1-t)^{n+1}\frac{(x-x_0)^{n+1}}{(n+1)!}.
+\]
+Then $\phi(0)=0$ and $\phi(1)=0$. Also
+\begin{align*}
+\phi'(t)
+&=
+-\sum_{k=0}^{n}\frac{1}{k!}f^{(k+1)}\!\big(x_0+t(x-x_0)\big)(x-x_0)^{k+1}(1-t)^k \\
+&\quad
++\sum_{k=0}^{n}\frac{k}{k!}f^{(k)}\!\big(x_0+t(x-x_0)\big)(x-x_0)^k(1-t)^{k-1}
++\rho(1-t)^n\frac{(x-x_0)^{n+1}}{n!} \\
+&=
+-\frac{1}{n!}f^{(n+1)}\!\big(x_0+t(x-x_0)\big)(x-x_0)^{n+1}(1-t)^n
++\rho(1-t)^n\frac{(x-x_0)^{n+1}}{n!}.
+\end{align*}
+By Rolle's theorem, $\exists\,\Theta\in\left]0,1\right[$ with $\phi'(\Theta)=0$, hence
+\[
+\rho=f^{(n+1)}\!\big(x_0+\Theta(x-x_0)\big).
+\]
+Substituting this into the definition of $\rho$ gives (1), with
+\[
+\xi:=x_0+\Theta(x-x_0)\in\mathring I.
+\]
+
+\item Let $x,x_0\in M$, $x\neq x_0$, and let $\rho$ be as in part (1). Note $\rho\in\mathbb K^m$. Define $v\in\mathbb K^m$ by
+\[
+v_k:=
+\begin{cases}
+\frac{1}{\sqrt m}, & \text{if }\rho=0,\\[2mm]
+\frac{\rho_k}{\|\rho\|_2}, & \text{if }\rho\neq 0,\ 1\le k\le m.
+\end{cases}
+\]
+Then
+\[
+\sum_{k=1}^m \rho_k v_k=\|\rho\|_2,\qquad \|v\|_2=1.
+\]
+Set
+\[
+\psi(t):=\sum_{l=1}^{m}v_l\left\{
+f_l(x)-\sum_{k=0}^{n}\frac{1}{k!}f_l^{(k)}\!\big(x_0+t(x-x_0)\big)(1-t)^k(x-x_0)^k
+-\rho_l\frac{(1-t)^{n+1}}{(n+1)!}(x-x_0)^{n+1}
+\right\}.
+\]
+As in (1): $\psi(0)=\psi(1)=0$, and
+\[
+\psi'(t)=\sum_{l=1}^{m}v_l\{\rho_l-f_l^{(n+1)}(x_0+t(x-x_0))\}\frac{1}{n!}(x-x_0)^{n+1}(1-t)^n.
+\]
+Rolle implies $\exists\,\Theta\in\left]0,1\right[$ with $\psi'(\Theta)=0$. Therefore
+\[
+\|\rho\|_2=\sum_{l=1}^{m}\rho_l v_l
+=\sum_{l=1}^{m}f_l^{(n+1)}\!\big(x_0+\Theta(x-x_0)\big)v_l
+\le
+\left\|f^{(n+1)}\!\big(x_0+\Theta(x-x_0)\big)\right\|_2\|v\|_2,
+\]
+hence
+\[
+\|\rho\|_2\le \left\|f^{(n+1)}\!\big(x_0+\Theta(x-x_0)\big)\right\|_2.
+\]
+With the definition of $\rho$, this yields
+\[
+\|f(x)-T_n(f,x_0)(x)\|_2
+\le
+\frac{1}{(n+1)!}|x-x_0|^{n+1}
+\left\|f^{(n+1)}\!\big(x_0+\Theta(x-x_0)\big)\right\|_2.
+\]
+\end{enumerate}
+\end{proof}
+
+% ...existing code...
+
+\begin{bemerkung}{5.3.3}
+Let $I \subset \mathbb{R}$ be a perfect interval, $f \in C^n(I,\mathbb{R})$, and $x_0 \in \mathring I$. Assume
+\[
+f'(x_0)=f''(x_0)=f^{(3)}(x_0)=\cdots=f^{(n-1)}(x_0)=0
+\quad\text{and}\quad
+f^{(n)}(x_0)\neq 0.
+\]
+Then:
+\begin{itemize}
+    \item $n$ odd $\Longrightarrow$ $x_0$ is not a local extremum.
+    \item $n$ even $\Longrightarrow$ $x_0$ is a local extremum, more precisely:
+    \[
+    f^{(n)}(x_0)>0 \Longrightarrow f(x_0)\ \text{local minimum},
+    \qquad
+    f^{(n)}(x_0)<0 \Longrightarrow f(x_0)\ \text{local maximum}.
+    \]
+\end{itemize}
+
+\begin{proof}
+Assume $f^{(n)}(x_0)>0$ (otherwise consider $-f$).
+Since $f\in C^n(I,\mathbb{R})$, there exists $\delta>0$ with
+\[
+\left]x_0-\delta,\ x_0+\delta\right[\subset I
+\quad\text{and}\quad
+f^{(n)}(x)>0
+\quad
+\forall x\in\left]x_0-\delta,\ x_0+\delta\right[.
+\]
+By Theorem 5.3.2, for every $x\in\left]x_0-\delta,\ x_0+\delta\right[$ there exists
+$\xi\in\left]x_0-\delta,\ x_0+\delta\right[$ such that
+\[
+f(x)=f(x_0)+\frac{f^{(n)}(\xi)}{n!}(x-x_0)^n.
+\]
+Hence:
+\[
+n\ \text{odd} \Longrightarrow
+\forall x\in\left]x_0,\ x_0+\delta\right[:\, f(x)>f(x_0)
+\ \text{and}\
+\forall x\in\left]x_0-\delta,\ x_0\right[:\, f(x)<f(x_0),
+\]
+\[
+n\ \text{even} \Longrightarrow
+\forall x\in\left]x_0-\delta,\ x_0+\delta\right[:\, f(x)>f(x_0).
+\]
+\end{proof}
+\end{bemerkung}
+
+% ...existing code...
+
+\begin{bemerkung}{5.3.4}
+\begin{enumerate}
+    \item The Taylor series of $f$ is a power series and converges in its radius of convergence. For $x \neq x_0$ in the interval of convergence:
+    \[
+        f(x) = T(f,x_0)(x)
+    \]
+    if and only if
+    \[
+        \lim_{n\to\infty}\left|f(x)-T_n(f,x_0)(x)\right|=0.
+    \]
+
+    \item For the function $f:\mathbb{R}\to\mathbb{R}$ with
+    \[
+        f(x)=
+        \begin{cases}
+            0, & x\le 0,\\
+            e^{-1/x}, & x>0,
+        \end{cases}
+    \]
+    Example 5.1.30 gives: $T(f,0)\equiv 0$.
+
+    The function $T(f,0)(x)$ is defined for all $x\in\mathbb{R}$ (radius of convergence $\infty$), but for $x>0$ it does not agree with $f$ at any point.
+\end{enumerate}
+\end{bemerkung}
+
+\begin{bemerkung}{5.3.5}
+\begin{enumerate}
+    \item Theorem 5.3.2(2) also holds for any other norm in $\mathbb{K}^m$, and also for functions with values in an arbitrary normed vector space $(Y,\|\cdot\|_Y)$.
+
+    \item Assume the hypotheses of Theorem 5.3.2(2) with $n=0$. Then:
+    \[
+        \|f(x)-f(y)\|_Y
+        \le
+        \left(\max_{\xi\in\overline{xy}}\|f'(\xi)\|_Y\right)\,|x-y|.
+    \]
+\end{enumerate}
+\end{bemerkung}
+
+\end{document}

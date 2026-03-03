@@ -1,0 +1,307 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{centernot}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Simple manual environments - no amsthm numbering involved
+\newenvironment{satz}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Theorem #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{definition}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Definition #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{bemerkung}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Remark #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\setcounter{secnumdepth}{0}
+
+\title{6.3 Jump continuous functions}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+$I\subset\mathbb R$, perfect interval.
+\[
+\alpha:=\inf I\in\overline{\mathbb R},
+\qquad
+\beta:=\sup I\in\overline{\mathbb R}.
+\]
+$(Y,\|\cdot\|_Y)$ is a Banach space.
+
+\begin{definition}{6.3.1}
+\begin{enumerate}
+    \item A set $Z=(\alpha_0,\ldots,\alpha_n)$, $n\in\mathbb N$, with
+    \[
+    \alpha=\alpha_0<\alpha_1<\cdots<\alpha_n=\beta,
+    \]
+    is called a partition of $I$.
+
+    \item A function $f:I\to Y$ is called a step function if there exists a partition
+    $Z=(\alpha_0,\ldots,\alpha_n)$ of $I$ such that
+    \[
+    f|_{]\alpha_{i-1},\alpha_i[}\ \text{is constant for all }1\le i\le n.
+    \]
+    For a step function, such a partition is called an associated (or admissible) partition.
+
+    \item $T(I,Y)$ is the set of all step functions.
+
+    \item A function $f:I\to Y$ is called jump-continuous if for every $x\in I$ the left- and right-sided limits
+    $f(x-0)$, $f(x+0)$ exist.
+
+    \item $S(I,Y)$ is the set of all jump-continuous functions.
+\end{enumerate}
+\end{definition}
+
+\par\vspace{6pt}\noindent\textbf{Example 6.3.2.}\itshape\space
+\begin{enumerate}
+    \item Let
+    \[
+    f(x):=
+    \begin{cases}
+    -1, & -1<x<0,\\
+    0,  & x=0,\\
+    1,  & 0<x<1.
+    \end{cases}
+    \]
+    Then $f\in T(]-1,1[,\mathbb R)$.
+
+    \item Let
+    \[
+    f(x):=
+    \begin{cases}
+    1-x^2, & -1<x<0,\\
+    \frac12, & x=0,\\
+    x^2, & 0<x<1.
+    \end{cases}
+    \]
+    Then $f\in S(]-1,1[,\mathbb R)$.
+
+    \item Every monotone function $f:I\to\mathbb R$ is jump-continuous (cf.\ Theorem 4.4.6).
+
+    \item The function
+    \[
+    f(x)=
+    \begin{cases}
+    1, & x\in\mathbb Q,\\
+    0, & x\in\mathbb R\setminus\mathbb Q,
+    \end{cases}
+    \]
+    is not jump-continuous.
+\end{enumerate}
+
+  \begin{bemerkung}{6.3.3}
+  \begin{enumerate}
+    \item $T(I,Y)$ is a linear subspace of $B(I,Y)$. Moreover, $T(I,Y)\subset S(I,Y)$.
+
+    \item $S(I,Y)$ is a vector space. We have $C(I,Y)\subset S(I,Y)$.
+
+    \item If $I$ is compact, then $S(I,Y)\subset B(I,Y)$.
+  \end{enumerate}
+  \end{bemerkung}
+
+  \par\vspace{6pt}\noindent\textbf{Proof.}
+
+  \noindent(1) $T(I,Y)\subset S(I,Y)$ is trivial. Also, if $f\in T(I,Y)$ and $\lambda\in\mathbb K$, then $\lambda f\in T(I,Y)$. Let
+  \(f,g\in T(I,Y)\), and let
+  \(Z_f=(\alpha_0,\ldots,\alpha_n)\),
+  \(Z_g=(\beta_0,\ldots,\beta_m)\)
+  be partitions of $I$ such that
+  \[
+  f|_{]\alpha_{i-1},\alpha_i[},\qquad 1\le i\le n,
+  \]
+  \[
+  g|_{]\beta_{j-1},\beta_j[},\qquad 1\le j\le m,
+  \]
+  are constant. Let $Z=Z_f\cup Z_g$ with the natural order,
+  \(Z=(\gamma_0,\ldots,\gamma_k)\). Then
+  \[
+  (f+g)|_{]\gamma_{\ell-1},\gamma_\ell[}\ \text{is constant for }1\le \ell\le k.
+  \]
+
+  \noindent(2) $C(I,Y)\subset S(I,Y)$ is clear. The vector-space property follows from the algebraic rules for limits.
+
+  \noindent(3) Let $I$ be compact and $f\in S(I,Y)$. By the definition of one-sided limits, for each $x\in I$ there exist
+  \(\alpha(x)<x\) and \(\beta(x)>x\) such that
+  \[
+  \|f(s)-f(t)\|_Y\le 1
+  \quad
+  \forall s,t\in] \alpha(x),x[
+  \ \text{or}\ s,t\in]x,\beta(x)[.
+  \]
+  Since $I$ is compact, there exist $n\in\mathbb N$ and $x_1,\ldots,x_n\in I$ with
+  \[
+  I\subset\bigcup_{i=1}^n ]\alpha(x_i),\beta(x_i)[.
+  \]
+  Hence
+  \[
+  \|f\|_\infty
+  \le
+  \max_{1\le i\le n}
+  \max\!\left\{
+  \|f(x_i)\|_Y,
+  1+\left\|f\!\left(\frac{\alpha(x_i)+x_i}{2}\right)\right\|_Y,
+  1+\left\|f\!\left(\frac{\beta(x_i)+x_i}{2}\right)\right\|_Y
+  \right\}
+  <\infty.
+  \tag{6.3.1}
+  \]
+  (Note on (6.3.1): Let $s\in] \alpha(x),x[$. Use
+  \(f(s)=\bigl(f(s)-f(\tfrac{\alpha(x)+x}{2})\bigr)+f(\tfrac{\alpha(x)+x}{2})\).)
+
+  \par\vspace{6pt}\noindent\textbf{Main theorem of this section:}
+
+  \begin{satz}{6.3.4}
+  Let $I$ be compact. Then the following statements are equivalent:
+  \begin{enumerate}
+    \item $f\in S(I,Y)$.
+    \item There exists $(f_n)_{n\in\mathbb N_0}\subset T(I,Y)$ such that
+    \[
+    \|f_n-f\|_\infty\xrightarrow[n\to\infty]{}0.
+    \]
+  \end{enumerate}
+  \end{satz}
+
+  \begin{proof}
+  \textbf{(1) $\Longrightarrow$ (2):}
+  As in the proof of Remark 6.3.3(3) it follows that for every $n\in\mathbb N_0$ there exist finitely many points
+  $x_1,\ldots,x_m\in I$ and numbers
+  \[
+  \alpha(x_i)<x_i<\beta(x_i),
+  \qquad 1\le i\le m,
+  \]
+  with
+  \[
+  I=\bigcup_{i=1}^{m}]\alpha(x_i),\beta(x_i)[
+  \qquad\text{and}\qquad
+  \|f(s)-f(t)\|_Y\le\frac{1}{n}
+  \quad
+  \forall s,t\in]\alpha(x_i),x_i[\text{ or }s,t\in]x_i,\beta(x_i)[,
+  \quad 1\le i\le m.
+  \]
+  Hence there exists a partition $Z=(\gamma_0,\ldots,\gamma_k)$ of $I$ with
+  \[
+  \|f(s)-f(t)\|_Y\le\frac{1}{n}
+  \qquad
+  \forall s,t\in]\gamma_{i-1},\gamma_i[,\quad 1\le i\le k.
+  \]
+  Define $f_n\in T(I,Y)$ by
+  \[
+  f_n(x):=
+  \begin{cases}
+  f\!\left(\dfrac{\gamma_{i-1}+\gamma_i}{2}\right) & \gamma_{i-1}<x<\gamma_i,\\[6pt]
+  f(x) & x=\gamma_j,\ 0\le j\le k.
+  \end{cases}
+  \]
+  Replacing $f$ by $f-f_n$ in (6.3.1) yields
+  \[
+  \|f_n-f\|_\infty\le\frac{1}{n}.
+  \]
+
+  \medskip
+  \textbf{(2) $\Longrightarrow$ (1):}
+  Let $(f_n)_{n\in\mathbb N_0}\subset T(I,Y)$ with
+  \[
+  \|f_n-f\|_\infty\xrightarrow[n\to\infty]{}0.
+  \]
+  Let $\varepsilon>0$. Then there exists $n_\varepsilon\in\mathbb N_0$ with
+  \[
+  \|f_{n_\varepsilon}-f\|_\infty\le\frac{\varepsilon}{2}.
+  \]
+  Let $x\in I$. Then there exist $\alpha,\beta\in I$, $\alpha<x<\beta$, with:
+  \[
+  f_{n_\varepsilon}(s)=f_{n_\varepsilon}(t)
+  \qquad
+  \forall s,t\in]\alpha,x[\ \text{or}\ s,t\in]x,\beta[.
+  \]
+  Hence for all $s,t\in]\alpha,x[$ or $s,t\in]x,\beta[$:
+  \[
+  \|f(s)-f(t)\|_Y
+  \le
+  \|f(s)-f_{n_\varepsilon}(s)\|_Y
+  +\|f_{n_\varepsilon}(s)-f_{n_\varepsilon}(t)\|_Y
+  +\|f_{n_\varepsilon}(t)-f(t)\|_Y
+  \le
+  \frac{\varepsilon}{2}+0+\frac{\varepsilon}{2}
+  =\varepsilon.
+  \]
+  Let now $(x_n)_{n\in\mathbb N_0}\subset I$ with $x_n<x$ for all $n\in\mathbb N_0$ and $x_n\to x$ and $x_l>\alpha$ for all $l\ge k$.
+  Let $(y_n)_{n\in\mathbb N_0}\subset I$ be another sequence with these properties and the same limit $x$. Then
+  \[
+  \|f(x_m)-f(x_l)\|_Y\le\varepsilon
+  \qquad\forall m,l>k.
+  \]
+  That is, $(f(x_m))_{m\ge k}$ is a Cauchy sequence in $Y$ (with limit $z$).
+  For the sequence $(f(y_n))_{n\ge k}$ there also exists a limit $z'\in Y$. Then:
+  \[
+  \|z-z'\|_Y
+  =\left\|\lim f(x_n)-\lim f(y_n)\right\|_Y
+  =\lim_{n\to\infty}\|f(x_n)-f(y_n)\|_Y
+  \le\varepsilon
+  \]
+  and from this $z=z'$.
+  Analogously one shows the existence of $f(x+0)$ and hence $f\in S(I,Y)$.
+  \end{proof}
+
+\begin{bemerkung}{6.3.5}
+From the proof of Theorem 6.3.4 it follows that for $f\in S(I,\mathbb R)$ with
+$f\ge 0$ one can find a sequence $(f_n)_{n\in\mathbb N_0}\subset T(I,\mathbb R)$ with
+$\|f_n-f\|_\infty\to 0$ and $f_n\ge 0$ for all $n\in\mathbb N_0$.
+\end{bemerkung}
+
+\begin{definition}{6.3.6}
+Let $A,B$ be subsets of a normed vector space $(X,\|\cdot\|)$ and $A\subset B$.
+Then $A$ is called \emph{dense} in $B$ if $B\subset\overline{A}$.
+\end{definition}
+
+\begin{bemerkung}{6.3.7}
+\begin{enumerate}
+    \item If $A$ is dense in $B$, then every point of $B$ is an accumulation point of $A$,
+    and can therefore be approximated arbitrarily well by points in $A$.
+
+    \item If $B$ is closed, then: $A$ dense in $B$ $\iff$ $\overline{A}=B$.
+
+    \item $\mathbb Q$ and $\mathbb R\setminus\mathbb Q$ are dense in $\mathbb R$.
+\end{enumerate}
+\end{bemerkung}
+
+\begin{satz}{6.3.8}
+Let $I$ be compact. Then $S(I,Y)$ is a (in the norm of $B(I,Y)$) closed
+subspace of $B(I,Y)$ and $T(I,Y)$ is dense in $S(I,Y)$:
+\[
+S(I,Y)=\overline{T(I,Y)}^{\|\cdot\|_\infty}.
+\]
+\end{satz}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\begin{bemerkung}{6.3.9}
+\begin{enumerate}
+    \item $S(I,Y)$ is a Banach space with respect to the $\|\cdot\|_\infty$-norm.
+
+    \item $T(I,Y)$ is an example of a non-complete normed vector space.
+
+    \item Every continuous function on a compact interval is the uniform limit of step functions.
+\end{enumerate}
+\end{bemerkung}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\end{document}

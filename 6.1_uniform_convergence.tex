@@ -1,0 +1,305 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{centernot}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Simple manual environments - no amsthm numbering involved
+\newenvironment{satz}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Theorem #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{definition}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Definition #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{bemerkung}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Remark #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\setcounter{secnumdepth}{0}
+
+\title{6. Function Sequences}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{Convention:} $(X,\|\cdot\|_X)$ is a normed vector space and $(Y,\|\cdot\|_Y)$ is a Banach space.
+
+\section{6.1 Uniform Convergence}
+
+\begin{definition}{6.1.1}
+Let $M \subset X$, $M \neq \emptyset$, and $f, f_n$, $n \in \mathbb{N}_0$, be mappings from $M$ to $Y$.
+
+We say $f_n$ converges pointwise to $f$, in short
+\[
+f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f,
+\]
+if for every $x \in M$:
+\[
+\lim_{n\to\infty} f_n(x) = f(x).
+\]
+
+We say $f_n$ converges uniformly to $f$, in short
+\[
+f_n \xrightarrow[n\to\infty]{\mathrm{glm}} f,
+\]
+if:
+\[
+\forall \epsilon > 0\ \exists N_\epsilon\ \forall n \ge N_\epsilon\ \forall x \in M:
+\|f_n(x)-f(x)\|_Y \le \epsilon.
+\]
+\end{definition}
+
+\begin{bemerkung}{6.1.2}
+\hfill
+\begin{enumerate}
+    \item $f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f \;\Longrightarrow\; (f_n(x))_{n\in\mathbb{N}_0}$ is a Cauchy sequence for every $x$.
+    \item $f_n \xrightarrow[n\to\infty]{\mathrm{glm}} f \;\Longrightarrow\; f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f$.
+\end{enumerate}
+\end{bemerkung}
+
+\par\vspace{6pt}\noindent\textbf{Example 6.1.3.}\itshape\space
+\begin{enumerate}
+    \item $M=[0,1]$, $f_n(x)=x^n$.
+    \[
+    f(x):=
+    \begin{cases}
+    0, & x\in[0,1[,\\
+    1, & x=1.
+    \end{cases}
+    \]
+    Then:
+    \[
+    f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f.
+    \]
+
+    \item $M=[0,1]$ and
+    \[
+    f_n(x):=
+    \begin{cases}
+    2nx, & 0\le x\le \frac{1}{2n},\\[1mm]
+    2-2nx, & \frac{1}{2n}<x<\frac{1}{n},\\[1mm]
+    0, & \frac{1}{n}\le x\le 1.
+    \end{cases}
+    \]
+    and $f(x):=0$, $\forall x\in M$. Then:
+    \[
+    f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} f,
+    \qquad\text{but}\qquad
+    f_n \not\xrightarrow[n\to\infty]{\mathrm{glm}} f.
+    \]
+
+    \item $M=\mathbb{R}_{>0}$ and
+    \[
+    f_n(x):=
+    \begin{cases}
+    1, & n\le x\le n+1,\\
+    0, & \text{otherwise},
+    \end{cases}
+    \qquad f=0.
+    \]
+    Then:
+    \[
+    f_n \not\xrightarrow[n\to\infty]{\mathrm{glm}} f.
+    \]
+
+    \item $M=\mathbb{R}_{>0}$ and $f_n(x)=\frac{1}{nx}$. Then:
+    \begin{enumerate}
+        \item $f_n \xrightarrow[n\to\infty]{\mathrm{pkt}} 0$.
+        \item $f_n \xrightarrow[n\to\infty]{\mathrm{glm}} 0$ on $\left[c,\infty\right[$ for all $c>0$.
+        \item $f_n \not\xrightarrow[n\to\infty]{\mathrm{glm}} 0$ on $\mathbb{R}_{>0}$.
+    \end{enumerate}
+\end{enumerate}
+\upshape
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+% ...existing code...
+
+\begin{definition}{6.1.4}
+Let $B(M,Y)$ be the set of all bounded functions from $M$ to $Y$.  
+For $f \in B(M,Y)$ define
+\[
+\|f\|_\infty := \sup_{x\in M}\|f(x)\|_Y .
+\]
+\end{definition}
+
+\begin{bemerkung}{6.1.5}
+\[
+f_n \xrightarrow[n\to\infty]{\mathrm{glm}} f
+\quad\Longleftrightarrow\quad
+\|f_n-f\|_\infty \xrightarrow[n\to\infty]{} 0.
+\]
+\end{bemerkung}
+
+\begin{satz}{6.1.6}
+$(B(M,Y),\|\cdot\|_\infty)$ is a Banach space.
+\end{satz}
+
+\begin{proof}
+As in the case $C(M,Y)$, one shows that $B(M,Y)$ is a vector space and that $\|\cdot\|_\infty$ is a norm.
+
+Let $(f_n)$ be a Cauchy sequence in $B(M,Y)$. Then for each fixed $x\in M$, $(f_n(x))$ is a Cauchy sequence in $Y$, hence convergent (since $Y$ is Banach). Define
+\[
+f(x):=\lim_{n\to\infty}f_n(x).
+\]
+
+It remains to show $f\in B(M,Y)$, i.e.\ $f$ is bounded.  
+Using the reverse triangle inequality, $(a_n)$ with $a_n:=\|f_n\|_\infty$ is a Cauchy sequence in $\mathbb R$, hence bounded. Let
+\[
+C:=\sup_{n\in\mathbb N_0} a_n.
+\]
+For each $x\in M$ there exists $n_x\in\mathbb N_0$ such that
+\[
+\|f(x)-f_{n_x}(x)\|_Y\le 1.
+\]
+Therefore
+\[
+\|f(x)\|_Y
+\le
+\|f_{n_x}(x)\|_Y+\|f(x)-f_{n_x}(x)\|_Y
+\le C+1,
+\]
+for all $x$, so $f$ is bounded.
+
+Now prove convergence: let $\varepsilon>0$. Since $(f_n)$ is Cauchy in $\|\cdot\|_\infty$, there exists $n_\varepsilon$ such that
+\[
+\|f_n-f_m\|_\infty<\varepsilon
+\qquad \forall n,m\ge n_\varepsilon.
+\]
+For $x\in M$ and $n\ge n_\varepsilon$:
+\[
+\|f(x)-f_n(x)\|_Y
+=
+\left\|\lim_{m\to\infty}(f_m(x)-f_n(x))\right\|_Y
+\le
+\limsup_{m\to\infty}\|f_m-f_n\|_\infty
+\le \varepsilon.
+\]
+Hence $\|f-f_n\|_\infty\le\varepsilon$ for $n\ge n_\varepsilon$, i.e.
+\[
+\|f-f_n\|_\infty \xrightarrow[n\to\infty]{} 0.
+\]
+So $B(M,Y)$ is complete.
+\end{proof}
+
+\begin{satz}{6.1.7 (Cauchy criterion for uniform convergence)}
+The following statements are equivalent:
+\begin{enumerate}
+    \item $f_n$ converges uniformly.
+    \item $\forall \epsilon>0\ \exists N_\epsilon\in\mathbb N\ \forall n,m\ge N_\epsilon:\ \|f_n-f_m\|_\infty<\epsilon$.
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+$(1)\Longrightarrow(2)$\\
+We have $f_n \xrightarrow[n\to\infty]{\mathrm{glm}} f$ and hence
+$f_n-f \xrightarrow[n\to\infty]{\mathrm{glm}} 0$.
+Therefore $(f_n-f)$ is a Cauchy sequence in $B(M,Y)$. Finally,
+\[
+\|f_n-f_m\|_\infty\le \|f_n-f\|_\infty+\|f-f_m\|_\infty.
+\]
+
+$(2)\Longrightarrow(1)$\\
+There exists $N_1$ with $\|f_n-f_{N_1}\|_\infty<1$ for all $n\ge N_1$.
+Set $\hat f:=f_{N_1}$. Then $(f_n-\hat f)$ is a Cauchy sequence in $B(M,Y)$ and
+therefore converges with respect to $\|\cdot\|_\infty$ to some $\tilde f\in B(M,Y)$.
+Hence
+\[
+f_n \xrightarrow[n\to\infty]{\mathrm{glm}} \hat f+\tilde f.
+\]
+\end{proof}
+
+\begin{definition}{6.1.8}
+The function series $\sum f_n$ is called
+\begin{enumerate}
+    \item pointwise convergent,
+    \item absolutely convergent,
+    \item uniformly convergent,
+\end{enumerate}
+if:
+\begin{enumerate}
+    \item $\sum f_n(x)$ converges for every $x\in M$,
+    \item $\sum \|f_n(x)\|_Y$ converges for every $x\in M$,
+    \item the sequence of partial sums $s_n(x):=\sum f_n(x)$ converges uniformly.
+\end{enumerate}
+\end{definition}
+
+\begin{bemerkung}{6.1.9}
+\hfill
+\begin{enumerate}
+    \item $\sum f_n$ absolutely convergent $\Longrightarrow$ $\sum f_n$ pointwise convergent.
+    \item $\sum f_n$ uniformly convergent $\centernot\Longrightarrow$ $\sum f_n$ absolutely convergent.
+\end{enumerate}
+\end{bemerkung}
+
+\begin{proof}
+\begin{enumerate}
+    \item Theorem 3.5.2 (absolute convergence (for numerical series) implies convergence (for numerical series)).
+    \item Choose
+    \[
+    f_n(x)=\frac{(-1)^n}{n}
+    \qquad \forall n\in\mathbb N,\ \forall x\in M.
+    \]
+    Then $\sum f_n$ converges uniformly, but not absolutely.
+
+    Let $M=(-1,1)$, $Y=\mathbb R$, $f_n(x)=x^n$. Then $\sum f_n$ is absolutely convergent.
+    For uniform convergence:
+    \[
+    \left\|\sum_{k=n+1}^{m} f_k\right\|_\infty
+    =\sup_{-1<x<1}\left|\sum_{k=n+1}^{m}x^k\right|
+    =\sup_{-1<x<1}\left|x^{n+1}\frac{1-x^{m-n}}{1-x}\right|
+    =\lim_{x\to1}\left(x^{n+1}\frac{1-x^{m-n}}{1-x}\right)
+    =m-n,
+    \]
+    i.e.\ $\sum f_n$ is not uniformly convergent.
+\end{enumerate}
+\end{proof}
+
+\begin{satz}{6.1.10}
+Let $\sum a_k(x-x_0)^k$ be a power series in $\mathbb K$ with radius of convergence $\rho>0$.
+Then $\sum a_k(x-x_0)^k$ converges for every $r\in\,]0,\rho[$ uniformly and absolutely on $\overline{B}(x_0,r)$.
+\end{satz}
+
+\begin{proof}
+Let $r\in\,]0,\rho[$, $M:=\overline{B}(x_0,r)$, $Y=\mathbb K$, and
+\[
+f_k(x)=a_k(x-x_0)^k.
+\]
+Then:
+\[
+\|f_k\|_\infty=|a_k|\,r^k
+\qquad\text{and}\qquad
+\sum_k \|f_k\|_\infty \text{ converges.}
+\]
+
+(Use the definition of the radius of convergence
+\[
+\limsup_{k\to\infty}\sqrt[k]{\|f_k\|_\infty}
+= r\limsup_{k\to\infty}\sqrt[k]{|a_k|}
+= \frac r\rho <1
+\]
+and the root test.)
+
+From ``$\sum \|f_k\|_\infty$ converges'' it follows that
+$\sum \|f_k(x)\|_Y$ converges, i.e.\ ``$\sum f_k$ converges absolutely''.
+From ``$\sum \|f_k\|_\infty$ converges'' it follows that
+\[
+\left\|\sum_{k=n+1}^{m} f_k\right\|_\infty
+\le
+\sum_{k=n+1}^{m}\|f_k\|_\infty.
+\]
+\end{proof}
+
+\end{document}

@@ -1,0 +1,431 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{centernot}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Simple manual environments - no amsthm numbering involved
+\newenvironment{satz}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Theorem #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{definition}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Definition #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{bemerkung}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Remark #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\setcounter{secnumdepth}{0}
+
+\title{7.2 Properties of the Integral}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Convention: $(X,\|\cdot\|)$ normed $\mathbb K$-Banach space, $I=[a,b]$, $a<b$ a compact, perfect
+interval.
+
+\begin{satz}{7.2.1}
+\begin{enumerate}
+    \item Let $(f_n)_{n\in\mathbb N_0}\subset S(I,X)$ be uniformly convergent to $f$. Then $f\in S(I,X)$ and
+    \[
+    \int_a^b f=\lim_{n\to\infty}\int_a^b f_n.
+    \]
+
+    \item Let $(f_n)_{n\in\mathbb N_0}\subset S(I,X)$ and $\sum f_n$ uniformly convergent. Then
+    $\displaystyle\sum_{n=0}^{\infty}f_n\in S(I,X)$ and
+    \[
+    \int_a^b\left(\sum_{n=0}^{\infty}f_n\right)
+    =\sum_{n=0}^{\infty}\left(\int_a^b f_n\right).
+    \]
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+    \item The first part follows from Remark 6.3.9 ($S(I,X)$ is a Banach space). From Remark 7.1.10 it follows:
+    \[
+    \left\|\int_a^b f-\int_a^b f_n\right\|_X
+    \le(b-a)\|f-f_n\|_\infty
+    \xrightarrow[n\to\infty]{}0.
+    \]
+
+    \item Follows from part~1 applied to the partial sums
+    \[
+    s_n:=\sum_{k=0}^{n}f_k
+    \qquad\text{and}\qquad
+    s:=\sum_{k=0}^{\infty}f_k.
+    \]
+\end{enumerate}
+\end{proof}
+
+\begin{bemerkung}{7.2.2}
+Theorem 7.2.1 does not hold in general for pointwise convergence. Consider e.g.\ $I=[0,1]$, $X=\mathbb R$ and $f_n\in T(I,X)$ with
+\[
+f_n(x)=
+\begin{cases}
+0 & x=0,\\
+n & 0<x\le\tfrac{1}{n},\quad n\in\mathbb N,\\
+0 & \tfrac{1}{n}<x\le 1.
+\end{cases}
+\]
+Then $f_n\xrightarrow[n\to\infty]{\mathrm{pkt}}0$, but $\int_0^1 f_n=1$ for all $n\in\mathbb N$.
+\end{bemerkung}
+
+\begin{satz}{7.2.3}
+Let $f\in S(I,X)$. Then $\|f\|_X\in S(I,\mathbb R)$ and
+\[
+\left\|\int_a^b f\right\|_X\le\int_a^b\|f\|_X\le(b-a)\|f\|_\infty.
+\]
+\end{satz}
+
+\begin{proof}
+Let $(f_n)_{n\in\mathbb N_0}\subset T(I,X)$ be uniformly convergent to $f$. Then $\|f_n\|_X\in T(I,\mathbb R)$ for all $n\in\mathbb N_0$. For every $x\in I$:
+\[
+\bigl|\|f_n\|_X(x)-\|f\|_X(x)\bigr|
+=\bigl|\|f_n(x)\|_X-\|f(x)\|_X\bigr|
+\le\|f_n(x)-f(x)\|_X
+\le\|f_n-f\|_\infty.
+\]
+Hence $\|f_n\|_X$ converges uniformly to $\|f\|_X$. Therefore
+\[
+\|f\|_X\in S(I,\mathbb R).
+\]
+Let $Z_n:=(x_{n,k})_{k=0}^{m}$ be an associated partition of $I$ for $f_n$ and $M_{n,k}:=(x_{n,k}+x_{n,k-1})/2$ the interval midpoints. Then for every $n\in\mathbb N_0$:
+\[
+\left\|\int_a^b f_n\right\|_X
+=\left\|\sum_{k=1}^{m}f_n(M_{n,k})(x_{k,n}-x_{k-1,n})\right\|_X
+\le\sum_{k=1}^{m}\|f_n(M_{n,k})\|_X(x_{k,n}-x_{k-1,n})
+=\int_a^b\|f_n\|_X
+\le(b-a)\|f_n\|_\infty.\tag{$*$}
+\]
+From Theorem 7.2.1, passing to the limit $n\to\infty$ on the left-hand side:
+\[
+\lim_{n\to\infty}\left\|\int_a^b f_n\right\|_X
+=\left\|\lim_{n\to\infty}\int_a^b f_n\right\|_X
+=\left\|\int_a^b f\right\|_X.
+\]
+The right-hand side in ($*$) converges to $\|f\|_\infty$, and the claim follows.
+\end{proof}
+
+\begin{definition}{7.2.4 (Oriented area)}
+Let $a<b$ and $f\in S(I,X)$. Then we define
+\[
+\int_b^a f:=-\int_a^b f
+\qquad\text{and}\qquad
+\int_a^a f:=0.
+\]
+\end{definition}
+
+\begin{satz}{7.2.5}
+Let $f\in S(I,X)$ and $a,b,c\in I$. Then:
+\[
+\int_a^b f=\int_a^c f+\int_c^b f.
+\]
+\end{satz}
+
+\begin{proof}
+Let $a\le b\le c$. Let $(f_n)_{n\in\mathbb N_0}\subset T(I,X)$ be uniformly convergent to $f$. Then
+for every compact subinterval $J\subset I$:
+\[
+T(J,X)\ni f_n|_J\xrightarrow[n\to\infty]{\mathrm{glm}} f_n|_J\in S(J,X).
+\]
+As one easily verifies, for every $n\in\mathbb N_0$:
+\[
+\int_a^c f_n=\int_a^b f_n+\int_b^c f_n.
+\]
+By Theorem 7.2.1 it follows that
+\[
+\int_a^c f=\int_a^b f+\int_b^c f
+\quad\iff\quad
+\int_a^b f=\int_a^c f-\int_b^c f=\int_a^c f+\int_c^b f.
+\]
+\end{proof}
+
+\begin{satz}{7.2.6}
+\begin{enumerate}
+    \item Let $f\in S(I,\mathbb R)$ and $f\ge 0$. Then $\int_a^b f\ge 0$.
+
+    \item Let $f,g\in S(I,\mathbb R)$ with $f\ge g$. Then $\int_a^b f\ge\int_a^b g$.
+
+    \item Let $f\in S(I,\mathbb R)$ with $f\ge 0$. Suppose there exists $\alpha\in I$ with $f(\alpha)>0$ and $f$ is continuous at $\alpha$.
+    Then $\int_a^b f>0$.
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+    \item By Remark 6.3.5, there exists a sequence $(f_n)_{n\in\mathbb N_0}\subset T(I,\mathbb R)$ with $f_n\to f$ uniformly
+    and $f_n\ge 0$ for all $n\in\mathbb N_0$. Evidently:
+    \[
+    \int_a^b f_n\ge 0\qquad\forall n\in\mathbb N_0,
+    \]
+    and the claim for jump-continuous functions follows by passing to the limit $n\to\infty$.
+
+    \item Follows from (1) applied to $f-g$.
+
+    \item By the continuity of $f$ at $\alpha$ and $f(\alpha)>0$, there exists $\delta>0$ with
+    \[
+    f(x)\ge\tfrac{1}{2}f(\alpha)>0
+    \qquad\forall x\in\,]\alpha-\delta,\alpha+\delta[\,\cap I.
+    \]
+    From Theorem 7.2.5 and parts (1), (2):
+    \[
+    \int_a^b f
+    =\int_a^{\alpha-\delta}f+\int_{\alpha-\delta}^{\alpha+\delta}f+\int_{\alpha+\delta}^{b}f
+    \ge\int_{\alpha-\delta}^{\alpha+\delta}\tfrac{1}{2}f(\alpha)
+    =\frac{2\delta}{2}f(\alpha)
+    =\delta f(\alpha)>0.
+    \]
+\end{enumerate}
+\end{proof}
+
+\begin{satz}{7.2.7 (Integration of vector-valued functions)}
+\begin{enumerate}
+    \item Let $f:I\to\mathbb K^n$. Then $f\in S(I,\mathbb K^n)$ if and only if for every component $f_i$,
+    $1\le i\le n$:
+    \[
+    f_i\in S(I,\mathbb K).
+    \]
+    Moreover:
+    \[
+    \int_a^b f=\left(\int_a^b f_1,\,\int_a^b f_2,\,\ldots,\,\int_a^b f_n\right).
+    \]
+
+    \item Let $f=g+ih:I\to\mathbb C$ with $g,h\in I\to\mathbb R$. Then $f\in S(I,\mathbb C)$ if and only if
+    $g,h\in S(I,\mathbb R)$. Moreover:
+    \[
+    \int_a^b f=\int_a^b g+i\int_a^b h.
+    \]
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+    \item We have:
+    \begin{align*}
+    f\in S(I,\mathbb K^n)
+    &\iff \exists\,(f_m)_{m\in\mathbb N_0}\subset T(I,\mathbb K^n):\ f_m\xrightarrow[m\to\infty]{\mathrm{glm}} f\\
+    &\overset{(*)}{\iff} \exists\,(f_m)_{m\in\mathbb N_0}\subset T(I,\mathbb K^n):\ f_{m,i}\xrightarrow[m\to\infty]{\mathrm{glm}} f_i\qquad\forall\,1\le i\le n\\
+    &\iff f_i\in S(I,\mathbb K)\qquad\forall\,1\le i\le n.
+    \end{align*}
+    The statement about the integrals is trivial for step functions. For jump-continuous functions it follows by passing to the limit.
+
+    \item Follows from part~(1) by identifying $\mathbb C$ with $\mathbb R^2$.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Ad ($*$):}
+
+\noindent``$\Longrightarrow$''\quad We have:
+\begin{align*}
+\|f_m-f\|_\infty
+&=\sup_{x\in I}\|f_m(x)-f(x)\|_{\mathbb K^n}
+\ge C\sup_{x\in I}\max_{1\le i\le n}|f_{m,i}(x)-f_i(x)|\\
+&\ge C\sup_{x\in I}|f_{m,i}(x)-f_i(x)|
+=C\|f_{m,i}-f_i\|_\infty.
+\end{align*}
+
+\noindent``$\Longleftarrow$''\quad
+\[
+\forall\varepsilon>0\ \exists\,M_i>0\ \forall x\in I\ \forall m\ge M_i
+\implies |f_{i,m}(x)-f_i(x)|\le\varepsilon,
+\qquad\forall\,1\le i\le n.
+\]
+Set $M:=\max_{1\le i\le n}M_i$. Then:
+\[
+\forall\varepsilon>0\ \forall m\ge M
+\implies \varepsilon\ge\sup_{x\in I}\max_{1\le i\le n}|f_{i,m}(x)-f_i(x)|
+=\sup_{x\in I}\|f_m(x)-f(x)\|_{\mathbb K^n}
+\ge c\,\|f_m-f\|_\infty,
+\]
+i.e.\ $f_m\xrightarrow[m\to\infty]{\mathrm{glm}} f$.
+\end{proof}
+
+\begin{satz}{7.2.8 (Dependence of the integral on the limits of integration)}
+Let $f\in S(I,X)$ and $c\in I$. Then the function
+\[
+F(x):=\int_c^x f\qquad\forall x\in I
+\]
+belongs to $C(I,X)$ and satisfies:
+\[
+\|F(x)-F(y)\|_X\le|x-y|\,\|f\|_\infty
+\qquad\forall x,y\in I.
+\]
+\end{satz}
+
+\begin{proof}
+From Theorem 7.2.5 it follows for $x,y\in I$:
+\[
+F(x)-F(y)=\int_c^x f-\int_c^y f=\int_y^x f
+\]
+and with Remark 7.1.10:
+\[
+\|F(x)-F(y)\|_X\le\|f\|_\infty|y-x|.
+\]
+\end{proof}
+
+\begin{satz}{7.2.9}
+Let $f\in S(I,X)$ and continuous at $\alpha\in I$. Then the function
+\[
+F(x):=\int_a^x f\qquad\forall x\in I
+\]
+is differentiable at $\alpha$, and:
+\[
+F'(\alpha)=f(\alpha).
+\]
+\end{satz}
+
+\begin{proof}
+Theorem 7.2.8 implies: $F$ is continuous. Let $\varepsilon>0$ be arbitrary. Then there exists $\delta>0$ with:
+\[
+\|f(\xi)-f(\alpha)\|_X<\varepsilon\qquad\forall\xi\in I:\ |\xi-\alpha|\le\delta.
+\]
+Let $h\in\mathbb R\setminus\{0\}$ with $\alpha+h\in I$ and $|h|<\delta$. Then:
+\begin{align*}
+\left\|\frac{F(\alpha+h)-F(\alpha)}{h}-f(\alpha)\right\|_X
+&=\left\|\left(\frac{1}{h}\int_\alpha^{\alpha+h}f\right)-f(\alpha)\right\|_X
+=\left\|\left(\frac{1}{h}\int_\alpha^{\alpha+h}f\right)-\frac{1}{h}\int_\alpha^{\alpha+h}f(\alpha)\right\|_X\\
+&=\frac{1}{|h|}\left\|\int_\alpha^{\alpha+h}(f-f(\alpha))\right\|_X
+\le\frac{1}{|h|}\left\|\int_\alpha^{\alpha+h}\varepsilon\right\|_X
+=\frac{1}{|h|}\cdot|h|\cdot\varepsilon=\varepsilon.
+\end{align*}
+\end{proof}
+
+\begin{definition}{7.2.10}
+Let $f,F:I\to X$ be two functions. $F$ is called an \emph{antiderivative} of $f$ if
+$F$ is differentiable at every point of $I$ and
+\[
+F'(x)=f(x)\qquad\forall x\in I.
+\]
+The set of all antiderivatives of $f$ is denoted by $\int f$ or $\int f(x)\,dx$ and is called the
+\emph{indefinite integral} of $f$.
+\end{definition}
+
+\begin{bemerkung}{7.2.11}
+Let $F,G$ be two antiderivatives of $f$. Then $F-G$ is constant on $I$.
+\end{bemerkung}
+
+\begin{proof}
+Follows from Theorem 5.2.6 ($(F-G)'=F'-G'=f-f=0\implies F-G$ constant). \qedhere
+\end{proof}
+
+\begin{satz}{7.2.12 (Fundamental theorem of calculus)}
+Every $f\in C(I,X)$ possesses an antiderivative $F$ of $f$ and satisfies:
+\[
+F(x)=F(a)+\int_a^x f=F(a)+\int_a^x F'
+\qquad\forall x\in I.
+\]
+In particular, for every antiderivative $F$ of $f$:
+\[
+\int_a^b f=F(b)-F(a)=:F\big|_a^b.
+\]
+\end{satz}
+
+\begin{proof}
+Let $G(x):=\int_a^x f$. By Theorem 7.2.9, $G$ is an antiderivative of $f$. From
+Remark 7.2.11 it follows for every antiderivative $F$ of $f$:
+\begin{align*}
+F(x)&=G(x)+c,\qquad c\in X,\ \forall x\in I,\\
+F(a)&=G(a)+c=c
+\end{align*}
+\[
+\implies F(x)=F(a)+\int_a^x f\qquad\forall x\in I.
+\]
+\end{proof}
+
+\par\vspace{6pt}\noindent\textbf{Example 7.2.13.}\itshape\space
+\begin{enumerate}
+    \item Table of antiderivatives:
+
+    \upshape
+    \[
+    \renewcommand{\arraystretch}{1.4}
+    \begin{array}{c|c|cc}
+    f & \int f & & \\\hline
+    x^\alpha & \frac{1}{\alpha+1}x^{\alpha+1} & +c & \alpha\neq-1\\
+    \frac{1}{x} & \ln|x| & +c & \\
+    a^x & \frac{1}{\ln a}a^x & +c & a>0\\
+    e^{ax} & \frac{1}{a}e^{ax} & +c & a\in\mathbb C\setminus\{0\}\\
+    \cos(x) & \sin(x) & +c & \\
+    -\sin(x) & \cos(x) & +c & \\
+    \frac{1}{\cos^2 x} & \tan(x) & +c & \\
+    \frac{-1}{\sin^2 x} & \cot(x) & +c & \\
+    \frac{1}{\sqrt{1-x^2}} & \arcsin x & +c & \\
+    \frac{1}{1+x^2} & \arctan x & +c & \\
+    \sum_{k=0}^{\infty}a_k(x-x_0)^k & \sum_{k=0}^{\infty}\frac{a_k}{k+1}(x-x_0)^{k+1} & +c &
+    \end{array}
+    \]
+    \itshape
+
+    \item $f\in C^1(I,\mathbb R)$, $f(x)\neq 0$ for all $x\in I$
+    \[
+    \implies\int\frac{f'}{f}=\ln(|f|)+c.
+    \]
+\end{enumerate}
+\upshape
+
+\begin{proof}
+\begin{enumerate}
+    \item Follows by differentiation of the right-hand side.
+
+    \item By the intermediate value theorem 4.4.7, for all $x\in I$ either
+    \begin{enumerate}
+        \item[(a)] $f(x)>0$, or
+        \item[(b)] $f(x)<0$.
+    \end{enumerate}
+
+    \textbf{Case (a):} $(\ln(|f|))'=(\ln f)'=\dfrac{f'}{f}$.
+
+    \textbf{Case (b):} $(\ln(|f|))'=(\ln(-f))'=\dfrac{-f'}{-f}=\dfrac{f'}{f}$.
+\end{enumerate}
+\end{proof}
+
+\noindent Analogue of the mean value theorem 5.2.5:
+
+\begin{satz}{7.2.14 (Mean value theorem of integral calculus)}
+Let $f,\phi\in C(I,\mathbb R)$ with $\phi\ge 0$ on $I$. Then there exists $\xi$, $a\le\xi\le b$:
+\[
+\int_a^b f\cdot\phi=f(\xi)\int_a^b\phi.
+\]
+In particular for $\phi\equiv 1$: there exists $\eta$, $a\le\eta\le b$:
+\[
+\bigl(F(b)-F(a)=\bigr)\qquad\int_a^b f=f(\eta)(b-a)\qquad\bigl(=F'(\eta)(b-a)\bigr).
+\]
+\end{satz}
+
+\begin{proof}
+If $\int_a^b\phi=0$, then it is an exercise to show that $\phi\equiv 0$. In this case
+the claim holds trivially. So let $\int_a^b\phi>0$. Define
+\[
+m:=\inf_{x\in I}f(x)\qquad M:=\sup_{x\in I}f(x).
+\]
+Then
+\[
+m\phi(x)\le f(x)\phi(x)\le M\phi(x)\qquad\forall x\in I
+\]
+and by Theorem 7.2.6:
+\[
+m\int_a^b\phi\le\int_a^b f\phi\le M\int_a^b\phi
+\qquad\implies\qquad
+m\le\frac{\int_a^b f\phi}{\int_a^b\phi}\le M.
+\]
+The intermediate value theorem 4.4.7 implies: there exists $\xi\in\,]a,b[\,$ with
+\[
+f(\xi)=\frac{\int_a^b f\cdot\phi}{\int_a^b\phi}.
+\]
+This proves the first claim. The second claim follows from the first with the special choice $\phi=1$.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,476 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{centernot}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Simple manual environments - no amsthm numbering involved
+\newenvironment{satz}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Theorem #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{definition}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Definition #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\newenvironment{bemerkung}[1]{%
+  \par\vspace{6pt}\noindent\textbf{Remark #1.}\itshape\space
+}{%
+  \par\vspace{6pt}
+}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\setcounter{secnumdepth}{0}
+
+\title{7 Single Variable Integration}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+In this chapter the (Riemann) integral for functions of one (real) variable is introduced.
+This is done first for step functions and then, with the help of a general theorem on the
+extension of linear operators, for jump-continuous functions.
+
+Some properties of the integral and important integration rules are derived.
+The notion of integral is then extended to so-called improper integrals. As an important
+example of improper integrals, the Euler gamma function is studied.
+
+\section{7.1 The (Riemann) Integral}
+
+In the following, let $(X,\|\cdot\|_X)$ always be a $\mathbb K$-Banach space and $I=[a,b]$ a compact perfect
+interval, i.e.\ $a<b$.
+
+\begin{definition}{7.1.1}
+Let $f\in T(I,X)$ and $Z=(\alpha_0,\ldots,\alpha_n)$ an associated partition. Then
+the \emph{integral} of $f$ with respect to $Z$ is defined by:
+\[
+\int_{(Z)} f
+:=\sum_{i=1}^{n}(\alpha_i-\alpha_{i-1})\cdot f\!\left(\frac{\alpha_i+\alpha_{i-1}}{2}\right).
+\]
+\end{definition}
+
+\par\vspace{6pt}\noindent\textbf{Lemma 7.1.2.}\itshape\space
+Let $f\in T(I,X)$.
+\begin{enumerate}
+    \item There exists a minimal associated partition $Z_0$ of $I$.
+    \item Every associated partition $Z_1$ of $I$ is a refinement of $Z_0$.
+    \item $\int_{(Z)} f$ is independent of the particular associated partition $Z$.
+\end{enumerate}
+\upshape
+
+\begin{proof}
+\textbf{Ad 1,2:} Clear.
+
+\medskip
+\textbf{Ad 3:} Let $Z'$ be an elementary refinement of $Z=(\alpha_0,\ldots,\alpha_n)$, i.e.
+\[
+Z'=(\alpha_0,\ldots,\alpha_k,\gamma,\alpha_{k+1},\ldots,\alpha_n).
+\]
+Then:
+\begin{align*}
+\int_{(Z)} f
+&=\sum_{i=1}^{k}(\alpha_i-\alpha_{i-1})f\!\left(\frac{\alpha_i+\alpha_{i-1}}{2}\right)
++(\alpha_{k+1}-\gamma+\gamma-\alpha_k)f\!\left(\frac{\alpha_k+\alpha_{k+1}}{2}\right)\\
+&\quad+\sum_{i=k+2}^{n}(\alpha_i-\alpha_{i-1})f\!\left(\frac{\alpha_{i-1}+\alpha_i}{2}\right)\\[6pt]
+&=\sum_{i=1}^{k}(\alpha_i-\alpha_{i-1})f\!\left(\frac{\alpha_{i-1}+\alpha_i}{2}\right)
++(\gamma-\alpha_k)f\!\left(\frac{\alpha_k+\gamma}{2}\right)
++(\alpha_{k+1}-\gamma)f\!\left(\frac{\gamma+\alpha_{k+1}}{2}\right)\\
+&\quad+\sum_{i=k+2}^{n}(\alpha_i-\alpha_{i-1})f\!\left(\frac{\alpha_{i-1}+\alpha_i}{2}\right)\\[6pt]
+&=\int_{(Z')} f.
+\end{align*}
+Since every associated partition $Z$ can be written as $Z=Z_0\cup Z_1\cup\cdots\cup Z_l$,
+where $Z_0$ is the minimal associated partition and $Z_i$, $1\le i\le l$, are elementary
+refinements, it follows by induction that
+\[
+\int_{(Z)} f=\int_{(Z_0)} f.
+\]
+\end{proof}
+
+\begin{definition}{7.1.3}
+Let $f\in T(I,X)$. Then the \emph{Riemann integral} of $f$ is defined by
+\[
+\int_I f:=\int_a^b f:=\int_{(Z)} f,
+\]
+where $Z$ is any admissible partition of $I$ for $f$.
+\end{definition}
+
+\par\vspace{6pt}\noindent\textbf{Lemma 7.1.4.}\itshape\space
+The map $\int_a^b:T(I,X)\to X$, $f\mapsto\int_a^b f$ is linear, i.e.
+\[
+\int_a^b(f+g)=\int_a^b f+\int_a^b g,
+\qquad
+\int_a^b \alpha f=\alpha\int_a^b f
+\qquad
+\forall f,g\in T(I,X),\ \alpha\in\mathbb K.
+\]
+Moreover:
+\[
+\left\|\int_a^b f\right\|_X\le(b-a)\|f\|_\infty
+\qquad
+\forall f\in T(I,X).
+\]
+\upshape
+
+\begin{proof}
+The linearity of the integral follows directly from the definition.
+Let $f\in T(I,X)$ and $Z=(\alpha_0,\ldots,\alpha_n)$ an associated partition of $I$. Then:
+\[
+\left\|\int_a^b f\right\|_X
+=\left\|\int_{(Z)} f\right\|_X
+=\left\|\sum_{i=1}^{n}(\alpha_i-\alpha_{i-1})f\!\left(\frac{\alpha_{i-1}+\alpha_i}{2}\right)\right\|_X
+\le\sum_{i=1}^{n}(\alpha_i-\alpha_{i-1})\|f\|_{\infty,]\alpha_{i-1},\alpha_i[}
+\le(b-a)\|f\|_\infty.
+\]
+\end{proof}
+
+\begin{definition}{7.1.5}
+Let $(Y,\|\cdot\|_Y)$ and $(Z,\|\cdot\|_Z)$ be normed $\mathbb K$-vector spaces.
+\begin{enumerate}
+    \item A linear map $A:Y\to Z$ is called \emph{bounded} if there exists $\alpha\in\mathbb R_{\ge 0}$
+    such that
+    \[
+    \|Ax\|_Z\le\alpha\|x\|_Y
+    \qquad\forall x\in Y.
+    \]
+
+    \item $\mathcal L(Y,Z):=\{A:Y\to Z: A\text{ is bounded}\}$ is a vector space.
+
+    \item $\|A\|:=\|A\|_{\mathcal L(Y,Z)}:=\inf\{\alpha\in\mathbb R_{\ge 0}:\|Ax\|_Z\le\alpha\|x\|_Y,\ \forall x\in Y\}$
+    is a norm on $\mathcal L(Y,Z)$.
+\end{enumerate}
+\end{definition}
+
+\begin{bemerkung}{7.1.6}
+\begin{enumerate}
+    \item Let $A\in\mathcal L(Y,Z)$. Then
+    \[
+    \|A\|_{\mathcal L(Y,Z)}
+    =\sup_{\substack{x\in Y\setminus\{0\}}}\frac{\|Ax\|_Z}{\|x\|_Y}
+    =\sup_{\substack{x\in Y\setminus\{0\}\\\|x\|_Y\le 1}}\|Ax\|_Z
+    =\sup_{\substack{x\in Y\\\|x\|_Y=1}}\|Ax\|_Z.
+    \]
+
+    \item Let $A\in\mathcal L(Y,Z)$. Then:
+    \[
+    \|Ax\|_Z\le\|A\|_{\mathcal L(Y,Z)}\cdot\|x\|_Y
+    \qquad\forall x\in Y.
+    \]
+
+    \item Let $A:Y\to Z$ be linear. Then:
+    \[
+    A\text{ is uniformly continuous}
+    \iff A\text{ is continuous}
+    \iff A\text{ is continuous at }0
+    \iff A\in\mathcal L(Y,Z).
+    \]
+\end{enumerate}
+\end{bemerkung}
+
+\begin{proof}
+\begin{enumerate}
+    \item We have:
+    \begin{align*}
+    \|A\|_{\mathcal L(Y,Z)}
+    &=\inf\{\alpha\in\mathbb R_{\ge 0}:\|Ax\|_Z\le\alpha\|x\|_Y,\ \forall x\in Y\}\\
+    &=\inf\{\alpha\in\mathbb R_{\ge 0}:\|Ax\|_Z\le\alpha\|x\|_Y,\ \forall x\in Y\setminus\{0\}\}\\
+    &=\inf\left\{\alpha\in\mathbb R_{\ge 0}:\frac{\|Ax\|_Z}{\|x\|_Y}\le\alpha,\ \forall x\in Y\setminus\{0\}\right\}\\
+    &=\sup_{\substack{x\in Y\setminus\{0\}}}\frac{\|Ax\|_Z}{\|x\|_Y}
+    =\sup_{\substack{x\in Y\setminus\{0\}}}\left\|A\frac{x}{\|x\|_Y}\right\|_Z
+    =\sup_{\substack{x\in Y\setminus\{0\}\\\|x\|_Y=1}}\|Ax\|_Z\\
+    &\le\sup_{\substack{x\in Y\setminus\{0\}\\\|x\|_Y\le 1}}\|Ax\|_Z.
+    \end{align*}
+    On the other hand, let $x\in Y$ with $0<\|x\|_Y\le 1$. Then:
+    \[
+    \|Ax\|_Z
+    \le\frac{1}{\|x\|_Y}\|Ax\|_Z
+    =\left\|A\frac{x}{\|x\|_Y}\right\|_Z.
+    \]
+    Hence
+    \[
+    \sup_{\substack{x\in Y\setminus\{0\}\\\|x\|_Y\le 1}}\|Ax\|_Z
+    \le\sup_{\substack{x\in Y\setminus\{0\}\\\|x\|_Y=1}}\|Ax\|_Z.
+    \]
+    The claim follows.
+
+    \item For $x\neq 0$ this follows from
+    \[
+    \|Ax\|_Z
+    =\frac{\|Ax\|_Z}{\|x\|_Y}\|x\|_Y
+    \le\left(\sup_{\substack{w\in Y\setminus\{0\}}}\frac{\|Aw\|_Z}{\|w\|_Y}\right)\|x\|_Y.
+    \]
+    For $x=0$ the statement is trivial.
+
+    \item $A$ uniformly continuous $\Longrightarrow$ $A$ continuous $\Longrightarrow$ $A$ continuous at $0$
+
+    $\Longrightarrow$ $\exists\,\delta>0$ $\forall x\in Y$ with $\|x\|_Y\le\delta$: $\|Ax\|_Z\le 1$
+
+    $\Longrightarrow$ $\exists\,\delta>0$ $\forall x\in Y$ with $\|x\|_Y=1$:
+    $\|A\delta x\|_Z=\delta\|Ax\|_Z\le 1$, i.e.\ $\|Ax\|_Z\le\dfrac{1}{\delta}$
+
+    $\Longrightarrow$ $A$ is bounded and $A\in\mathcal L(Y,Z)$
+
+    $\Longrightarrow$ $\|Ax-Ay\|_Z=\|A(x-y)\|_Z\le\|A\|_{\mathcal L(Y,Z)}\cdot\|x-y\|_Y
+    \le\dfrac{1}{\delta}\|x-y\|_Y$.
+\end{enumerate}
+\end{proof}
+
+\par\vspace{6pt}\noindent\textbf{Lemma 7.1.7.}\itshape\space
+Let $(Y,\|\cdot\|_Y)$ be a normed $\mathbb K$-vector space and $U\subset Y$ a subspace.
+Then $\overline{U}$ is also a subspace.
+\upshape
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\begin{satz}{7.1.8 (Extension of continuous linear operators)}
+Let $(Y,\|\cdot\|_Y)$ be a normed $\mathbb K$-vector space, $U\subset Y$ a subspace,
+$(Z,\|\cdot\|_Z)$ a $\mathbb K$-Banach space, and $A\in\mathcal L(U,Z)$.
+Then there exists exactly one $\overline{A}\in\mathcal L(\overline{U},Z)$ with:
+\begin{enumerate}
+    \item $\overline{A}y=Ay\qquad\forall y\in U$,
+    \item $\|\overline{A}\|_{\mathcal L(\overline{U},Z)}=\|A\|_{\mathcal L(U,Z)}$,
+    \item $\overline{A}y=\lim_{n\to\infty}Ay_n\qquad\forall (y_n)_{n\in\mathbb N_0}\subset U:\ y=\lim_{n\to\infty}y_n$.
+\end{enumerate}
+$\overline{A}$ is called the \emph{extension} of $A$.
+\end{satz}
+
+\begin{proof}
+\textbf{Uniqueness:}
+Let $B,C\in\mathcal L(\overline{U},Z)$ be two extensions satisfying (1). Then their continuity implies
+that for every $y\in\overline{U}$ with $y=\lim_{n\to\infty}y_n$ and $(y_n)_{n\in\mathbb N_0}\subset U$:
+\[
+By=B\!\left(\lim_{n\to\infty}y_n\right)=\lim_{n\to\infty}(By_n)=\lim_{n\to\infty}(Cy_n)=C\!\left(\lim_{n\to\infty}y_n\right)=Cy.
+\]
+Hence $B=C$.
+
+\medskip
+\textbf{Existence:}
+Let $y\in\overline{U}$ and $(y_n)_{n\in\mathbb N_0}\subset U$ with $y=\lim_{n\to\infty}y_n$.
+Then $(y_n)_{n\in\mathbb N_0}$ is a Cauchy sequence in $Y$ and
+\[
+\underbrace{\|Ay_n-Ay_m\|_Z}_{\in Z}
+=\|A\underbrace{(y_n-y_m)}_{\in U}\|_Z
+\le\|A\|_{\mathcal L(U,Z)}\|y_n-y_m\|_Y.
+\]
+Hence $(Ay_n)_{n\in\mathbb N_0}$ is a Cauchy sequence and, since $Z$ is a Banach space, it converges
+(with limit $z:=\lim_{n\in\mathbb N_0}Ay_n$). Define $\overline{A}y:=z$.
+
+\medskip
+\textit{Independence of the chosen sequence:}
+Let $(\tilde y_n)_{n\in\mathbb N_0}\subset U$ be another sequence in $U$ with $y=\lim_{n\to\infty}\tilde y_n$.
+Let $\tilde z:=\lim_{n\to\infty}A\tilde y_n$. Then:
+\[
+\|z-\tilde z\|_Z
+\le\|z-Ay_n\|_Z
++\underbrace{\|Ay_n-A\tilde y_n\|_Z}_{=\|A(y_n-\tilde y_n)\|_Z\le\|A\|\|y_n-\tilde y_n\|_Y\to 0}
++\|A\tilde y_n-\tilde z\|_Z
+\xrightarrow[n\to\infty]{}0.
+\]
+Hence $z=\tilde z$.
+
+\medskip
+\textit{Linearity of\/ $\overline{A}$:}
+Let $u,v\in\overline{U}$ and $(u_n)_{n\in\mathbb N_0},(v_n)_{n\in\mathbb N_0}\subset U$ with $u=\lim_{n\to\infty}u_n$,
+$v=\lim_{n\to\infty}v_n$. Then:
+\begin{align*}
+\overline{A}(u+v)
+&=\overline{A}\!\left(\lim_{n\to\infty}u_n+\lim_{n\to\infty}v_n\right)
+=\overline{A}\!\left(\lim_{n\to\infty}(u_n+v_n)\right)
+=\lim_{n\to\infty}\overline{A}(u_n+v_n)\\
+&=\lim_{n\to\infty}A(u_n+v_n)
+=\lim_{n\to\infty}(Au_n+Av_n)
+=\lim_{n\to\infty}Au_n+\lim_{n\to\infty}Av_n \tag{7.1.1}\\
+&=\overline{A}\!\left(\lim_{n\to\infty}u_n\right)+\overline{A}\!\left(\lim_{n\to\infty}v_n\right)
+=\overline{A}u+\overline{A}v.
+\end{align*}
+Analogously one shows $\overline{A}(\alpha u)=\alpha\overline{A}u$.
+
+\medskip
+\textit{Norm preservation:}
+Let $y\in\overline{U}$ with $y=\lim_{n\to\infty}y_n$, $(y_n)_{n\in\mathbb N_0}\subset U$. Then:
+\[
+\|\overline{A}y\|_Z
+=\left\|\lim_{n\to\infty}Ay_n\right\|_Z
+=\lim_{n\to\infty}\|Ay_n\|_Z
+\le\lim_{n\to\infty}\|A\|_{\mathcal L(U,Z)}\|y_n\|_Y
+=\|A\|_{\mathcal L(U,Z)}\|y\|_Y.
+\]
+Hence:
+\[
+\|\overline{A}\|_{\mathcal L(\overline{U},Z)}
+=\sup_{\substack{y\in\overline{U}\\\|y\|_Y=1}}\|\overline{A}y\|_Z
+\le\|A\|_{\mathcal L(U,Z)}.
+\]
+By (1):
+\[
+\|\overline{A}\|_{\mathcal L(\overline{U},Z)}
+=\sup_{\substack{y\in\overline{U}\\\|y\|_Y=1}}\|\overline{A}y\|_Z
+\ge\sup_{\substack{y\in U\\\|y\|_Y=1}}\|\overline{A}y\|_Z
+=\sup_{\substack{y\in U\\\|y\|_Y=1}}\|Ay\|_Z
+=\|A\|_{\mathcal L(U,Z)}.
+\]
+Together this gives
+\[
+\|\overline{A}\|_{\mathcal L(\overline{U},Z)}=\|A\|_{\mathcal L(U,Z)}.
+\]
+\end{proof}
+
+\noindent Application of Theorem 7.1.8 to the Riemann integral:
+\[
+U=T(I,X),\qquad
+\overline{U}=\overline{T(I,X)}=S(I,X)\ \text{w.r.t.}\ \|\cdot\|_\infty
+\]
+\[
+S(I,X)\subset B(I,X)=(Y,\|\cdot\|),\qquad
+Z\leftarrow X,\qquad
+A=\int_a^b\in\mathcal L\bigl(T(I,X),X\bigr).
+\]
+
+\begin{definition}{7.1.9}
+The \emph{Riemann integral} is the uniquely defined extension of
+$\int_a^b\in\mathcal L\bigl(T(I,X),X\bigr)$ to $\mathcal L\bigl(S(I,X),X\bigr)$ and is denoted by:
+\[
+\int_a^b f=\int_I f=\int_a^b f(x)\,dx=\int_a^b f\,dx.
+\]
+\end{definition}
+
+\begin{bemerkung}{7.1.10}
+\begin{enumerate}
+    \item
+    \[
+    \left\|\int_a^b f\right\|_X\le(b-a)\|f\|_\infty
+    \qquad\forall f\in S(I,X).
+    \]
+
+    \item
+    \[
+    \int_a^b f=\lim_{n\to\infty}\int_a^b f_n,
+    \]
+    where $(f_n)_{n\in\mathbb N_0}\subset T(I,X)$ is any sequence of step functions with
+    \[
+    \lim_{n\to\infty}\|f-f_n\|_\infty=0.
+    \]
+\end{enumerate}
+\end{bemerkung}
+
+\begin{satz}{7.1.11 (Approximation of the Riemann integral)}
+Let $f\in S(I,Y)$. For every $\varepsilon>0$ there exists a
+$\delta(\varepsilon,f)>0$ such that for every partition $Z=(x_0,\ldots,x_n)$ of $I$ with mesh size
+\[
+\Delta_Z:=\max_{1\le i\le n}(x_i-x_{i-1})<\delta(\varepsilon,f)
+\]
+and any intermediate points $\xi_j\in[x_{j-1},x_j]$, $1\le j\le n$, we have:
+\[
+\left\|\int_a^b f-\sum_{j=1}^{n}f(\xi_j)(x_j-x_{j-1})\right\|_Y\le\varepsilon.
+\]
+\end{satz}
+
+\begin{proof}
+\textbf{Step 1:} \textit{Proof for step functions:}
+
+Let $f\in T(I,X)$ and $\hat Z=(\hat x_0,\ldots,\hat x_{\hat n})$ any admissible partition of $I$ for $f$ with
+\[
+\delta_{\min}:=\min\{(\hat x_i-\hat x_{i-1}):1\le i\le\hat n\}.
+\]
+Let $\varepsilon>0$ be arbitrary and
+\[
+\delta=\delta(\varepsilon,f):=\min\left\{\frac{\varepsilon}{4\hat n\|f\|_\infty},\,\delta_{\min}\right\}.
+\]
+Let $Z=(x_0,\ldots,x_n)$ be any partition of $I$ and $\xi_j\in[x_{j-1},x_j]$, $1\le j\le n$,
+any intermediate points with
+\[
+\Delta_Z:=\max_{1\le j\le n}(x_j-x_{j-1})<\delta.
+\]
+Since $\Delta_Z<\delta_{\min}$, each interval $[x_{j-1},x_j]$ contains at most one point $\hat x_k$.
+We define the refinement $Z':=\hat Z\cup Z=(y_0,\ldots,y_m)$ ($Z'$ is admissible and fine).
+Define for $1\le j\le m$ the midpoints $m_j:=(y_{j-1}+y_j)/2$ and
+\[
+e_j':=f(m_j),\qquad
+e_j'':=f(\xi_k)\quad\text{with }k=k(j)\text{ so that }[y_{j-1},y_j]\subset[x_{k-1},x_k]\ni\xi_k.
+\]
+Since all points where $f$ is discontinuous are contained in $(y_j)_{j=0}^{m}$ and $[x_{k-1},x_k]$ contains
+at most one discontinuity, $e_j'\neq e_j''$ can only occur when $y_{j-1}\in\hat Z$ or $y_j\in\hat Z$.
+Hence:
+\begin{align*}
+\#\{j\in\mathbb N_{1,m}:e_j'\neq e_j''\}
+&\le\#\bigl(\{j\in\mathbb N_{1,m}:y_{j-1}\in\hat Z\}\cup\{j\in\mathbb N_{1,m}:y_j\in\hat Z\}\bigr)\\
+&\le\#\{j\in\mathbb N_{1,m}:y_{j-1}\in\hat Z\}+\#\{j\in\mathbb N_{1,m}:y_j\in\hat Z\}\\
+&=\#\hat Z+\#\hat Z=2\hat n.\tag{$*$}
+\end{align*}
+Furthermore:
+\begin{align*}
+\int_a^b f-\sum_{k=1}^{n}f(\xi_k)(x_k-x_{k-1})
+&=\sum_{j=1}^{m}(y_j-y_{j-1})f(m_j)-\sum_{j=1}^{m}f(\xi_{k(j)})(y_j-y_{j-1})\\
+&=\sum_{j=1}^{m}e_j'(y_j-y_{j-1})-\sum_{j=1}^{m}e_j''(y_j-y_{j-1})
+=\sum_{j=1}^{m}(e_j'-e_j'')(y_j-y_{j-1}).\tag{$**$}
+\end{align*}
+By ($*$), at most $2\hat n$ summands in ($**$) are nonzero. Moreover:
+\[
+\|(y_j-y_{j-1})(e_j'-e_j'')\|_Y
+\le|y_j-y_{j-1}|(\|e_j''\|_Y+\|e_j'\|_Y)
+<2\|f\|_\infty\delta
+\le\frac{\varepsilon}{2\hat n}.
+\]
+Hence:
+\[
+\left\|\int_a^b f-\sum_{k=1}^{n}f(\xi_k)(x_k-x_{k-1})\right\|_Y\le\varepsilon.
+\]
+
+\medskip
+\textbf{Step 2:}
+Let now $f\in S(I,X)$ and $\varepsilon>0$. Then there exists $g\in T(I,X)$ with
+\[
+\|f-g\|_\infty<\frac{\varepsilon}{3(b-a)}.
+\]
+By Step~1, there exists $\delta=\delta\!\left(\tfrac\varepsilon3,g\right)$ such that for $g$ and $\tfrac\varepsilon3$ the claim of the theorem holds.
+Let $Z=(x_0,\ldots,x_n)$ be a partition of $I$ with $\Delta_Z<\delta$ and $\xi_j\in[x_{j-1},x_j]$,
+$1\le j\le n$, any intermediate points. Then:
+\begin{align*}
+&\left\|\int_a^b f-\sum_{j=1}^{n}f(\xi_j)(x_j-x_{j-1})\right\|_Y\\
+&\quad\le
+\left\|\int_a^b f-\int_a^b g\right\|_Y
++\left\|\int_a^b g-\sum_{j=1}^{n}g(\xi_j)(x_j-x_{j-1})\right\|_Y
++\left\|\sum_{j=1}^{n}\bigl(g(\xi_j)-f(\xi_j)\bigr)(x_j-x_{j-1})\right\|_Y\\
+&\quad<\|f-g\|_\infty(b-a)+\frac{\varepsilon}{3}+\sum_{j=1}^{n}\|g-f\|_\infty(x_j-x_{j-1})
+<\frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\|g-f\|_\infty(b-a)<\varepsilon.
+\end{align*}
+\end{proof}
+
+\begin{bemerkung}{7.1.12}
+Let $f:I\to X$ be a function. It is called \textbf{Riemann-integrable} if there exists
+an $x^*\in X$ such that for every $\varepsilon>0$ there exists a $\delta(\varepsilon,f)>0$ such that for every partition
+$Z=(x_0,\ldots,x_n)$ with mesh size $\Delta_Z<\delta$ and any $n$ intermediate points
+$\xi_j\in[x_{j-1},x_j]$, $1\le j\le n$, we have:
+\[
+\left\|x^*-\sum_{i=1}^{n}f(\xi_i)(x_i-x_{i-1})\right\|_X<\varepsilon.
+\]
+The quantity $x^*$, if it exists, is uniquely determined and is called the Riemann integral of $f$.
+Theorem 7.1.11 shows that every jump-continuous function is Riemann-integrable. However, there
+exist Riemann-integrable functions that are not jump-continuous. An example is
+\[
+f:[-1,1]\to\mathbb R,\qquad
+f(x)=
+\begin{cases}
+1 & \text{if } x=\tfrac{1}{n},\ n\in\mathbb N,\\
+-1 & \text{if } x=-\tfrac{1}{n},\ n\in\mathbb N,\\
+0 & \text{otherwise.}
+\end{cases}
+\]
+The approximating sums
+\[
+\sum_{i=1}^{n}f(\xi_i)(x_i-x_{i-1})
+\]
+are also called \emph{Riemann sums}, and one writes symbolically
+\[
+\int_a^b f=\lim_{\Delta_Z\to 0}\sum_{i=1}^{n}f(\xi_i)(x_i-x_{i-1}).
+\]
+\end{bemerkung}
+
+\end{document}
