@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "LaTeX: latexmk → english_script (default build)",
+			"type": "shell",
+			"command": "latexmk",
+			"args": [
+				"-pdf",
+				"-interaction=nonstopmode",
+				"-halt-on-error",
+				"-outdir=english_script",
+				"english_script/analysis_1_and_2.tex"
+			],
+			"group": "build"
+		},
+		{
+			"label": "LaTeX: Clean (latexmk)",
+			"type": "shell",
+			"command": "latexmk",
+			"args": [
+				"-C",
+				"-outdir=english_script",
+				"english_script/analysis_1_and_2.tex"
+			]
+		}
+	]
+}
